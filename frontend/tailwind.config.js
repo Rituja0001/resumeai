@@ -7,20 +7,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: "#1C1E3D",
-        paper: "#FAF8F3",
-        gold: "#C9973F",
-        evergreen: "#2F6E52",
-        slate: "#5B5E74",
+        crimson: "#FA0C40",
+        "crimson-deep": "#D40936",
+        ink: "#252525",
+        slate: "#6B6B6B",
+        paper: "#FFFFFF",
+        "crimson-tint": "#FA0C400D",
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
         jakarta: ['"Plus Jakarta Sans"', 'sans-serif'],
-        serif: ['"Plus Jakarta Sans"', 'sans-serif'],
-        mono: ['"Plus Jakarta Sans"', 'monospace'],
+        mono: ['"Plus Jakarta Sans"', 'sans-serif'],
       }
     },
   },
   plugins: [],
 }
-

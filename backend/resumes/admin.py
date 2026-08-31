@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     Resume, WorkExperience, Education, SkillEntry, Project,
-    JobTailoringRequest, VoiceSession, LinkedInImport,
+    JobTailoringRequest, VoiceSession, LinkedInImport, Feedback,
 )
 
 
@@ -41,6 +41,16 @@ class VoiceSessionAdmin(admin.ModelAdmin):
 @admin.register(LinkedInImport)
 class LinkedInImportAdmin(admin.ModelAdmin):
     list_display = ("user", "status", "created_at")
+
+
+@admin.register(Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ("user", "rating", "message_preview", "created_at")
+    list_filter = ("rating", "created_at")
+    search_fields = ("user__email", "user__username", "message")
+
+    def message_preview(self, obj):
+        return obj.message[:60] + ("..." if len(obj.message) > 60 else "")
 
 
 admin.site.register(Project)

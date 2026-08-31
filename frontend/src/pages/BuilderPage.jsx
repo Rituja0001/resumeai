@@ -443,9 +443,15 @@ function LiveEditor({ resume, setResume }) {
 /* ---------------------------------------------------------------------- */
 /* Page shell                                                              */
 /* ---------------------------------------------------------------------- */
-export default function BuilderPage({ initialTab = "upload", onBack }) {
+export default function BuilderPage({ initialTab = "upload", initialResumeId = null, onBack }) {
   const [tab, setTab] = useState(initialTab);
   const [resume, setResume] = useState(EMPTY_RESUME);
+
+  React.useEffect(() => {
+    if (initialTab) {
+      setTab(initialTab);
+    }
+  }, [initialTab]);
 
   return (
     <div className="min-h-screen bg-[#FAF8F3] font-sans antialiased text-[#1C1E3D]">

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import (
     Resume, WorkExperience, Education, SkillEntry, Project,
-    JobTailoringRequest, VoiceSession, LinkedInImport,
+    JobTailoringRequest, VoiceSession, LinkedInImport, Feedback,
 )
 
 
@@ -90,3 +90,10 @@ class LinkedInImportSerializer(serializers.ModelSerializer):
         model = LinkedInImport
         fields = ["id", "resume", "status", "created_at"]
         read_only_fields = fields
+
+
+class FeedbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Feedback
+        fields = ["id", "user", "message", "rating", "created_at"]
+        read_only_fields = ["id", "user", "created_at"]

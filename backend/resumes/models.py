@@ -174,3 +174,20 @@ class LinkedInImport(TimeStampedModel):
     linkedin_profile_urn = models.CharField(max_length=255, blank=True)
     raw_profile_snapshot = models.JSONField(null=True, blank=True)
     status = models.CharField(max_length=20, default="pending")
+
+
+class Feedback(TimeStampedModel):
+    """
+    Stores user feedback messages and optional ratings (1-5 stars).
+    """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="feedbacks")
+    message = models.TextField()
+    rating = models.PositiveSmallIntegerField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "User Feedback"
+        verbose_name_plural = "User Feedbacks"
+
+    def __str__(self):
+        return f"Feedback from {self.user.email} ({self.rating}★)"

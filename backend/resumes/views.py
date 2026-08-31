@@ -9,10 +9,10 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 
-from .models import Resume, JobTailoringRequest, VoiceSession, LinkedInImport
+from .models import Resume, JobTailoringRequest, VoiceSession, LinkedInImport, Feedback
 from .serializers import (
     ResumeSerializer, ResumeUploadSerializer, JobTailoringRequestSerializer,
-    VoiceSessionSerializer, LinkedInImportSerializer,
+    VoiceSessionSerializer, LinkedInImportSerializer, FeedbackSerializer,
 )
 from . import tasks  # Celery tasks, see tasks.py
 
@@ -109,3 +109,14 @@ class JobTailoringViewSet(viewsets.ModelViewSet):
         tasks.run_job_tailoring(tailoring_request.id)
         tailoring_request.refresh_from_db()
         return Response(JobTailoringRequestSerializer(tailoring_request).data, status=201)
+
+
+class FeedbackViewSet(viewsets.ModelViewSet):
+    serializer_class = FeedbackSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Feedback.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
