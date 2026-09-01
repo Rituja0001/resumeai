@@ -207,7 +207,7 @@ export default function AuthPage({ initialMode = "login" }) {
                 src="/images/logo-taktal.png"
                 alt="ResumeCraft"
                 onError={() => setLogoLoaded(false)}
-                className="h-8 object-contain"
+                className="h-10 sm:h-11 w-auto object-contain select-none max-w-[200px]"
               />
             ) : (
               <div className="flex items-center gap-2">

@@ -3,7 +3,6 @@ export const FONT_IMPORT = `@import url('https://fonts.googleapis.com/css2?famil
 export const NAV_LINKS = [
   { label: "Build", href: "#build" },
   { label: "Tailoring", href: "#tailor" },
-  { label: "FAQ", href: "#faq" },
 ];
 
 export const STATS = [

@@ -16,7 +16,7 @@ import Header from "../components/landing/Header";
 import Footer from "../components/landing/Footer";
 import { TEMPLATES, TEMPLATE_CATEGORIES } from "../data/templatesData";
 import TemplatePreviewMockup from "../components/templates/TemplatePreviewMockup";
-import useScrollReveal from "../components/landing/useScrollReveal";
+import BuildMethodModal from "../components/builder/BuildMethodModal";
 
 export default function TemplatesPage() {
   const navigate = useNavigate();
@@ -26,27 +26,33 @@ export default function TemplatesPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [atsOnly, setAtsOnly] = useState(false);
-  const [selectedTemplateId, setSelectedTemplateId] = useState("modern-minimal");
-
-  const { ref: contentRef, isVisible } = useScrollReveal(0.1);
+  const [selectedTemplateId, setSelectedTemplateId] = useState("puffin");
+  const [isBuildModalOpen, setIsBuildModalOpen] = useState(false);
 
   // Filter templates based on search, category, and ATS-only toggle
   const filteredTemplates = useMemo(() => {
     return TEMPLATES.filter((tmpl) => {
-      const matchCategory =
+      const isAll =
+        !activeCategory ||
         activeCategory === "All" ||
-        tmpl.category === activeCategory ||
-        tmpl.tags.includes(activeCategory);
+        activeCategory.toLowerCase() === "all";
 
-      const matchAts = !atsOnly || tmpl.isAtsOnly;
+      const matchCategory =
+        isAll ||
+        tmpl.category?.toLowerCase() === activeCategory.toLowerCase() ||
+        tmpl.tags?.some((t) => t.toLowerCase() === activeCategory.toLowerCase());
+
+      const matchAts = !atsOnly || Boolean(tmpl.isAtsOnly);
 
       const q = searchQuery.toLowerCase().trim();
       const matchSearch =
         q === "" ||
         tmpl.name.toLowerCase().includes(q) ||
         tmpl.description.toLowerCase().includes(q) ||
-        tmpl.sampleRole.toLowerCase().includes(q) ||
-        tmpl.tags.some((tag) => tag.toLowerCase().includes(q));
+        (tmpl.sampleRole && tmpl.sampleRole.toLowerCase().includes(q)) ||
+        (tmpl.sampleName && tmpl.sampleName.toLowerCase().includes(q)) ||
+        (tmpl.category && tmpl.category.toLowerCase().includes(q)) ||
+        tmpl.tags?.some((tag) => tag.toLowerCase().includes(q));
 
       return matchCategory && matchAts && matchSearch;
     });
@@ -62,7 +68,12 @@ export default function TemplatesPage() {
 
   const handleProceed = () => {
     if (!selectedTemplateId) return;
-    navigate(`/builder?template=${selectedTemplateId}&path=scratch`);
+    setIsBuildModalOpen(true);
+  };
+
+  const handleSelectBuildMethod = (method) => {
+    setIsBuildModalOpen(false);
+    navigate(`/builder?template=${selectedTemplateId || "puffin"}&path=${method}`);
   };
 
   return (
@@ -169,7 +180,7 @@ export default function TemplatesPage() {
         {/* ========================================================================= */}
         {/* Template Cards Grid                                                       */}
         {/* ========================================================================= */}
-        <div ref={contentRef}>
+        <div>
           {filteredTemplates.length === 0 ? (
             <div className="bg-white rounded-3xl border border-[#252525]/10 p-12 text-center max-w-md mx-auto">
               <div className="w-12 h-12 rounded-2xl bg-[#FA0C400D] border border-[#FA0C40]/20 text-[#FA0C40] flex items-center justify-center mx-auto mb-3">
@@ -202,17 +213,10 @@ export default function TemplatesPage() {
                   <div
                     key={template.id}
                     onClick={() => handleCardClick(template.id)}
-                    style={{
-                      transitionDelay: isVisible ? `${idx * 40}ms` : "0ms",
-                    }}
                     className={`group relative bg-white rounded-3xl border p-4 flex flex-col justify-between cursor-pointer transition-all duration-300 hover:shadow-[0_15px_35px_rgba(37,37,37,0.08)] hover:-translate-y-1 text-left ${
                       isSelected
                         ? "border-[#FA0C40] ring-2 ring-[#FA0C40]/30 shadow-[0_12px_30px_rgba(250,12,64,0.1)]"
                         : "border-[#252525]/10 hover:border-[#FA0C40]/50"
-                    } ${
-                      isVisible
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-6"
                     }`}
                   >
                     {/* Visual Preview Box */}
@@ -336,6 +340,14 @@ export default function TemplatesPage() {
 
       {/* Footer */}
       <Footer openBuilder={(tab) => navigate(`/builder?path=${tab}`)} />
+
+      {/* "How would you like to build your resume?" Modal */}
+      <BuildMethodModal
+        isOpen={isBuildModalOpen}
+        onClose={() => setIsBuildModalOpen(false)}
+        onSelectMethod={handleSelectBuildMethod}
+        selectedTemplateName={selectedTemplate?.name}
+      />
     </div>
   );
 }

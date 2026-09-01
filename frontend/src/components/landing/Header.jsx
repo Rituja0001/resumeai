@@ -57,10 +57,10 @@ export default function Header({ openBuilder, onLogoClick }) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500 ease-out font-['Plus_Jakarta_Sans'] ${
+        className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ease-out font-['Plus_Jakarta_Sans'] ${
           scrolled
-            ? "bg-white/80 backdrop-blur-xl border-b border-[#2525251a] shadow-[0_4px_25px_rgba(37,37,37,0.06)] py-3 sm:py-3.5"
-            : "bg-transparent border-b border-transparent py-5 sm:py-6"
+            ? "bg-white/85 backdrop-blur-xl border-b border-[#2525251a] shadow-[0_4px_25px_rgba(37,37,37,0.06)] py-2.5 sm:py-3"
+            : "bg-transparent border-b border-transparent py-4 sm:py-5"
         }`}
       >
         <div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 md:px-8">
@@ -68,15 +68,15 @@ export default function Header({ openBuilder, onLogoClick }) {
           <Link
             to={isAuthenticated ? "/dashboard" : "/"}
             onClick={handleBrandClick}
-            className="flex items-center gap-2.5 group select-none transition-transform duration-300 active:scale-95 cursor-pointer"
+            className="flex items-center gap-2.5 group select-none transition-transform duration-200 active:scale-95 cursor-pointer"
           >
             {logoLoaded ? (
               <img
                 src="/images/logo-taktal.png"
                 alt="ResumeCraft Logo"
                 onError={() => setLogoLoaded(false)}
-                className={`transition-all duration-500 ease-out object-contain ${
-                  scrolled ? "h-7 sm:h-8" : "h-8 sm:h-9"
+                className={`transition-all duration-300 ease-out object-contain select-none max-w-[190px] ${
+                  scrolled ? "h-8 sm:h-9 w-auto" : "h-10 sm:h-11 w-auto"
                 }`}
               />
             ) : (

@@ -21,7 +21,7 @@ export default function Footer({ openBuilder, onLogoClick }) {
               src="/images/logo-taktal.png"
               alt="ResumeCraft"
               onError={() => setLogoLoaded(false)}
-              className="h-6 sm:h-7 object-contain"
+              className="h-8 sm:h-9 w-auto object-contain select-none max-w-[170px]"
             />
           ) : (
             <div className="flex items-center gap-2">
