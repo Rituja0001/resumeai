@@ -1,0 +1,105 @@
+databases:
+  - name: resumeai-db
+    databaseName: resumeai
+    user: resumeai_user
+    plan: free
+
+services:
+  # ---------------------------------------------------------------------------
+  # Redis Instance (Broker & Results Backend for Celery)
+  # ---------------------------------------------------------------------------
+  - type: redis
+    name: resumeai-redis
+    plan: free
+    ipAllowList: [] # internal connections only
+
+  # ---------------------------------------------------------------------------
+  # Django Web Service (Backend API)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: resumeai-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    preDeployCommand: python manage.py migrate
+    startCommand: gunicorn core.wsgi --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: resumeai-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: resumeai-redis
+          property: connectionString
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_ALLOWED_HOSTS
+        sync: false
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+      - key: CSRF_TRUSTED_ORIGINS
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: ANTHROPIC_MODEL
+        value: claude-sonnet-4-6
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: LINKEDIN_CLIENT_ID
+        sync: false
+      - key: LINKEDIN_CLIENT_SECRET
+        sync: false
+      - key: LINKEDIN_REDIRECT_URI
+        sync: false
+      - key: AWS_STORAGE_BUCKET_NAME
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_S3_REGION_NAME
+        value: ap-south-1
+
+  # ---------------------------------------------------------------------------
+  # Celery Background Worker Service
+  # ---------------------------------------------------------------------------
+  - type: worker
+    name: resumeai-worker
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: celery -A core worker -l info
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: resumeai-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: resumeai-redis
+          property: connectionString
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_SECRET_KEY
+        fromService:
+          type: web
+          name: resumeai-backend
+          envVarKey: DJANGO_SECRET_KEY
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: ANTHROPIC_MODEL
+        value: claude-sonnet-4-6
+      - key: AWS_STORAGE_BUCKET_NAME
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_S3_REGION_NAME
+        value: ap-south-1
+

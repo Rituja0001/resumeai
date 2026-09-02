@@ -65,30 +65,19 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATIC_URL = "static/"
 
 # ---------------------------------------------------------------------------
-# Database — PostgreSQL
-# ---------------------------------------------------------------------------
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("POSTGRES_DB", "resumeai"),
-        "USER": os.environ.get("POSTGRES_USER", "resumeai_user"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "devpassword123"),
-        "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
-        "PORT": os.environ.get("POSTGRES_PORT", "5432"),
-        "CONN_MAX_AGE": 60,
+# Database — PostgreSQL (DATABASE_URL on Render / POSTGRES_* fallback locally)
+database_url = os.environ.get("DATABASE_URL")
+if database_url:
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=database_url,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
     }
-}
-
-# ---------------------------------------------------------------------------
-# REST Framework — JWT Auth & Throttling
-# ---------------------------------------------------------------------------
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ],
-    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
-    "DEFAULT_THROTTLE_CLASSES": ["rest_framework.throttling.UserRateThrottle"],
-    "DEFAULT_THROTTLE_RATES": {"user": "100/minute"},
+else:
+            "CONN_MAX_AGE": 60,
+        }
 }
 
 # ---------------------------------------------------------------------------
