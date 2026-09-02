@@ -1,9 +1,7 @@
 """
-Celery tasks: everything slow (file parsing, AI calls, transcription) runs
-here, off the request/response cycle. Broker: Redis. Result backend: Redis
-or Postgres, either works at this scale.
+Synchronous processing tasks: file parsing, AI calls, and resume structuring
+run directly within the request/response cycle without requiring Celery/Redis.
 """
-from celery import shared_task
 import logging
 
 from .models import Resume, WorkExperience, Education, SkillEntry, Project, VoiceSession, LinkedInImport
@@ -115,11 +113,10 @@ def _write_resume_sections(resume: Resume, data: dict):
 
 
 # ---------------------------------------------------------------------------
-# Task: Upload Resume pipeline
+# Upload Resume pipeline (Synchronous)
 # ---------------------------------------------------------------------------
 
-@shared_task(bind=True, max_retries=2)
-def process_uploaded_resume(self, resume_id, storage_key):
+def process_uploaded_resume(resume_id, storage_key):
     resume = Resume.objects.get(id=resume_id)
     try:
         raw_text = _extract_text_from_file(storage_key)
@@ -129,15 +126,14 @@ def process_uploaded_resume(self, resume_id, storage_key):
         logger.exception("Upload processing failed for resume %s", resume_id)
         resume.status = "failed"
         resume.save(update_fields=["status"])
-        raise self.retry(exc=exc, countdown=10)
+        raise exc
 
 
 # ---------------------------------------------------------------------------
-# Task: Voice AI pipeline
+# Voice AI pipeline (Synchronous)
 # ---------------------------------------------------------------------------
 
-@shared_task(bind=True, max_retries=2)
-def process_voice_session(self, session_id):
+def process_voice_session(session_id):
     session = VoiceSession.objects.get(id=session_id)
     try:
         # 1. Speech-to-text (e.g. AWS Transcribe / Whisper API)
@@ -160,7 +156,7 @@ def process_voice_session(self, session_id):
         logger.exception("Voice processing failed for session %s", session_id)
         session.status = "failed"
         session.save(update_fields=["status"])
-        raise self.retry(exc=exc, countdown=10)
+        raise exc
 
 
 def _transcribe_audio(storage_key: str) -> str:
@@ -170,11 +166,10 @@ def _transcribe_audio(storage_key: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Task: LinkedIn import pipeline
+# LinkedIn import pipeline (Synchronous)
 # ---------------------------------------------------------------------------
 
-@shared_task(bind=True, max_retries=2)
-def process_linkedin_import(self, import_id, oauth_code):
+def process_linkedin_import(import_id, oauth_code):
     li_import = LinkedInImport.objects.get(id=import_id)
     try:
         access_token = _exchange_linkedin_code(oauth_code)
@@ -195,7 +190,7 @@ def process_linkedin_import(self, import_id, oauth_code):
         logger.exception("LinkedIn import failed for %s", import_id)
         li_import.status = "failed"
         li_import.save(update_fields=["status"])
-        raise self.retry(exc=exc, countdown=10)
+        raise exc
 
 
 def _exchange_linkedin_code(code: str) -> str:
@@ -211,8 +206,7 @@ def _fetch_linkedin_profile(access_token: str) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# Task: Job tailoring / ATS scoring (called synchronously from the view,
-# but kept as a plain function here so it's reusable + independently testable)
+# Job tailoring / ATS scoring (Synchronous)
 # ---------------------------------------------------------------------------
 
 def run_job_tailoring(tailoring_request_id):

@@ -1,4 +1,4 @@
-# ResumeAI — Backend Architecture & Process (poori jaankari)
+# ResumeAI — Backend Architecture & Process
 
 ## 1. High-level stack
 
@@ -7,7 +7,7 @@
 | Frontend | React (Vite) | Fast SPA, component reuse resume builder ke liye |
 | Backend API | Django + Django REST Framework | Robust ORM, admin panel, auth built-in |
 | Database | PostgreSQL | Relational data (resumes → experiences/education/skills), JSONField support |
-| Async jobs | Celery + Redis | AI calls aur file parsing slow hote hain, HTTP request ko block nahi karna |
+| Processing Pipeline | Synchronous Python services | Direct execution in request/response cycle for simplicity & Render free tier compatibility |
 | File/audio storage | AWS S3 (ya koi S3-compatible) | Uploaded resumes, voice recordings |
 | AI engine | Anthropic Claude API (Messages API) | Resume parsing, tailoring, voice-to-resume structuring |
 | Auth | JWT (SimpleJWT) | Stateless, mobile + web dono ke liye theek |
@@ -44,10 +44,10 @@ Har section (experience/education/skills) apni alag table me hai — ek bada JSO
 User file upload
    │
    ▼
-1. POST /api/resumes/upload/  →  file S3 me save, Resume row status="processing"
-   │  (turant 202 Accepted response frontend ko — user ko wait nahi karana)
+1. POST /api/resumes/upload/  →  file save, Resume row created
+   │
    ▼
-2. Celery task process_uploaded_resume() background me chalta hai:
+2. Synchronous processing within the request:
    a. Text extraction:
         .pdf  → pdfplumber se text nikalo
         .docx → python-docx se paragraphs padho
@@ -57,8 +57,7 @@ User file upload
    c. AI response (JSON) ko parse karke WorkExperience/Education/Skill/
       Project tables me likho, Resume.status = "ready"
    ▼
-3. Frontend har 2 second poll karta hai GET /api/resumes/{id}/
-   jab tak status "ready" na ho jaaye, phir editor dikhata hai
+3. HTTP 200 response with ready Resume object returned directly to frontend
 ```
 
 ### B) Import LinkedIn
@@ -72,6 +71,7 @@ User file upload
      - Field mapping karta hai humare schema me
      - Ek professional_summary generate karta hai headline + about se
 7. Resume + child tables create ho jaate hain, status="ready"
+8. HTTP 200 response with completed import data returned directly to frontend
 
 Note: Hum kabhi bhi LinkedIn password store nahi karte — sirf OAuth token,
 aur woh bhi encrypted, aur expiry ke baad discard.
@@ -82,15 +82,16 @@ aur woh bhi encrypted, aur expiry ke baad discard.
 1. POST /api/resumes/voice/start/  → VoiceSession row banta hai
 2. Frontend browser mic se audio record karta hai (MediaRecorder API)
 3. POST /api/resumes/voice/{id}/finish/  { audio file }
-   → audio S3 me save, status="transcribing", Celery task trigger
-4. Celery task:
+   → audio save, status="transcribing"
+4. Synchronous processing:
    a. Speech-to-text provider (Whisper/Transcribe) audio → raw transcript
    b. status="structuring"
    c. Transcript (jo informal, unordered hota hai) ko Claude ko bhejte hain
       ek special prompt ke saath: "yeh spoken transcript hai, ismein se
       clean structured resume banao, filler words hatao, related baaton
       ko group karo"
-   d. Resume create hoti hai, status="complete"
+   d. Resume create hoti hai, session.status = "complete", session.resume = resume
+5. HTTP 200 response with completed VoiceSession and Resume returned to frontend
 ```
 
 ### D) Start from Scratch
@@ -118,7 +119,7 @@ dono ek saath bhejte hain. AI ek hi response me deta hai:
    │
    ▼
 Naya Resume row banta hai (source="tailored", base_resume=original),
-taaki original resume kabhi overwrite na ho.
+taaki original resume kabhi overwrite na ho. HTTP 201 response with tailored score.
 ```
 
 **Important guardrail (prompt me explicitly likha hai):** AI missing keyword
@@ -136,10 +137,8 @@ Yeh ATS-gaming (jhoothe keywords bhar dena) rokta hai.
 
 ## 6. Scaling notes
 
-- AI calls (upload parsing, voice structuring, tailoring) sabhi Celery
-  workers me chalte hain — web server kabhi block nahi hota
-- Celery workers ko horizontally scale kar sakte hain jab AI queue badhe
+- AI processing runs synchronously with a 120s worker timeout configured in Gunicorn.
 - `raw_ai_extraction` JSONField har resume pe cache ki tarah kaam karta hai
   — agar future me re-tailor/re-score karna ho to poora extraction dobara
-  nahi karna padta
-- PostgreSQL read-replica add kar sakte hain jab dashboard/analytics load badhe
+  nahi karna padta.
+- PostgreSQL managed instance handle karta hai database workloads.

@@ -1,8 +1,7 @@
 """
-API views. Heavy AI work (parsing, tailoring, voice structuring) is
-dispatched to Celery tasks so the HTTP request returns immediately with a
-`status: processing` resume; the frontend polls GET /resumes/{id}/ or
-listens on a websocket/SSE channel until status flips to "ready".
+API views. Heavy AI work (parsing, tailoring, voice structuring) is executed
+synchronously within the request/response cycle, returning a `status: ready`
+resume directly without requiring Celery or Redis background workers.
 """
 from rest_framework import viewsets, status, permissions
 from rest_framework.decorators import action
@@ -14,7 +13,7 @@ from .serializers import (
     ResumeSerializer, ResumeUploadSerializer, JobTailoringRequestSerializer,
     VoiceSessionSerializer, LinkedInImportSerializer, FeedbackSerializer,
 )
-from . import tasks  # Celery tasks, see tasks.py
+from . import tasks
 
 
 class ResumeViewSet(viewsets.ModelViewSet):
@@ -34,15 +33,24 @@ class ResumeViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         uploaded_file = serializer.validated_data["file"]
 
-        resume = Resume.objects.create(user=request.user, source="upload", status="processing",
-                                        title=uploaded_file.name.rsplit(".", 1)[0])
+        resume = Resume.objects.create(
+            user=request.user,
+            source="upload",
+            status="processing",
+            title=uploaded_file.name.rsplit(".", 1)[0],
+        )
 
-        # Save file to object storage (S3) first, then hand off to Celery —
-        # never do slow parsing/AI calls synchronously in a web request.
         storage_key = tasks.save_uploaded_file(uploaded_file, resume.id)
-        tasks.process_uploaded_resume.delay(resume.id, storage_key)
-
-        return Response(ResumeSerializer(resume).data, status=status.HTTP_202_ACCEPTED)
+        try:
+            tasks.process_uploaded_resume(resume.id, storage_key)
+            resume.refresh_from_db()
+            return Response(ResumeSerializer(resume).data, status=status.HTTP_200_OK)
+        except Exception as exc:
+            resume.refresh_from_db()
+            return Response(
+                {"detail": f"Resume processing failed: {str(exc)}", "resume": ResumeSerializer(resume).data},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR if resume.status == "failed" else status.HTTP_400_BAD_REQUEST,
+            )
 
     # ---- Build Path 2: Import LinkedIn ----
     @action(detail=False, methods=["post"], url_path="import-linkedin")
@@ -50,17 +58,25 @@ class ResumeViewSet(viewsets.ModelViewSet):
         # `code` = OAuth authorization code returned by LinkedIn's consent screen
         oauth_code = request.data.get("code")
         if not oauth_code:
-            return Response({"detail": "Missing LinkedIn OAuth code."}, status=400)
+            return Response({"detail": "Missing LinkedIn OAuth code."}, status=status.HTTP_400_BAD_REQUEST)
 
         li_import = LinkedInImport.objects.create(user=request.user, status="pending")
-        tasks.process_linkedin_import.delay(li_import.id, oauth_code)
-        return Response(LinkedInImportSerializer(li_import).data, status=status.HTTP_202_ACCEPTED)
+        try:
+            tasks.process_linkedin_import(li_import.id, oauth_code)
+            li_import.refresh_from_db()
+            return Response(LinkedInImportSerializer(li_import).data, status=status.HTTP_200_OK)
+        except Exception as exc:
+            li_import.refresh_from_db()
+            return Response(
+                {"detail": f"LinkedIn import failed: {str(exc)}", "import": LinkedInImportSerializer(li_import).data},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
     # ---- Build Path 3: Voice AI ----
     @action(detail=False, methods=["post"], url_path="voice/start")
     def voice_start(self, request):
         session = VoiceSession.objects.create(user=request.user, status="recording")
-        return Response(VoiceSessionSerializer(session).data, status=201)
+        return Response(VoiceSessionSerializer(session).data, status=status.HTTP_201_CREATED)
 
     @action(detail=False, methods=["post"], url_path="voice/(?P<session_id>[^/.]+)/finish")
     def voice_finish(self, request, session_id=None):
@@ -70,8 +86,16 @@ class ResumeViewSet(viewsets.ModelViewSet):
         session.audio_storage_key = storage_key
         session.status = "transcribing"
         session.save(update_fields=["audio_storage_key", "status"])
-        tasks.process_voice_session.delay(session.id)
-        return Response(VoiceSessionSerializer(session).data, status=202)
+        try:
+            tasks.process_voice_session(session.id)
+            session.refresh_from_db()
+            return Response(VoiceSessionSerializer(session).data, status=status.HTTP_200_OK)
+        except Exception as exc:
+            session.refresh_from_db()
+            return Response(
+                {"detail": f"Voice processing failed: {str(exc)}", "session": VoiceSessionSerializer(session).data},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
     # ---- Build Path 4: Start from Scratch — handled by normal CRUD above
     # plus the /suggest-bullets/ helper endpoint (synchronous, fast, small prompt):
@@ -104,11 +128,9 @@ class JobTailoringViewSet(viewsets.ModelViewSet):
             source_resume=source_resume,
             job_description=serializer.validated_data["job_description"],
         )
-        # Synchronous here because tailoring is a single fast LLM call (~2-5s)
-        # and the UI ("Analyze Job") expects an immediate score back.
         tasks.run_job_tailoring(tailoring_request.id)
         tailoring_request.refresh_from_db()
-        return Response(JobTailoringRequestSerializer(tailoring_request).data, status=201)
+        return Response(JobTailoringRequestSerializer(tailoring_request).data, status=status.HTTP_201_CREATED)
 
 
 class FeedbackViewSet(viewsets.ModelViewSet):

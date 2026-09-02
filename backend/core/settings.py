@@ -63,9 +63,12 @@ ALLOWED_HOSTS = [h.strip() for h in allowed_hosts_env.split(",") if h.strip()]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # ---------------------------------------------------------------------------
 # Database — PostgreSQL (DATABASE_URL on Render / POSTGRES_* fallback locally)
+# ---------------------------------------------------------------------------
 database_url = os.environ.get("DATABASE_URL")
 if database_url:
     DATABASES = {
@@ -76,17 +79,17 @@ if database_url:
         )
     }
 else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ.get("POSTGRES_DB", "resumeai"),
+            "USER": os.environ.get("POSTGRES_USER", "resumeai_user"),
+            "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "devpassword123"),
+            "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
+            "PORT": os.environ.get("POSTGRES_PORT", "5432"),
             "CONN_MAX_AGE": 60,
         }
-}
-
-# ---------------------------------------------------------------------------
-# Celery & Redis
-# ---------------------------------------------------------------------------
-REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
-CELERY_BROKER_URL = REDIS_URL
-CELERY_RESULT_BACKEND = REDIS_URL
-CELERY_TASK_TIME_LIMIT = 120  # AI calls should never hang a worker forever
+    }
 
 # ---------------------------------------------------------------------------
 # Object Storage — S3-compatible or Local Filesystem

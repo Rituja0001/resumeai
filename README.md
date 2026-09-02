@@ -9,21 +9,22 @@ tailoring with an ATS match score.
 ```
 resumeai/
 ├── frontend/
-│   └── src/App.jsx          # Landing page + job-tailoring demo (React)
+│   └── src/App.jsx          # Landing page + resume builder + auth (React)
 ├── backend/
-│   ├── core/settings.py     # Django settings — Postgres, Celery, S3, Anthropic
+│   ├── core/settings.py     # Django settings — Postgres, WhiteNoise, S3, Anthropic
 │   ├── accounts/models.py   # Custom email-based User
 │   ├── resumes/
 │   │   ├── models.py        # Resume, WorkExperience, Education, Skill, Project,
 │   │   │                      JobTailoringRequest, VoiceSession, LinkedInImport
 │   │   ├── serializers.py   # DRF serializers
 │   │   ├── views.py         # API endpoints for all 4 build paths + tailoring
-│   │   ├── tasks.py         # Celery: file parsing, AI calls, transcription
-│   │   ├── ai_services.py   # All Anthropic Claude API prompts/calls, isolated
+│   │   ├── tasks.py         # Synchronous processing pipeline (file parsing, AI calls)
+│   │   ├── ai_services.py   # Anthropic Claude API prompts & structured completions
 │   │   └── urls.py
 │   └── requirements.txt
 └── docs/
-    └── ARCHITECTURE.md      # Full backend process explanation (Hinglish)
+    ├── SETUP.md             # Local dev setup guide
+    └── ARCHITECTURE.md      # Full backend architecture & process flow
 ```
 
 ## Running it locally (rough steps)
@@ -33,23 +34,20 @@ resumeai/
 cd backend
 python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
-export POSTGRES_DB=resumeai POSTGRES_USER=postgres POSTGRES_PASSWORD=postgres
+export POSTGRES_DB=resumeai POSTGRES_USER=resumeai_user POSTGRES_PASSWORD=devpassword123
 export ANTHROPIC_API_KEY=sk-ant-...
-export REDIS_URL=redis://localhost:6379/0
 python manage.py migrate
 python manage.py runserver
-celery -A core worker -l info   # separate terminal, for async AI/file jobs
 ```
 
 **Frontend**
 ```bash
-npm create vite@latest frontend -- --template react
-# copy src/App.jsx into the generated project, add Tailwind
+cd frontend
 npm install && npm run dev
 ```
 
 ## What's mocked vs. real in this scaffold
-- Real: full DB schema, API surface, Celery task orchestration, prompt
+- Real: full DB schema, API surface, synchronous AI processing pipeline, prompt
   design for every AI step, ATS-scoring logic, auth/permission structure.
 - Needs your own credentials to actually run: `ANTHROPIC_API_KEY`,
   AWS S3 bucket + keys, LinkedIn OAuth app, a speech-to-text provider
