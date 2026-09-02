@@ -49,8 +49,7 @@ If you prefer to configure each component manually:
 - **Root Directory**: `backend`
 - **Runtime**: `Python 3`
 - **Plan**: Free
-- **Build Command**: `pip install -r requirements.txt && python manage.py collectstatic --noinput`
-- **Pre-Deploy Command**: `python manage.py migrate`
+- **Build Command**: `pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate`
 - **Start Command**: `gunicorn core.wsgi --bind 0.0.0.0:$PORT --timeout 120`
 - Set environment variables (see table below).
 - Click **Create Web Service**.
@@ -90,16 +89,13 @@ If you prefer to configure each component manually:
 
 ---
 
-## Pre-Deploy Command (Database Migrations)
+## Database Migrations (Free Tier Build Step)
 
-Render supports executing a command before traffic is routed to the new build:
-
-- **Via Blueprint**: `render.yaml` already configures `preDeployCommand: python manage.py migrate` on the web service.
-- **Via Render Dashboard**:
-  1. Go to the **resumeai-backend** Web Service > **Settings**.
-  2. Under the **Build & Deploy** section, find **Pre-Deploy Command**.
-  3. Enter `python manage.py migrate`.
-  4. Save changes.
+Since Render's "Pre-Deploy Command" is a paid-tier-only feature, migrations are chained directly into the **Build Command**:
+```bash
+pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
+```
+This runs database migrations automatically on each deploy during the build phase on the Free plan.
 
 ---
 
