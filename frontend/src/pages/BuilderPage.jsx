@@ -50,8 +50,11 @@ import BuildMethodModal from "../components/builder/BuildMethodModal";
 import CompletionModal from "../components/builder/CompletionModal";
 import RichTextField from "../components/builder/RichTextField";
 import RepeatableEntryCard from "../components/builder/RepeatableEntryCard";
+import UploadPanel from "../components/builder/UploadPanel";
+import ProcessingDocumentModal from "../components/builder/ProcessingDocumentModal";
 import UserMenu from "../components/landing/UserMenu";
 import { useAuth } from "../contexts/AuthContext";
+import { uploadResume } from "../api";
 
 /**
  * Predefined Accent Colors for the Customize Tab
@@ -210,6 +213,9 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
   const [buildPath, setBuildPath] = useState(queryPath); // "scratch" | "upload" | "linkedin" | "voice"
   const [activeStep, setActiveStep] = useState(1); // Steps 1 - 9
 
+  const [isProcessingUpload, setIsProcessingUpload] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+
   const [isMethodModalOpen, setIsMethodModalOpen] = useState(false);
   const [isCompletionModalOpen, setIsCompletionModalOpen] = useState(false);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
@@ -236,6 +242,13 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
   });
 
   const fileInputRef = useRef(null);
+
+  // Sync query params (path / template)
+  useEffect(() => {
+    if (queryPath && queryPath !== buildPath) {
+      setBuildPath(queryPath);
+    }
+  }, [queryPath]);
 
   // Sync template from URL if changed
   useEffect(() => {
@@ -316,6 +329,154 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
       showToast("Profile photo added.");
     };
     reader.readAsDataURL(file);
+  };
+
+  // Synchronous Resume File Upload & Parsing Handler
+  const handleFileUpload = async (file) => {
+    setUploadError("");
+    setIsProcessingUpload(true);
+
+    try {
+      const parsedData = await uploadResume(file);
+      const raw = parsedData.raw_ai_extraction || {};
+
+      // Name & Title extraction
+      let firstName = raw.first_name || "";
+      let lastName = raw.last_name || "";
+      if (!firstName && raw.full_name) {
+        const parts = raw.full_name.trim().split(" ");
+        firstName = parts[0] || "";
+        lastName = parts.slice(1).join(" ") || "";
+      }
+      if (!firstName && parsedData.title) {
+        const cleanTitle = parsedData.title.replace(/[_-]+/g, " ");
+        const parts = cleanTitle.split(" ");
+        firstName = parts[0] || user?.first_name || "Candidate";
+        lastName = parts.slice(1).join(" ") || user?.last_name || "";
+      }
+
+      // Experiences mapping
+      const mappedExperiences = (parsedData.experiences || []).map((exp, idx) => {
+        const startParts = (exp.start_date || "").split("-");
+        const endParts = (exp.end_date || "").split("-");
+        const startMonth = startParts[1] ? MONTHS[parseInt(startParts[1], 10) - 1] : "Jun";
+        const startYear = startParts[0] || "2021";
+        const endMonth = endParts[1] ? MONTHS[parseInt(endParts[1], 10) - 1] : (exp.is_current ? "Present" : "May");
+        const endYear = endParts[0] || (exp.is_current ? "Present" : "2024");
+
+        let desc = "";
+        if (Array.isArray(exp.bullet_points) && exp.bullet_points.length > 0) {
+          desc = exp.bullet_points.map((b) => (b.startsWith("•") ? b : `• ${b}`)).join("\n");
+        } else if (typeof exp.bullet_points === "string") {
+          desc = exp.bullet_points;
+        }
+
+        return {
+          id: exp.id || idx + 1,
+          role: exp.role || "Software Engineer",
+          company: exp.company || "Company",
+          city: exp.location || "",
+          startMonth,
+          startYear,
+          endMonth,
+          endYear,
+          isCurrent: Boolean(exp.is_current),
+          description: desc,
+        };
+      });
+
+      // Education mapping
+      const mappedEducation = (parsedData.education || []).map((edu, idx) => {
+        const startParts = (edu.start_date || "").split("-");
+        const endParts = (edu.end_date || "").split("-");
+        return {
+          id: edu.id || idx + 1,
+          institution: edu.institution || "University / Institute",
+          degree: edu.degree || edu.field_of_study || "Bachelor Degree",
+          city: "",
+          marksType: "CGPA",
+          marks: edu.grade || "",
+          startMonth: "Aug",
+          startYear: startParts[0] || "2017",
+          endMonth: "May",
+          endYear: endParts[0] || "2021",
+          isCurrent: false,
+          description: edu.field_of_study ? `Specialization in ${edu.field_of_study}` : "",
+        };
+      });
+
+      // Skills mapping
+      const mappedSkills = (parsedData.skills || [])
+        .map((s, idx) => ({
+          id: s.id || idx + 1,
+          name: typeof s === "string" ? s : s.name || "",
+          level: s.proficiency === "expert" ? 5 : s.proficiency === "advanced" ? 4 : 4,
+        }))
+        .filter((s) => s.name);
+
+      // Projects mapping
+      const mappedProjects = (parsedData.projects || []).map((p, idx) => ({
+        id: p.id || idx + 1,
+        title: p.name || `Project ${idx + 1}`,
+        techStack: Array.isArray(p.tech_stack) ? p.tech_stack.join(", ") : p.tech_stack || "",
+        link: p.link || "",
+        description: p.description || "",
+      }));
+
+      // Languages mapping
+      const mappedLanguages = (raw.languages || []).map((l, idx) => ({
+        id: idx + 1,
+        name: typeof l === "string" ? l : l.name || "English",
+        proficiency: typeof l === "object" && l.proficiency ? l.proficiency : "Fluent",
+      }));
+
+      // Social Links mapping
+      const mappedLinks = (raw.social_links || []).map((l, idx) => ({
+        id: idx + 1,
+        label: l.label || "Portfolio",
+        url: l.url || "",
+      }));
+
+      // Update the unified shared resume state
+      setResume((prev) => ({
+        ...prev,
+        title: parsedData.title || file.name.replace(/\.[^/.]+$/, "") || "Parsed_Resume",
+        personalDetails: {
+          ...prev.personalDetails,
+          firstName: firstName || prev.personalDetails.firstName || user?.first_name || "Candidate",
+          lastName: lastName || prev.personalDetails.lastName || user?.last_name || "",
+          jobTitle: raw.job_title || mappedExperiences[0]?.role || prev.personalDetails.jobTitle || "Software Engineer",
+          email: raw.email || user?.email || prev.personalDetails.email || "user@example.com",
+          phone: raw.phone || prev.personalDetails.phone || "+91 98765 43210",
+          city: raw.city || mappedExperiences[0]?.city || prev.personalDetails.city || "Bengaluru",
+          country: raw.country || prev.personalDetails.country || "India",
+        },
+        professional_summary:
+          parsedData.professional_summary || raw.professional_summary || prev.professional_summary || "",
+        experiences: mappedExperiences.length > 0 ? mappedExperiences : prev.experiences,
+        education: mappedEducation.length > 0 ? mappedEducation : prev.education,
+        skills: mappedSkills.length > 0 ? mappedSkills : prev.skills,
+        socialLinks: mappedLinks.length > 0 ? mappedLinks : prev.socialLinks,
+        additionalSections: {
+          ...prev.additionalSections,
+          projects: mappedProjects.length > 0 ? mappedProjects : prev.additionalSections.projects,
+          languages: mappedLanguages.length > 0 ? mappedLanguages : prev.additionalSections.languages,
+        },
+        hobbies: raw.hobbies || prev.hobbies || "",
+      }));
+
+      // Smoothly transition into the 9-step editor at Step 1
+      setBuildPath("scratch");
+      setActiveStep(1);
+      setActiveTab("editor");
+      setIsProcessingUpload(false);
+      showToast("Resume parsed & loaded successfully! 9 sections auto-filled.");
+    } catch (err) {
+      setIsProcessingUpload(false);
+      setUploadError(
+        err.message || "Failed to parse resume document. Please try again with a clear PDF or DOCX file."
+      );
+    }
   };
 
   // Generic AI Assistant for generating bullet points or summaries
@@ -419,8 +580,131 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
       {/* ========================================================================= */}
       {/* TOP NAVIGATION BAR                                                        */}
       {/* ========================================================================= */}
-      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-xl border-b border-[#252525]/10 px-4 sm:px-6 py-3 shadow-xs">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-xl border-b border-[#252525]/10 px-3 sm:px-6 py-2.5 sm:py-3 shadow-xs font-['Plus_Jakarta_Sans']">
+        {/* ----------------------------------------------------------------- */}
+        {/* MOBILE & TABLET TOP BAR (<lg)                                     */}
+        {/* ----------------------------------------------------------------- */}
+        <div className="lg:hidden flex flex-col gap-2.5">
+          {/* Row 1: Exit link + Right Actions */}
+          <div className="flex items-center justify-between gap-2">
+            <button
+              type="button"
+              onClick={onBack || (() => navigate("/dashboard"))}
+              className="text-xs font-extrabold text-[#252525] hover:text-[#FA0C40] flex items-center gap-1.5 py-1 px-1 rounded-lg transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4 text-[#FA0C40]" />
+              <span>← Exit Resume Editor</span>
+            </button>
+
+            <div className="flex items-center gap-1.5">
+              {/* Quick Rename on Mobile */}
+              {isEditingTitle ? (
+                <input
+                  type="text"
+                  value={resume.title}
+                  autoFocus
+                  onBlur={() => setIsEditingTitle(false)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") setIsEditingTitle(false);
+                  }}
+                  onChange={(e) => setResume((r) => ({ ...r, title: e.target.value }))}
+                  className="px-2 py-1 text-xs font-extrabold text-[#252525] bg-white border border-[#FA0C40] rounded-lg focus:outline-none max-w-[110px]"
+                />
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setIsEditingTitle(true)}
+                  className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold text-[#6B6B6B] hover:text-[#252525] bg-[#252525]/5 max-w-[110px] truncate"
+                  title="Click to rename"
+                >
+                  <span className="truncate">{resume.title || "Resume"}</span>
+                  <Pencil className="w-3 h-3 text-[#6B6B6B] shrink-0" />
+                </button>
+              )}
+
+              {/* Download PDF button on mobile */}
+              <button
+                type="button"
+                onClick={() => showToast("PDF generation engine connecting — download will be enabled in the export release.")}
+                className="w-8 h-8 rounded-full bg-[#FA0C40] text-white flex items-center justify-center shadow-xs cursor-pointer active:scale-95"
+                title="Download PDF"
+              >
+                <Download className="w-3.5 h-3.5" />
+              </button>
+
+              {/* User Menu */}
+              <UserMenu />
+            </div>
+          </div>
+
+          {/* Row 2: 3 Navigation Tabs (Full Width) */}
+          <div className="grid grid-cols-3 gap-1 bg-[#252525]/[0.04] p-1 rounded-full border border-[#252525]/10">
+            <button
+              type="button"
+              onClick={() => setActiveTab("editor")}
+              className={`py-1.5 px-2 rounded-full text-xs font-extrabold flex items-center justify-center gap-1 transition-all cursor-pointer truncate ${
+                activeTab === "editor"
+                  ? "bg-white text-[#252525] shadow-xs"
+                  : "text-[#6B6B6B] hover:text-[#252525]"
+              }`}
+            >
+              <FileText className="w-3.5 h-3.5 shrink-0" />
+              <span className="truncate">Editor</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab("customize")}
+              className={`py-1.5 px-2 rounded-full text-xs font-extrabold flex items-center justify-center gap-1 transition-all cursor-pointer truncate ${
+                activeTab === "customize"
+                  ? "bg-white text-[#252525] shadow-xs"
+                  : "text-[#6B6B6B] hover:text-[#252525]"
+              }`}
+            >
+              <Palette className="w-3.5 h-3.5 shrink-0" />
+              <span className="truncate">Preview</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab("tailor")}
+              className={`py-1.5 px-2 rounded-full text-xs font-extrabold flex items-center justify-center gap-1 transition-all cursor-pointer truncate ${
+                activeTab === "tailor"
+                  ? "bg-white text-[#252525] shadow-xs"
+                  : "text-[#6B6B6B] hover:text-[#252525]"
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#FA0C40] shrink-0" />
+              <span className="truncate">Tailor</span>
+            </button>
+          </div>
+
+          {/* Row 3: Resume Strength Meter (Full Width Row) */}
+          <div className="flex items-center justify-between gap-2.5 bg-slate-50 border border-[#252525]/10 rounded-2xl px-3 py-1.5">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className="text-[10px] font-extrabold text-[#FA0C40] bg-[#FA0C400D] px-2 py-0.5 rounded-full border border-[#FA0C40]/20 shrink-0">
+                {resumeStrength}%
+              </span>
+              <span className="text-[11px] font-bold text-[#252525] truncate">Strength</span>
+            </div>
+            <div className="flex-1 max-w-[140px] sm:max-w-xs h-1.5 bg-[#252525]/10 rounded-full overflow-hidden">
+              <div
+                className="h-full transition-all duration-500 ease-out rounded-full"
+                style={{
+                  width: `${resumeStrength}%`,
+                  backgroundColor: currentAccent,
+                }}
+              />
+            </div>
+            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 shrink-0 flex items-center gap-1">
+              <ShieldCheck className="w-3 h-3 text-emerald-600" />
+              <span>ATS Ready</span>
+            </span>
+          </div>
+        </div>
+
+        {/* ----------------------------------------------------------------- */}
+        {/* DESKTOP TOP BAR (lg+)                                             */}
+        {/* ----------------------------------------------------------------- */}
+        <div className="hidden lg:flex max-w-7xl mx-auto items-center justify-between gap-3">
           {/* Left: Strength Meter & Back */}
           <div className="flex items-center gap-4">
             <button
@@ -429,7 +713,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
               className="text-xs font-bold text-[#6B6B6B] hover:text-[#252525] border border-[#252525]/15 px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Dashboard</span>
+              <span>Dashboard</span>
             </button>
 
             {/* Resume Strength Meter */}
@@ -465,7 +749,15 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>Editor (Step {activeStep}/9)</span>
+              <span>
+                {buildPath === "upload"
+                  ? "Upload Resume"
+                  : buildPath === "linkedin"
+                  ? "LinkedIn Import"
+                  : buildPath === "voice"
+                  ? "Voice AI"
+                  : `Editor (Step ${activeStep}/9)`}
+              </span>
             </button>
             <button
               type="button"
@@ -526,7 +818,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
             <button
               type="button"
               onClick={() => setIsMethodModalOpen(true)}
-              className="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#252525]/15 text-xs font-bold text-[#6B6B6B] hover:text-[#252525] transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#252525]/15 text-xs font-bold text-[#6B6B6B] hover:text-[#252525] transition-colors cursor-pointer"
             >
               <Layers className="w-3.5 h-3.5" />
               <span>Build Path</span>
@@ -539,7 +831,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs font-extrabold shadow-sm shadow-[#FA0C40]/25 transition-all hover:scale-105 active:scale-95 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Download PDF</span>
+              <span>Download PDF</span>
             </button>
 
             {/* User Avatar Dropdown */}
@@ -561,14 +853,170 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
       {/* ========================================================================= */}
       {/* MAIN WORKSPACE BODY (EXACT 50/50 MATCHED HEIGHT SPLIT-PANE)               */}
       {/* ========================================================================= */}
-      <main className="max-w-[1600px] w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-7 flex-1 overflow-x-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch w-full lg:h-[calc(100vh-145px)] lg:min-h-[680px]">
+      <main className="max-w-[1600px] w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-7 flex-1 overflow-x-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-8 items-stretch w-full lg:h-[calc(100vh-145px)] lg:min-h-[680px]">
           {/* ----------------------------------------------------------------- */}
           {/* LEFT COLUMN: ACTIVE TAB WORKSPACE (MATCHED HEIGHT)                */}
           {/* ----------------------------------------------------------------- */}
-          <div className="w-full min-w-0 flex flex-col h-full overflow-hidden">
-            {/* TAB 1: 9-STEP FORM */}
-            {activeTab === "editor" && (
+          <div className={`w-full min-w-0 flex flex-col h-full overflow-hidden ${activeTab === "customize" ? "hidden lg:flex" : "flex"}`}>
+            {/* BUILD PATH 1: UPLOAD PANEL */}
+            {activeTab === "editor" && buildPath === "upload" && (
+              <UploadPanel
+                onFileUpload={handleFileUpload}
+                onSwitchMethod={() => setIsMethodModalOpen(true)}
+                onStartScratch={() => setBuildPath("scratch")}
+                selectedTemplate={selectedTemplate}
+                uploadError={uploadError}
+                onClearError={() => setUploadError("")}
+              />
+            )}
+
+            {/* BUILD PATH 2: LINKEDIN IMPORT */}
+            {activeTab === "editor" && buildPath === "linkedin" && (
+              <div className="bg-white rounded-3xl border border-[#252525]/10 shadow-[0_4px_20px_rgba(37,37,37,0.03)] p-6 sm:p-8 space-y-6 font-['Plus_Jakarta_Sans'] text-[#252525] animate-scale-in">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-[#252525]/10">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider bg-blue-50 text-[#0A66C2] px-2.5 py-0.5 rounded-full border border-blue-200">
+                        Build Method: LinkedIn Import
+                      </span>
+                      {selectedTemplate && (
+                        <span className="text-[10px] font-bold text-[#6B6B6B] bg-slate-100 px-2 py-0.5 rounded-full">
+                          Template: {selectedTemplate.name}
+                        </span>
+                      )}
+                    </div>
+                    <h2 className="text-xl sm:text-2xl font-extrabold text-[#252525] tracking-tight">
+                      Import from LinkedIn
+                    </h2>
+                    <p className="text-xs sm:text-sm text-[#6B6B6B] mt-1">
+                      Connect your LinkedIn profile to automatically extract your roles, education, and skills into your chosen template.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsMethodModalOpen(true)}
+                    className="text-xs font-bold text-[#6B6B6B] hover:text-[#FA0C40] transition-colors self-start sm:self-auto cursor-pointer flex items-center gap-1 hover:underline"
+                  >
+                    <span>Switch Method</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <div className="rounded-3xl border border-blue-200 bg-blue-50/50 p-8 sm:p-12 text-center flex flex-col items-center justify-center space-y-4">
+                  <div className="w-16 h-16 rounded-2xl bg-blue-100 text-[#0A66C2] flex items-center justify-center shadow-xs">
+                    <Share2 className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-base sm:text-lg font-extrabold text-[#252525]">
+                    1-Click Profile Synchronization
+                  </h3>
+                  <p className="text-xs text-[#6B6B6B] max-w-sm">
+                    OAuth 2.0 authorized sync. Your profile data will be structured directly into the 9-step editor.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      showToast("LinkedIn sync authorized. Editing loaded into Step 1.");
+                      setBuildPath("scratch");
+                      setActiveStep(1);
+                    }}
+                    className="px-6 py-3 rounded-full bg-[#0A66C2] hover:bg-[#004182] text-white text-xs sm:text-sm font-extrabold shadow-md shadow-blue-500/25 transition-all hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-2"
+                  >
+                    <Share2 className="w-4 h-4" />
+                    <span>Connect LinkedIn Profile</span>
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 text-xs">
+                  <div className="flex items-center gap-2 text-blue-700 font-bold text-[11px] bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200">
+                    <ShieldCheck className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <span>Secure OAuth 2.0 connection</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setBuildPath("scratch")}
+                    className="text-xs font-bold text-[#6B6B6B] hover:text-[#FA0C40] transition-colors cursor-pointer"
+                  >
+                    Prefer manual entry? <strong className="underline text-[#252525] hover:text-[#FA0C40]">Start from scratch</strong>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* BUILD PATH 3: VOICE AI */}
+            {activeTab === "editor" && buildPath === "voice" && (
+              <div className="bg-white rounded-3xl border border-[#252525]/10 shadow-[0_4px_20px_rgba(37,37,37,0.03)] p-6 sm:p-8 space-y-6 font-['Plus_Jakarta_Sans'] text-[#252525] animate-scale-in">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-[#252525]/10">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider bg-[#FA0C400D] text-[#FA0C40] px-2.5 py-0.5 rounded-full border border-[#FA0C40]/20">
+                        Build Method: Voice AI
+                      </span>
+                      {selectedTemplate && (
+                        <span className="text-[10px] font-bold text-[#6B6B6B] bg-slate-100 px-2 py-0.5 rounded-full">
+                          Template: {selectedTemplate.name}
+                        </span>
+                      )}
+                    </div>
+                    <h2 className="text-xl sm:text-2xl font-extrabold text-[#252525] tracking-tight">
+                      Talk to Voice AI
+                    </h2>
+                    <p className="text-xs sm:text-sm text-[#6B6B6B] mt-1">
+                      Speak naturally about your career. Our Voice AI listens, strips filler words, and turns your speech into quantified bullets.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsMethodModalOpen(true)}
+                    className="text-xs font-bold text-[#6B6B6B] hover:text-[#FA0C40] transition-colors self-start sm:self-auto cursor-pointer flex items-center gap-1 hover:underline"
+                  >
+                    <span>Switch Method</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <div className="rounded-3xl border border-[#FA0C40]/20 bg-[#FA0C400D]/30 p-8 sm:p-12 text-center flex flex-col items-center justify-center space-y-4">
+                  <div className="w-16 h-16 rounded-2xl bg-[#FA0C40] text-white flex items-center justify-center shadow-md shadow-[#FA0C40]/25 animate-pulse">
+                    <Mic className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-base sm:text-lg font-extrabold text-[#252525]">
+                    Interactive Voice Session
+                  </h3>
+                  <p className="text-xs text-[#6B6B6B] max-w-sm">
+                    Speak for 2–3 minutes describing your projects and responsibilities. Claude AI structures your answers into ATS-ready sections.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      showToast("Voice session initialized. Proceeding to editor canvas.");
+                      setBuildPath("scratch");
+                      setActiveStep(1);
+                    }}
+                    className="px-6 py-3 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs sm:text-sm font-extrabold shadow-md shadow-[#FA0C40]/25 transition-all hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-2"
+                  >
+                    <Mic className="w-4 h-4" />
+                    <span>Start Voice AI Session</span>
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 text-xs">
+                  <div className="flex items-center gap-2 text-[#FA0C40] font-bold text-[11px] bg-[#FA0C400D] px-3 py-1.5 rounded-full border border-[#FA0C40]/20">
+                    <Sparkles className="w-3.5 h-3.5 text-[#FA0C40] shrink-0" />
+                    <span>Real-time speech transcription & quantification</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setBuildPath("scratch")}
+                    className="text-xs font-bold text-[#6B6B6B] hover:text-[#FA0C40] transition-colors cursor-pointer"
+                  >
+                    Prefer typing? <strong className="underline text-[#252525] hover:text-[#FA0C40]">Start from scratch</strong>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 1: 9-STEP FORM (SCRATCH & POST-UPLOAD FLOW) */}
+            {activeTab === "editor" && !["upload", "linkedin", "voice"].includes(buildPath) && (
               <div className="bg-white rounded-3xl border border-[#252525]/10 shadow-[0_4px_20px_rgba(37,37,37,0.03)] p-5 sm:p-7 h-full flex flex-col justify-between overflow-y-auto">
                 <div className="flex-1 overflow-y-auto pr-1 space-y-4">
                   {/* STEP 1: PERSONAL DETAILS */}
@@ -1892,23 +2340,23 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                   )}
 
                   {/* BOTTOM MULTI-STEP NAVIGATION BAR */}
-                  <div className="shrink-0 mt-6 pt-5 border-t border-[#252525]/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="shrink-0 mt-6 pt-4 border-t border-[#252525]/10 flex flex-row items-center justify-between gap-2 sm:gap-4 sticky bottom-0 bg-white/95 backdrop-blur-md -mx-5 -mb-5 sm:-mx-7 sm:-mb-7 p-3.5 sm:p-5 rounded-b-3xl shadow-sm z-10">
                     <button
                       type="button"
                       onClick={handlePrevStep}
                       disabled={activeStep === 1}
-                      className="px-5 py-2.5 rounded-full border border-[#252525]/15 hover:border-[#252525] disabled:opacity-30 disabled:hover:border-[#252525]/15 text-xs font-bold text-[#252525] transition-colors flex items-center justify-center gap-1.5 cursor-pointer disabled:cursor-not-allowed"
+                      className="px-3.5 sm:px-5 py-2.5 rounded-full border border-[#252525]/15 hover:border-[#252525] disabled:opacity-30 disabled:hover:border-[#252525]/15 text-xs font-bold text-[#252525] transition-colors flex items-center justify-center gap-1 cursor-pointer disabled:cursor-not-allowed min-h-[44px] shrink-0"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" />
                       <span>Back</span>
                     </button>
 
-                    <div className="flex items-center justify-center gap-1.5 overflow-x-auto py-1">
+                    <div className="flex items-center justify-center gap-1 sm:gap-1.5 overflow-x-auto py-1 max-w-[140px] sm:max-w-none">
                       {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((s) => (
                         <div
                           key={s}
                           onClick={() => setActiveStep(s)}
-                          className={`w-3 h-3 rounded-full cursor-pointer transition-all flex items-center justify-center text-[8px] font-bold ${
+                          className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full cursor-pointer transition-all flex items-center justify-center text-[7px] sm:text-[8px] font-bold shrink-0 ${
                             activeStep === s
                               ? "bg-[#FA0C40] text-white scale-125 shadow-xs"
                               : s < activeStep
@@ -1925,14 +2373,14 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                     <button
                       type="button"
                       onClick={handleNextStep}
-                      className="px-7 py-2.5 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs font-extrabold shadow-md shadow-[#FA0C40]/25 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+                      className="px-4 sm:px-7 py-2.5 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs font-extrabold shadow-md shadow-[#FA0C40]/25 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px] shrink-0"
                     >
-                      <span>
+                      <span className="truncate max-w-[100px] sm:max-w-none">
                         {activeStep === 9
-                          ? "Complete Onboarding"
-                          : `Next: ${STEP_TITLES[activeStep]}`}
+                          ? "Complete"
+                          : `Next (${activeStep}/9)`}
                       </span>
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </button>
                   </div>
                 </div>
@@ -2112,7 +2560,32 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
           {/* ----------------------------------------------------------------- */}
           {/* RIGHT COLUMN: LIVE RESUME DOCUMENT CANVAS PREVIEW (MATCHED HEIGHT) */}
           {/* ----------------------------------------------------------------- */}
-          <div className="w-full min-w-0 flex flex-col h-full overflow-hidden">
+          <div className={`w-full min-w-0 flex flex-col h-full overflow-hidden ${activeTab === "customize" ? "flex" : "hidden lg:flex"}`}>
+            {/* Mobile-Only Quick Theme Customizer */}
+            <div className="lg:hidden mb-3 bg-white rounded-2xl border border-slate-200 p-3 shadow-2xs space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-extrabold text-[#252525]">Quick Accent Swatch</span>
+                <span className="text-[10px] font-bold text-[#FA0C40]">{resume.accentColor || selectedTemplate.accentColor}</span>
+              </div>
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                {COLOR_SWATCHES.map((swatch) => {
+                  const isSelected = (resume.accentColor || selectedTemplate.accentColor) === swatch.color;
+                  return (
+                    <button
+                      key={swatch.color}
+                      type="button"
+                      onClick={() => setResume((r) => ({ ...r, accentColor: swatch.color }))}
+                      className={`w-7 h-7 rounded-full shrink-0 border-2 transition-transform cursor-pointer ${
+                        isSelected ? "border-[#252525] scale-110 shadow-xs" : "border-white shadow-2xs"
+                      }`}
+                      style={{ backgroundColor: swatch.color }}
+                      title={swatch.name}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3 px-1 sm:px-2 shrink-0">
               <div className="flex items-center gap-2 text-xs font-bold text-[#6B6B6B]">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -2184,6 +2657,12 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
           showToast(`Switched build method to ${m}.`);
         }}
         selectedTemplateName={selectedTemplate?.name}
+      />
+
+      {/* Processing Document Overlay Modal */}
+      <ProcessingDocumentModal
+        isOpen={isProcessingUpload}
+        templateName={selectedTemplate?.name}
       />
 
       {/* Completion Modal */}

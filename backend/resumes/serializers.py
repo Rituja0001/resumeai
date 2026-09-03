@@ -43,6 +43,7 @@ class ResumeSerializer(serializers.ModelSerializer):
             "id", "title", "source", "status", "professional_summary",
             "template_key", "base_resume", "created_at", "updated_at",
             "experiences", "education", "skills", "projects",
+            "raw_ai_extraction",
         ]
         read_only_fields = ["status", "created_at", "updated_at"]
 

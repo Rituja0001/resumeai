@@ -68,6 +68,25 @@ def _ocr_fallback(storage_key: str) -> str:
     raise NotImplementedError("Wire up Textract/Vision OCR client here")
 
 
+def _parse_date_safe(val):
+    if not val:
+        return None
+    import re, datetime
+    val_str = str(val).strip()
+    if not val_str or val_str.lower() in ("present", "current", "none", "null", ""):
+        return None
+    if re.match(r'^\d{4}-\d{2}-\d{2}$', val_str):
+        return val_str
+    if re.match(r'^\d{4}-\d{2}$', val_str):
+        return f"{val_str}-01"
+    if re.match(r'^\d{4}$', val_str):
+        return f"{val_str}-01-01"
+    try:
+        return str(datetime.date.fromisoformat(val_str[:10]))
+    except Exception:
+        return None
+
+
 def _write_resume_sections(resume: Resume, data: dict):
     """Shared helper: takes AI extraction JSON and writes it into the
     normalized child tables (used by upload, voice, LinkedIn, tailoring)."""
@@ -80,10 +99,11 @@ def _write_resume_sections(resume: Resume, data: dict):
     for i, exp in enumerate(data.get("experiences", [])):
         WorkExperience.objects.create(
             resume=resume, order=i,
-            company=exp.get("company", ""), role=exp.get("role", ""),
+            company=exp.get("company", "") or "Company",
+            role=exp.get("role", "") or "Professional",
             location=exp.get("location", ""),
-            start_date=exp.get("start_date") or None,
-            end_date=exp.get("end_date") or None,
+            start_date=_parse_date_safe(exp.get("start_date")),
+            end_date=_parse_date_safe(exp.get("end_date")),
             is_current=exp.get("is_current", False),
             bullet_points=exp.get("bullet_points", []),
         )
@@ -92,23 +112,29 @@ def _write_resume_sections(resume: Resume, data: dict):
     for i, edu in enumerate(data.get("education", [])):
         Education.objects.create(
             resume=resume, order=i,
-            institution=edu.get("institution", ""), degree=edu.get("degree", ""),
+            institution=edu.get("institution", "") or "University",
+            degree=edu.get("degree", "") or "Degree",
             field_of_study=edu.get("field_of_study", ""),
-            start_date=edu.get("start_date") or None, end_date=edu.get("end_date") or None,
+            start_date=_parse_date_safe(edu.get("start_date")),
+            end_date=_parse_date_safe(edu.get("end_date")),
             grade=edu.get("grade", ""),
         )
 
     resume.skills.all().delete()
     for skill in data.get("skills", []):
-        SkillEntry.objects.create(resume=resume, name=skill.get("name", ""),
-                                   category=skill.get("category", "technical"))
+        name = skill.get("name", "") if isinstance(skill, dict) else str(skill)
+        category = skill.get("category", "technical") if isinstance(skill, dict) else "technical"
+        if name:
+            SkillEntry.objects.create(resume=resume, name=name, category=category)
 
     resume.projects.all().delete()
     for i, proj in enumerate(data.get("projects", [])):
         Project.objects.create(
-            resume=resume, order=i, name=proj.get("name", ""),
+            resume=resume, order=i,
+            name=proj.get("name", "") or f"Project {i+1}",
             description=proj.get("description", ""),
-            tech_stack=proj.get("tech_stack", []), link=proj.get("link", ""),
+            tech_stack=proj.get("tech_stack", []),
+            link=proj.get("link", ""),
         )
 
 

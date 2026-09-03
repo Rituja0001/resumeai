@@ -191,3 +191,66 @@ export async function submitFeedback(message, rating) {
     body: JSON.stringify({ message, rating }),
   });
 }
+
+export async function uploadResume(file) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  let token = localStorage.getItem("access_token");
+  const headers = {
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+
+  let res = await fetch(`${API_BASE}/resumes/upload/`, {
+    method: "POST",
+    headers,
+    body: formData,
+  });
+
+  // If 401 Unauthorized, attempt token refresh and retry upload once
+  if (res.status === 401) {
+    if (!isRefreshing) {
+      isRefreshing = true;
+      try {
+        const newToken = await refreshToken();
+        isRefreshing = false;
+        onRefreshed(newToken);
+        res = await fetch(`${API_BASE}/resumes/upload/`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${newToken}`,
+          },
+          body: formData,
+        });
+      } catch (err) {
+        isRefreshing = false;
+        window.dispatchEvent(new Event("auth:logout"));
+        throw new Error("Session expired. Please log in again.");
+      }
+    } else {
+      token = await new Promise((resolve, reject) => {
+        subscribeTokenRefresh(resolve);
+      });
+      res = await fetch(`${API_BASE}/resumes/upload/`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+    }
+  }
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: `Upload failed (${res.status})` }));
+    const errorMsg =
+      err.detail ||
+      (err.file ? (Array.isArray(err.file) ? err.file[0] : err.file) : null) ||
+      (err.non_field_errors ? err.non_field_errors[0] : null) ||
+      (typeof err === "object" ? Object.values(err)[0] : null) ||
+      `Upload failed (${res.status})`;
+    throw new Error(Array.isArray(errorMsg) ? errorMsg[0] : errorMsg);
+  }
+
+  return res.json();
+}

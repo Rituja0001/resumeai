@@ -1241,11 +1241,11 @@ export default function LiveResumeDocument({ resume, template, customAccent, onP
   }, [pages.length, onPageCountChange]);
 
   return (
-    <div className="w-full flex flex-col items-center space-y-6 sm:space-y-8 pb-8 motion-safe:transition-all">
+    <div className="w-full flex flex-col items-center space-y-4 sm:space-y-8 pb-8 motion-safe:transition-all">
       {pages.map((pageData, idx) => (
         <div
           key={idx}
-          className="w-full max-w-[800px] min-h-[1123px] h-[1123px] bg-white rounded-xl shadow-[0_12px_40px_rgba(0,0,0,0.09)] border border-slate-200/90 overflow-hidden flex flex-col justify-between relative shrink-0 transition-all duration-300 select-text"
+          className="w-full max-w-[800px] min-w-0 min-h-[850px] sm:min-h-[1123px] sm:h-[1123px] bg-white rounded-xl shadow-[0_12px_40px_rgba(0,0,0,0.09)] border border-slate-200/90 overflow-hidden flex flex-col justify-between relative shrink-0 transition-all duration-300 select-text"
         >
           {/* Main Page Content */}
           <div className="flex-1 overflow-hidden">

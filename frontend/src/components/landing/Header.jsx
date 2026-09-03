@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ArrowRight, LayoutDashboard, Settings, HelpCircle, LogOut } from "lucide-react";
-import { NAV_LINKS } from "./constants";
+import { LOGGED_IN_NAV, LOGGED_OUT_NAV } from "./constants";
 import UserMenu from "./UserMenu";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -9,8 +9,11 @@ export default function Header({ openBuilder, onLogoClick }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logoLoaded, setLogoLoaded] = useState(true);
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const navItems = isAuthenticated ? LOGGED_IN_NAV : LOGGED_OUT_NAV;
 
   // Scroll listener for glassmorphism shrink effect (threshold 12px)
   useEffect(() => {
@@ -33,13 +36,20 @@ export default function Header({ openBuilder, onLogoClick }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleNavClick = (e, href) => {
-    if (href.startsWith("#")) {
-      const target = document.querySelector(href);
-      if (target) {
+  const handleNavClick = (e, href, isRoute) => {
+    setMobileMenuOpen(false);
+    if (!isRoute && (href.startsWith("#") || href.startsWith("/#"))) {
+      const hash = href.includes("#") ? href.substring(href.indexOf("#")) : href;
+      if (location.pathname === "/") {
+        const target = document.querySelector(hash);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+      } else {
         e.preventDefault();
-        setMobileMenuOpen(false);
-        target.scrollIntoView({ behavior: "smooth" });
+        navigate(`/${hash}`);
         return;
       }
     }
@@ -59,8 +69,8 @@ export default function Header({ openBuilder, onLogoClick }) {
       <header
         className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ease-out font-['Plus_Jakarta_Sans'] ${
           scrolled
-            ? "bg-white/85 backdrop-blur-xl border-b border-[#2525251a] shadow-[0_4px_25px_rgba(37,37,37,0.06)] py-2.5 sm:py-3"
-            : "bg-transparent border-b border-transparent py-4 sm:py-5"
+            ? "bg-white/92 backdrop-blur-xl border-b border-[#2525251a] shadow-[0_4px_25px_rgba(37,37,37,0.07),0_1px_3px_rgba(37,37,37,0.06)] py-2.5 sm:py-3"
+            : "bg-white/80 sm:bg-white/75 backdrop-blur-md border-b border-[#252525]/10 shadow-[0_1px_3px_rgba(37,37,37,0.06),0_1px_2px_rgba(37,37,37,0.04)] py-3.5 sm:py-4"
         }`}
       >
         <div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 md:px-8">
@@ -92,32 +102,32 @@ export default function Header({ openBuilder, onLogoClick }) {
           </Link>
 
           {/* Desktop Navigation Links (md: and up) */}
-          <nav className="hidden md:flex items-center gap-8">
-            <Link
-              to={isAuthenticated ? "/dashboard" : "/"}
-              className="relative text-sm font-semibold text-[#252525]/80 hover:text-[#252525] transition-colors py-1 group"
-            >
-              <span>{isAuthenticated ? "Dashboard" : "Home"}</span>
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#FA0C40] rounded-full transition-all duration-300 ease-out group-hover:w-full" />
-            </Link>
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="relative text-sm font-semibold text-[#252525]/80 hover:text-[#252525] transition-colors py-1 group"
-              >
-                <span>{link.label}</span>
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#FA0C40] rounded-full transition-all duration-300 ease-out group-hover:w-full" />
-              </a>
-            ))}
-            <Link
-              to="/faq"
-              className="relative text-sm font-semibold text-[#252525]/80 hover:text-[#252525] transition-colors py-1 group"
-            >
-              <span>FAQ</span>
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#FA0C40] rounded-full transition-all duration-300 ease-out group-hover:w-full" />
-            </Link>
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+            {navItems.map((link) => {
+              if (link.isRoute) {
+                return (
+                  <Link
+                    key={link.label}
+                    to={link.href}
+                    className="relative text-sm font-semibold text-[#252525]/80 hover:text-[#252525] transition-colors py-1 group"
+                  >
+                    <span>{link.label}</span>
+                    <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#FA0C40] rounded-full transition-all duration-300 ease-out group-hover:w-full" />
+                  </Link>
+                );
+              }
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href, link.isRoute)}
+                  className="relative text-sm font-semibold text-[#252525]/80 hover:text-[#252525] transition-colors py-1 group"
+                >
+                  <span>{link.label}</span>
+                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#FA0C40] rounded-full transition-all duration-300 ease-out group-hover:w-full" />
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right Action Area (Avatar / Sign in + Hamburger) */}
@@ -179,36 +189,37 @@ export default function Header({ openBuilder, onLogoClick }) {
         >
           <div className="px-6 py-6 space-y-4">
             <div className="flex flex-col space-y-3 pb-4 border-b border-[#2525251a]">
-              <Link
-                to={isAuthenticated ? "/dashboard" : "/"}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-base font-semibold text-[#252525]/90 hover:text-[#FA0C40] transition-colors py-1"
-              >
-                {isAuthenticated ? "Dashboard" : "Home"}
-              </Link>
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-base font-semibold text-[#252525]/90 hover:text-[#FA0C40] transition-colors py-1"
-                >
-                  {link.label}
-                </a>
-              ))}
-              <Link
-                to="/faq"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-base font-semibold text-[#252525]/90 hover:text-[#FA0C40] transition-colors py-1"
-              >
-                FAQ & Help
-              </Link>
+              {navItems.map((link) => {
+                if (link.isRoute) {
+                  return (
+                    <Link
+                      key={link.label}
+                      to={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-base font-semibold text-[#252525]/90 hover:text-[#FA0C40] transition-colors py-1"
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                }
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href, link.isRoute)}
+                    className="text-base font-semibold text-[#252525]/90 hover:text-[#FA0C40] transition-colors py-1"
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
             </div>
 
             <div className="flex flex-col gap-3 pt-1">
               {isAuthenticated ? (
                 <>
                   <button
+                    type="button"
                     onClick={() => {
                       setMobileMenuOpen(false);
                       navigate("/dashboard");
@@ -219,6 +230,7 @@ export default function Header({ openBuilder, onLogoClick }) {
                     <span>My Dashboard</span>
                   </button>
                   <button
+                    type="button"
                     onClick={() => {
                       setMobileMenuOpen(false);
                       navigate("/settings");
@@ -229,6 +241,7 @@ export default function Header({ openBuilder, onLogoClick }) {
                     <span>Account Settings</span>
                   </button>
                   <button
+                    type="button"
                     onClick={() => {
                       setMobileMenuOpen(false);
                       logout();

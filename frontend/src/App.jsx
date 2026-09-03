@@ -6,6 +6,7 @@ import DashboardPage from "./pages/DashboardPage";
 import SettingsPage from "./pages/SettingsPage";
 import FaqPage from "./pages/FaqPage";
 import TemplatesPage from "./pages/TemplatesPage";
+import ContactPage from "./pages/ContactPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { FONT_IMPORT } from "./components/landing/constants";
 import Header from "./components/landing/Header";
@@ -86,6 +87,14 @@ export default function App() {
         .scan-laser { animation: scanLaser 3.6s cubic-bezier(.45,0,.55,1) infinite; }
         .animate-dropdown { animation: dropdownSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .animate-slide-up { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @media (prefers-reduced-motion: reduce) {
+          *, ::before, ::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+          }
+        }
       `}</style>
 
       <Routes>
@@ -93,6 +102,7 @@ export default function App() {
         <Route path="/login" element={<AuthPage initialMode="login" />} />
         <Route path="/signup" element={<AuthPage initialMode="signup" />} />
         <Route path="/faq" element={<FaqPage />} />
+        <Route path="/contact" element={<ContactPage />} />
 
         {/* Protected Authenticated Routes */}
         <Route
