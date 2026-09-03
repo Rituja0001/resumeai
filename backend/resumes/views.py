@@ -109,6 +109,38 @@ class ResumeViewSet(viewsets.ModelViewSet):
         )
         return Response({"bullet_points": bullets})
 
+    # ---- PDF Export: /api/resumes/{id}/export-pdf/ or /api/resumes/export-pdf/ ----
+    @action(detail=True, methods=["get", "post"], url_path="export-pdf")
+    def export_pdf_detail(self, request, pk=None):
+        import re
+        from django.http import HttpResponse
+        from .pdf_services import generate_resume_pdf
+
+        resume = self.get_object()
+        if request.method == "POST" and request.data:
+            data = request.data
+        else:
+            data = ResumeSerializer(resume).data
+
+        pdf_bytes = generate_resume_pdf(data)
+        safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', data.get('title') or 'Resume').strip('_') or 'Resume'
+        response = HttpResponse(pdf_bytes, content_type="application/pdf")
+        response["Content-Disposition"] = f'attachment; filename="{safe_title}.pdf"'
+        return response
+
+    @action(detail=False, methods=["post"], url_path="export-pdf")
+    def export_pdf_direct(self, request):
+        import re
+        from django.http import HttpResponse
+        from .pdf_services import generate_resume_pdf
+
+        data = request.data or {}
+        pdf_bytes = generate_resume_pdf(data)
+        safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', data.get('title') or 'Resume').strip('_') or 'Resume'
+        response = HttpResponse(pdf_bytes, content_type="application/pdf")
+        response["Content-Disposition"] = f'attachment; filename="{safe_title}.pdf"'
+        return response
+
 
 class JobTailoringViewSet(viewsets.ModelViewSet):
     serializer_class = JobTailoringRequestSerializer

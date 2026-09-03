@@ -54,7 +54,7 @@ import UploadPanel from "../components/builder/UploadPanel";
 import ProcessingDocumentModal from "../components/builder/ProcessingDocumentModal";
 import UserMenu from "../components/landing/UserMenu";
 import { useAuth } from "../contexts/AuthContext";
-import { uploadResume } from "../api";
+import { uploadResume, getResume, downloadResumePdf } from "../api";
 
 /**
  * Predefined Accent Colors for the Customize Tab
@@ -86,7 +86,7 @@ const YEARS = Array.from({ length: 30 }, (_, i) => String(2026 - i));
  * Initial 9-Step Unified Resume State
  */
 const INITIAL_RESUME_STATE = {
-  title: "My_Resume",
+  title: "Untitled Resume",
   templateId: "puffin",
   accentColor: "#FA0C40",
   personalDetails: {
@@ -100,53 +100,16 @@ const INITIAL_RESUME_STATE = {
     photo: null,
   },
   professional_summary: "",
-  experiences: [
-    {
-      id: 1,
-      role: "Senior Software Engineer",
-      company: "Swiggy",
-      city: "Bengaluru",
-      startMonth: "Jun",
-      startYear: "2021",
-      endMonth: "Present",
-      endYear: "Present",
-      isCurrent: true,
-      description: "• Architected order dispatch microservices handling 120k req/sec at 99.99% uptime during festive seasons.\n• Cut compute infrastructure costs by 34% through containerized Kubernetes pod auto-scaling.",
-    },
-  ],
-  education: [
-    {
-      id: 1,
-      institution: "IIT Madras",
-      degree: "B.Tech in Computer Science & Engineering",
-      city: "Chennai",
-      marksType: "CGPA",
-      marks: "8.9",
-      startMonth: "Aug",
-      startYear: "2017",
-      endMonth: "May",
-      endYear: "2021",
-      isCurrent: false,
-      description: "Dean's Honor List, Head of Robotics Club, Published 1 IEEE research paper.",
-    },
-  ],
-  skills: [
-    { id: 1, name: "React / Next.js", level: 5 },
-    { id: 2, name: "TypeScript", level: 5 },
-    { id: 3, name: "Go / Microservices", level: 4 },
-    { id: 4, name: "Kubernetes & Docker", level: 4 },
-    { id: 5, name: "PostgreSQL", level: 4 },
-  ],
+  experiences: [],
+  education: [],
+  skills: [],
   hideSkillLevel: false,
-  socialLinks: [
-    { id: 1, label: "LinkedIn", url: "https://linkedin.com/in/username" },
-    { id: 2, label: "GitHub", url: "https://github.com/username" },
-  ],
-  hobbies: "Open-source contributing, Marathon training, Sci-fi literature, Chess strategy",
+  socialLinks: [],
+  hobbies: "",
   jobPreference: {
     shareWithRecruiters: true,
-    currentSalary: "24",
-    desiredSalary: "35",
+    currentSalary: "",
+    desiredSalary: "",
     salaryCurrency: "INR (Lakhs/yr)",
     noticePeriod: "30 days",
     noticeNegotiable: true,
@@ -155,19 +118,8 @@ const INITIAL_RESUME_STATE = {
     willingToRelocate: true,
   },
   additionalSections: {
-    projects: [
-      {
-        id: 1,
-        title: "AI Indic Language Tokenizer",
-        techStack: "Python, PyTorch, C++",
-        link: "https://github.com/example/indic-tokenizer",
-        description: "High-throughput subword tokenizer trained on 12 Indic languages with 2.4x compression ratio.",
-      },
-    ],
-    languages: [
-      { id: 1, name: "English", proficiency: "Native / Fluent" },
-      { id: 2, name: "Hindi", proficiency: "Native" },
-    ],
+    projects: [],
+    languages: [],
     customSections: [],
   },
 };
@@ -267,6 +219,8 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
 
   const currentAccent = resume.accentColor || selectedTemplate.accentColor || "#FA0C40";
 
+  const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
+
   // Dynamic Strength Calculation (Heuristic across all 9 steps)
   const resumeStrength = useMemo(() => {
     let score = 0;
@@ -306,6 +260,23 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
   const showToast = (msg) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(""), 3500);
+  };
+
+  // Real PDF Export Download Handler
+  const handleDownloadPdf = async () => {
+    if (isDownloadingPdf) return;
+    setIsDownloadingPdf(true);
+    showToast("Generating high-resolution vector PDF...");
+
+    try {
+      const activeResumeId = searchParams.get("resume") || initialResumeId;
+      await downloadResumePdf(resume, activeResumeId);
+      showToast("PDF downloaded successfully!");
+    } catch (err) {
+      showToast(err.message || "Failed to generate PDF. Please try again.");
+    } finally {
+      setIsDownloadingPdf(false);
+    }
   };
 
   // State Updaters
@@ -625,11 +596,16 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
               {/* Download PDF button on mobile */}
               <button
                 type="button"
-                onClick={() => showToast("PDF generation engine connecting — download will be enabled in the export release.")}
-                className="w-8 h-8 rounded-full bg-[#FA0C40] text-white flex items-center justify-center shadow-xs cursor-pointer active:scale-95"
+                disabled={isDownloadingPdf}
+                onClick={handleDownloadPdf}
+                className="w-8 h-8 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white flex items-center justify-center shadow-xs cursor-pointer active:scale-95 disabled:opacity-50 transition-all"
                 title="Download PDF"
               >
-                <Download className="w-3.5 h-3.5" />
+                {isDownloadingPdf ? (
+                  <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <Download className="w-3.5 h-3.5" />
+                )}
               </button>
 
               {/* User Menu */}
@@ -827,11 +803,21 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
             {/* Download PDF Button */}
             <button
               type="button"
-              onClick={() => showToast("PDF generation engine connecting — download will be enabled in the export release.")}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs font-extrabold shadow-sm shadow-[#FA0C40]/25 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              disabled={isDownloadingPdf}
+              onClick={handleDownloadPdf}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs font-extrabold shadow-sm shadow-[#FA0C40]/25 transition-all hover:scale-105 active:scale-95 disabled:opacity-50 cursor-pointer"
             >
-              <Download className="w-3.5 h-3.5" />
-              <span>Download PDF</span>
+              {isDownloadingPdf ? (
+                <>
+                  <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>Exporting PDF...</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download PDF</span>
+                </>
+              )}
             </button>
 
             {/* User Avatar Dropdown */}
@@ -877,8 +863,8 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-[#252525]/10">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider bg-blue-50 text-[#0A66C2] px-2.5 py-0.5 rounded-full border border-blue-200">
-                        Build Method: LinkedIn Import
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider bg-amber-50 text-amber-700 px-2.5 py-0.5 rounded-full border border-amber-200">
+                        In Development · Coming Soon
                       </span>
                       {selectedTemplate && (
                         <span className="text-[10px] font-bold text-[#6B6B6B] bg-slate-100 px-2 py-0.5 rounded-full">
@@ -890,7 +876,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                       Import from LinkedIn
                     </h2>
                     <p className="text-xs sm:text-sm text-[#6B6B6B] mt-1">
-                      Connect your LinkedIn profile to automatically extract your roles, education, and skills into your chosen template.
+                      Direct LinkedIn OAuth 2.0 profile synchronization is currently in integration. In the meantime, you can upload your resume file or build using our 9-step guided editor.
                     </p>
                   </div>
                   <button
@@ -903,41 +889,53 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                   </button>
                 </div>
 
-                <div className="rounded-3xl border border-blue-200 bg-blue-50/50 p-8 sm:p-12 text-center flex flex-col items-center justify-center space-y-4">
+                <div className="rounded-3xl border border-blue-100 bg-blue-50/40 p-8 sm:p-12 text-center flex flex-col items-center justify-center space-y-4">
                   <div className="w-16 h-16 rounded-2xl bg-blue-100 text-[#0A66C2] flex items-center justify-center shadow-xs">
                     <Share2 className="w-8 h-8" />
                   </div>
                   <h3 className="text-base sm:text-lg font-extrabold text-[#252525]">
-                    1-Click Profile Synchronization
+                    LinkedIn OAuth Integration in Progress
                   </h3>
-                  <p className="text-xs text-[#6B6B6B] max-w-sm">
-                    OAuth 2.0 authorized sync. Your profile data will be structured directly into the 9-step editor.
+                  <p className="text-xs text-[#6B6B6B] max-w-md leading-relaxed">
+                    We are completing LinkedIn API partner verification. You can immediately upload your current PDF or DOCX resume for 1-click AI extraction, or begin typing on our blank canvas.
                   </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      showToast("LinkedIn sync authorized. Editing loaded into Step 1.");
-                      setBuildPath("scratch");
-                      setActiveStep(1);
-                    }}
-                    className="px-6 py-3 rounded-full bg-[#0A66C2] hover:bg-[#004182] text-white text-xs sm:text-sm font-extrabold shadow-md shadow-blue-500/25 transition-all hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-2"
-                  >
-                    <Share2 className="w-4 h-4" />
-                    <span>Connect LinkedIn Profile</span>
-                  </button>
+                  <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setBuildPath("upload")}
+                      className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs sm:text-sm font-extrabold shadow-md shadow-[#FA0C40]/25 transition-all hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      <UploadCloud className="w-4 h-4" />
+                      <span>Upload Resume File Instead</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setBuildPath("scratch");
+                        setActiveStep(1);
+                      }}
+                      className="w-full sm:w-auto px-6 py-3 rounded-full bg-white border border-[#252525]/15 hover:border-[#252525] text-[#252525] text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      <PenTool className="w-4 h-4" />
+                      <span>Build from Scratch</span>
+                    </button>
+                  </div>
                 </div>
 
                 <div className="flex items-center justify-between pt-2 text-xs">
-                  <div className="flex items-center gap-2 text-blue-700 font-bold text-[11px] bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200">
-                    <ShieldCheck className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                    <span>Secure OAuth 2.0 connection</span>
+                  <div className="flex items-center gap-2 text-slate-600 font-bold text-[11px] bg-slate-50 px-3 py-1.5 rounded-full border border-slate-200">
+                    <ShieldCheck className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                    <span>Privacy compliant · Zero data retention without consent</span>
                   </div>
                   <button
                     type="button"
-                    onClick={() => setBuildPath("scratch")}
+                    onClick={() => {
+                      setBuildPath("scratch");
+                      setActiveStep(1);
+                    }}
                     className="text-xs font-bold text-[#6B6B6B] hover:text-[#FA0C40] transition-colors cursor-pointer"
                   >
-                    Prefer manual entry? <strong className="underline text-[#252525] hover:text-[#FA0C40]">Start from scratch</strong>
+                    Prefer typing? <strong className="underline text-[#252525] hover:text-[#FA0C40]">Start from scratch</strong>
                   </button>
                 </div>
               </div>
@@ -949,8 +947,8 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-[#252525]/10">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider bg-[#FA0C400D] text-[#FA0C40] px-2.5 py-0.5 rounded-full border border-[#FA0C40]/20">
-                        Build Method: Voice AI
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider bg-amber-50 text-amber-700 px-2.5 py-0.5 rounded-full border border-amber-200">
+                        In Development · Coming Soon
                       </span>
                       {selectedTemplate && (
                         <span className="text-[10px] font-bold text-[#6B6B6B] bg-slate-100 px-2 py-0.5 rounded-full">
@@ -962,7 +960,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                       Talk to Voice AI
                     </h2>
                     <p className="text-xs sm:text-sm text-[#6B6B6B] mt-1">
-                      Speak naturally about your career. Our Voice AI listens, strips filler words, and turns your speech into quantified bullets.
+                      Real-time conversational speech transcription is in active engineering. In the meantime, you can use our built-in Claude AI bullet suggester directly in the editor.
                     </p>
                   </div>
                   <button
@@ -975,38 +973,50 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                   </button>
                 </div>
 
-                <div className="rounded-3xl border border-[#FA0C40]/20 bg-[#FA0C400D]/30 p-8 sm:p-12 text-center flex flex-col items-center justify-center space-y-4">
-                  <div className="w-16 h-16 rounded-2xl bg-[#FA0C40] text-white flex items-center justify-center shadow-md shadow-[#FA0C40]/25 animate-pulse">
+                <div className="rounded-3xl border border-amber-200/70 bg-amber-50/30 p-8 sm:p-12 text-center flex flex-col items-center justify-center space-y-4">
+                  <div className="w-16 h-16 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center shadow-xs">
                     <Mic className="w-8 h-8" />
                   </div>
                   <h3 className="text-base sm:text-lg font-extrabold text-[#252525]">
-                    Interactive Voice Session
+                    Voice AI Speech Engine in Development
                   </h3>
-                  <p className="text-xs text-[#6B6B6B] max-w-sm">
-                    Speak for 2–3 minutes describing your projects and responsibilities. Claude AI structures your answers into ATS-ready sections.
+                  <p className="text-xs text-[#6B6B6B] max-w-md leading-relaxed">
+                    Our multi-lingual speech-to-text pipeline is undergoing quality tuning. You can immediately build from scratch (with real-time AI bullet generation on Step 3) or upload a resume file.
                   </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      showToast("Voice session initialized. Proceeding to editor canvas.");
-                      setBuildPath("scratch");
-                      setActiveStep(1);
-                    }}
-                    className="px-6 py-3 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs sm:text-sm font-extrabold shadow-md shadow-[#FA0C40]/25 transition-all hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-2"
-                  >
-                    <Mic className="w-4 h-4" />
-                    <span>Start Voice AI Session</span>
-                  </button>
+                  <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setBuildPath("scratch");
+                        setActiveStep(1);
+                      }}
+                      className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs sm:text-sm font-extrabold shadow-md shadow-[#FA0C40]/25 transition-all hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      <Sparkles className="w-4 h-4" />
+                      <span>Start with AI Bullet Suggestions</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setBuildPath("upload")}
+                      className="w-full sm:w-auto px-6 py-3 rounded-full bg-white border border-[#252525]/15 hover:border-[#252525] text-[#252525] text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      <UploadCloud className="w-4 h-4" />
+                      <span>Upload Resume File</span>
+                    </button>
+                  </div>
                 </div>
 
                 <div className="flex items-center justify-between pt-2 text-xs">
-                  <div className="flex items-center gap-2 text-[#FA0C40] font-bold text-[11px] bg-[#FA0C400D] px-3 py-1.5 rounded-full border border-[#FA0C40]/20">
-                    <Sparkles className="w-3.5 h-3.5 text-[#FA0C40] shrink-0" />
-                    <span>Real-time speech transcription & quantification</span>
+                  <div className="flex items-center gap-2 text-amber-800 font-bold text-[11px] bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                    <span>Claude 3.5 Sonnet integrated for writing assistance in Editor</span>
                   </div>
                   <button
                     type="button"
-                    onClick={() => setBuildPath("scratch")}
+                    onClick={() => {
+                      setBuildPath("scratch");
+                      setActiveStep(1);
+                    }}
                     className="text-xs font-bold text-[#6B6B6B] hover:text-[#FA0C40] transition-colors cursor-pointer"
                   >
                     Prefer typing? <strong className="underline text-[#252525] hover:text-[#FA0C40]">Start from scratch</strong>
@@ -1014,6 +1024,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                 </div>
               </div>
             )}
+
 
             {/* TAB 1: 9-STEP FORM (SCRATCH & POST-UPLOAD FLOW) */}
             {activeTab === "editor" && !["upload", "linkedin", "voice"].includes(buildPath) && (

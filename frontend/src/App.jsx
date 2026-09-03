@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route, useNavigate, useSearchParams, Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useNavigate, useSearchParams, useLocation, Navigate } from "react-router-dom";
 import BuilderPage from "./pages/BuilderPage";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
@@ -7,6 +7,7 @@ import SettingsPage from "./pages/SettingsPage";
 import FaqPage from "./pages/FaqPage";
 import TemplatesPage from "./pages/TemplatesPage";
 import ContactPage from "./pages/ContactPage";
+import PlansPage from "./pages/PlansPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { FONT_IMPORT } from "./components/landing/constants";
 import Header from "./components/landing/Header";
@@ -28,6 +29,18 @@ function BuilderWrapper() {
 
 function LandingPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" });
+        }, 150);
+      }
+    }
+  }, [location.hash]);
 
   const openBuilder = (tab = "upload") => {
     navigate(`/builder?path=${tab}`);
@@ -126,6 +139,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <SettingsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/plans"
+          element={
+            <ProtectedRoute>
+              <PlansPage />
             </ProtectedRoute>
           }
         />

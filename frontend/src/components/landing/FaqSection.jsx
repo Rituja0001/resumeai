@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { HelpCircle, Sparkles, ArrowRight } from "lucide-react";
 import FaqItem from "./FaqItem";
 import { FAQS } from "./constants";
@@ -50,11 +51,24 @@ export default function FaqSection({ openBuilder }) {
           </div>
         </div>
 
-        {/* Right Column: FAQ Accordions */}
-        <div>
-          {FAQS.map((f, i) => (
-            <FaqItem key={f.q} {...f} defaultOpen={i === 0} />
-          ))}
+        {/* Right Column: FAQ Accordions & Full FAQ Page Link */}
+        <div className="space-y-4">
+          <div className="space-y-3">
+            {FAQS.map((f, i) => (
+              <FaqItem key={f.q} {...f} defaultOpen={i === 0} />
+            ))}
+          </div>
+
+          {/* Link to Full Searchable FAQ Directory */}
+          <div className="pt-2">
+            <Link
+              to="/faq"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#FA0C40]/30 hover:border-[#FA0C40] bg-[#FA0C400D]/40 hover:bg-[#FA0C400D] text-[#FA0C40] font-extrabold text-xs sm:text-sm transition-all duration-200 group cursor-pointer shadow-xs hover:shadow-sm"
+            >
+              <span>View all FAQs & Help Directory</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

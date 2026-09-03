@@ -23,7 +23,7 @@ import {
 import Header from "../components/landing/Header";
 import Footer from "../components/landing/Footer";
 import { useAuth } from "../contexts/AuthContext";
-import { getResumes, deleteResume } from "../api";
+import { getResumes, deleteResume, downloadResumePdf } from "../api";
 import useScrollReveal from "../components/landing/useScrollReveal";
 
 const CREATE_OPTIONS = [
@@ -453,6 +453,23 @@ export default function DashboardPage() {
                                 >
                                   <Edit className="w-3.5 h-3.5 text-[#6B6B6B]" />
                                   <span>Edit Resume</span>
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={async () => {
+                                    setActiveMenuId(null);
+                                    showToast("Generating PDF download...");
+                                    try {
+                                      await downloadResumePdf(resume, resume.id);
+                                      showToast("PDF downloaded successfully!");
+                                    } catch (err) {
+                                      showToast(err.message || "Failed to download PDF.");
+                                    }
+                                  }}
+                                  className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-[#252525] hover:bg-[#252525]/5 rounded-xl transition-colors cursor-pointer"
+                                >
+                                  <Download className="w-3.5 h-3.5 text-[#FA0C40]" />
+                                  <span>Download PDF</span>
                                 </button>
                                 <button
                                   type="button"

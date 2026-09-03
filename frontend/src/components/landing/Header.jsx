@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ArrowRight, LayoutDashboard, Settings, HelpCircle, LogOut } from "lucide-react";
-import { LOGGED_IN_NAV, LOGGED_OUT_NAV } from "./constants";
+import { NAV_LINKS } from "./constants";
 import UserMenu from "./UserMenu";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -13,7 +13,7 @@ export default function Header({ openBuilder, onLogoClick }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const navItems = isAuthenticated ? LOGGED_IN_NAV : LOGGED_OUT_NAV;
+  const navItems = NAV_LINKS;
 
   // Scroll listener for glassmorphism shrink effect (threshold 12px)
   useEffect(() => {
@@ -38,6 +38,17 @@ export default function Header({ openBuilder, onLogoClick }) {
 
   const handleNavClick = (e, href, isRoute) => {
     setMobileMenuOpen(false);
+    if (href === "/") {
+      if (location.pathname === "/") {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        e.preventDefault();
+        navigate("/");
+      }
+      return;
+    }
+
     if (!isRoute && (href.startsWith("#") || href.startsWith("/#"))) {
       const hash = href.includes("#") ? href.substring(href.indexOf("#")) : href;
       if (location.pathname === "/") {
@@ -50,6 +61,10 @@ export default function Header({ openBuilder, onLogoClick }) {
       } else {
         e.preventDefault();
         navigate(`/${hash}`);
+        setTimeout(() => {
+          const target = document.querySelector(hash);
+          if (target) target.scrollIntoView({ behavior: "smooth" });
+        }, 200);
         return;
       }
     }

@@ -1,21 +1,12 @@
 export const FONT_IMPORT = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
 
-export const LOGGED_OUT_NAV = [
+export const NAV_LINKS = [
   { label: "Home", href: "/", isRoute: true },
   { label: "Build", href: "/#build", isRoute: false },
   { label: "Tailoring", href: "/#tailor", isRoute: false },
-  { label: "FAQ", href: "/faq", isRoute: true },
+  { label: "FAQ", href: "/#faq", isRoute: false },
   { label: "Contact Us", href: "/contact", isRoute: true },
 ];
-
-export const LOGGED_IN_NAV = [
-  { label: "Dashboard", href: "/dashboard", isRoute: true },
-  { label: "Templates", href: "/templates", isRoute: true },
-  { label: "FAQ", href: "/faq", isRoute: true },
-  { label: "Contact Us", href: "/contact", isRoute: true },
-];
-
-export const NAV_LINKS = LOGGED_OUT_NAV;
 
 export const STATS = [
   {

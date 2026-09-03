@@ -192,7 +192,14 @@ export default function UserMenu() {
                 <span>Account Settings</span>
               </button>
 
-              <div className="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#252525]/5 transition-colors">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsOpen(false);
+                  navigate("/plans");
+                }}
+                className="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#252525]/5 hover:text-[#FA0C40] transition-colors text-left cursor-pointer"
+              >
                 <div className="flex items-center gap-2.5">
                   <CreditCard className="w-4 h-4 text-[#6B6B6B]" />
                   <span>My Plan</span>
@@ -200,7 +207,7 @@ export default function UserMenu() {
                 <span className="text-[10px] font-extrabold bg-[#252525]/10 text-[#252525] px-2 py-0.5 rounded-full uppercase">
                   Free
                 </span>
-              </div>
+              </button>
 
               <button
                 type="button"

@@ -254,3 +254,44 @@ export async function uploadResume(file) {
 
   return res.json();
 }
+
+/**
+ * Downloads generated PDF file from server and triggers browser save dialog
+ */
+export async function downloadResumePdf(resumeData, resumeId = null) {
+  let token = getAccessToken();
+  const headers = {
+    "Content-Type": "application/json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+
+  const endpoint = resumeId
+    ? `${API_BASE}/resumes/${resumeId}/export-pdf/`
+    : `${API_BASE}/resumes/export-pdf/`;
+
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(resumeData || {}),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: `PDF export failed (${res.status})` }));
+    throw new Error(err.detail || `PDF export failed (${res.status})`);
+  }
+
+  const blob = await res.blob();
+  const filename = `${(resumeData?.title || resumeData?.personalDetails?.firstName || "Resume").replace(/[^a-zA-Z0-9_-]/g, "_")}.pdf`;
+
+  // Create temporary link element to trigger browser download
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  window.URL.revokeObjectURL(url);
+
+  return true;
+}

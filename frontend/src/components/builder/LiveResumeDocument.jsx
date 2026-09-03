@@ -16,23 +16,35 @@ import {
 /**
  * Normalizes resume data for document rendering
  */
-function useNormalizedResume(resume, template, customAccent) {
+function useNormalizedResume(resume, template, customAccent, isSamplePreview = false) {
   const accent = customAccent || resume?.accentColor || template?.accentColor || "#FA0C40";
+  const isSample = isSamplePreview || (!resume && Boolean(template));
+
   const firstName = resume?.personalDetails?.firstName || "";
   const lastName = resume?.personalDetails?.lastName || "";
-  const fullName = (firstName || lastName) ? `${firstName} ${lastName}`.trim() : (template?.sampleName || "YOUR NAME");
-  const jobTitle = resume?.personalDetails?.jobTitle || template?.sampleRole || "JOB TITLE / SPECIALIZATION";
-  const city = resume?.personalDetails?.city || template?.sampleLocation?.split(",")?.[0] || "City";
+  const fullName = (firstName || lastName)
+    ? `${firstName} ${lastName}`.trim()
+    : isSample
+    ? (template?.sampleName || "YOUR NAME")
+    : "YOUR NAME";
+
+  const jobTitle = resume?.personalDetails?.jobTitle || (isSample ? (template?.sampleRole || "") : "");
+  const city = resume?.personalDetails?.city || (isSample ? (template?.sampleLocation?.split(",")?.[0] || "") : "");
   const country = resume?.personalDetails?.country || "India";
   const location = [city, country].filter(Boolean).join(", ");
-  const email = resume?.personalDetails?.email || template?.sampleEmail || "email@domain.com";
-  const phone = resume?.personalDetails?.phone || template?.samplePhone || "+91 00000 00000";
+  const email = resume?.personalDetails?.email || (isSample ? (template?.sampleEmail || "") : "");
+  const phone = resume?.personalDetails?.phone || (isSample ? (template?.samplePhone || "") : "");
   const photo = resume?.personalDetails?.photo || null;
-  const summary = resume?.professional_summary || template?.sampleSummary || "";
+  const summary = resume?.professional_summary || (isSample ? (template?.sampleSummary || "") : "");
 
-  const experiences = resume?.experiences?.length > 0
-    ? resume.experiences
-    : (template?.sampleExperience || []).map((exp, i) => ({
+  // Filter out completely blank experiences
+  const validUserExperiences = (resume?.experiences || []).filter(
+    (exp) => (exp.role && exp.role.trim()) || (exp.company && exp.company.trim()) || (exp.description && exp.description.trim())
+  );
+  const experiences = validUserExperiences.length > 0
+    ? validUserExperiences
+    : isSample
+    ? (template?.sampleExperience || []).map((exp, i) => ({
         id: i,
         role: exp.role,
         company: exp.company,
@@ -43,11 +55,17 @@ function useNormalizedResume(resume, template, customAccent) {
         endYear: "",
         isCurrent: exp.duration?.includes("Present") || false,
         description: exp.bullets ? exp.bullets.map((b) => `• ${b}`).join("\n") : "",
-      }));
+      }))
+    : [];
 
-  const education = resume?.education?.length > 0
-    ? resume.education
-    : (template?.sampleEducation || []).map((edu, i) => ({
+  // Filter out blank education
+  const validUserEdu = (resume?.education || []).filter(
+    (edu) => (edu.institution && edu.institution.trim()) || (edu.degree && edu.degree.trim()) || (edu.description && edu.description.trim())
+  );
+  const education = validUserEdu.length > 0
+    ? validUserEdu
+    : isSample
+    ? (template?.sampleEducation || []).map((edu, i) => ({
         id: i,
         institution: edu.institution,
         degree: edu.degree,
@@ -58,24 +76,48 @@ function useNormalizedResume(resume, template, customAccent) {
         endYear: edu.year || "2021",
         isCurrent: false,
         description: "",
-      }));
+      }))
+    : [];
 
-  const skills = resume?.skills?.length > 0
-    ? resume.skills
-    : (template?.sampleSkills || []).map((s, i) => ({
+  // Filter out blank skills
+  const validUserSkills = (resume?.skills || []).filter(
+    (s) => (typeof s === "string" ? s.trim() : s?.name && s.name.trim())
+  );
+  const skills = validUserSkills.length > 0
+    ? validUserSkills
+    : isSample
+    ? (template?.sampleSkills || []).map((s, i) => ({
         id: i,
         name: typeof s === "string" ? s : s.name,
         level: 4,
-      }));
+      }))
+    : [];
 
-  const hideSkillLevel = resume?.hideSkillLevel || false;
-  const socialLinks = resume?.socialLinks || [];
-  const hobbies = resume?.hobbies || "";
-  const projects = resume?.additionalSections?.projects || [];
-  const languages = resume?.additionalSections?.languages || [];
+  // Filter out blank projects
+  const validUserProjects = (resume?.additionalSections?.projects || []).filter(
+    (p) => (p.title && p.title.trim()) || (p.description && p.description.trim())
+  );
+  const projects = validUserProjects.length > 0
+    ? validUserProjects
+    : isSample
+    ? (template?.sampleProjects || [])
+    : [];
+
+  // Filter out blank languages
+  const validUserLanguages = (resume?.additionalSections?.languages || []).filter(
+    (l) => l.name && l.name.trim()
+  );
+  const languages = validUserLanguages.length > 0
+    ? validUserLanguages
+    : isSample
+    ? (template?.sampleLanguages || [])
+    : [];
+
+  const socialLinks = (resume?.socialLinks || []).filter((l) => l.url && l.url.trim());
+  const hobbies = resume?.hobbies || (isSample ? (template?.sampleHobbies || "") : "");
 
   const initials = fullName
-    ? fullName.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
+    ? fullName.split(" ").filter(Boolean).map((n) => n[0]).join("").slice(0, 2).toUpperCase()
     : "ME";
 
   return {
@@ -91,7 +133,7 @@ function useNormalizedResume(resume, template, customAccent) {
     experiences,
     education,
     skills,
-    hideSkillLevel,
+    hideSkillLevel: resume?.hideSkillLevel || false,
     socialLinks,
     hobbies,
     projects,
@@ -1224,8 +1266,8 @@ function renderLayoutPage(layoutStyle, pageData, fullData, pageIndex, totalPages
 /* ========================================================================= */
 /* MASTER MULTI-PAGE DISPATCHER: LiveResumeDocument                          */
 /* ========================================================================= */
-export default function LiveResumeDocument({ resume, template, customAccent, onPageCountChange }) {
-  const normalizedData = useNormalizedResume(resume, template, customAccent);
+export default function LiveResumeDocument({ resume, template, customAccent, onPageCountChange, isSamplePreview = false }) {
+  const normalizedData = useNormalizedResume(resume, template, customAccent, isSamplePreview);
   const layoutStyle = template?.layoutStyle || "single-column";
 
   // Calculate A4 pagination distribution
