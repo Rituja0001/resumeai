@@ -54,7 +54,7 @@ import UploadPanel from "../components/builder/UploadPanel";
 import ProcessingDocumentModal from "../components/builder/ProcessingDocumentModal";
 import UserMenu from "../components/landing/UserMenu";
 import { useAuth } from "../contexts/AuthContext";
-import { uploadResume, getResume, downloadResumePdf } from "../api";
+import { uploadResume, getResume, saveResume, downloadResumePdf } from "../api";
 
 /**
  * Predefined Accent Colors for the Customize Tab
@@ -158,12 +158,15 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  const queryPath = searchParams.get("path") || searchParams.get("tab") || initialTab || "scratch";
+  const resumeParam = searchParams.get("resume") || initialResumeId || null;
+  const queryPath = resumeParam ? (searchParams.get("path") || "scratch") : (searchParams.get("path") || searchParams.get("tab") || initialTab || "scratch");
   const templateParam = searchParams.get("template") || "puffin";
 
   const [activeTab, setActiveTab] = useState("editor"); // "editor" | "customize" | "tailor"
   const [buildPath, setBuildPath] = useState(queryPath); // "scratch" | "upload" | "linkedin" | "voice"
   const [activeStep, setActiveStep] = useState(1); // Steps 1 - 9
+  const [resumeId, setResumeId] = useState(resumeParam);
+  const [isSaving, setIsSaving] = useState(false);
 
   const [isProcessingUpload, setIsProcessingUpload] = useState(false);
   const [uploadError, setUploadError] = useState("");
@@ -179,21 +182,210 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
   const [customizeAtsOnly, setCustomizeAtsOnly] = useState(false);
   const [previewPageCount, setPreviewPageCount] = useState(1);
 
-  // Resume State
+  // Resume State - Clean initialization without dummy names/emails
   const [resume, setResume] = useState(() => {
     return {
       ...INITIAL_RESUME_STATE,
       templateId: templateParam,
       personalDetails: {
         ...INITIAL_RESUME_STATE.personalDetails,
-        firstName: user?.first_name || (user?.username ? user.username.split(" ")[0] : "Ritesh"),
-        lastName: user?.last_name || (user?.username ? user.username.split(" ")[1] || "Pandey" : "Pandey"),
-        email: user?.email || "ritesh.pandey@example.com",
+        firstName: user?.first_name || (user?.username ? user.username.split(" ")[0] : ""),
+        lastName: user?.last_name || (user?.username ? user.username.split(" ").slice(1).join(" ") : ""),
+        email: user?.email || "",
       },
     };
   });
 
   const fileInputRef = useRef(null);
+
+  // Load existing resume from backend if ?resume={id} is present
+  useEffect(() => {
+    const activeId = searchParams.get("resume") || initialResumeId;
+    if (!activeId) return;
+
+    // Force buildPath to scratch and activeTab to editor so it opens directly into Editor
+    setBuildPath("scratch");
+    setActiveTab("editor");
+
+    let isMounted = true;
+    async function loadResumeData() {
+      try {
+        const fetched = await getResume(activeId);
+        if (!isMounted || !fetched) return;
+
+        setResumeId(fetched.id);
+
+        const targetStep = fetched.current_step || fetched.raw_ai_extraction?.current_step || fetched.raw_ai_extraction?.activeStep || 1;
+        setActiveStep(Math.max(1, Math.min(9, targetStep)));
+
+        if (fetched.raw_ai_extraction && typeof fetched.raw_ai_extraction === "object" && fetched.raw_ai_extraction.personalDetails) {
+          // Loaded full 9-step state - Complete clean replacement
+          setResume({
+            ...INITIAL_RESUME_STATE,
+            ...fetched.raw_ai_extraction,
+            title: fetched.title || fetched.raw_ai_extraction.title || "Untitled Resume",
+            templateId: fetched.template_key || fetched.raw_ai_extraction.templateId || templateParam || "puffin",
+            accentColor: fetched.raw_ai_extraction.accentColor || INITIAL_RESUME_STATE.accentColor,
+            personalDetails: {
+              ...INITIAL_RESUME_STATE.personalDetails,
+              ...(fetched.raw_ai_extraction.personalDetails || {}),
+            },
+            professional_summary: fetched.professional_summary || fetched.raw_ai_extraction.professional_summary || "",
+            experiences: (fetched.raw_ai_extraction.experiences || []).map((exp, idx) => ({
+              id: exp.id || idx + 1,
+              role: exp.role || exp.title || "",
+              company: exp.company || "",
+              city: exp.city || exp.location || "",
+              startMonth: exp.startMonth || "Jan",
+              startYear: exp.startYear || "2022",
+              endMonth: (exp.endMonth && exp.endMonth !== "Present") ? exp.endMonth : "Dec",
+              endYear: (exp.endYear && exp.endYear !== "Present") ? exp.endYear : "2024",
+              isCurrent: exp.isCurrent !== undefined ? Boolean(exp.isCurrent) : Boolean(exp.is_current),
+              description: exp.description || (Array.isArray(exp.bullet_points) ? exp.bullet_points.join("\n") : ""),
+            })),
+            education: (fetched.raw_ai_extraction.education || []).map((edu, idx) => ({
+              id: edu.id || idx + 1,
+              institution: edu.institution || "",
+              degree: edu.degree || "",
+              city: edu.city || "",
+              marksType: edu.marksType || "CGPA",
+              marks: edu.marks || edu.grade || "",
+              startMonth: edu.startMonth || "Aug",
+              startYear: edu.startYear || "2018",
+              endMonth: (edu.endMonth && edu.endMonth !== "Present") ? edu.endMonth : "May",
+              endYear: (edu.endYear && edu.endYear !== "Present") ? edu.endYear : "2022",
+              isCurrent: Boolean(edu.isCurrent),
+              description: edu.description || "",
+            })),
+            skills: (fetched.raw_ai_extraction.skills || []).map((s, idx) => ({
+              id: s.id || idx + 1,
+              name: typeof s === "string" ? s : s.name || "",
+              level: s.level || 4,
+            })),
+            socialLinks: (fetched.raw_ai_extraction.socialLinks || []).map((l, idx) => ({
+              id: l.id || idx + 1,
+              label: l.label || "",
+              url: l.url || "",
+            })),
+            hobbies: fetched.raw_ai_extraction.hobbies || "",
+            jobPreference: {
+              ...INITIAL_RESUME_STATE.jobPreference,
+              ...(fetched.raw_ai_extraction.jobPreference || {}),
+            },
+            additionalSections: {
+              projects: (fetched.raw_ai_extraction.additionalSections?.projects || []).map((p, idx) => ({
+                id: p.id || idx + 1,
+                title: p.title || p.name || "",
+                techStack: p.techStack || p.tech_stack || "",
+                link: p.link || "",
+                description: p.description || "",
+              })),
+              languages: (fetched.raw_ai_extraction.additionalSections?.languages || []).map((l, idx) => ({
+                id: l.id || idx + 1,
+                name: typeof l === "string" ? l : l.name || "",
+                proficiency: l.proficiency || "Fluent",
+              })),
+              customSections: fetched.raw_ai_extraction.additionalSections?.customSections || [],
+            },
+          });
+        } else {
+          // Map relational backend sections - Complete clean replacement without mixing prior stale state
+          const raw = fetched.raw_ai_extraction || {};
+          let fName = raw.first_name || "";
+          let lName = raw.last_name || "";
+          if (!fName && raw.full_name) {
+            const parts = raw.full_name.trim().split(" ");
+            fName = parts[0] || "";
+            lName = parts.slice(1).join(" ") || "";
+          }
+
+          const expMapped = (fetched.experiences || []).map((exp, idx) => ({
+            id: exp.id || idx + 1,
+            role: exp.role || exp.title || "",
+            company: exp.company || "",
+            city: exp.location || "",
+            startMonth: exp.start_date ? MONTHS[parseInt(exp.start_date.split("-")[1], 10) - 1] || "Jun" : "Jun",
+            startYear: exp.start_date ? exp.start_date.split("-")[0] : "2021",
+            endMonth: exp.end_date ? MONTHS[parseInt(exp.end_date.split("-")[1], 10) - 1] || "Dec" : "Dec",
+            endYear: exp.end_date ? exp.end_date.split("-")[0] : "2024",
+            isCurrent: Boolean(exp.is_current),
+            description: Array.isArray(exp.bullet_points) ? exp.bullet_points.join("\n") : (exp.description || ""),
+          }));
+
+          const eduMapped = (fetched.education || []).map((edu, idx) => ({
+            id: edu.id || idx + 1,
+            institution: edu.institution || "",
+            degree: edu.degree || "",
+            city: "",
+            marksType: "CGPA",
+            marks: edu.grade || "",
+            startMonth: "Aug",
+            startYear: edu.start_date ? edu.start_date.split("-")[0] : "2017",
+            endMonth: "May",
+            endYear: edu.end_date ? edu.end_date.split("-")[0] : "2021",
+            isCurrent: false,
+            description: edu.description || (edu.field_of_study ? `Specialization in ${edu.field_of_study}` : ""),
+          }));
+
+          const skillsMapped = (fetched.skills || []).map((s, idx) => ({
+            id: s.id || idx + 1,
+            name: typeof s === "string" ? s : s.name || "",
+            level: s.proficiency === "expert" ? 5 : 4,
+          }));
+
+          const projMapped = (fetched.projects || []).map((p, idx) => ({
+            id: p.id || idx + 1,
+            title: p.name || p.title || `Project ${idx + 1}`,
+            techStack: Array.isArray(p.tech_stack) ? p.tech_stack.join(", ") : p.tech_stack || "",
+            link: p.link || "",
+            description: p.description || "",
+          }));
+
+          setResume({
+            ...INITIAL_RESUME_STATE,
+            title: fetched.title || "Untitled Resume",
+            templateId: fetched.template_key || templateParam || "puffin",
+            professional_summary: fetched.professional_summary || raw.professional_summary || "",
+            personalDetails: {
+              ...INITIAL_RESUME_STATE.personalDetails,
+              firstName: fName || raw.firstName || (user?.first_name || ""),
+              lastName: lName || raw.lastName || (user?.last_name || ""),
+              jobTitle: raw.job_title || raw.jobTitle || (expMapped[0]?.role || ""),
+              email: raw.email || (user?.email || ""),
+              phone: raw.phone || "",
+              city: raw.city || (expMapped[0]?.city || ""),
+              country: raw.country || "India",
+            },
+            experiences: expMapped,
+            education: eduMapped,
+            skills: skillsMapped,
+            socialLinks: (raw.social_links || raw.socialLinks || []).map((l, idx) => ({
+              id: idx + 1,
+              label: l.label || "",
+              url: l.url || "",
+            })),
+            hobbies: raw.hobbies || "",
+            additionalSections: {
+              projects: projMapped,
+              languages: (raw.languages || []).map((l, idx) => ({
+                id: idx + 1,
+                name: typeof l === "string" ? l : l.name || "",
+                proficiency: typeof l === "object" && l.proficiency ? l.proficiency : "Fluent",
+              })),
+              customSections: [],
+            },
+          });
+        }
+      } catch (err) {
+        console.error("Failed to fetch resume:", err);
+      }
+    }
+
+    loadResumeData();
+    return () => {
+      isMounted = false;
+    };
+  }, [searchParams, initialResumeId]);
 
   // Sync query params (path / template)
   useEffect(() => {
@@ -409,32 +601,33 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
       }));
 
       // Update the unified shared resume state
-      setResume((prev) => ({
-        ...prev,
+      // Update the unified shared resume state cleanly without merging stale previous state
+      setResume({
+        ...INITIAL_RESUME_STATE,
         title: parsedData.title || file.name.replace(/\.[^/.]+$/, "") || "Parsed_Resume",
         personalDetails: {
-          ...prev.personalDetails,
-          firstName: firstName || prev.personalDetails.firstName || user?.first_name || "Candidate",
-          lastName: lastName || prev.personalDetails.lastName || user?.last_name || "",
-          jobTitle: raw.job_title || mappedExperiences[0]?.role || prev.personalDetails.jobTitle || "Software Engineer",
-          email: raw.email || user?.email || prev.personalDetails.email || "user@example.com",
-          phone: raw.phone || prev.personalDetails.phone || "+91 98765 43210",
-          city: raw.city || mappedExperiences[0]?.city || prev.personalDetails.city || "Bengaluru",
-          country: raw.country || prev.personalDetails.country || "India",
+          ...INITIAL_RESUME_STATE.personalDetails,
+          firstName: firstName || (user?.first_name || ""),
+          lastName: lastName || (user?.last_name || ""),
+          jobTitle: raw.job_title || mappedExperiences[0]?.role || "",
+          email: raw.email || (user?.email || ""),
+          phone: raw.phone || "",
+          city: raw.city || mappedExperiences[0]?.city || "",
+          country: raw.country || "India",
         },
         professional_summary:
-          parsedData.professional_summary || raw.professional_summary || prev.professional_summary || "",
-        experiences: mappedExperiences.length > 0 ? mappedExperiences : prev.experiences,
-        education: mappedEducation.length > 0 ? mappedEducation : prev.education,
-        skills: mappedSkills.length > 0 ? mappedSkills : prev.skills,
-        socialLinks: mappedLinks.length > 0 ? mappedLinks : prev.socialLinks,
+          parsedData.professional_summary || raw.professional_summary || "",
+        experiences: mappedExperiences,
+        education: mappedEducation,
+        skills: mappedSkills,
+        socialLinks: mappedLinks,
         additionalSections: {
-          ...prev.additionalSections,
-          projects: mappedProjects.length > 0 ? mappedProjects : prev.additionalSections.projects,
-          languages: mappedLanguages.length > 0 ? mappedLanguages : prev.additionalSections.languages,
+          projects: mappedProjects,
+          languages: mappedLanguages,
+          customSections: [],
         },
-        hobbies: raw.hobbies || prev.hobbies || "",
-      }));
+        hobbies: raw.hobbies || "",
+      });
 
       // Smoothly transition into the 9-step editor at Step 1
       setBuildPath("scratch");
@@ -511,20 +704,75 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
     }, 1100);
   };
 
-  // Navigation handlers
-  const handleNextStep = () => {
+  // Persistent Backend Resume Save Handler
+  const handleSaveResume = async (silent = false, stepOverride = null, statusOverride = null) => {
+    if (!user) return; // Keep local for guest sessions
+    setIsSaving(true);
+    try {
+      const stepToSave = stepOverride !== null ? stepOverride : activeStep;
+      const statusToSave = statusOverride || (activeStep === 9 ? "ready" : "draft");
+      const payload = {
+        title: resume.title || "Untitled Resume",
+        template_key: resume.templateId || "puffin",
+        templateId: resume.templateId || "puffin",
+        accentColor: resume.accentColor || "#FA0C40",
+        current_step: stepToSave,
+        activeStep: stepToSave,
+        raw_ai_extraction: {
+          ...resume,
+          current_step: stepToSave,
+          activeStep: stepToSave,
+        },
+        professional_summary: resume.professional_summary || "",
+        status: statusToSave,
+        experiences: resume.experiences || [],
+        education: resume.education || [],
+        skills: resume.skills || [],
+        socialLinks: resume.socialLinks || [],
+        hobbies: resume.hobbies || "",
+        jobPreference: resume.jobPreference || {},
+        additionalSections: resume.additionalSections || {},
+      };
+      const activeResumeId = resumeId || searchParams.get("resume") || initialResumeId;
+      const saved = await saveResume(payload, activeResumeId);
+      if (saved && saved.id) {
+        setResumeId(saved.id);
+        if (!searchParams.get("resume")) {
+          navigate(`/builder?resume=${saved.id}&path=scratch`, { replace: true });
+        }
+      }
+      if (!silent) {
+        showToast("Resume saved successfully!");
+      }
+    } catch (err) {
+      console.error("Save error:", err);
+      if (!silent) {
+        showToast("Failed to save resume changes.");
+      }
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Navigation handlers with auto-save
+  const handleNextStep = async () => {
     if (activeStep < 9) {
-      setActiveStep((s) => s + 1);
+      const next = activeStep + 1;
+      setActiveStep(next);
       window.scrollTo({ top: 0, behavior: "smooth" });
+      handleSaveResume(true, next);
     } else {
+      await handleSaveResume(false, 9, "ready");
       setIsCompletionModalOpen(true);
     }
   };
 
   const handlePrevStep = () => {
     if (activeStep > 1) {
-      setActiveStep((s) => s - 1);
+      const prev = activeStep - 1;
+      setActiveStep(prev);
       window.scrollTo({ top: 0, behavior: "smooth" });
+      handleSaveResume(true, prev);
     }
   };
 
@@ -798,6 +1046,18 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
             >
               <Layers className="w-3.5 h-3.5" />
               <span>Build Path</span>
+            </button>
+
+            {/* Save Button */}
+            <button
+              type="button"
+              disabled={isSaving}
+              onClick={() => handleSaveResume(false)}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-extrabold transition-all cursor-pointer shadow-2xs"
+              title="Save resume progress"
+            >
+              <Save className="w-3.5 h-3.5" />
+              <span>{isSaving ? "Saving..." : "Save"}</span>
             </button>
 
             {/* Download PDF Button */}
@@ -1258,8 +1518,8 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                               city: "",
                               startMonth: "Jan",
                               startYear: "2022",
-                              endMonth: "Present",
-                              endYear: "Present",
+                              endMonth: "Dec",
+                              endYear: "2024",
                               isCurrent: true,
                               description: "",
                             };
@@ -1512,9 +1772,9 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                               city: "",
                               marksType: "CGPA",
                               marks: "",
-                              startMonth: "2018",
+                              startMonth: "Aug",
                               startYear: "2018",
-                              endMonth: "2022",
+                              endMonth: "May",
                               endYear: "2022",
                               isCurrent: false,
                               description: "",
@@ -1892,7 +2152,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                         <button
                           type="button"
                           onClick={() => {
-                            const newLink = { id: Date.now(), label: `Link ${resume.socialLinks.length + 1}`, url: "" };
+                            const newLink = { id: Date.now(), label: "", url: "" };
                             setResume((r) => ({ ...r, socialLinks: [...r.socialLinks, newLink] }));
                           }}
                           className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#252525] hover:bg-[#FA0C40] text-white text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer"
@@ -2351,48 +2611,69 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                   )}
 
                   {/* BOTTOM MULTI-STEP NAVIGATION BAR */}
-                  <div className="shrink-0 mt-6 pt-4 border-t border-[#252525]/10 flex flex-row items-center justify-between gap-2 sm:gap-4 sticky bottom-0 bg-white/95 backdrop-blur-md -mx-5 -mb-5 sm:-mx-7 sm:-mb-7 p-3.5 sm:p-5 rounded-b-3xl shadow-sm z-10">
-                    <button
-                      type="button"
-                      onClick={handlePrevStep}
-                      disabled={activeStep === 1}
-                      className="px-3.5 sm:px-5 py-2.5 rounded-full border border-[#252525]/15 hover:border-[#252525] disabled:opacity-30 disabled:hover:border-[#252525]/15 text-xs font-bold text-[#252525] transition-colors flex items-center justify-center gap-1 cursor-pointer disabled:cursor-not-allowed min-h-[44px] shrink-0"
-                    >
-                      <ArrowLeft className="w-3.5 h-3.5" />
-                      <span>Back</span>
-                    </button>
+                  <div className="shrink-0 mt-6 pt-3 border-t border-[#252525]/10 sticky bottom-0 bg-white/95 backdrop-blur-md -mx-5 -mb-5 sm:-mx-7 sm:-mb-7 p-3 sm:p-4 rounded-b-3xl shadow-sm z-10 space-y-2">
+                    <div className="flex items-center justify-between gap-2 sm:gap-4">
+                      {/* Back Button */}
+                      <button
+                        type="button"
+                        onClick={handlePrevStep}
+                        disabled={activeStep === 1}
+                        className="px-3.5 sm:px-5 py-2 rounded-full border border-[#252525]/15 hover:border-[#252525] disabled:opacity-30 disabled:hover:border-[#252525]/15 text-xs font-bold text-[#252525] transition-colors flex items-center justify-center gap-1.5 cursor-pointer disabled:cursor-not-allowed min-h-[42px] shrink-0 bg-white shadow-2xs"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                        <span className="hidden sm:inline">Back</span>
+                      </button>
 
-                    <div className="flex items-center justify-center gap-1 sm:gap-1.5 overflow-x-auto py-1 max-w-[140px] sm:max-w-none">
-                      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((s) => (
-                        <div
-                          key={s}
-                          onClick={() => setActiveStep(s)}
-                          className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full cursor-pointer transition-all flex items-center justify-center text-[7px] sm:text-[8px] font-bold shrink-0 ${
-                            activeStep === s
-                              ? "bg-[#FA0C40] text-white scale-125 shadow-xs"
-                              : s < activeStep
-                              ? "bg-emerald-500 text-white"
-                              : "bg-[#252525]/15 hover:bg-[#252525]/30 text-transparent"
-                          }`}
-                          title={`Step ${s}: ${STEP_TITLES[s - 1]}`}
-                        >
-                          {s < activeStep ? "✓" : s}
-                        </div>
-                      ))}
+                      {/* Step Progression Bar / Indicator */}
+                      <div className="flex items-center justify-center gap-1 sm:gap-1.5 flex-1 max-w-sm">
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((s) => {
+                          const isDone = s < activeStep;
+                          const isCurrent = s === activeStep;
+                          return (
+                            <button
+                              key={s}
+                              type="button"
+                              onClick={() => {
+                                setActiveStep(s);
+                                handleSaveResume(true, s);
+                              }}
+                              className={`h-7 transition-all rounded-full flex items-center justify-center text-[11px] font-extrabold cursor-pointer ${
+                                isCurrent
+                                  ? "w-8 bg-[#FA0C40] text-white shadow-sm ring-2 ring-[#FA0C40]/25 scale-105"
+                                  : isDone
+                                  ? "w-7 bg-emerald-50 text-emerald-700 border border-emerald-300 hover:bg-emerald-100"
+                                  : "w-7 bg-slate-100 text-slate-400 hover:bg-slate-200 border border-transparent"
+                              }`}
+                              title={`Step ${s}: ${STEP_TITLES[s - 1]}`}
+                            >
+                              {isDone ? "✓" : s}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {/* Next / Complete Button */}
+                      <button
+                        type="button"
+                        onClick={handleNextStep}
+                        className="px-4 sm:px-6 py-2 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs font-extrabold shadow-md shadow-[#FA0C40]/25 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-1.5 cursor-pointer min-h-[42px] shrink-0"
+                      >
+                        <span>
+                          {activeStep === 9 ? "Complete Onboarding" : "Next Step"}
+                        </span>
+                        {activeStep === 9 ? (
+                          <CheckCircle2 className="w-4 h-4" />
+                        ) : (
+                          <ChevronRight className="w-4 h-4" />
+                        )}
+                      </button>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={handleNextStep}
-                      className="px-4 sm:px-7 py-2.5 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs font-extrabold shadow-md shadow-[#FA0C40]/25 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px] shrink-0"
-                    >
-                      <span className="truncate max-w-[100px] sm:max-w-none">
-                        {activeStep === 9
-                          ? "Complete"
-                          : `Next (${activeStep}/9)`}
-                      </span>
-                      <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                    </button>
+                    {/* Step Title Subtitle */}
+                    <div className="text-center text-[11px] font-bold text-[#6B6B6B] flex items-center justify-center gap-1.5">
+                      <span className="text-[#252525] font-extrabold">Step {activeStep} of 9:</span>
+                      <span className="text-[#FA0C40]">{STEP_TITLES[activeStep - 1]}</span>
+                    </div>
                   </div>
                 </div>
               </div>

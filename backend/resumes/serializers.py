@@ -41,7 +41,7 @@ class ResumeSerializer(serializers.ModelSerializer):
         model = Resume
         fields = [
             "id", "title", "source", "status", "professional_summary",
-            "template_key", "base_resume", "created_at", "updated_at",
+            "template_key", "current_step", "base_resume", "created_at", "updated_at",
             "experiences", "education", "skills", "projects",
             "raw_ai_extraction",
         ]

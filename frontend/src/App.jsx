@@ -22,8 +22,8 @@ import Footer from "./components/landing/Footer";
 function BuilderWrapper() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const tab = searchParams.get("path") || searchParams.get("tab") || "upload";
   const resumeId = searchParams.get("resume") || null;
+  const tab = searchParams.get("path") || searchParams.get("tab") || (resumeId ? "scratch" : "upload");
   return <BuilderPage initialTab={tab} initialResumeId={resumeId} onBack={() => navigate("/dashboard")} />;
 }
 

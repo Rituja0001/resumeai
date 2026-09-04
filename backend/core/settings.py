@@ -39,6 +39,17 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": (
         "rest_framework.permissions.IsAuthenticated",
     ),
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+        "rest_framework.throttling.ScopedRateThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {
+        "anon": "120/minute",
+        "user": "1000/minute",
+        "pdf_export_anon": "20/minute",
+        "pdf_export_user": "60/minute",
+    },
 }
 
 from datetime import timedelta

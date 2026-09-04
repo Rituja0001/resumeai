@@ -179,6 +179,27 @@ export async function getResume(id) {
   return apiFetch(`/resumes/${id}/`);
 }
 
+export async function createResume(data) {
+  return apiFetch("/resumes/", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateResume(id, data) {
+  return apiFetch(`/resumes/${id}/`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function saveResume(resumeData, id = null) {
+  if (id) {
+    return updateResume(id, resumeData);
+  }
+  return createResume(resumeData);
+}
+
 export async function deleteResume(id) {
   return apiFetch(`/resumes/${id}/`, {
     method: "DELETE",
@@ -259,15 +280,13 @@ export async function uploadResume(file) {
  * Downloads generated PDF file from server and triggers browser save dialog
  */
 export async function downloadResumePdf(resumeData, resumeId = null) {
-  let token = getAccessToken();
+  const token = localStorage.getItem("access_token");
   const headers = {
     "Content-Type": "application/json",
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 
-  const endpoint = resumeId
-    ? `${API_BASE}/resumes/${resumeId}/export-pdf/`
-    : `${API_BASE}/resumes/export-pdf/`;
+  const endpoint = `${API_BASE}/resumes/export-pdf/`;
 
   const res = await fetch(endpoint, {
     method: "POST",
@@ -281,7 +300,8 @@ export async function downloadResumePdf(resumeData, resumeId = null) {
   }
 
   const blob = await res.blob();
-  const filename = `${(resumeData?.title || resumeData?.personalDetails?.firstName || "Resume").replace(/[^a-zA-Z0-9_-]/g, "_")}.pdf`;
+  const rawTitle = resumeData?.title || resumeData?.personalDetails?.firstName || "Resume";
+  const filename = `${rawTitle.replace(/[^a-zA-Z0-9_-]/g, "_")}.pdf`;
 
   // Create temporary link element to trigger browser download
   const url = window.URL.createObjectURL(blob);

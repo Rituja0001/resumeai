@@ -119,12 +119,51 @@ export default function DashboardPage() {
   };
 
   const calculateCompleteness = (resume) => {
-    let score = 20; // Title & structure base
-    if (resume.professional_summary && resume.professional_summary.trim().length > 20) score += 20;
-    if (resume.experiences && resume.experiences.length > 0) score += 25;
-    if (resume.education && resume.education.length > 0) score += 20;
-    if (resume.skills && resume.skills.length > 0) score += 15;
-    return Math.min(score, 100);
+    let score = 0;
+    const raw = resume.raw_ai_extraction || {};
+    const personal = raw.personalDetails || raw;
+    const summary = resume.professional_summary || raw.professional_summary || "";
+    const exps = resume.experiences || raw.experiences || [];
+    const edus = resume.education || raw.education || [];
+    const skills = resume.skills || raw.skills || [];
+    const links = resume.socialLinks || raw.socialLinks || raw.social_links || [];
+    const jobPref = resume.jobPreference || raw.jobPreference || {};
+    const additional = resume.additionalSections || raw.additionalSections || {};
+
+    // Step 1: Personal (26%)
+    if ((personal.firstName && personal.lastName) || (raw.first_name && raw.last_name) || (resume.title && resume.title !== "Untitled Resume")) {
+      score += 8;
+    }
+    if (personal.jobTitle || raw.job_title || raw.jobTitle) score += 6;
+    if (personal.email || raw.email) score += 4;
+    if (personal.phone || raw.phone) score += 4;
+    if (personal.city || raw.city) score += 4;
+
+    // Step 2: Summary (14%)
+    if (summary && summary.trim().length > 20) score += 14;
+
+    // Step 3: Experience (20%)
+    if (exps && exps.length > 0 && (exps[0].role || exps[0].title || exps[0].company)) score += 20;
+
+    // Step 4: Education (12%)
+    if (edus && edus.length > 0 && (edus[0].institution || edus[0].degree)) score += 12;
+
+    // Step 5: Skills (10%)
+    if (skills && skills.length >= 3) score += 10;
+    else if (skills && skills.length > 0) score += 5;
+
+    // Step 6: Links (6%)
+    if (links && links.length > 0 && (links[0].url || links[0].link)) score += 6;
+
+    // Step 8: Job Prefs (6%)
+    if (jobPref && (jobPref.desiredSalary || jobPref.noticePeriod || jobPref.currentSalary)) score += 6;
+
+    // Step 9: Extra (6%)
+    if (additional?.projects?.length > 0 || additional?.languages?.length > 0 || (resume.projects && resume.projects.length > 0)) {
+      score += 6;
+    }
+
+    return Math.min(100, Math.max(score, 10));
   };
 
   const formatDate = (isoString) => {

@@ -88,54 +88,100 @@ def _parse_date_safe(val):
 
 
 def _write_resume_sections(resume: Resume, data: dict):
-    """Shared helper: takes AI extraction JSON and writes it into the
-    normalized child tables (used by upload, voice, LinkedIn, tailoring)."""
-    resume.professional_summary = data.get("professional_summary", "")
-    resume.raw_ai_extraction = data
-    resume.status = "ready"
+    """Shared helper: takes resume JSON (from 9-step editor or AI extraction)
+    and synchronizes it into the normalized child tables safely."""
+    if "professional_summary" in data or "summary" in data:
+        resume.professional_summary = data.get("professional_summary") or data.get("summary", "")
+    if "current_step" in data or "activeStep" in data:
+        try:
+            resume.current_step = max(1, min(9, int(data.get("current_step") or data.get("activeStep") or resume.current_step)))
+        except (ValueError, TypeError):
+            pass
+    if "status" in data:
+        resume.status = data.get("status") or resume.status
+
+    existing_raw = resume.raw_ai_extraction if isinstance(resume.raw_ai_extraction, dict) else {}
+    merged_data = dict(existing_raw)
+    merged_data.update(data)
+    resume.raw_ai_extraction = merged_data
     resume.save()
 
-    resume.experiences.all().delete()
-    for i, exp in enumerate(data.get("experiences", [])):
-        WorkExperience.objects.create(
-            resume=resume, order=i,
-            company=exp.get("company", "") or "Company",
-            role=exp.get("role", "") or "Professional",
-            location=exp.get("location", ""),
-            start_date=_parse_date_safe(exp.get("start_date")),
-            end_date=_parse_date_safe(exp.get("end_date")),
-            is_current=exp.get("is_current", False),
-            bullet_points=exp.get("bullet_points", []),
-        )
+    if "experiences" in data:
+        resume.experiences.all().delete()
+        experiences = data.get("experiences", [])
+        for i, exp in enumerate(experiences):
+            role = exp.get("role") or exp.get("title") or "Professional"
+            company = exp.get("company") or "Company"
+            location = exp.get("city") or exp.get("location") or ""
+            is_curr = exp.get("isCurrent") if "isCurrent" in exp else exp.get("is_current", False)
 
-    resume.education.all().delete()
-    for i, edu in enumerate(data.get("education", [])):
-        Education.objects.create(
-            resume=resume, order=i,
-            institution=edu.get("institution", "") or "University",
-            degree=edu.get("degree", "") or "Degree",
-            field_of_study=edu.get("field_of_study", ""),
-            start_date=_parse_date_safe(edu.get("start_date")),
-            end_date=_parse_date_safe(edu.get("end_date")),
-            grade=edu.get("grade", ""),
-        )
+            start_date = _parse_date_safe(exp.get("start_date") or exp.get("startYear")) or "2020-01-01"
+            end_date = None if is_curr else _parse_date_safe(exp.get("end_date") or exp.get("endYear"))
 
-    resume.skills.all().delete()
-    for skill in data.get("skills", []):
-        name = skill.get("name", "") if isinstance(skill, dict) else str(skill)
-        category = skill.get("category", "technical") if isinstance(skill, dict) else "technical"
-        if name:
-            SkillEntry.objects.create(resume=resume, name=name, category=category)
+            bullet_points = exp.get("bullet_points")
+            if not bullet_points and exp.get("description"):
+                bullet_points = [l.lstrip("•-* ").strip() for l in str(exp["description"]).split("\n") if l.strip()]
 
-    resume.projects.all().delete()
-    for i, proj in enumerate(data.get("projects", [])):
-        Project.objects.create(
-            resume=resume, order=i,
-            name=proj.get("name", "") or f"Project {i+1}",
-            description=proj.get("description", ""),
-            tech_stack=proj.get("tech_stack", []),
-            link=proj.get("link", ""),
-        )
+            WorkExperience.objects.create(
+                resume=resume, order=i,
+                company=company,
+                role=role,
+                location=location,
+                start_date=start_date,
+                end_date=end_date,
+                is_current=bool(is_curr),
+                bullet_points=bullet_points or [],
+            )
+
+    if "education" in data:
+        resume.education.all().delete()
+        education = data.get("education", [])
+        for i, edu in enumerate(education):
+            inst = edu.get("institution") or "University"
+            deg = edu.get("degree") or "Degree"
+            field = edu.get("description") or edu.get("field_of_study") or ""
+            start_date = _parse_date_safe(edu.get("start_date") or edu.get("startYear"))
+            end_date = _parse_date_safe(edu.get("end_date") or edu.get("endYear") or edu.get("year"))
+            grade = edu.get("marks") or edu.get("grade") or ""
+
+            Education.objects.create(
+                resume=resume, order=i,
+                institution=inst,
+                degree=deg,
+                field_of_study=field,
+                start_date=start_date,
+                end_date=end_date,
+                grade=grade,
+            )
+
+    if "skills" in data:
+        resume.skills.all().delete()
+        skills = data.get("skills", [])
+        for s in skills:
+            name = s.get("name") if isinstance(s, dict) else str(s)
+            category = s.get("category", "technical") if isinstance(s, dict) else "technical"
+            if name and name.strip():
+                SkillEntry.objects.create(resume=resume, name=name.strip(), category=category)
+
+    if "projects" in data or "additionalSections" in data or "additional_sections" in data:
+        resume.projects.all().delete()
+        additional = data.get("additionalSections") or data.get("additional_sections") or {}
+        projects = additional.get("projects") or data.get("projects", [])
+        for i, proj in enumerate(projects):
+            p_name = proj.get("title") or proj.get("name") or f"Project {i+1}"
+            desc = proj.get("description", "")
+            tech = proj.get("techStack") or proj.get("tech_stack", [])
+            if isinstance(tech, str):
+                tech = [t.strip() for t in tech.split(",") if t.strip()]
+            link = proj.get("link", "")
+
+            Project.objects.create(
+                resume=resume, order=i,
+                name=p_name,
+                description=desc,
+                tech_stack=tech,
+                link=link,
+            )
 
 
 # ---------------------------------------------------------------------------

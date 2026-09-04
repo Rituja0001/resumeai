@@ -58,6 +58,7 @@ class Resume(TimeStampedModel):
     )
 
     template_key = models.CharField(max_length=50, default="minimal-01")
+    current_step = models.PositiveSmallIntegerField(default=1)
 
     class Meta:
         ordering = ["-updated_at"]
