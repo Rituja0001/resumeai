@@ -218,164 +218,127 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
         const targetStep = fetched.current_step || fetched.raw_ai_extraction?.current_step || fetched.raw_ai_extraction?.activeStep || 1;
         setActiveStep(Math.max(1, Math.min(9, targetStep)));
 
-        if (fetched.raw_ai_extraction && typeof fetched.raw_ai_extraction === "object" && fetched.raw_ai_extraction.personalDetails) {
-          // Loaded full 9-step state - Complete clean replacement
-          setResume({
-            ...INITIAL_RESUME_STATE,
-            ...fetched.raw_ai_extraction,
-            title: fetched.title || fetched.raw_ai_extraction.title || "Untitled Resume",
-            templateId: fetched.template_key || fetched.raw_ai_extraction.templateId || templateParam || "puffin",
-            accentColor: fetched.raw_ai_extraction.accentColor || INITIAL_RESUME_STATE.accentColor,
-            personalDetails: {
-              ...INITIAL_RESUME_STATE.personalDetails,
-              ...(fetched.raw_ai_extraction.personalDetails || {}),
-            },
-            professional_summary: fetched.professional_summary || fetched.raw_ai_extraction.professional_summary || "",
-            experiences: (fetched.raw_ai_extraction.experiences || []).map((exp, idx) => ({
-              id: exp.id || idx + 1,
-              role: exp.role || exp.title || "",
-              company: exp.company || "",
-              city: exp.city || exp.location || "",
-              startMonth: exp.startMonth || "Jan",
-              startYear: exp.startYear || "2022",
-              endMonth: (exp.endMonth && exp.endMonth !== "Present") ? exp.endMonth : "Dec",
-              endYear: (exp.endYear && exp.endYear !== "Present") ? exp.endYear : "2024",
-              isCurrent: exp.isCurrent !== undefined ? Boolean(exp.isCurrent) : Boolean(exp.is_current),
-              description: exp.description || (Array.isArray(exp.bullet_points) ? exp.bullet_points.join("\n") : ""),
-            })),
-            education: (fetched.raw_ai_extraction.education || []).map((edu, idx) => ({
-              id: edu.id || idx + 1,
-              institution: edu.institution || "",
-              degree: edu.degree || "",
-              city: edu.city || "",
-              marksType: edu.marksType || "CGPA",
-              marks: edu.marks || edu.grade || "",
-              startMonth: edu.startMonth || "Aug",
-              startYear: edu.startYear || "2018",
-              endMonth: (edu.endMonth && edu.endMonth !== "Present") ? edu.endMonth : "May",
-              endYear: (edu.endYear && edu.endYear !== "Present") ? edu.endYear : "2022",
-              isCurrent: Boolean(edu.isCurrent),
-              description: edu.description || "",
-            })),
-            skills: (fetched.raw_ai_extraction.skills || []).map((s, idx) => ({
-              id: s.id || idx + 1,
-              name: typeof s === "string" ? s : s.name || "",
-              level: s.level || 4,
-            })),
-            socialLinks: (fetched.raw_ai_extraction.socialLinks || []).map((l, idx) => ({
-              id: l.id || idx + 1,
-              label: l.label || "",
-              url: l.url || "",
-            })),
-            hobbies: fetched.raw_ai_extraction.hobbies || "",
-            jobPreference: {
-              ...INITIAL_RESUME_STATE.jobPreference,
-              ...(fetched.raw_ai_extraction.jobPreference || {}),
-            },
-            additionalSections: {
-              projects: (fetched.raw_ai_extraction.additionalSections?.projects || []).map((p, idx) => ({
-                id: p.id || idx + 1,
-                title: p.title || p.name || "",
-                techStack: p.techStack || p.tech_stack || "",
-                link: p.link || "",
-                description: p.description || "",
-              })),
-              languages: (fetched.raw_ai_extraction.additionalSections?.languages || []).map((l, idx) => ({
-                id: l.id || idx + 1,
-                name: typeof l === "string" ? l : l.name || "",
-                proficiency: l.proficiency || "Fluent",
-              })),
-              customSections: fetched.raw_ai_extraction.additionalSections?.customSections || [],
-            },
-          });
-        } else {
-          // Map relational backend sections - Complete clean replacement without mixing prior stale state
-          const raw = fetched.raw_ai_extraction || {};
-          let fName = raw.first_name || "";
-          let lName = raw.last_name || "";
-          if (!fName && raw.full_name) {
-            const parts = raw.full_name.trim().split(" ");
-            fName = parts[0] || "";
-            lName = parts.slice(1).join(" ") || "";
-          }
+        const raw = (fetched.raw_ai_extraction?.personalDetails
+          ? fetched.raw_ai_extraction
+          : (fetched.raw_ai_extraction?.raw_ai_extraction?.personalDetails
+              ? fetched.raw_ai_extraction.raw_ai_extraction
+              : (fetched.personalDetails ? fetched : fetched.raw_ai_extraction))) || {};
 
-          const expMapped = (fetched.experiences || []).map((exp, idx) => ({
-            id: exp.id || idx + 1,
-            role: exp.role || exp.title || "",
-            company: exp.company || "",
-            city: exp.location || "",
-            startMonth: exp.start_date ? MONTHS[parseInt(exp.start_date.split("-")[1], 10) - 1] || "Jun" : "Jun",
-            startYear: exp.start_date ? exp.start_date.split("-")[0] : "2021",
-            endMonth: exp.end_date ? MONTHS[parseInt(exp.end_date.split("-")[1], 10) - 1] || "Dec" : "Dec",
-            endYear: exp.end_date ? exp.end_date.split("-")[0] : "2024",
-            isCurrent: Boolean(exp.is_current),
-            description: Array.isArray(exp.bullet_points) ? exp.bullet_points.join("\n") : (exp.description || ""),
-          }));
-
-          const eduMapped = (fetched.education || []).map((edu, idx) => ({
-            id: edu.id || idx + 1,
-            institution: edu.institution || "",
-            degree: edu.degree || "",
-            city: "",
-            marksType: "CGPA",
-            marks: edu.grade || "",
-            startMonth: "Aug",
-            startYear: edu.start_date ? edu.start_date.split("-")[0] : "2017",
-            endMonth: "May",
-            endYear: edu.end_date ? edu.end_date.split("-")[0] : "2021",
-            isCurrent: false,
-            description: edu.description || (edu.field_of_study ? `Specialization in ${edu.field_of_study}` : ""),
-          }));
-
-          const skillsMapped = (fetched.skills || []).map((s, idx) => ({
-            id: s.id || idx + 1,
-            name: typeof s === "string" ? s : s.name || "",
-            level: s.proficiency === "expert" ? 5 : 4,
-          }));
-
-          const projMapped = (fetched.projects || []).map((p, idx) => ({
-            id: p.id || idx + 1,
-            title: p.name || p.title || `Project ${idx + 1}`,
-            techStack: Array.isArray(p.tech_stack) ? p.tech_stack.join(", ") : p.tech_stack || "",
-            link: p.link || "",
-            description: p.description || "",
-          }));
-
-          setResume({
-            ...INITIAL_RESUME_STATE,
-            title: fetched.title || "Untitled Resume",
-            templateId: fetched.template_key || templateParam || "puffin",
-            professional_summary: fetched.professional_summary || raw.professional_summary || "",
-            personalDetails: {
-              ...INITIAL_RESUME_STATE.personalDetails,
-              firstName: fName || raw.firstName || (user?.first_name || ""),
-              lastName: lName || raw.lastName || (user?.last_name || ""),
-              jobTitle: raw.job_title || raw.jobTitle || (expMapped[0]?.role || ""),
-              email: raw.email || (user?.email || ""),
-              phone: raw.phone || "",
-              city: raw.city || (expMapped[0]?.city || ""),
-              country: raw.country || "India",
-            },
-            experiences: expMapped,
-            education: eduMapped,
-            skills: skillsMapped,
-            socialLinks: (raw.social_links || raw.socialLinks || []).map((l, idx) => ({
-              id: idx + 1,
-              label: l.label || "",
-              url: l.url || "",
-            })),
-            hobbies: raw.hobbies || "",
-            additionalSections: {
-              projects: projMapped,
-              languages: (raw.languages || []).map((l, idx) => ({
-                id: idx + 1,
-                name: typeof l === "string" ? l : l.name || "",
-                proficiency: typeof l === "object" && l.proficiency ? l.proficiency : "Fluent",
-              })),
-              customSections: [],
-            },
-          });
+        const pDetails = raw.personalDetails || fetched.personalDetails || {};
+        let fName = pDetails.firstName || raw.firstName || raw.first_name || "";
+        let lName = pDetails.lastName || raw.lastName || raw.last_name || "";
+        if (!fName && !lName && (raw.full_name || raw.fullName)) {
+          const parts = (raw.full_name || raw.fullName).trim().split(" ");
+          fName = parts[0] || "";
+          lName = parts.slice(1).join(" ") || "";
         }
+        if (!fName && user?.first_name) fName = user.first_name;
+        if (!lName && user?.last_name) lName = user.last_name;
+
+        // Map experiences
+        const expSource = (raw.experiences && raw.experiences.length > 0)
+          ? raw.experiences
+          : (fetched.experiences || []);
+        const expMapped = expSource.map((exp, idx) => ({
+          id: exp.id || idx + 1,
+          role: exp.role || exp.title || "",
+          company: exp.company || "",
+          city: exp.city || exp.location || "",
+          startMonth: exp.startMonth || (exp.start_date ? MONTHS[parseInt(exp.start_date.split("-")[1], 10) - 1] || "Jan" : "Jan"),
+          startYear: exp.startYear || (exp.start_date ? exp.start_date.split("-")[0] : "2022"),
+          endMonth: (exp.endMonth && exp.endMonth !== "Present") ? exp.endMonth : (exp.end_date ? MONTHS[parseInt(exp.end_date.split("-")[1], 10) - 1] || "Dec" : "Dec"),
+          endYear: (exp.endYear && exp.endYear !== "Present") ? exp.endYear : (exp.end_date ? exp.end_date.split("-")[0] : "2024"),
+          isCurrent: exp.isCurrent !== undefined ? Boolean(exp.isCurrent) : Boolean(exp.is_current),
+          description: exp.description || (Array.isArray(exp.bullet_points) ? exp.bullet_points.join("\n") : ""),
+        }));
+
+        // Map education
+        const eduSource = (raw.education && raw.education.length > 0)
+          ? raw.education
+          : (fetched.education || []);
+        const eduMapped = eduSource.map((edu, idx) => ({
+          id: edu.id || idx + 1,
+          institution: edu.institution || "",
+          degree: edu.degree || "",
+          city: edu.city || "",
+          marksType: edu.marksType || "CGPA",
+          marks: edu.marks || edu.grade || "",
+          startMonth: edu.startMonth || "Aug",
+          startYear: edu.startYear || (edu.start_date ? edu.start_date.split("-")[0] : "2018"),
+          endMonth: (edu.endMonth && edu.endMonth !== "Present") ? edu.endMonth : "May",
+          endYear: (edu.endYear && edu.endYear !== "Present") ? edu.endYear : (edu.end_date ? edu.end_date.split("-")[0] : "2022"),
+          isCurrent: Boolean(edu.isCurrent),
+          description: edu.description || (edu.field_of_study ? `Specialization in ${edu.field_of_study}` : ""),
+        }));
+
+        // Map skills
+        const skillsSource = (raw.skills && raw.skills.length > 0)
+          ? raw.skills
+          : (fetched.skills || []);
+        const skillsMapped = skillsSource.map((s, idx) => ({
+          id: s.id || idx + 1,
+          name: typeof s === "string" ? s : s.name || "",
+          level: s.level || (s.proficiency === "expert" ? 5 : 4),
+        }));
+
+        // Map socialLinks
+        const linksSource = (raw.socialLinks || raw.social_links || fetched.socialLinks || fetched.social_links || []);
+        const linksMapped = linksSource.map((l, idx) => ({
+          id: l.id || idx + 1,
+          label: l.label || "",
+          url: l.url || "",
+        }));
+
+        // Map projects
+        const rawProjects = raw.additionalSections?.projects || raw.projects || fetched.projects || [];
+        const projectsMapped = rawProjects.map((p, idx) => ({
+          id: p.id || idx + 1,
+          title: p.title || p.name || `Project ${idx + 1}`,
+          techStack: p.techStack || (Array.isArray(p.tech_stack) ? p.tech_stack.join(", ") : p.tech_stack || ""),
+          link: p.link || "",
+          description: p.description || "",
+        }));
+
+        // Map languages
+        const rawLanguages = raw.additionalSections?.languages || raw.languages || [];
+        const languagesMapped = rawLanguages.map((l, idx) => ({
+          id: l.id || idx + 1,
+          name: typeof l === "string" ? l : l.name || "",
+          proficiency: typeof l === "object" && l.proficiency ? l.proficiency : "Fluent",
+        }));
+
+        setResume({
+          ...INITIAL_RESUME_STATE,
+          title: fetched.title || raw.title || "Untitled Resume",
+          templateId: fetched.template_key || raw.templateId || templateParam || "puffin",
+          accentColor: raw.accentColor || INITIAL_RESUME_STATE.accentColor,
+          professional_summary: fetched.professional_summary || raw.professional_summary || raw.summary || "",
+          personalDetails: {
+            ...INITIAL_RESUME_STATE.personalDetails,
+            firstName: fName,
+            lastName: lName,
+            jobTitle: pDetails.jobTitle || raw.jobTitle || raw.job_title || (expMapped[0]?.role || ""),
+            email: pDetails.email || raw.email || (user?.email || ""),
+            phone: pDetails.phone || raw.phone || "",
+            city: pDetails.city || raw.city || (expMapped[0]?.city || ""),
+            country: pDetails.country || raw.country || "India",
+            photo: pDetails.photo || raw.photo || null,
+          },
+          experiences: expMapped,
+          education: eduMapped,
+          skills: skillsMapped,
+          socialLinks: linksMapped,
+          hobbies: raw.hobbies || fetched.hobbies || "",
+          jobPreference: {
+            ...INITIAL_RESUME_STATE.jobPreference,
+            ...(raw.jobPreference || {}),
+          },
+          additionalSections: {
+            projects: projectsMapped,
+            languages: languagesMapped,
+            customSections: raw.additionalSections?.customSections || [],
+          },
+        });
       } catch (err) {
         console.error("Failed to fetch resume:", err);
       }
@@ -718,11 +681,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
         accentColor: resume.accentColor || "#FA0C40",
         current_step: stepToSave,
         activeStep: stepToSave,
-        raw_ai_extraction: {
-          ...resume,
-          current_step: stepToSave,
-          activeStep: stepToSave,
-        },
+        personalDetails: resume.personalDetails || {},
         professional_summary: resume.professional_summary || "",
         status: statusToSave,
         experiences: resume.experiences || [],
@@ -732,6 +691,11 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
         hobbies: resume.hobbies || "",
         jobPreference: resume.jobPreference || {},
         additionalSections: resume.additionalSections || {},
+        raw_ai_extraction: {
+          ...resume,
+          current_step: stepToSave,
+          activeStep: stepToSave,
+        },
       };
       const activeResumeId = resumeId || searchParams.get("resume") || initialResumeId;
       const saved = await saveResume(payload, activeResumeId);

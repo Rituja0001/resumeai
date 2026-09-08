@@ -99,10 +99,24 @@ def _write_resume_sections(resume: Resume, data: dict):
             pass
     if "status" in data:
         resume.status = data.get("status") or resume.status
+    if "template_key" in data or "templateId" in data:
+        resume.template_key = data.get("template_key") or data.get("templateId") or resume.template_key
+    if "title" in data and data.get("title"):
+        resume.title = data.get("title")
 
+    # Clean and unnest raw_ai_extraction so all sections are available directly
     existing_raw = resume.raw_ai_extraction if isinstance(resume.raw_ai_extraction, dict) else {}
+    if "raw_ai_extraction" in existing_raw and isinstance(existing_raw["raw_ai_extraction"], dict):
+        existing_raw = {**existing_raw["raw_ai_extraction"], **existing_raw}
+
+    raw_input = data.get("raw_ai_extraction") if isinstance(data.get("raw_ai_extraction"), dict) else data
     merged_data = dict(existing_raw)
     merged_data.update(data)
+    if isinstance(raw_input, dict):
+        merged_data.update(raw_input)
+    if "raw_ai_extraction" in merged_data:
+        merged_data.pop("raw_ai_extraction", None)
+
     resume.raw_ai_extraction = merged_data
     resume.save()
 
