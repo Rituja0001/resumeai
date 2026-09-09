@@ -42,6 +42,7 @@ import {
   Copy,
   ToggleLeft,
   ToggleRight,
+  Award,
 } from "lucide-react";
 import { TEMPLATES, TEMPLATE_CATEGORIES } from "../data/templatesData";
 import TemplatePreviewMockup from "../components/templates/TemplatePreviewMockup";
@@ -1252,8 +1253,8 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
 
             {/* TAB 1: 9-STEP FORM (SCRATCH & POST-UPLOAD FLOW) */}
             {activeTab === "editor" && !["upload", "linkedin", "voice"].includes(buildPath) && (
-              <div className="bg-white rounded-3xl border border-[#252525]/10 shadow-[0_4px_20px_rgba(37,37,37,0.03)] p-5 sm:p-7 h-full flex flex-col justify-between overflow-y-auto">
-                <div className="flex-1 overflow-y-auto pr-1 space-y-4">
+              <div className="bg-white rounded-3xl border border-[#252525]/10 shadow-[0_4px_20px_rgba(37,37,37,0.03)] p-4 sm:p-7 h-full flex flex-col justify-between overflow-hidden relative">
+                <div className="flex-1 overflow-y-auto pr-1.5 sm:pr-2 pb-6 space-y-4 custom-scrollbar">
                   {/* STEP 1: PERSONAL DETAILS */}
                   {activeStep === 1 && (
                     <div>
@@ -2117,7 +2118,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                           type="button"
                           onClick={() => {
                             const newLink = { id: Date.now(), label: "", url: "" };
-                            setResume((r) => ({ ...r, socialLinks: [...r.socialLinks, newLink] }));
+                            setResume((r) => ({ ...r, socialLinks: [...(r.socialLinks || []), newLink] }));
                           }}
                           className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#252525] hover:bg-[#FA0C40] text-white text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer"
                         >
@@ -2126,10 +2127,75 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                         </button>
                       </div>
 
-                      <div className="space-y-3 my-4">
-                        {resume.socialLinks.map((link) => (
-                          <div key={link.id} className="bg-white border border-[#252525]/10 rounded-2xl p-4 shadow-2xs space-y-2.5">
-                            <div className="flex items-center justify-between">
+                      {/* Quick Add Suggestion Badges */}
+                      <div className="flex flex-wrap items-center gap-1.5 mb-4">
+                        <span className="text-[11px] font-bold text-[#6B6B6B] mr-1">Quick add:</span>
+                        {[
+                          { label: "LinkedIn", defaultUrl: "https://linkedin.com/in/" },
+                          { label: "GitHub", defaultUrl: "https://github.com/" },
+                          { label: "Portfolio", defaultUrl: "https://" },
+                          { label: "Twitter / X", defaultUrl: "https://x.com/" },
+                        ].map((preset) => {
+                          const alreadyExists = (resume.socialLinks || []).some(
+                            (l) => l.label.toLowerCase() === preset.label.toLowerCase()
+                          );
+                          return (
+                            <button
+                              key={preset.label}
+                              type="button"
+                              disabled={alreadyExists}
+                              onClick={() => {
+                                const newLink = { id: Date.now(), label: preset.label, url: preset.defaultUrl };
+                                setResume((r) => ({
+                                  ...r,
+                                  socialLinks: [...(r.socialLinks || []), newLink],
+                                }));
+                                showToast(`Added ${preset.label} link slot.`);
+                              }}
+                              className={`px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                                alreadyExists
+                                  ? "bg-slate-100 text-slate-400 cursor-not-allowed border border-transparent"
+                                  : "bg-white border border-slate-200 text-[#252525] hover:border-[#FA0C40] hover:text-[#FA0C40] shadow-2xs"
+                              }`}
+                            >
+                              <Plus className="w-3 h-3" />
+                              <span>{preset.label}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {/* Links List */}
+                      {(!resume.socialLinks || resume.socialLinks.length === 0) ? (
+                        <div className="bg-slate-50/80 border border-dashed border-slate-300 rounded-2xl p-6 text-center">
+                          <Globe className="w-8 h-8 text-slate-400 mx-auto mb-2" />
+                          <p className="text-xs font-bold text-[#252525]">No profile links added yet</p>
+                          <p className="text-[11px] text-[#6B6B6B] mt-0.5 max-w-sm mx-auto">
+                            Click <strong>+ Add Link</strong> above or pick a quick suggestion to display your professional links.
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="space-y-3 my-4">
+                          {resume.socialLinks.map((link) => (
+                            <div key={link.id} className="bg-white border border-[#252525]/10 rounded-2xl p-4 shadow-2xs space-y-2.5">
+                              <div className="flex items-center justify-between">
+                                <label className="text-xs font-bold text-[#252525] block">
+                                  Platform / Label
+                                </label>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setResume((r) => ({
+                                      ...r,
+                                      socialLinks: r.socialLinks.filter((l) => l.id !== link.id),
+                                    }));
+                                  }}
+                                  className="w-7 h-7 rounded-lg hover:bg-rose-50 text-[#6B6B6B] hover:text-rose-600 flex items-center justify-center cursor-pointer"
+                                  title="Remove link"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
                               <input
                                 type="text"
                                 value={link.label}
@@ -2141,40 +2207,34 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                                   }));
                                 }}
                                 placeholder="e.g. LinkedIn, GitHub, Portfolio"
-                                className="font-extrabold text-xs text-[#252525] bg-transparent focus:outline-none"
+                                className="w-full px-3.5 py-2 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm text-[#252525] focus:outline-none"
                               />
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setResume((r) => ({
-                                    ...r,
-                                    socialLinks: r.socialLinks.filter((l) => l.id !== link.id),
-                                  }));
-                                }}
-                                className="w-7 h-7 rounded-lg hover:bg-rose-50 text-[#6B6B6B] hover:text-rose-600 flex items-center justify-center cursor-pointer"
-                              >
-                                <Trash2 className="w-3.5 h-3.5" />
-                              </button>
+
+                              <div>
+                                <label className="text-xs font-bold text-[#252525] block mb-1">
+                                  Profile URL
+                                </label>
+                                <div className="relative">
+                                  <Globe className="w-4 h-4 text-[#6B6B6B] absolute left-3.5 top-3" />
+                                  <input
+                                    type="url"
+                                    value={link.url}
+                                    onChange={(e) => {
+                                      const val = e.target.value;
+                                      setResume((r) => ({
+                                        ...r,
+                                        socialLinks: r.socialLinks.map((l) => (l.id === link.id ? { ...l, url: val } : l)),
+                                      }));
+                                    }}
+                                    placeholder="e.g. https://linkedin.com/in/username"
+                                    className="w-full pl-10 pr-3.5 py-2 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm text-[#252525] focus:outline-none"
+                                  />
+                                </div>
+                              </div>
                             </div>
-                            <div className="relative">
-                              <Globe className="w-4 h-4 text-[#6B6B6B] absolute left-3.5 top-3" />
-                              <input
-                                type="url"
-                                value={link.url}
-                                onChange={(e) => {
-                                  const val = e.target.value;
-                                  setResume((r) => ({
-                                    ...r,
-                                    socialLinks: r.socialLinks.map((l) => (l.id === link.id ? { ...l, url: val } : l)),
-                                  }));
-                                }}
-                                placeholder="https://linkedin.com/in/yourprofile"
-                                className="w-full pl-10 pr-3.5 py-2 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm text-[#252525] focus:outline-none"
-                              />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   )}
 
@@ -2195,12 +2255,57 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                         </div>
                       </div>
 
+                      {/* Quick Hobby Chips */}
+                      <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 my-4">
+                        <p className="text-xs font-extrabold text-[#252525] mb-2">Popular Interests (Click to add)</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {[
+                            "Marathon Running",
+                            "Open-Source Projects",
+                            "Chess & Strategy",
+                            "Technical Writing",
+                            "Photography",
+                            "Music Production",
+                            "Travelling & Hiking",
+                            "Competitive Programming",
+                          ].map((hobby) => {
+                            const isAdded = (resume.hobbies || "").toLowerCase().includes(hobby.toLowerCase());
+                            return (
+                              <button
+                                key={hobby}
+                                type="button"
+                                disabled={isAdded}
+                                onClick={() => {
+                                  setResume((r) => {
+                                    const current = (r.hobbies || "").trim();
+                                    const updated = current ? `${current}, ${hobby}` : hobby;
+                                    return { ...r, hobbies: updated };
+                                  });
+                                  showToast(`Added "${hobby}" to interests.`);
+                                }}
+                                className={`px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                                  isAdded
+                                    ? "bg-slate-200 text-slate-400 cursor-not-allowed"
+                                    : "bg-white border border-slate-200 text-[#252525] hover:border-[#FA0C40] hover:text-[#FA0C40]"
+                                }`}
+                              >
+                                <Plus className="w-3 h-3" />
+                                <span>{hobby}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
                       <div className="my-5">
+                        <label className="text-xs font-bold text-[#252525] block mb-1">
+                          Hobbies & Activities
+                        </label>
                         <RichTextField
                           value={resume.hobbies}
                           onChange={(v) => setResume((r) => ({ ...r, hobbies: v }))}
-                          placeholder="e.g. Marathon running, Open-source tool building, Chess tournaments, Sci-fi literature…"
-                          rows={3}
+                          placeholder="e.g., reading, travelling, music, marathon running, open-source tool building…"
+                          rows={4}
                         />
                       </div>
                     </div>
@@ -2223,6 +2328,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                         </div>
                       </div>
 
+                      {/* Recruiter Visibility Toggle */}
                       <div className="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-4 my-4 flex items-start justify-between gap-4">
                         <div className="flex items-start gap-3">
                           <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
@@ -2236,7 +2342,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                         <label className="relative inline-flex items-center cursor-pointer shrink-0 mt-1">
                           <input
                             type="checkbox"
-                            checked={resume.jobPreference.shareWithRecruiters}
+                            checked={resume.jobPreference?.shareWithRecruiters ?? true}
                             onChange={(e) =>
                               setResume((r) => ({
                                 ...r,
@@ -2250,51 +2356,77 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                       </div>
 
                       <div className="space-y-4">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        {/* Compensation Fields + Currency Dropdown */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                          <div>
+                            <label className="text-xs font-bold text-[#252525] block mb-1">Currency</label>
+                            <select
+                              value={resume.jobPreference?.salaryCurrency || "INR (Lakhs/yr)"}
+                              onChange={(e) =>
+                                setResume((r) => ({
+                                  ...r,
+                                  jobPreference: { ...r.jobPreference, salaryCurrency: e.target.value },
+                                }))
+                              }
+                              className="w-full px-3.5 py-2.5 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm text-[#252525] focus:outline-none"
+                            >
+                              <option value="INR (Lakhs/yr)">INR (₹ Lakhs/yr)</option>
+                              <option value="USD ($ k/yr)">USD ($ k/yr)</option>
+                              <option value="EUR (€ k/yr)">EUR (€ k/yr)</option>
+                              <option value="GBP (£ k/yr)">GBP (£ k/yr)</option>
+                              <option value="CAD ($ k/yr)">CAD ($ k/yr)</option>
+                              <option value="AUD ($ k/yr)">AUD ($ k/yr)</option>
+                              <option value="SGD ($ k/yr)">SGD ($ k/yr)</option>
+                              <option value="AED (Dirhams/yr)">AED (Dirhams/yr)</option>
+                            </select>
+                          </div>
+
                           <div>
                             <label className="text-xs font-bold text-[#252525] block mb-1">Current Annual CTC</label>
                             <input
                               type="text"
-                              value={resume.jobPreference.currentSalary}
+                              value={resume.jobPreference?.currentSalary || ""}
                               onChange={(e) =>
                                 setResume((r) => ({
                                   ...r,
                                   jobPreference: { ...r.jobPreference, currentSalary: e.target.value },
                                 }))
                               }
-                              placeholder="e.g. 24 (Lakhs/yr)"
-                              className="w-full px-3.5 py-2.5 bg-[#FAFAFA] border border-[#252525]/15 rounded-xl text-xs sm:text-sm text-[#252525]"
+                              placeholder="e.g. 24"
+                              className="w-full px-3.5 py-2.5 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm text-[#252525] focus:outline-none"
                             />
                           </div>
+
                           <div>
                             <label className="text-xs font-bold text-[#252525] block mb-1">Expected Annual CTC</label>
                             <input
                               type="text"
-                              value={resume.jobPreference.desiredSalary}
+                              value={resume.jobPreference?.desiredSalary || ""}
                               onChange={(e) =>
                                 setResume((r) => ({
                                   ...r,
                                   jobPreference: { ...r.jobPreference, desiredSalary: e.target.value },
                                 }))
                               }
-                              placeholder="e.g. 35 (Lakhs/yr)"
-                              className="w-full px-3.5 py-2.5 bg-[#FAFAFA] border border-[#252525]/15 rounded-xl text-xs sm:text-sm text-[#252525]"
+                              placeholder="e.g. 35"
+                              className="w-full px-3.5 py-2.5 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm text-[#252525] focus:outline-none"
                             />
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        {/* Dropdowns: Notice Period, Work Mode, Search Status */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                           <div>
                             <label className="text-xs font-bold text-[#252525] block mb-1">Notice Period</label>
                             <select
-                              value={resume.jobPreference.noticePeriod}
+                              value={resume.jobPreference?.noticePeriod || "30 days"}
                               onChange={(e) =>
                                 setResume((r) => ({
                                   ...r,
                                   jobPreference: { ...r.jobPreference, noticePeriod: e.target.value },
                                 }))
                               }
-                              className="w-full px-3.5 py-2.5 bg-[#FAFAFA] border border-[#252525]/15 rounded-xl text-xs sm:text-sm"
+                              className="w-full px-3.5 py-2.5 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm focus:outline-none"
                             >
                               <option value="Immediate">Immediate / Available Now</option>
                               <option value="15 days">15 Days</option>
@@ -2303,22 +2435,87 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                               <option value="90 days">90 Days (3 Months)</option>
                             </select>
                           </div>
+
                           <div>
                             <label className="text-xs font-bold text-[#252525] block mb-1">Work Mode</label>
                             <select
-                              value={resume.jobPreference.workMode}
+                              value={resume.jobPreference?.workMode || "Hybrid"}
                               onChange={(e) =>
                                 setResume((r) => ({
                                   ...r,
                                   jobPreference: { ...r.jobPreference, workMode: e.target.value },
                                 }))
                               }
-                              className="w-full px-3.5 py-2.5 bg-[#FAFAFA] border border-[#252525]/15 rounded-xl text-xs sm:text-sm"
+                              className="w-full px-3.5 py-2.5 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm focus:outline-none"
                             >
                               <option value="Remote">Remote</option>
                               <option value="Hybrid">Hybrid</option>
                               <option value="On-site">On-site Office</option>
                             </select>
+                          </div>
+
+                          <div>
+                            <label className="text-xs font-bold text-[#252525] block mb-1">Job Search Status</label>
+                            <select
+                              value={resume.jobPreference?.searchStatus || "Actively looking"}
+                              onChange={(e) =>
+                                setResume((r) => ({
+                                  ...r,
+                                  jobPreference: { ...r.jobPreference, searchStatus: e.target.value },
+                                }))
+                              }
+                              className="w-full px-3.5 py-2.5 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm focus:outline-none"
+                            >
+                              <option value="Actively looking">Actively looking & interviewing</option>
+                              <option value="Open to offers">Open to the right opportunities</option>
+                              <option value="Casually exploring">Casually exploring</option>
+                              <option value="Not looking">Not actively looking</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        {/* Preference Toggle Switches */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                          <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 flex items-center justify-between gap-3">
+                            <div>
+                              <p className="text-xs font-bold text-[#252525]">Notice period negotiable</p>
+                              <p className="text-[11px] text-[#6B6B6B]">Open to buy-out or early release discussion</p>
+                            </div>
+                            <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                              <input
+                                type="checkbox"
+                                checked={resume.jobPreference?.noticeNegotiable ?? true}
+                                onChange={(e) =>
+                                  setResume((r) => ({
+                                    ...r,
+                                    jobPreference: { ...r.jobPreference, noticeNegotiable: e.target.checked },
+                                  }))
+                                }
+                                className="sr-only peer"
+                              />
+                              <div className="w-9 h-5 bg-[#252525]/15 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#252525]/20 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#FA0C40]" />
+                            </label>
+                          </div>
+
+                          <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 flex items-center justify-between gap-3">
+                            <div>
+                              <p className="text-xs font-bold text-[#252525]">Willing to relocate</p>
+                              <p className="text-[11px] text-[#6B6B6B]">Open to relocating for the right opportunity</p>
+                            </div>
+                            <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                              <input
+                                type="checkbox"
+                                checked={resume.jobPreference?.willingToRelocate ?? true}
+                                onChange={(e) =>
+                                  setResume((r) => ({
+                                    ...r,
+                                    jobPreference: { ...r.jobPreference, willingToRelocate: e.target.checked },
+                                  }))
+                                }
+                                className="sr-only peer"
+                              />
+                              <div className="w-9 h-5 bg-[#252525]/15 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#252525]/20 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#FA0C40]" />
+                            </label>
                           </div>
                         </div>
                       </div>
@@ -2362,40 +2559,91 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                               setResume((r) => ({
                                 ...r,
                                 additionalSections: {
-                                  ...r.additionalSections,
-                                  projects: [...r.additionalSections.projects, newProj],
+                                  ...(r.additionalSections || {}),
+                                  projects: [...(r.additionalSections?.projects || []), newProj],
                                 },
                               }));
                             }}
-                            className="px-3 py-1.5 rounded-full bg-white border border-[#252525]/15 hover:border-[#FA0C40] text-xs font-bold text-[#252525] flex items-center gap-1 cursor-pointer"
+                            className="px-3 py-1.5 rounded-full bg-white border border-[#252525]/15 hover:border-[#FA0C40] text-xs font-bold text-[#252525] flex items-center gap-1 cursor-pointer shadow-2xs"
                           >
                             <Plus className="w-3 h-3" />
                             <span>Add Project</span>
                           </button>
                         </div>
 
-                        <div className="space-y-3">
-                          {resume.additionalSections.projects.map((proj) => (
-                            <RepeatableEntryCard
-                              key={proj.id}
-                              title={proj.title || "Untitled Project"}
-                              subtitle={proj.techStack || "Tech stack"}
-                              onDelete={() => {
-                                setResume((r) => ({
-                                  ...r,
-                                  additionalSections: {
-                                    ...r.additionalSections,
-                                    projects: r.additionalSections.projects.filter((p) => p.id !== proj.id),
-                                  },
-                                }));
-                              }}
-                            >
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {(!resume.additionalSections?.projects || resume.additionalSections.projects.length === 0) ? (
+                          <div className="bg-white/80 border border-dashed border-slate-200 rounded-xl p-4 text-center">
+                            <p className="text-xs text-[#6B6B6B]">
+                              No projects added yet. Click <strong>+ Add Project</strong> to showcase your work.
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="space-y-3">
+                            {resume.additionalSections.projects.map((proj) => (
+                              <RepeatableEntryCard
+                                key={proj.id}
+                                title={proj.title || "Untitled Project"}
+                                subtitle={proj.techStack || "Tech stack"}
+                                onDelete={() => {
+                                  setResume((r) => ({
+                                    ...r,
+                                    additionalSections: {
+                                      ...r.additionalSections,
+                                      projects: r.additionalSections.projects.filter((p) => p.id !== proj.id),
+                                    },
+                                  }));
+                                }}
+                              >
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                  <div>
+                                    <label className="text-xs font-bold text-[#252525] block mb-1">Project Title</label>
+                                    <input
+                                      type="text"
+                                      value={proj.title}
+                                      onChange={(e) => {
+                                        const val = e.target.value;
+                                        setResume((r) => ({
+                                          ...r,
+                                          additionalSections: {
+                                            ...r.additionalSections,
+                                            projects: r.additionalSections.projects.map((p) =>
+                                              p.id === proj.id ? { ...p, title: val } : p
+                                            ),
+                                          },
+                                        }));
+                                      }}
+                                      placeholder="e.g. Distributed Cache Engine"
+                                      className="w-full px-3 py-2 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm text-[#252525] focus:outline-none"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label className="text-xs font-bold text-[#252525] block mb-1">Tech Stack</label>
+                                    <input
+                                      type="text"
+                                      value={proj.techStack}
+                                      onChange={(e) => {
+                                        const val = e.target.value;
+                                        setResume((r) => ({
+                                          ...r,
+                                          additionalSections: {
+                                            ...r.additionalSections,
+                                            projects: r.additionalSections.projects.map((p) =>
+                                              p.id === proj.id ? { ...p, techStack: val } : p
+                                            ),
+                                          },
+                                        }));
+                                      }}
+                                      placeholder="e.g. Go, Redis, Docker"
+                                      className="w-full px-3 py-2 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm text-[#252525] focus:outline-none"
+                                    />
+                                  </div>
+                                </div>
+
                                 <div>
-                                  <label className="text-xs font-bold text-[#252525] block mb-1">Project Title</label>
+                                  <label className="text-xs font-bold text-[#252525] block mb-1">Project Link</label>
                                   <input
-                                    type="text"
-                                    value={proj.title}
+                                    type="url"
+                                    value={proj.link}
                                     onChange={(e) => {
                                       const val = e.target.value;
                                       setResume((r) => ({
@@ -2403,85 +2651,42 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                                         additionalSections: {
                                           ...r.additionalSections,
                                           projects: r.additionalSections.projects.map((p) =>
-                                            p.id === proj.id ? { ...p, title: val } : p
+                                            p.id === proj.id ? { ...p, link: val } : p
                                           ),
                                         },
                                       }));
                                     }}
-                                    placeholder="e.g. Distributed Cache Engine"
-                                    className="w-full px-3 py-2 bg-[#FAFAFA] border border-[#252525]/15 rounded-xl text-xs sm:text-sm text-[#252525]"
+                                    placeholder="https://github.com/yourname/project"
+                                    className="w-full px-3 py-2 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm text-[#252525] focus:outline-none"
                                   />
                                 </div>
-                                <div>
-                                  <label className="text-xs font-bold text-[#252525] block mb-1">Tech Stack</label>
-                                  <input
-                                    type="text"
-                                    value={proj.techStack}
-                                    onChange={(e) => {
-                                      const val = e.target.value;
+
+                                <div className="pt-1">
+                                  <label className="text-xs font-bold text-[#252525] block mb-1">Project Description</label>
+                                  <RichTextField
+                                    value={proj.description}
+                                    onChange={(val) => {
                                       setResume((r) => ({
                                         ...r,
                                         additionalSections: {
                                           ...r.additionalSections,
                                           projects: r.additionalSections.projects.map((p) =>
-                                            p.id === proj.id ? { ...p, techStack: val } : p
+                                            p.id === proj.id ? { ...p, description: val } : p
                                           ),
                                         },
                                       }));
                                     }}
-                                    placeholder="e.g. Go, Redis, Docker"
-                                    className="w-full px-3 py-2 bg-[#FAFAFA] border border-[#252525]/15 rounded-xl text-xs sm:text-sm text-[#252525]"
+                                    placeholder="Highlight metrics & architecture…"
+                                    rows={2}
+                                    onAskAi={() => handleAiSuggest("project", proj.id)}
+                                    isAiThinking={isAiThinking}
+                                    aiLabel="Add AI Metrics"
                                   />
                                 </div>
-                              </div>
-
-                              <div>
-                                <label className="text-xs font-bold text-[#252525] block mb-1">Project Link</label>
-                                <input
-                                  type="url"
-                                  value={proj.link}
-                                  onChange={(e) => {
-                                    const val = e.target.value;
-                                    setResume((r) => ({
-                                      ...r,
-                                      additionalSections: {
-                                        ...r.additionalSections,
-                                        projects: r.additionalSections.projects.map((p) =>
-                                          p.id === proj.id ? { ...p, link: val } : p
-                                        ),
-                                      },
-                                    }));
-                                  }}
-                                  placeholder="https://github.com/yourname/project"
-                                  className="w-full px-3 py-2 bg-[#FAFAFA] border border-[#252525]/15 rounded-xl text-xs sm:text-sm text-[#252525]"
-                                />
-                              </div>
-
-                              <div className="pt-1">
-                                <label className="text-xs font-bold text-[#252525] block mb-1">Project Description</label>
-                                <RichTextField
-                                  value={proj.description}
-                                  onChange={(val) => {
-                                    setResume((r) => ({
-                                      ...r,
-                                      additionalSections: {
-                                        ...r.additionalSections,
-                                        projects: r.additionalSections.projects.map((p) =>
-                                          p.id === proj.id ? { ...p, description: val } : p
-                                        ),
-                                      },
-                                    }));
-                                  }}
-                                  placeholder="Highlight metrics & architecture…"
-                                  rows={2}
-                                  onAskAi={() => handleAiSuggest("project", proj.id)}
-                                  isAiThinking={isAiThinking}
-                                  aiLabel="Add AI Metrics"
-                                />
-                              </div>
-                            </RepeatableEntryCard>
-                          ))}
-                        </div>
+                              </RepeatableEntryCard>
+                            ))}
+                          </div>
+                        )}
                       </div>
 
                       {/* Languages */}
@@ -2498,146 +2703,303 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                               setResume((r) => ({
                                 ...r,
                                 additionalSections: {
-                                  ...r.additionalSections,
-                                  languages: [...r.additionalSections.languages, newLang],
+                                  ...(r.additionalSections || {}),
+                                  languages: [...(r.additionalSections?.languages || []), newLang],
                                 },
                               }));
                             }}
-                            className="px-3 py-1.5 rounded-full bg-white border border-[#252525]/15 hover:border-[#FA0C40] text-xs font-bold text-[#252525] flex items-center gap-1 cursor-pointer"
+                            className="px-3 py-1.5 rounded-full bg-white border border-[#252525]/15 hover:border-[#FA0C40] text-xs font-bold text-[#252525] flex items-center gap-1 cursor-pointer shadow-2xs"
                           >
                             <Plus className="w-3 h-3" />
                             <span>Add Language</span>
                           </button>
                         </div>
 
-                        <div className="space-y-2.5">
-                          {resume.additionalSections.languages.map((lang) => (
-                            <div key={lang.id} className="bg-white border border-[#252525]/10 rounded-xl p-3 flex items-center gap-3">
-                              <input
-                                type="text"
-                                value={lang.name}
-                                onChange={(e) => {
-                                  const val = e.target.value;
-                                  setResume((r) => ({
-                                    ...r,
-                                    additionalSections: {
-                                      ...r.additionalSections,
-                                      languages: r.additionalSections.languages.map((l) =>
-                                        l.id === lang.id ? { ...l, name: val } : l
-                                      ),
-                                    },
-                                  }));
-                                }}
-                                placeholder="e.g. English, Hindi, German"
-                                className="flex-1 font-bold text-xs text-[#252525] bg-transparent focus:outline-none"
-                              />
-                              <select
-                                value={lang.proficiency}
-                                onChange={(e) => {
-                                  const val = e.target.value;
-                                  setResume((r) => ({
-                                    ...r,
-                                    additionalSections: {
-                                      ...r.additionalSections,
-                                      languages: r.additionalSections.languages.map((l) =>
-                                        l.id === lang.id ? { ...l, proficiency: val } : l
-                                      ),
-                                    },
-                                  }));
-                                }}
-                                className="px-2.5 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs"
-                              >
-                                <option value="Native / Bilingual">Native / Bilingual</option>
-                                <option value="Full Professional">Full Professional</option>
-                                <option value="Professional Working">Professional Working</option>
-                                <option value="Elementary">Elementary</option>
-                              </select>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setResume((r) => ({
-                                    ...r,
-                                    additionalSections: {
-                                      ...r.additionalSections,
-                                      languages: r.additionalSections.languages.filter((l) => l.id !== lang.id),
-                                    },
-                                  }));
-                                }}
-                                className="w-6 h-6 rounded hover:bg-rose-50 text-[#6B6B6B] hover:text-rose-600 flex items-center justify-center cursor-pointer"
-                              >
-                                <Trash2 className="w-3.5 h-3.5" />
-                              </button>
-                            </div>
-                          ))}
+                        {(!resume.additionalSections?.languages || resume.additionalSections.languages.length === 0) ? (
+                          <div className="bg-white/80 border border-dashed border-slate-200 rounded-xl p-4 text-center">
+                            <p className="text-xs text-[#6B6B6B]">
+                              No languages added yet. Click <strong>+ Add Language</strong> to list your spoken/written languages.
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="space-y-2.5">
+                            {resume.additionalSections.languages.map((lang) => (
+                              <div key={lang.id} className="bg-white border border-[#252525]/10 rounded-xl p-3 flex items-center gap-3">
+                                <input
+                                  type="text"
+                                  value={lang.name}
+                                  onChange={(e) => {
+                                    const val = e.target.value;
+                                    setResume((r) => ({
+                                      ...r,
+                                      additionalSections: {
+                                        ...r.additionalSections,
+                                        languages: r.additionalSections.languages.map((l) =>
+                                          l.id === lang.id ? { ...l, name: val } : l
+                                        ),
+                                      },
+                                    }));
+                                  }}
+                                  placeholder="e.g. English, Hindi, German, Spanish"
+                                  className="flex-1 font-bold text-xs text-[#252525] bg-transparent focus:outline-none"
+                                />
+                                <select
+                                  value={lang.proficiency}
+                                  onChange={(e) => {
+                                    const val = e.target.value;
+                                    setResume((r) => ({
+                                      ...r,
+                                      additionalSections: {
+                                        ...r.additionalSections,
+                                        languages: r.additionalSections.languages.map((l) =>
+                                          l.id === lang.id ? { ...l, proficiency: val } : l
+                                        ),
+                                      },
+                                    }));
+                                  }}
+                                  className="px-2.5 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none"
+                                >
+                                  <option value="Native / Bilingual">Native / Bilingual</option>
+                                  <option value="Full Professional">Full Professional</option>
+                                  <option value="Professional Working">Professional Working</option>
+                                  <option value="Elementary">Elementary</option>
+                                </select>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setResume((r) => ({
+                                      ...r,
+                                      additionalSections: {
+                                        ...r.additionalSections,
+                                        languages: r.additionalSections.languages.filter((l) => l.id !== lang.id),
+                                      },
+                                    }));
+                                  }}
+                                  className="w-6 h-6 rounded hover:bg-rose-50 text-[#6B6B6B] hover:text-rose-600 flex items-center justify-center cursor-pointer"
+                                  title="Remove language"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Custom Sections / Certifications / Awards */}
+                      <div className="bg-slate-50/70 border border-[#252525]/10 rounded-2xl p-4 sm:p-5 mb-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2">
+                            <Award className="w-4 h-4 text-[#FA0C40]" />
+                            <h3 className="font-extrabold text-sm text-[#252525]">Custom Sections & Certifications</h3>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const newCustom = {
+                                id: Date.now(),
+                                title: "",
+                                subtitle: "",
+                                description: "",
+                              };
+                              setResume((r) => ({
+                                ...r,
+                                additionalSections: {
+                                  ...(r.additionalSections || {}),
+                                  customSections: [...(r.additionalSections?.customSections || []), newCustom],
+                                },
+                              }));
+                            }}
+                            className="px-3 py-1.5 rounded-full bg-white border border-[#252525]/15 hover:border-[#FA0C40] text-xs font-bold text-[#252525] flex items-center gap-1 cursor-pointer shadow-2xs"
+                          >
+                            <Plus className="w-3 h-3" />
+                            <span>Add Custom Section</span>
+                          </button>
                         </div>
+
+                        {(!resume.additionalSections?.customSections || resume.additionalSections.customSections.length === 0) ? (
+                          <div className="bg-white/80 border border-dashed border-slate-200 rounded-xl p-4 text-center">
+                            <p className="text-xs text-[#6B6B6B]">
+                              Add certifications, patents, publications, or volunteer experience.
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="space-y-3">
+                            {resume.additionalSections.customSections.map((sec) => (
+                              <RepeatableEntryCard
+                                key={sec.id}
+                                title={sec.title || "Untitled Section"}
+                                subtitle={sec.subtitle || "Details"}
+                                onDelete={() => {
+                                  setResume((r) => ({
+                                    ...r,
+                                    additionalSections: {
+                                      ...r.additionalSections,
+                                      customSections: r.additionalSections.customSections.filter((s) => s.id !== sec.id),
+                                    },
+                                  }));
+                                }}
+                              >
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                  <div>
+                                    <label className="text-xs font-bold text-[#252525] block mb-1">Section / Credential Title</label>
+                                    <input
+                                      type="text"
+                                      value={sec.title}
+                                      onChange={(e) => {
+                                        const val = e.target.value;
+                                        setResume((r) => ({
+                                          ...r,
+                                          additionalSections: {
+                                            ...r.additionalSections,
+                                            customSections: r.additionalSections.customSections.map((s) =>
+                                              s.id === sec.id ? { ...s, title: val } : s
+                                            ),
+                                          },
+                                        }));
+                                      }}
+                                      placeholder="e.g. AWS Certified Solutions Architect / IEEE Best Paper"
+                                      className="w-full px-3 py-2 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm text-[#252525] focus:outline-none"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label className="text-xs font-bold text-[#252525] block mb-1">Issuer / Organization / Date</label>
+                                    <input
+                                      type="text"
+                                      value={sec.subtitle}
+                                      onChange={(e) => {
+                                        const val = e.target.value;
+                                        setResume((r) => ({
+                                          ...r,
+                                          additionalSections: {
+                                            ...r.additionalSections,
+                                            customSections: r.additionalSections.customSections.map((s) =>
+                                              s.id === sec.id ? { ...s, subtitle: val } : s
+                                            ),
+                                          },
+                                        }));
+                                      }}
+                                      placeholder="e.g. Amazon Web Services · Dec 2023"
+                                      className="w-full px-3 py-2 bg-[#FAFAFA] border border-[#252525]/15 focus:border-[#FA0C40] rounded-xl text-xs sm:text-sm text-[#252525] focus:outline-none"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className="pt-1">
+                                  <label className="text-xs font-bold text-[#252525] block mb-1">Description & Details</label>
+                                  <RichTextField
+                                    value={sec.description}
+                                    onChange={(val) => {
+                                      setResume((r) => ({
+                                        ...r,
+                                        additionalSections: {
+                                          ...r.additionalSections,
+                                          customSections: r.additionalSections.customSections.map((s) =>
+                                            s.id === sec.id ? { ...s, description: val } : s
+                                          ),
+                                        },
+                                      }));
+                                    }}
+                                    placeholder="Highlight score, credential ID, publication links, or scope of impact…"
+                                    rows={2}
+                                  />
+                                </div>
+                              </RepeatableEntryCard>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}
+                </div>
 
-                  {/* BOTTOM MULTI-STEP NAVIGATION BAR */}
-                  <div className="shrink-0 mt-6 pt-3 border-t border-[#252525]/10 sticky bottom-0 bg-white/95 backdrop-blur-md -mx-5 -mb-5 sm:-mx-7 sm:-mb-7 p-3 sm:p-4 rounded-b-3xl shadow-sm z-10 space-y-2">
-                    <div className="flex items-center justify-between gap-2 sm:gap-4">
-                      {/* Back Button */}
-                      <button
-                        type="button"
-                        onClick={handlePrevStep}
-                        disabled={activeStep === 1}
-                        className="px-3.5 sm:px-5 py-2 rounded-full border border-[#252525]/15 hover:border-[#252525] disabled:opacity-30 disabled:hover:border-[#252525]/15 text-xs font-bold text-[#252525] transition-colors flex items-center justify-center gap-1.5 cursor-pointer disabled:cursor-not-allowed min-h-[42px] shrink-0 bg-white shadow-2xs"
-                      >
-                        <ChevronLeft className="w-4 h-4" />
-                        <span className="hidden sm:inline">Back</span>
-                      </button>
+                {/* BOTTOM MULTI-STEP NAVIGATION BAR */}
+                <div className="shrink-0 pt-2.5 sm:pt-3.5 border-t border-[#252525]/10 bg-white -mx-4 -mb-4 sm:-mx-7 sm:-mb-7 p-3 sm:p-4 rounded-b-3xl shadow-[0_-4px_16px_rgba(37,37,37,0.03)] z-10 space-y-1.5 sm:space-y-2">
+                  <div className="flex items-center justify-between gap-1.5 sm:gap-4 w-full">
+                    {/* Back Button */}
+                    <button
+                      type="button"
+                      onClick={handlePrevStep}
+                      disabled={activeStep === 1}
+                      className="px-3 sm:px-5 py-2 rounded-full border border-[#252525]/15 hover:border-[#252525] disabled:opacity-30 disabled:hover:border-[#252525]/15 text-xs font-bold text-[#252525] transition-colors flex items-center justify-center gap-1 cursor-pointer disabled:cursor-not-allowed min-h-[38px] sm:min-h-[42px] shrink-0 bg-white shadow-2xs"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                      <span>Back</span>
+                    </button>
 
-                      {/* Step Progression Bar / Indicator */}
-                      <div className="flex items-center justify-center gap-1 sm:gap-1.5 flex-1 max-w-sm">
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((s) => {
-                          const isDone = s < activeStep;
-                          const isCurrent = s === activeStep;
-                          return (
-                            <button
-                              key={s}
-                              type="button"
-                              onClick={() => {
-                                setActiveStep(s);
-                                handleSaveResume(true, s);
-                              }}
-                              className={`h-7 transition-all rounded-full flex items-center justify-center text-[11px] font-extrabold cursor-pointer ${
-                                isCurrent
-                                  ? "w-8 bg-[#FA0C40] text-white shadow-sm ring-2 ring-[#FA0C40]/25 scale-105"
-                                  : isDone
-                                  ? "w-7 bg-emerald-50 text-emerald-700 border border-emerald-300 hover:bg-emerald-100"
-                                  : "w-7 bg-slate-100 text-slate-400 hover:bg-slate-200 border border-transparent"
-                              }`}
-                              title={`Step ${s}: ${STEP_TITLES[s - 1]}`}
-                            >
-                              {isDone ? "✓" : s}
-                            </button>
-                          );
-                        })}
+                    {/* Mobile Compact Progress Indicator (<sm) */}
+                    <div className="flex flex-col items-center justify-center sm:hidden px-1 text-center min-w-0 flex-1">
+                      <div className="flex items-center gap-1 mb-0.5">
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((s) => (
+                          <span
+                            key={s}
+                            className={`h-1.5 rounded-full transition-all ${
+                              s === activeStep
+                                ? "w-3.5 bg-[#FA0C40]"
+                                : s < activeStep
+                                ? "w-1.5 bg-emerald-500"
+                                : "w-1.5 bg-slate-200"
+                            }`}
+                          />
+                        ))}
                       </div>
-
-                      {/* Next / Complete Button */}
-                      <button
-                        type="button"
-                        onClick={handleNextStep}
-                        className="px-4 sm:px-6 py-2 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs font-extrabold shadow-md shadow-[#FA0C40]/25 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-1.5 cursor-pointer min-h-[42px] shrink-0"
-                      >
-                        <span>
-                          {activeStep === 9 ? "Complete Onboarding" : "Next Step"}
-                        </span>
-                        {activeStep === 9 ? (
-                          <CheckCircle2 className="w-4 h-4" />
-                        ) : (
-                          <ChevronRight className="w-4 h-4" />
-                        )}
-                      </button>
+                      <span className="text-[10px] font-extrabold text-[#252525] truncate">
+                        Step {activeStep} of 9
+                      </span>
                     </div>
 
-                    {/* Step Title Subtitle */}
-                    <div className="text-center text-[11px] font-bold text-[#6B6B6B] flex items-center justify-center gap-1.5">
-                      <span className="text-[#252525] font-extrabold">Step {activeStep} of 9:</span>
-                      <span className="text-[#FA0C40]">{STEP_TITLES[activeStep - 1]}</span>
+                    {/* Desktop/Tablet Step Progression Bar / Indicator (sm:flex) */}
+                    <div className="hidden sm:flex items-center justify-center gap-1 sm:gap-1.5 flex-1 max-w-sm">
+                      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((s) => {
+                        const isDone = s < activeStep;
+                        const isCurrent = s === activeStep;
+                        return (
+                          <button
+                            key={s}
+                            type="button"
+                            onClick={() => {
+                              setActiveStep(s);
+                              handleSaveResume(true, s);
+                            }}
+                            className={`h-7 transition-all rounded-full flex items-center justify-center text-[11px] font-extrabold cursor-pointer ${
+                              isCurrent
+                                ? "w-8 bg-[#FA0C40] text-white shadow-sm ring-2 ring-[#FA0C40]/25 scale-105"
+                                : isDone
+                                ? "w-7 bg-emerald-50 text-emerald-700 border border-emerald-300 hover:bg-emerald-100"
+                                : "w-7 bg-slate-100 text-slate-400 hover:bg-slate-200 border border-transparent"
+                            }`}
+                            title={`Step ${s}: ${STEP_TITLES[s - 1]}`}
+                          >
+                            {isDone ? "✓" : s}
+                          </button>
+                        );
+                      })}
                     </div>
+
+                    {/* Next / Complete Button */}
+                    <button
+                      type="button"
+                      onClick={handleNextStep}
+                      className="px-3.5 sm:px-6 py-2 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs font-extrabold shadow-md shadow-[#FA0C40]/25 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-1 cursor-pointer min-h-[38px] sm:min-h-[42px] shrink-0"
+                    >
+                      <span>
+                        {activeStep === 9 ? "Complete" : "Next"}
+                      </span>
+                      <span className="hidden sm:inline">
+                        {activeStep === 9 ? " Onboarding" : " Step"}
+                      </span>
+                      {activeStep === 9 ? (
+                        <CheckCircle2 className="w-4 h-4" />
+                      ) : (
+                        <ChevronRight className="w-4 h-4" />
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Step Title Subtitle */}
+                  <div className="text-center text-[10.5px] sm:text-[11px] font-bold text-[#6B6B6B] flex items-center justify-center gap-1.5 truncate">
+                    <span className="text-[#252525] font-extrabold hidden sm:inline">Step {activeStep} of 9:</span>
+                    <span className="text-[#FA0C40] truncate">{STEP_TITLES[activeStep - 1]}</span>
                   </div>
                 </div>
               </div>
@@ -2645,7 +3007,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
 
             {/* TAB 2: CUSTOMIZE CONTROLS (MATCHED HEIGHT) */}
             {activeTab === "customize" && (
-              <div className="bg-white rounded-3xl border border-[#252525]/10 shadow-[0_4px_20px_rgba(37,37,37,0.03)] p-5 sm:p-6 h-full flex flex-col overflow-y-auto space-y-5 animate-scale-in">
+              <div className="bg-white rounded-3xl border border-[#252525]/10 shadow-[0_4px_20px_rgba(37,37,37,0.03)] p-5 sm:p-6 h-full flex flex-col overflow-y-auto space-y-5 animate-scale-in custom-scrollbar">
                 {/* Section 1: Color Swatches Palette (Fixed Overflow Grid) */}
                 <div className="bg-slate-50/80 border border-slate-200/80 rounded-2xl p-4 sm:p-5 shrink-0">
                   <h2 className="text-base font-extrabold text-[#252525] tracking-tight mb-1">
@@ -2739,7 +3101,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
                   </div>
 
                   {/* 2-Column Template Mini Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 flex-1 overflow-y-auto pr-1">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 flex-1 overflow-y-auto pr-1 custom-scrollbar">
                     {filteredCustomizeTemplates.map((tmpl) => {
                       const isSelected = (resume.templateId || "puffin") === tmpl.id;
                       return (
@@ -2783,7 +3145,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
 
             {/* TAB 3: TAILOR CONTROLS (MATCHED HEIGHT) */}
             {activeTab === "tailor" && (
-              <div className="bg-white rounded-3xl border border-[#252525]/10 p-6 sm:p-8 shadow-[0_4px_20px_rgba(37,37,37,0.03)] h-full flex flex-col overflow-y-auto space-y-4 animate-scale-in">
+              <div className="bg-white rounded-3xl border border-[#252525]/10 p-6 sm:p-8 shadow-[0_4px_20px_rgba(37,37,37,0.03)] h-full flex flex-col overflow-y-auto space-y-4 animate-scale-in custom-scrollbar">
                 <div className="flex items-center gap-3 shrink-0">
                   <div className="w-10 h-10 rounded-xl bg-[#FA0C400D] border border-[#FA0C40]/20 text-[#FA0C40] flex items-center justify-center shrink-0">
                     <Sparkles className="w-5 h-5" />
@@ -2878,7 +3240,7 @@ export default function BuilderPage({ initialTab = "scratch", initialResumeId = 
             </div>
 
             {/* Dynamic Multi-Page Document Workbench Canvas */}
-            <div className="flex-1 w-full bg-[#F4F5F7] rounded-3xl p-3 sm:p-5 lg:p-6 border border-[#252525]/10 shadow-[0_4px_24px_rgba(37,37,37,0.04)] overflow-y-auto overflow-x-auto relative flex flex-col items-center select-none">
+            <div className="flex-1 w-full bg-[#F4F5F7] rounded-3xl p-3 sm:p-5 lg:p-6 border border-[#252525]/10 shadow-[0_4px_24px_rgba(37,37,37,0.04)] overflow-y-auto overflow-x-auto relative flex flex-col items-center select-none custom-scrollbar">
               <div className="w-full max-w-[820px] flex flex-col items-center">
                 <LiveResumeDocument
                   resume={resume}

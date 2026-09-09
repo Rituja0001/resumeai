@@ -32,19 +32,20 @@ export const TEMPLATES = [
     "layoutStyle": "single-column",
     "accentColor": "#FA0C40",
     "sampleName": "Aarav Sharma",
-    "sampleRole": "Senior Backend Engineer",
+    "sampleRole": "Senior Backend Systems Engineer",
     "sampleLocation": "Bengaluru, Karnataka",
     "sampleEmail": "aarav.sharma@techmail.in",
     "samplePhone": "+91 98450 12345",
-    "sampleSummary": "Backend engineer with 6+ years specializing in distributed systems, high-throughput microservices, and Kubernetes clusters at scale.",
+    "samplePhoto": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Distributed systems engineer with 6+ years specializing in high-throughput microservices, low-latency Kafka event streams, and Kubernetes infrastructure across Tier-1 fintech platforms.",
     "sampleExperience": [
       {
         "role": "Lead Platform Engineer",
         "company": "Swiggy",
         "duration": "2022 - Present",
         "bullets": [
-          "Architected order ingestion pipeline handling 140k req/sec with 99.99% uptime during peak festive seasons.",
-          "Cut AWS compute costs by 34% by migrating monolithic workers to containerized Kubernetes pods."
+          "Architected order ingestion pipeline handling 140k req/sec with 99.99% uptime during peak IPL flash sales.",
+          "Cut AWS compute costs by 34% by migrating monolithic workers to containerized Kubernetes pods with custom HPA policies."
         ]
       },
       {
@@ -52,35 +53,39 @@ export const TEMPLATES = [
         "company": "Razorpay",
         "duration": "2019 - 2022",
         "bullets": [
-          "Engineered recurring webhook notification engine processing 12M daily transactions in Go and Kafka."
+          "Engineered recurring webhook notification engine processing 12M daily merchant transactions in Go and Apache Kafka.",
+          "Reduced database connection lock contention by 65% via distributed Redis caching and connection pool tuning."
         ]
       }
     ],
     "sampleEducation": [
       {
         "institution": "IIT Madras",
-        "degree": "B.Tech in Computer Science",
-        "year": "2019"
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2015 - 2019",
+        "description": "CGPA: 9.3/10 · Institute Merit Scholarship · Head of Systems Programming Club · Published paper on Distributed Consensus"
       }
     ],
     "sampleSkills": [
       "Go",
       "Kubernetes",
-      "Kafka",
+      "Apache Kafka",
       "PostgreSQL",
-      "AWS",
-      "Redis"
+      "AWS ECS/EKS",
+      "Redis",
+      "gRPC",
+      "Docker"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
+        "title": "High-Throughput Distributed Ingestion Engine",
         "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency across multi-region VPCs."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
+        "title": "Cloud Infrastructure Cost & Observability Suite",
         "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting annual cloud expenditure by $180,000."
       }
     ],
     "sampleLanguages": [
@@ -91,18 +96,22 @@ export const TEMPLATES = [
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/aaravsharma"
+        "url": "https://github.com/aaravsharma"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/aaravsharma"
+        "url": "https://linkedin.com/in/aaravsharma"
       },
       {
         "label": "Portfolio",
-        "url": "aaravsharma.dev"
+        "url": "https://aaravsharma.dev"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Open Source Systems, Chess Strategy, Marathon Running, IoT Prototyping",
+    "sampleMetrics": [
+      "99.99% SLA",
+      "140k req/sec"
+    ]
   },
   {
     "id": "caddisfly",
@@ -120,34 +129,36 @@ export const TEMPLATES = [
     "sampleName": "Karthik Ramanathan",
     "sampleRole": "Full-Stack Software Engineer",
     "sampleLocation": "Chennai, Tamil Nadu",
-    "sampleEmail": "karthik.r@devnode.io",
-    "samplePhone": "+91 97908 55432",
-    "sampleGithub": "github.com/karthik-ram",
-    "sampleSummary": "Full-stack developer building performant web apps in React, Node.js, and GraphQL with 4+ years of SaaS startup experience.",
+    "sampleEmail": "karthik.r@devstudio.io",
+    "samplePhone": "+91 94440 98765",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Full-stack engineer with 5+ years building reactive web apps, high-throughput Node.js microservices, and modern TypeScript component libraries for enterprise SaaS.",
     "sampleExperience": [
       {
         "role": "Senior Full-Stack Developer",
         "company": "Freshworks",
         "duration": "2021 - Present",
         "bullets": [
-          "Spearheaded CRM UI revamp with React and TypeScript, boosting core Web Vitals score from 62 to 94.",
-          "Implemented federated GraphQL gateway unifying 8 microservices across product workflows."
+          "Spearheaded CRM front-end revamp using Next.js and TypeScript, boosting Google Core Web Vitals score from 62 to 96.",
+          "Built federated GraphQL gateway uniting 9 microservices, slashing client data round-trips by 55%."
         ]
       },
       {
-        "role": "Frontend Engineer",
-        "company": "Postman",
-        "duration": "2020 - 2021",
+        "role": "Software Developer",
+        "company": "Zoho Corporation",
+        "duration": "2018 - 2021",
         "bullets": [
-          "Built workspace collaboration features used by over 3M global API engineers."
+          "Developed multi-tenant billing dashboard used by 180,000+ SMB customers across North America and India.",
+          "Authored reusable design system component library with 100% unit test coverage using Jest and Storybook."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "NIT Trichy",
-        "degree": "B.Tech in Electronics & Comm.",
-        "year": "2020"
+        "institution": "Anna University (CEG Campus)",
+        "degree": "B.E. in Computer Science",
+        "year": "2014 - 2018",
+        "description": "First Class with Distinction (8.8/10 GPA) · Winner of Smart India Hackathon 2017 · Lead Web Developer of TechFest"
       }
     ],
     "sampleSkills": [
@@ -155,19 +166,21 @@ export const TEMPLATES = [
       "TypeScript",
       "Node.js",
       "GraphQL",
-      "Docker",
-      "Tailwind CSS"
+      "Next.js",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "Docker"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Real-Time Collaborative Code Playground",
+        "techStack": "TypeScript, WebSockets, WebAssembly, Monaco Editor",
+        "description": "Built interactive multi-user collaborative code execution sandbox supporting 15 languages with sub-100ms sync."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "Automated SaaS Billing & Invoicing Engine",
+        "techStack": "Node.js, Stripe API, PostgreSQL, Redis",
+        "description": "Engineered automated subscription management system processing ₹3.5Cr monthly recurring revenue without discrepancies."
       }
     ],
     "sampleLanguages": [
@@ -178,18 +191,22 @@ export const TEMPLATES = [
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/karthikramanathan"
+        "url": "https://github.com/karthikr-dev"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/karthikramanathan"
+        "url": "https://linkedin.com/in/karthikramanathan"
       },
       {
         "label": "Portfolio",
-        "url": "karthikramanathan.dev"
+        "url": "https://karthik.codes"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Mechanical Keyboards, Open Source Audio Tools, Badminton, Science Fiction",
+    "sampleMetrics": [
+      "-40% Latency",
+      "50M Events/Day"
+    ]
   },
   {
     "id": "stonefly",
@@ -197,85 +214,101 @@ export const TEMPLATES = [
     "category": "Senior",
     "tags": [
       "Senior",
-      "Executive",
-      "Engineer"
+      "Executive"
     ],
-    "description": "Two-column dark rail format emphasizing organizational leadership, system scale, and team delivery.",
+    "description": "Dark sidebar format engineered for engineering leaders, CTOs, and principal architects.",
     "isAtsOnly": true,
-    "chosenCount": 11200,
+    "chosenCount": 21300,
     "layoutStyle": "dark-sidebar",
     "accentColor": "#1E3A8A",
     "sampleName": "Vikramaditya Sen",
     "sampleRole": "Director of Engineering",
     "sampleLocation": "Hyderabad, Telangana",
-    "sampleEmail": "v.sen@enterprise.in",
-    "samplePhone": "+91 94401 88765",
-    "sampleSummary": "Engineering leader with 12+ years scaling teams from 10 to 90 engineers across fintech, cloud storage, and security infrastructure.",
+    "sampleEmail": "vikram.sen@leadership.org",
+    "samplePhone": "+91 98110 54321",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Engineering executive with 12+ years scaling teams from 15 to 110 engineers, architecting Tier-1 UPI fintech rails, and executing zero-downtime multi-cloud migrations.",
     "sampleExperience": [
       {
-        "role": "Director of Core Infrastructure",
+        "role": "VP of Engineering",
         "company": "PhonePe",
         "duration": "2021 - Present",
         "bullets": [
-          "Oversee 65-person platform engineering team supporting UPI payment transactions for 450M users.",
-          "Established zero-trust security posture across hybrid cloud environments reducing vulnerabilities by 78%."
+          "Lead 85-person platform engineering organization processing 160M daily financial transactions with 99.999% system availability.",
+          "Instituted org-wide RFC review board and automated security compliance gates, reducing critical vulnerabilities by 82%."
         ]
       },
       {
-        "role": "Engineering Manager",
-        "company": "Flipkart",
-        "duration": "2017 - 2021",
+        "role": "Principal Engineering Manager",
+        "company": "Paytm Payments Bank",
+        "duration": "2016 - 2021",
         "bullets": [
-          "Managed checkout service reliability, achieving zero downtime during Big Billion Days sales."
+          "Spearheaded core merchant settlement engine migration to distributed microservices, reducing end-of-day batch window from 4 hours to 18 minutes.",
+          "Mentored 14 tech leads and promoted 8 engineers to principal/staff roles while keeping annual attrition below 6%."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IIT Bombay",
-        "degree": "M.Tech in Computer Science",
-        "year": "2012"
+        "institution": "BITS Pilani",
+        "degree": "M.S. in Software Systems",
+        "year": "2012 - 2014",
+        "description": "Honors with Distinction · Specialization in Distributed Database Systems and Enterprise Scalability"
+      },
+      {
+        "institution": "Jadavpur University",
+        "degree": "B.E. in Computer Science & Engineering",
+        "year": "2008 - 2012",
+        "description": "First Class Honours · President of Engineering Association · Gold Medal in Algorithmic Design"
       }
     ],
     "sampleSkills": [
       "Org Leadership",
-      "Cloud Security",
+      "System Architecture",
       "Fintech Scale",
       "Microservices",
-      "System Architecture"
+      "Cloud Security",
+      "Cost Governance",
+      "Executive Hiring",
+      "P&L Management"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "High-Throughput UPI Payment Gateway Platform",
+        "techStack": "Java, Kafka, Cassandra, Kubernetes, AWS Multi-AZ",
+        "description": "Directed engineering of next-gen UPI switch processing ₹18,000Cr monthly GMV with zero data loss during network partitions."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "Zero-Trust Enterprise Cloud Security Framework",
+        "techStack": "Vault, Istio Service Mesh, Okta, Terraform",
+        "description": "Implemented zero-trust mutual TLS service mesh across 450+ microservices achieving RBI regulatory compliance."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Telugu (Native)",
-      "Hindi (Proficient)"
+      "Bengali (Native)",
+      "Hindi (Proficient)",
+      "Telugu (Conversational)"
     ],
     "sampleLinks": [
       {
-        "label": "GitHub",
-        "url": "github.com/vikramadityasen"
-      },
-      {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/vikramadityasen"
+        "url": "https://linkedin.com/in/vikramadityasen"
       },
       {
-        "label": "Portfolio",
-        "url": "vikramadityasen.dev"
+        "label": "GitHub",
+        "url": "https://github.com/vsen-architect"
+      },
+      {
+        "label": "Substack",
+        "url": "https://scaleandbeyond.substack.com"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Angel Mentorship, Himalayan Trekking, Landscape Photography, Classical Sitar",
+    "sampleMetrics": [
+      "4.9/5 Manager Rating",
+      "100% Team Retention"
+    ]
   },
   {
     "id": "mayfly",
@@ -285,83 +318,92 @@ export const TEMPLATES = [
       "Fresher",
       "Engineer"
     ],
-    "description": "Education-first layout with dedicated project cards tailored for recent college graduates and campus hiring.",
+    "description": "Emerald header color-band tailored for high-achieving new grads and junior developers.",
     "isAtsOnly": true,
-    "chosenCount": 21300,
+    "chosenCount": 16200,
     "layoutStyle": "color-band",
     "accentColor": "#065F46",
     "sampleName": "Rohan Deshmukh",
     "sampleRole": "Associate Software Engineer",
     "sampleLocation": "Pune, Maharashtra",
-    "sampleEmail": "rohan.deshmukh@alumni.ac.in",
-    "samplePhone": "+91 98220 33412",
-    "sampleSummary": "Computer science graduate proficient in Java, Python, and cloud fundamentals with 2 production hackathon wins and internship experience.",
+    "sampleEmail": "rohan.deshmukh@gradmail.in",
+    "samplePhone": "+91 97650 33445",
+    "samplePhoto": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Recent Computer Engineering graduate with strong algorithmic foundations in Java, Python, and SQL, and hands-on internship experience in cloud microservices and automated testing.",
     "sampleExperience": [
       {
         "role": "Software Engineering Intern",
-        "company": "Jio Platforms",
-        "duration": "Summer 2023",
+        "company": "Persistent Systems",
+        "duration": "Jan 2024 - Jun 2024",
         "bullets": [
-          "Developed automated REST API test framework in Python, cutting regression test cycle from 4 hours to 35 minutes.",
-          "Collaborated with core backend team to optimize SQL queries for internal analytics dashboard."
+          "Developed automated REST API integration test suite in Python and PyTest, reducing regression cycle time by 45%.",
+          "Assisted core backend team in indexing PostgreSQL databases, optimizing slow analytic queries by 38%."
         ]
       },
       {
-        "role": "Lead Campus Developer",
-        "company": "Google Developer Student Clubs",
-        "duration": "2022 - 2023",
+        "role": "Full-Stack Developer Intern",
+        "company": "Kirloskar Technologies",
+        "duration": "Jun 2023 - Dec 2023",
         "bullets": [
-          "Mentored 200+ students in Android development and open-source Git workflows."
+          "Built responsive telemetry sensor monitoring portal using React and Spring Boot for IoT equipment diagnostics.",
+          "Implemented JWT token-based authentication and role-based access control across internal management portals."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "COEP Pune",
-        "degree": "B.Tech in Computer Engineering · 8.9 CGPA",
-        "year": "2023"
+        "institution": "COEP Technological University (Pune)",
+        "degree": "B.Tech in Computer Engineering",
+        "year": "2020 - 2024",
+        "description": "CGPA: 8.95/10 · Department Rank Top 5% · President of Coding Club · Finalist at ACM ICPC Regional Qualifier"
       }
     ],
     "sampleSkills": [
       "Java",
       "Python",
       "Spring Boot",
-      "MySQL",
+      "React",
+      "PostgreSQL",
       "Git",
-      "REST APIs"
+      "RESTful APIs",
+      "Docker Basics"
     ],
     "sampleProjects": [
       {
-        "title": "Full-Stack Collaborative Productivity Platform",
-        "techStack": "React, Node.js, Express, MongoDB, Tailwind CSS",
-        "description": "Built real-time kanban and task management platform supporting team collaboration and markdown notes."
+        "title": "Campus Placement & Interview Readiness Portal",
+        "techStack": "Java, Spring Boot, React, MySQL, Tailwind CSS",
+        "description": "Engineered mock interview test portal deployed for 2,400+ university students with automated code evaluation."
       },
       {
-        "title": "Algorithmic Smart Route Optimizer",
-        "techStack": "Python, FastAPI, Leaflet.js, OpenStreetMap API",
-        "description": "Implemented Dijkstra and A* pathfinding heuristics to compute multi-stop delivery routes efficiently."
+        "title": "Distributed Peer-to-Peer File Sharing Engine",
+        "techStack": "Python, Socket Programming, Cryptography",
+        "description": "Developed decentralized file sharing client with AES-256 chunk encryption and peer discovery protocols."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)",
-      "Marathi (Fluent)"
+      "Marathi (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/rohandeshmukh"
+        "url": "https://github.com/rohandeshmukh-dev"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/rohandeshmukh"
+        "url": "https://linkedin.com/in/rohandeshmukh"
       },
       {
-        "label": "Portfolio",
-        "url": "rohandeshmukh.dev"
+        "label": "LeetCode",
+        "url": "https://leetcode.com/rohan_d"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Competitive Programming, Table Tennis, Electronics Prototyping, Cycling",
+    "sampleMetrics": [
+      "9.4/10 CGPA",
+      "Top 1% State Rank"
+    ]
   },
   {
     "id": "bunting",
@@ -369,86 +411,101 @@ export const TEMPLATES = [
     "category": "Data",
     "tags": [
       "Data",
-      "Engineer",
       "Senior"
     ],
-    "description": "Compact tabular framework for data scientists, quant researchers, and ML pipeline builders.",
+    "description": "Two-column analytical grid with dedicated metric callouts for Data Scientists and ML Engineers.",
     "isAtsOnly": true,
     "chosenCount": 13900,
     "layoutStyle": "compact-table",
     "accentColor": "#0F766E",
-    "sampleName": "Ananya Iyer",
+    "sampleName": "Dr. Ananya Iyer",
     "sampleRole": "Lead Data Scientist",
     "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "ananya.iyer@mlanalytics.in",
-    "samplePhone": "+91 96112 44321",
-    "sampleSummary": "Data scientist with 7+ years delivering production recommendation models, churn prediction systems, and LLM inference pipelines.",
+    "sampleEmail": "ananya.iyer@ai-research.org",
+    "samplePhone": "+91 99800 77123",
+    "samplePhoto": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Senior ML practitioner with 7+ years developing production recommendation models, LLM retrieval pipelines, and fraud prevention classifiers processing ₹5,000Cr in monthly loan transactions.",
     "sampleExperience": [
       {
-        "role": "Principal Data Scientist",
+        "role": "Staff Data Scientist",
         "company": "CRED",
-        "duration": "2022 - Present",
+        "duration": "2021 - Present",
         "bullets": [
-          "Trained credit risk evaluation model processing ₹4,000Cr in monthly loan distributions with 94.2% ROC-AUC.",
-          "Deployed real-time fraud detection engine in PyTorch reducing false-positive merchant flags by 41%."
+          "Trained deep learning credit risk evaluation model in PyTorch processing ₹5,000Cr monthly disbursements with 94.8% ROC-AUC.",
+          "Architected real-time merchant transaction fraud anomaly classifier, lowering false-positive blocks by 42%."
         ]
       },
       {
-        "role": "Senior Data Scientist",
-        "company": "Zomato",
-        "duration": "2019 - 2022",
+        "role": "Senior Machine Learning Engineer",
+        "company": "Flipkart",
+        "duration": "2018 - 2021",
         "bullets": [
-          "Engineered personalized restaurant discovery feed, driving a 19% lift in repeat order conversions."
+          "Engineered personalized product ranking transformer model yielding a 14.2% lift in search-to-cart conversion rate.",
+          "Built feature store and continuous retraining pipeline on Apache Spark and MLflow servicing 120M active users."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "ISI Kolkata",
-        "degree": "M.Stat in Quantitative Economics",
-        "year": "2017"
+        "institution": "IISc Bengaluru",
+        "degree": "M.Tech (Research) in Computational & Data Sciences",
+        "year": "2016 - 2018",
+        "description": "CGPA: 9.6/10 · Gold Medalist for Best Master's Thesis · 2 Research Papers published in NeurIPS and KDD"
+      },
+      {
+        "institution": "NIT Trichy",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2012 - 2016",
+        "description": "CGPA: 9.1/10 · Best Outgoing Student Award · President of Machine Intelligence Society"
       }
     ],
     "sampleSkills": [
       "Python",
       "PyTorch",
       "MLOps",
-      "Spark",
+      "Transformers",
+      "Apache Spark",
       "SQL",
-      "LLM Fine-Tuning"
+      "LLM RAG",
+      "AWS SageMaker"
     ],
     "sampleProjects": [
       {
-        "title": "Real-Time Predictive Fraud Detection Pipeline",
-        "techStack": "Python, PyTorch, Apache Spark, Kafka, AWS",
-        "description": "Engineered streaming ML inference model achieving 99.4% accuracy with sub-15ms prediction latency."
+        "title": "Real-Time Multi-Modal Recommendation Engine",
+        "techStack": "PyTorch, FastAPI, Milvus Vector DB, Redis, Kubernetes",
+        "description": "Deployed sub-20ms vector similarity search pipeline ranking 10M+ item catalog embeddings for personalized user feeds."
       },
       {
-        "title": "Automated ETL Lakehouse Architecture",
-        "techStack": "Snowflake, dbt, Airflow, PostgreSQL",
-        "description": "Unified 14 disparate data sources into governed lakehouse, reducing query latency by 65%."
+        "title": "Automated Legal Document Question-Answering RAG",
+        "techStack": "LangChain, Llama-3, HuggingFace, Pinecone",
+        "description": "Built domain-specific conversational retrieval system reducing legal compliance review turnaround from 3 days to 4 minutes."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
+      "Tamil (Native)",
       "Hindi (Proficient)",
-      "Kannada (Native)"
+      "German (Basic)"
     ],
     "sampleLinks": [
       {
+        "label": "Google Scholar",
+        "url": "https://scholar.google.com/citations?user=ananyaiyer"
+      },
+      {
         "label": "GitHub",
-        "url": "github.com/ananyaiyer"
+        "url": "https://github.com/ananya-ai"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/ananyaiyer"
-      },
-      {
-        "label": "Portfolio",
-        "url": "ananyaiyer.dev"
+        "url": "https://linkedin.com/in/ananyaiyer-ds"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Classical Carnatic Music, AI Ethics Blogging, Birdwatching, Astronomy",
+    "sampleMetrics": [
+      "99.4% Accuracy",
+      "10TB+ Daily Ingest"
+    ]
   },
   {
     "id": "osprey",
@@ -456,40 +513,37 @@ export const TEMPLATES = [
     "category": "Product",
     "tags": [
       "Product",
-      "Senior",
-      "Marketing"
+      "Executive"
     ],
-    "description": "Dual-column layout with a right metrics sidebar showcasing quantifiable business impact and ARR growth.",
+    "description": "Right-sidebar layout with prominent KPI sections designed for Product Leaders and Group PMs.",
     "isAtsOnly": true,
-    "chosenCount": 16750,
+    "chosenCount": 17100,
     "layoutStyle": "sidebar-right",
-    "accentColor": "#B45309",
-    "sampleMetrics": [
-      "+52% D30 Retention",
-      "₹38Cr ARR Added"
-    ],
+    "accentColor": "#FA0C40",
     "sampleName": "Priya Nair",
     "sampleRole": "Principal Product Manager",
     "sampleLocation": "Mumbai, Maharashtra",
-    "sampleEmail": "priya.nair@productcraft.in",
-    "samplePhone": "+91 98200 66543",
-    "sampleSummary": "Product leader with 8+ years driving consumer mobile growth, payment funnels, and retention mechanics in high-velocity tech startups.",
+    "sampleEmail": "priya.nair@productlead.co",
+    "samplePhone": "+91 98200 45678",
+    "samplePhoto": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Product executive with 8+ years steering fintech consumer monetization, payment checkout funnels, and high-conversion zero-to-one mobile apps reaching 45M monthly active users.",
     "sampleExperience": [
       {
-        "role": "Head of Consumer Growth",
-        "company": "Meesho",
-        "duration": "2021 - Present",
+        "role": "Group Product Manager - Consumer Monetization",
+        "company": "Zepto",
+        "duration": "2022 - Present",
         "bullets": [
-          "Led team of 14 PMs, designers, and engineers shipping multi-language vernacular onboarding for Tier 2/3 users.",
-          "Increased Day-30 buyer retention by 18% through gamified reward streaks and WhatsApp catalog sharing."
+          "Spearheaded Zepto Pass loyalty subscription program, scaling from 0 to 4.2M paid subscribers in 8 months.",
+          "Optimized 10-minute checkout funnel micro-copy and payment retry loops, lifting transaction success rates by 7.4%."
         ]
       },
       {
-        "role": "Product Manager",
-        "company": "Ola Cabs",
-        "duration": "2018 - 2021",
+        "role": "Senior Product Manager",
+        "company": "Paytm",
+        "duration": "2018 - 2022",
         "bullets": [
-          "Owned driver-partner payment lifecycle, reducing payout reconciliation turnaround from 48h to instant UPI."
+          "Launched multi-language vernacular voice payments for 3.5M rural merchants across 8 Indian languages.",
+          "Grew Soundbox merchant adoption from 40k to 1.8M active terminals generating ₹240Cr annual hardware lease revenue."
         ]
       }
     ],
@@ -497,49 +551,63 @@ export const TEMPLATES = [
       {
         "institution": "IIM Ahmedabad",
         "degree": "MBA in Strategy & Marketing",
-        "year": "2018"
+        "year": "2016 - 2018",
+        "description": "Top 10% Batch Rank · Winner of HUL L.I.M.E. National Case Competition · Head of Product Club"
+      },
+      {
+        "institution": "VJTI Mumbai",
+        "degree": "B.Tech in Information Technology",
+        "year": "2012 - 2016",
+        "description": "First Class Honours (8.9/10 CGPA) · General Secretary of Student Council"
       }
     ],
     "sampleSkills": [
       "Product Strategy",
       "Growth Loops",
       "A/B Testing",
-      "Mixpanel",
-      "SQL",
-      "User Research"
+      "Mixpanel/Amplitude",
+      "SQL & Analytics",
+      "UX Wireframing",
+      "Roadmap Prioritization",
+      "Stakeholder Management"
     ],
     "sampleProjects": [
       {
-        "title": "AI-Powered User Engagement & Onboarding Engine",
-        "techStack": "Mixpanel, SQL, Jira, A/B Testing, Python",
-        "description": "Spearheaded zero-to-one launch of automated personalized onboarding, lifting D30 retention by 28%."
+        "title": "Instant Merchant Credit Settlement & Underwriting Flow",
+        "techStack": "Product Discovery, Mixpanel, Figma, SQL, Agile Scrum",
+        "description": "Designed 1-click merchant working capital disbursement pipeline originating ₹850Cr in micro-loans with 0.8% default rate."
       },
       {
-        "title": "Global Marketplace Monetization Overhaul",
-        "techStack": "Stripe API, Tableau, Confluence, Scrum",
-        "description": "Restructured pricing tiers and introduced self-serve annual billing, driving ₹4.5Cr in net ARR expansion."
+        "title": "Vernacular User Onboarding & Voice-Guided Checkout",
+        "techStack": "Speech AI, User Testing, Mixpanel Funnels, Growth Engineering",
+        "description": "Engineered non-English checkout flow boosting Tier-3 city order completion rate by 29%."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)",
-      "Marathi (Fluent)"
+      "Hindi (Fluent)",
+      "Malayalam (Native)",
+      "Marathi (Conversational)"
     ],
     "sampleLinks": [
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/priyanair"
+        "url": "https://linkedin.com/in/priyanair-pm"
       },
       {
-        "label": "Personal Site",
-        "url": "priyanair.me"
+        "label": "Medium",
+        "url": "https://medium.com/@priyanair_prod"
       },
       {
-        "label": "Substack",
-        "url": "priyanair.substack.com"
+        "label": "Portfolio",
+        "url": "https://priyanair.product"
       }
     ],
-    "sampleHobbies": "Tech Podcast Hosting, Angle Investing Mentorship, Long-distance Cycling, Book Club"
+    "sampleHobbies": "Tech Podcasting, Angel Mentorship for Women in Tech, Long-Distance Cycling, Book Club",
+    "sampleMetrics": [
+      "₹45Cr GMV Lift",
+      "3.2M MAU Growth"
+    ]
   },
   {
     "id": "drongo",
@@ -547,86 +615,100 @@ export const TEMPLATES = [
     "category": "Design",
     "tags": [
       "Design",
-      "Product"
+      "Senior"
     ],
-    "description": "Portfolio-first layout with high visual clarity, design tokens matrix, and case study links.",
+    "description": "Visual header profile format designed for Product Designers, Design Leads, and UX Directors.",
     "isAtsOnly": false,
-    "chosenCount": 9400,
+    "chosenCount": 19800,
     "layoutStyle": "photo-header",
     "accentColor": "#6D28D9",
-    "samplePortfolio": "dribbble.com/sneha_design",
-    "sampleName": "Sneha Kulkarni",
+    "sampleName": "Siddharth Sengupta",
     "sampleRole": "Lead Product Designer",
     "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "sneha.k@designstudio.in",
-    "samplePhone": "+91 99801 22345",
-    "sampleSummary": "Product designer with 7 years crafting design systems, complex SaaS workflows, and mobile interactions for 10M+ active users.",
+    "sampleEmail": "siddharth.ux@designcraft.in",
+    "samplePhone": "+91 98455 67890",
+    "samplePhoto": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Design leader with 8+ years crafting world-class fintech mobile interfaces, design systems, and delightful micro-interactions for 60M+ Indian digital banking consumers.",
     "sampleExperience": [
       {
-        "role": "Design Lead",
-        "company": "Zerodha",
+        "role": "Head of Design Systems",
+        "company": "CRED",
         "duration": "2021 - Present",
         "bullets": [
-          "Spearheaded redesign of Kite mobile trading charts, reducing multi-order execution time by 35%.",
-          "Built and open-sourced company-wide Figma design token system supporting dark/light mode parity."
+          "Architected Neo-Design multi-theme token library adopted across 14 product squads with 98% design-to-code parity.",
+          "Led team of 12 product and motion designers creating high-converting gamified rewards and checkout animations."
         ]
       },
       {
-        "role": "Senior UI/UX Designer",
-        "company": "BrowserStack",
-        "duration": "2018 - 2021",
+        "role": "Lead UX Designer",
+        "company": "Cleartrip",
+        "duration": "2017 - 2021",
         "bullets": [
-          "Created automated live test session management interfaces used by 45,000 enterprise dev teams."
+          "Redesigned flight and hotel booking funnels, lifting multi-city booking conversion by 18.4%.",
+          "Established mobile-first accessibility standards compliant with WCAG 2.1 AA across Android and iOS apps."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "NID Ahmedabad",
-        "degree": "Master of Design (Interaction Design)",
-        "year": "2018"
+        "institution": "National Institute of Design (NID Ahmedabad)",
+        "degree": "M.Des in Interaction Design",
+        "year": "2015 - 2017",
+        "description": "Dean's Gold Medal for Outstanding Graduation Project in Accessible Financial Interfaces"
+      },
+      {
+        "institution": "IIT Guwahati",
+        "degree": "B.Des in Design",
+        "year": "2011 - 2015",
+        "description": "President of Design Club · Best Portfolio Award at Design Summit 2015"
       }
     ],
     "sampleSkills": [
-      "Figma",
       "Design Systems",
+      "Figma",
       "Interaction Design",
-      "User Testing",
+      "Micro-Animations",
       "Prototyping",
-      "HTML/CSS"
+      "User Research",
+      "Information Architecture",
+      "WCAG Accessibility"
     ],
     "sampleProjects": [
       {
-        "title": "Enterprise Design System Modernization",
-        "techStack": "Figma, Storybook, React, Design Tokens",
-        "description": "Standardized 140+ accessible WCAG-compliant UI components adopted across web and mobile platforms."
+        "title": "Multi-Brand Design Tokens & Motion Framework",
+        "techStack": "Figma Tokens, Style Dictionary, React Native, Framer Motion",
+        "description": "Created cross-platform design token pipeline delivering automated theme updates to iOS, Android, and Web in seconds."
       },
       {
-        "title": "Omnichannel Checkout Experience Redesign",
-        "techStack": "User Research, Wireframing, ProtoPie, Usability Testing",
-        "description": "Streamlined 5-step checkout flow into 2-step journey, increasing conversion rate by 24%."
+        "title": "Gamified Loyalty & Bill Payment Experience",
+        "techStack": "Lottie, After Effects, Figma, User Testing, Protopie",
+        "description": "Designed swipe-to-pay visual feedback loops driving a 34% increase in daily active user check-ins."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Bengali (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "Portfolio",
-        "url": "behance.net/snehakulkarni"
-      },
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/snehakulkarni"
+        "url": "https://siddharthsengupta.design"
       },
       {
         "label": "Dribbble",
-        "url": "dribbble.com/snehakulkarni"
+        "url": "https://dribbble.com/siddharths"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/siddharthsengupta"
       }
     ],
-    "sampleHobbies": "Typography Design, Street Photography, Architectural Modeling, Visual Arts"
+    "sampleHobbies": "Typography Crafting, Generative Art, Street Photography, Japanese Calligraphy",
+    "sampleMetrics": [
+      "+55% NPS Score",
+      "3.8x Engagement"
+    ]
   },
   {
     "id": "monarch",
@@ -634,149 +716,74 @@ export const TEMPLATES = [
     "category": "Marketing",
     "tags": [
       "Marketing",
-      "Sales",
       "Senior"
     ],
-    "description": "High-impact editorial format with campaign acquisition numbers and organic performance callouts.",
+    "description": "Chronological timeline layout highlighting campaign milestones and paid acquisition scale.",
     "isAtsOnly": true,
-    "chosenCount": 12300,
+    "chosenCount": 15400,
     "layoutStyle": "timeline",
     "accentColor": "#BE123C",
-    "sampleName": "Aditya Banerjee",
+    "sampleName": "Rituja Joshi",
     "sampleRole": "VP of Growth & Performance Marketing",
-    "sampleLocation": "Gurgaon, Haryana",
-    "sampleEmail": "aditya.b@growthmatrix.in",
-    "samplePhone": "+91 98110 99876",
-    "sampleSummary": "Growth marketing leader with 9+ years managing ₹25Cr+ annual digital budgets, multi-channel attribution, and CAC optimization.",
+    "sampleLocation": "Gurugram, Haryana",
+    "sampleEmail": "rituja.joshi@growthlab.co",
+    "samplePhone": "+91 99100 88765",
+    "samplePhoto": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Growth and performance marketing leader managing ₹60Cr+ annual ad spend across Google, Meta, and programmatic networks, delivering 4.8x ROAS for high-growth consumer internet startups.",
     "sampleExperience": [
       {
-        "role": "Director of Performance Growth",
-        "company": "Urban Company",
+        "role": "VP of Growth & Performance Marketing",
+        "company": "Mamaearth (Honasa)",
         "duration": "2021 - Present",
         "bullets": [
-          "Scaled paid user acquisition across Meta and Google Ads, decreasing blended CAC by 28% while doubling volume.",
-          "Architected lifecycle automation in Clevertap driving ₹14Cr in annual reactivation GMV."
+          "Managed ₹50Cr annual performance marketing budget, scaling monthly D2C customer acquisition from 120k to 650k with 4.2x blended ROAS.",
+          "Built automated bid optimization engine with Google Ads Scripts and Meta API, slashing customer acquisition cost (CAC) by 28%."
         ]
       },
       {
-        "role": "Growth Marketing Lead",
+        "role": "Senior Growth Marketing Manager",
         "company": "Nykaa",
-        "duration": "2017 - 2021",
+        "duration": "2018 - 2021",
         "bullets": [
-          "Managed festive sales digital campaigns generating 4.2x ROAS across beauty and apparel categories."
+          "Scaled app install acquisition campaigns delivering 14M+ verified downloads during Pink Friday festive sales.",
+          "Spearheaded influencer affiliate attribution dashboard tracking 800+ beauty creators with granular cohort LTV."
         ]
       }
     ],
     "sampleEducation": [
       {
         "institution": "MICA Ahmedabad",
-        "degree": "PGDM in Digital Marketing",
-        "year": "2017"
+        "degree": "PGDM in Digital Marketing & Communications",
+        "year": "2016 - 2018",
+        "description": "First Rank in Digital Strategy & Analytics · Winner of Google Marketing Challenge 2017"
+      },
+      {
+        "institution": "Delhi University (Lady Shri Ram College)",
+        "degree": "B.A. (Hons) in Economics",
+        "year": "2013 - 2016",
+        "description": "First Class with Distinction (8.8/10 CGPA) · President of Marketing Society"
       }
     ],
     "sampleSkills": [
       "Performance Marketing",
+      "Paid Search (SEM)",
       "Meta Ads",
-      "Google Ads",
-      "Clevertap",
+      "Programmatic DSP",
+      "ROAS Optimization",
       "Attribution Modeling",
-      "SEO"
+      "Mixpanel",
+      "Conversion Rate Optimization"
     ],
     "sampleProjects": [
       {
-        "title": "Multi-Channel Inbound Demand Generation Engine",
-        "techStack": "HubSpot, Google Ads, LinkedIn Campaign Manager, GA4",
-        "description": "Scaled monthly qualified leads by 240% while decreasing average customer acquisition cost (CAC) by 32%."
+        "title": "Automated Multi-Channel Paid Ad Bidding Engine",
+        "techStack": "Google Ads API, Meta Marketing API, Python, BigQuery",
+        "description": "Engineered automated budget allocation model shifting ad spends between campaigns in real time based on hourly ROAS thresholds."
       },
       {
-        "title": "High-Touch Enterprise Account Expansion Program",
-        "techStack": "Salesforce CRM, Gong, Apollo, Notion",
-        "description": "Executed targeted account-based marketing strategy generating ₹8.2Cr in closed-won enterprise pipeline."
-      }
-    ],
-    "sampleLanguages": [
-      "English (Fluent)",
-      "Hindi (Native)"
-    ],
-    "sampleLinks": [
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/adityabanerjee"
-      },
-      {
-        "label": "Personal Site",
-        "url": "adityabanerjee.me"
-      },
-      {
-        "label": "Substack",
-        "url": "adityabanerjee.substack.com"
-      }
-    ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
-  },
-  {
-    "id": "albatross",
-    "name": "Albatross",
-    "category": "Sales",
-    "tags": [
-      "Sales",
-      "Executive",
-      "Senior"
-    ],
-    "description": "Clear two-column structure highlighting quota over-achievement, enterprise contracts, and revenue ARR.",
-    "isAtsOnly": true,
-    "chosenCount": 8900,
-    "layoutStyle": "sidebar-left",
-    "accentColor": "#1F2937",
-    "sampleName": "Meera Patel",
-    "sampleRole": "Head of Enterprise Sales (APAC)",
-    "sampleLocation": "Mumbai, Maharashtra",
-    "sampleEmail": "meera.patel@saassales.in",
-    "samplePhone": "+91 98211 44556",
-    "sampleSummary": "B2B SaaS sales leader with 10+ years closing 7-figure enterprise contracts with Fortune 500 banks and conglomerates across India and APAC.",
-    "sampleExperience": [
-      {
-        "role": "Enterprise Sales Director",
-        "company": "Postman",
-        "duration": "2021 - Present",
-        "bullets": [
-          "Achieved 148% of annual quota delivering $4.8M in net new ARR across banking and IT services clients.",
-          "Built 10-person outbound enterprise SDR team growing enterprise pipeline by 3.2x year-over-year."
-        ]
-      },
-      {
-        "role": "Enterprise Account Executive",
-        "company": "Salesforce India",
-        "duration": "2016 - 2021",
-        "bullets": [
-          "Closed landmark multi-year cloud deals with top 3 private Indian banks."
-        ]
-      }
-    ],
-    "sampleEducation": [
-      {
-        "institution": "Symbiosis Pune",
-        "degree": "MBA in International Business",
-        "year": "2016"
-      }
-    ],
-    "sampleSkills": [
-      "Enterprise SaaS",
-      "MEDDIC Sales",
-      "Contract Negotiation",
-      "Revenue Pipeline",
-      "Salesforce CRM"
-    ],
-    "sampleProjects": [
-      {
-        "title": "Multi-Channel Inbound Demand Generation Engine",
-        "techStack": "HubSpot, Google Ads, LinkedIn Campaign Manager, GA4",
-        "description": "Scaled monthly qualified leads by 240% while decreasing average customer acquisition cost (CAC) by 32%."
-      },
-      {
-        "title": "High-Touch Enterprise Account Expansion Program",
-        "techStack": "Salesforce CRM, Gong, Apollo, Notion",
-        "description": "Executed targeted account-based marketing strategy generating ₹8.2Cr in closed-won enterprise pipeline."
+        "title": "Omni-Channel Customer Lifetime Value (LTV) Predictor",
+        "techStack": "AppsFlyer, BigQuery, Looker, Python, Mixpanel",
+        "description": "Constructed 90-day repurchase probability scoring model identifying high-value buyer cohorts with 89% accuracy."
       }
     ],
     "sampleLanguages": [
@@ -786,19 +793,121 @@ export const TEMPLATES = [
     ],
     "sampleLinks": [
       {
-        "label": "GitHub",
-        "url": "github.com/meerapatel"
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/ritujajoshi-growth"
       },
       {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/meerapatel"
+        "label": "Substack",
+        "url": "https://growthunlocked.substack.com"
       },
       {
         "label": "Portfolio",
-        "url": "meerapatel.dev"
+        "url": "https://ritujajoshi.com"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Marathon Training, Specialty Coffee Brewing, Podcasting on Consumer Tech, Yoga",
+    "sampleMetrics": [
+      "+85% Organic SEO",
+      "240k Newsletter Subs"
+    ]
+  },
+  {
+    "id": "albatross",
+    "name": "Albatross",
+    "category": "Sales",
+    "tags": [
+      "Sales",
+      "Senior"
+    ],
+    "description": "Executive two-column format with dedicated ARR achievements and quota attainment callouts.",
+    "isAtsOnly": true,
+    "chosenCount": 14200,
+    "layoutStyle": "sidebar-left",
+    "accentColor": "#1F2937",
+    "sampleName": "Rajeshwar Rao",
+    "sampleRole": "Head of Enterprise Sales (APAC)",
+    "sampleLocation": "Bengaluru, Karnataka",
+    "sampleEmail": "rajeshwar.rao@enterprisesales.in",
+    "samplePhone": "+91 98450 67812",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Enterprise sales leader with 14+ years closing multi-million dollar B2B software contracts, expanding APAC/EMEA footprint, and mentoring 30+ quota-crushing account executives.",
+    "sampleExperience": [
+      {
+        "role": "VP - Enterprise & BFSI Sales",
+        "company": "Postman",
+        "duration": "2021 - Present",
+        "bullets": [
+          "Delivered $14.8M in net new ARR across Tier-1 BFSI and telecom enterprise accounts, exceeding target quota by 142%.",
+          "Negotiated multi-year global enterprise license agreements with 24 Fortune 500 banks and IT service conglomerates."
+        ]
+      },
+      {
+        "role": "Director of Sales - India & SEA",
+        "company": "Sprinklr",
+        "duration": "2016 - 2021",
+        "bullets": [
+          "Grew regional revenue from $2.4M to $11.5M ARR with 128% net revenue retention across enterprise accounts.",
+          "Instituted MEDDICC sales qualification framework, lifting deal win rates from 22% to 41%."
+        ]
+      }
+    ],
+    "sampleEducation": [
+      {
+        "institution": "Indian School of Business (ISB Hyderabad)",
+        "degree": "Post Graduate Programme in Management (MBA)",
+        "year": "2013 - 2014",
+        "description": "Dean's List · Specialization in Strategic Marketing and Enterprise Negotiations"
+      },
+      {
+        "institution": "Osmania University College of Engineering",
+        "degree": "B.E. in Mechanical Engineering",
+        "year": "2006 - 2010",
+        "description": "First Class with Distinction · University Basketball Captain"
+      }
+    ],
+    "sampleSkills": [
+      "Enterprise SaaS Sales",
+      "C-Suite Deal Negotiation",
+      "MEDDICC Framework",
+      "ARR Expansion",
+      "Territory Planning",
+      "Salesforce CRM",
+      "Partner Ecosystems",
+      "Key Account Governance"
+    ],
+    "sampleProjects": [
+      {
+        "title": "BFSI Enterprise Cloud Transformation Playbook",
+        "techStack": "MEDDICC, Salesforce, Gainsight, Financial Modeling",
+        "description": "Structured end-to-end sales strategy that secured 6 top private Indian banks for 3-year digital enterprise agreements."
+      },
+      {
+        "title": "Global Partner Ecosystem & System Integrator Expansion",
+        "techStack": "Partner Relationship Management (PRM), Channel Sales",
+        "description": "Established strategic go-to-market alliances with TCS, Infosys, and Wipro driving $6.2M in co-sell pipeline."
+      }
+    ],
+    "sampleLanguages": [
+      "English (Fluent)",
+      "Telugu (Native)",
+      "Hindi (Fluent)",
+      "Kannada (Conversational)"
+    ],
+    "sampleLinks": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/rajeshwarrao-sales"
+      },
+      {
+        "label": "Salesforce Trailblazer",
+        "url": "https://trailblazer.me/id/rrao"
+      }
+    ],
+    "sampleHobbies": "Golf, Himalayan Trekking, Angel Investing in B2B Startups, Vintage Watch Collecting",
+    "sampleMetrics": [
+      "₹18Cr Revenue",
+      "142% Quota Attained"
+    ]
   },
   {
     "id": "kingfisher",
@@ -806,85 +915,96 @@ export const TEMPLATES = [
     "category": "Executive",
     "tags": [
       "Executive",
-      "Senior",
-      "Product"
+      "Senior"
     ],
-    "description": "Subtle serif and clean line dividers for C-suite leaders and business unit heads.",
+    "description": "Serif-accented executive template optimized for C-suite leaders, COOs, and General Managers.",
     "isAtsOnly": true,
-    "chosenCount": 15600,
+    "chosenCount": 22600,
     "layoutStyle": "minimalist",
-    "accentColor": "#475569",
-    "sampleName": "Arjun Reddy",
+    "accentColor": "#1E293B",
+    "sampleName": "Raghav Malhotra",
     "sampleRole": "Chief Operating Officer",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "arjun.reddy@execboard.in",
-    "samplePhone": "+91 98490 77665",
-    "sampleSummary": "Operations and business leader with 15+ years transforming unit economics, supply chain logistics, and P&L across hyper-growth tech unicorns.",
+    "sampleLocation": "New Delhi, Delhi",
+    "sampleEmail": "raghav.malhotra@executiveboard.in",
+    "samplePhone": "+91 98100 11223",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Transformational Chief Operating Officer with 18+ years leading technology-enabled businesses, steering P&Ls from ₹100Cr to ₹1,200Cr, orchestrating cross-border M&A, and driving profitable unit economics.",
     "sampleExperience": [
       {
         "role": "Chief Operating Officer",
-        "company": "Delhivery",
+        "company": "Urban Company Services",
         "duration": "2020 - Present",
         "bullets": [
-          "Optimized 85 pan-India automated fulfillment hubs, reducing cost per parcel delivered by 22%.",
-          "Managed annual operations budget of ₹1,200Cr while maintaining 99.4% on-time SLA adherence."
+          "Scaled annual gross transaction value from ₹450Cr to ₹2,100Cr while achieving corporate EBITDA profitability across core geographies.",
+          "Expanded operations into UAE, Singapore, and Saudi Arabia, establishing localized supply chains and partner networks."
         ]
       },
       {
         "role": "VP of Operations",
-        "company": "Amazon India",
+        "company": "MakeMyTrip Group",
         "duration": "2014 - 2020",
         "bullets": [
-          "Scaled prime same-day delivery network from 4 cities to 28 Tier 1/2 urban regions."
+          "Oversaw 2,800+ employees across business operations, customer experience, and vendor alliances.",
+          "Led post-merger operational integration of Ibibo Group, capturing ₹140Cr in annual cost synergies within 14 months."
         ]
       }
     ],
     "sampleEducation": [
       {
+        "institution": "IIM Calcutta",
+        "degree": "PGDM in Finance & Strategic Management",
+        "year": "2003 - 2005",
+        "description": "Director's Merit List · President of Student Executive Council · Tata Scholarship Recipient"
+      },
+      {
         "institution": "IIT Delhi",
-        "degree": "B.Tech in Mechanical Engineering",
-        "year": "2009"
+        "degree": "B.Tech in Chemical Engineering",
+        "year": "1999 - 2003",
+        "description": "First Class Honours · General Secretary of Technical Affairs"
       }
     ],
     "sampleSkills": [
       "P&L Management",
-      "Supply Chain",
-      "Operational Scale",
-      "Unit Economics",
-      "Board Governance"
+      "Strategic Vision",
+      "M&A Integration",
+      "Board Governance",
+      "Capital Allocation",
+      "Global Operations",
+      "Investor Relations",
+      "Executive Team Building"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Pan-India Gig Economy Service Partner Empowerment Program",
+        "techStack": "Operational Governance, Micro-Financing, Mobile App Tech",
+        "description": "Structured digital training and automated insurance safety net for 45,000+ service professionals, reducing partner churn by 44%."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "Cross-Border Market Expansion into Middle East & SEA",
+        "techStack": "Entity Setup, Regulatory Compliance, P&L Modeling",
+        "description": "Launched profitable international business units in Dubai, Riyadh, and Singapore contributing 22% to total corporate revenue."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Hindi (Native)",
+      "Punjabi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/arjunreddy"
+        "url": "https://linkedin.com/in/raghavmalhotra-ceo"
       },
       {
-        "label": "Personal Site",
-        "url": "arjunreddy.me"
-      },
-      {
-        "label": "Substack",
-        "url": "arjunreddy.substack.com"
+        "label": "Crunchbase",
+        "url": "https://crunchbase.com/person/raghav-malhotra"
       }
     ],
-    "sampleHobbies": "Tech Podcast Hosting, Angle Investing Mentorship, Long-distance Cycling, Book Club"
+    "sampleHobbies": "Endurance Cycling, Squash, Philanthropy in Rural Education, Classical Literature",
+    "sampleMetrics": [
+      "₹120Cr P&L",
+      "4.9★ Glassdoor"
+    ]
   },
   {
     "id": "falcon",
@@ -894,83 +1014,88 @@ export const TEMPLATES = [
       "Engineer",
       "Senior"
     ],
-    "description": "Balanced single-column layout with distinct action-verb emphasis for backend and systems programmers.",
+    "description": "High-density single-column template tailored for SREs, DevOps engineers, and cloud architects.",
     "isAtsOnly": true,
-    "chosenCount": 17200,
+    "chosenCount": 16800,
     "layoutStyle": "single-column",
-    "accentColor": "#FA0C40",
-    "sampleName": "Tanvi Singhal",
+    "accentColor": "#2563EB",
+    "sampleName": "Aditya Verma",
     "sampleRole": "Senior DevOps & Cloud Architect",
-    "sampleLocation": "Noida, Uttar Pradesh",
-    "sampleEmail": "tanvi.singhal@cloudops.in",
-    "samplePhone": "+91 98710 33214",
-    "sampleSummary": "Cloud architect with 6 years building multi-region AWS/GCP infrastructures, automated Terraform CI/CD pipelines, and FinOps practices.",
+    "sampleLocation": "Hyderabad, Telangana",
+    "sampleEmail": "aditya.verma@cloudops.in",
+    "samplePhone": "+91 97000 88990",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Cloud Infrastructure and Site Reliability Architect with 7+ years orchestrating AWS/GCP Kubernetes clusters, building GitOps CI/CD pipelines, and maintaining four-nines uptime for high-traffic SaaS systems.",
     "sampleExperience": [
       {
-        "role": "Lead DevOps Engineer",
-        "company": "Paytm Payments Bank",
+        "role": "Lead DevOps & SRE Architect",
+        "company": "HighRadius Technologies",
         "duration": "2021 - Present",
         "bullets": [
-          "Automated infrastructure provisioning across 400+ microservices using Terraform and GitLab CI.",
-          "Achieved SOC 2 and PCI-DSS compliance audits with zero non-conformity findings."
+          "Architected multi-region Kubernetes infrastructure on AWS EKS serving 250M daily API requests with 99.995% uptime.",
+          "Implemented automated disaster recovery failover reducing RTO from 45 minutes to 4 minutes."
         ]
       },
       {
-        "role": "Cloud Engineer",
-        "company": "Infosys",
+        "role": "Senior Cloud Infrastructure Engineer",
+        "company": "InMobi",
         "duration": "2018 - 2021",
         "bullets": [
-          "Migrated legacy on-prem core banking servers to AWS GovCloud with minimal downtime."
+          "Built GitOps automated deployment pipeline using ArgoCD and Terraform, decreasing deployment cycle time by 70%.",
+          "Designed centralized Prometheus/Grafana and OpenTelemetry observability stack across 400+ microservices."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "DTU Delhi",
-        "degree": "B.Tech in Information Technology",
-        "year": "2018"
+        "institution": "IIIT Hyderabad",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2014 - 2018",
+        "description": "CGPA: 8.9/10 · Dean's List for Academic Excellence · Lead Sysadmin of Campus High-Performance Compute Cluster"
       }
     ],
     "sampleSkills": [
-      "AWS",
-      "Terraform",
       "Kubernetes",
+      "Terraform",
+      "AWS / GCP",
+      "ArgoCD",
+      "Prometheus & Grafana",
       "Docker",
-      "Ansible",
-      "Prometheus",
-      "CI/CD"
+      "Python / Bash",
+      "Istio Service Mesh"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Zero-Downtime Multi-Region Disaster Recovery Mesh",
+        "techStack": "AWS Route53, Istio, Terraform, Kubernetes, Vault",
+        "description": "Constructed automated active-active multi-region failover cluster sustaining zero data loss during regional cloud outages."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "Automated Cloud Cost & Spot-Instance Orchestrator",
+        "techStack": "Karpenter, Kubernetes HPA, Python, AWS CloudWatch",
+        "description": "Deployed dynamic pod scaling and spot node provisioning, slashing monthly AWS infrastructure bills by 41%."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)"
+      "Hindi (Native)",
+      "Telugu (Conversational)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/tanvisinghal"
+        "url": "https://github.com/adityaverma-sre"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/tanvisinghal"
-      },
-      {
-        "label": "Portfolio",
-        "url": "tanvisinghal.dev"
+        "url": "https://linkedin.com/in/adityaverma-cloud"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Home Lab Clustering, Linux Kernel Tweaking, Photography, Badminton",
+    "sampleMetrics": [
+      "Zero Data Loss",
+      "12M Transactions"
+    ]
   },
   {
     "id": "harrier",
@@ -978,85 +1103,96 @@ export const TEMPLATES = [
     "category": "Engineer",
     "tags": [
       "Engineer",
-      "Fresher"
+      "Senior"
     ],
-    "description": "Clean split format with strong project highlights and Git contribution badges.",
+    "description": "Refined technical template with elegant syntax highlights for Principal Architects and Compilers engineers.",
     "isAtsOnly": true,
-    "chosenCount": 14100,
+    "chosenCount": 20100,
     "layoutStyle": "creative-accent",
-    "accentColor": "#2563EB",
-    "sampleName": "Siddharth Roy",
+    "accentColor": "#1E293B",
+    "sampleName": "Dr. Kabir Mehta",
     "sampleRole": "Frontend React Developer",
-    "sampleLocation": "Kolkata, West Bengal",
-    "sampleEmail": "siddharth.roy@frontend.dev",
-    "samplePhone": "+91 98300 55678",
-    "sampleGithub": "github.com/sroy-react",
-    "sampleSummary": "Frontend engineer building reactive, accessible, and fast web experiences with React, Next.js, and Redux Toolkit.",
+    "sampleLocation": "Bengaluru, Karnataka",
+    "sampleEmail": "kabir.mehta@compilerlabs.org",
+    "samplePhone": "+91 98451 99001",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Principal systems architect with 10+ years specializing in WebAssembly runtimes, high-performance TypeScript execution engines, and reactive frontend frameworks.",
     "sampleExperience": [
       {
-        "role": "Frontend Engineer",
-        "company": "Groww",
-        "duration": "2022 - Present",
+        "role": "Principal Frontend Architect",
+        "company": "BrowserStack",
+        "duration": "2020 - Present",
         "bullets": [
-          "Engineered stock market live ticker widget rendering 60fps real-time candlestick charts with WebSocket feeds.",
-          "Reduced first contentful paint (FCP) by 45% through Next.js server-side rendering and asset caching."
+          "Architected low-latency remote canvas streaming engine in WebAssembly, reducing video decode latency by 45ms.",
+          "Led core UI framework team standardizing design tokens across 18 product squads."
         ]
       },
       {
-        "role": "Web Developer Intern",
-        "company": "BookMyShow",
-        "duration": "2021 - 2022",
+        "role": "Senior Staff Engineer",
+        "company": "Postman",
+        "duration": "2016 - 2020",
         "bullets": [
-          "Built responsive seating map layout for mobile checkout in React and Canvas API."
+          "Redesigned desktop API runtime execution sandbox, boosting response rendering speeds by 3.8x.",
+          "Mentored 20+ frontend engineers in TypeScript architectural patterns and compiler AST optimizations."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "Jadavpur University",
-        "degree": "B.E. in Computer Science",
-        "year": "2022"
+        "institution": "Stanford University",
+        "degree": "M.S. in Computer Science (Systems)",
+        "year": "2014 - 2016",
+        "description": "Specialization in Compilers and Parallel Distributed Systems · Research Fellow in Web Runtimes"
+      },
+      {
+        "institution": "IIT Bombay",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2010 - 2014",
+        "description": "Institute Silver Medal · All India JEE Rank 42 · Head of Web and Systems Development"
       }
     ],
     "sampleSkills": [
+      "TypeScript",
       "React",
-      "Next.js",
-      "JavaScript (ES6+)",
-      "Redux Toolkit",
-      "WebSockets",
-      "CSS Modules"
+      "WebAssembly (WASM)",
+      "Rust",
+      "C++",
+      "V8 Engine Internals",
+      "GraphQL",
+      "Performance Tuning"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Real-Time In-Browser Vector Rendering Engine",
+        "techStack": "Rust, WebAssembly, WebGL, TypeScript",
+        "description": "Built high-performance GPU-accelerated graphic engine rendering 250k dynamic nodes at 60 FPS in browser."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "AST-Based Automated Code Refactoring Suite",
+        "techStack": "TypeScript Compiler API, Node.js, Jest",
+        "description": "Developed automated migration tooling that successfully refactored 2.2M lines of legacy JavaScript to typed TypeScript."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)"
+      "Hindi (Fluent)",
+      "Gujarati (Native)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/siddharthroy"
+        "url": "https://github.com/kabirmehta"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/siddharthroy"
-      },
-      {
-        "label": "Portfolio",
-        "url": "siddharthroy.dev"
+        "url": "https://linkedin.com/in/kabirmehta-tech"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Compiler Design, Classical Indian Flute, Astronomy, Chess",
+    "sampleMetrics": [
+      "+85% Test Coverage",
+      "5x Deployment Speed"
+    ]
   },
   {
     "id": "kestrel",
@@ -1064,86 +1200,90 @@ export const TEMPLATES = [
     "category": "Data",
     "tags": [
       "Data",
-      "Engineer"
+      "Senior"
     ],
-    "description": "Compact tabular alignment built for database admins, analytics engineers, and ETL pipeline specialists.",
+    "description": "Enterprise data layout with real-time pipeline tags and Petabyte-scale metric highlights.",
     "isAtsOnly": true,
-    "chosenCount": 10800,
+    "chosenCount": 14500,
     "layoutStyle": "compact-table",
-    "accentColor": "#0F766E",
-    "sampleName": "Neha Choudhury",
+    "accentColor": "#1F2937",
+    "sampleName": "Arjun Singhania",
     "sampleRole": "Senior Data & Analytics Engineer",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "neha.choudhury@bigdata.in",
-    "samplePhone": "+91 99001 88990",
-    "sampleSummary": "Data engineer with 5+ years constructing petabyte-scale data lakes, Snowflake data warehouses, and dbt transformation models.",
+    "sampleLocation": "Mumbai, Maharashtra",
+    "sampleEmail": "arjun.singhania@datamesh.in",
+    "samplePhone": "+91 98201 22334",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Data platform engineer with 6+ years designing petabyte-scale lakehouse architectures, dbt data modeling pipelines, and Snowflake analytics warehouses for consumer unicorns.",
     "sampleExperience": [
       {
-        "role": "Senior Data Platform Engineer",
-        "company": "InMobi",
+        "role": "Lead Data Platform Engineer",
+        "company": "Dream11",
         "duration": "2021 - Present",
         "bullets": [
-          "Streamlined real-time ad bidding telemetry pipeline processing 40B daily events via Apache Flink.",
-          "Migrated 150+ Airflow DAGs to dbt core on Snowflake, reducing daily batch computation time by 65%."
+          "Architected streaming feature store on Apache Flink and Apache Iceberg processing 8M real-time fantasy score updates/sec.",
+          "Cut Snowflake compute warehouse spend by 48% through automated query optimization and clustering key pruning."
         ]
       },
       {
-        "role": "Data Engineer",
-        "company": "Mu Sigma",
-        "duration": "2019 - 2021",
+        "role": "Senior Data Engineer",
+        "company": "Jio Platforms",
+        "duration": "2018 - 2021",
         "bullets": [
-          "Constructed ETL pipelines for US retail enterprise clients in Python and Spark."
+          "Engineered petabyte-scale telecom subscriber telemetry pipeline on Apache Spark and Delta Lake.",
+          "Built automated data quality monitoring framework with Great Expectations reducing downstream reporting bugs by 90%."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "RVCE Bengaluru",
-        "degree": "B.E. in Information Science",
-        "year": "2019"
+        "institution": "NIT Surathkal",
+        "degree": "B.Tech in Information Technology",
+        "year": "2014 - 2018",
+        "description": "CGPA: 9.05/10 · First Class with Distinction · Secretary of Data Engineering & Algorithms Club"
       }
     ],
     "sampleSkills": [
+      "Apache Spark",
       "Snowflake",
       "dbt",
-      "Apache Spark",
-      "Airflow",
+      "Apache Kafka",
+      "Apache Flink",
       "Python",
       "SQL",
-      "Flink"
+      "Airflow"
     ],
     "sampleProjects": [
       {
-        "title": "Real-Time Predictive Fraud Detection Pipeline",
-        "techStack": "Python, PyTorch, Apache Spark, Kafka, AWS",
-        "description": "Engineered streaming ML inference model achieving 99.4% accuracy with sub-15ms prediction latency."
+        "title": "Petabyte-Scale Real-Time Streaming Lakehouse",
+        "techStack": "Apache Iceberg, Apache Flink, Kafka, AWS S3, Trino",
+        "description": "Constructed lakehouse ingestion framework processing 12TB daily streaming clickstream with 3-minute data freshness."
       },
       {
-        "title": "Automated ETL Lakehouse Architecture",
-        "techStack": "Snowflake, dbt, Airflow, PostgreSQL",
-        "description": "Unified 14 disparate data sources into governed lakehouse, reducing query latency by 65%."
+        "title": "Automated dbt Data Mesh & Governance Platform",
+        "techStack": "dbt Core, Snowflake, Airflow, Great Expectations",
+        "description": "Deployed modular data mesh across 8 business domains with automated lineage documentation and schema contracts."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Hindi (Fluent)",
+      "Marwari (Native)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/nehachoudhury"
+        "url": "https://github.com/arjunsinghania-data"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/nehachoudhury"
-      },
-      {
-        "label": "Portfolio",
-        "url": "nehachoudhury.dev"
+        "url": "https://linkedin.com/in/arjunsinghania"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Data Visualization Art, Scuba Diving, Board Games, Financial Modeling",
+    "sampleMetrics": [
+      "99.4% Accuracy",
+      "10TB+ Daily Ingest"
+    ]
   },
   {
     "id": "merlin",
@@ -1153,82 +1293,88 @@ export const TEMPLATES = [
       "Senior",
       "Engineer"
     ],
-    "description": "Refined dual-tone sidebar layout presenting architectural scope and technical leadership.",
+    "description": "Dark sidebar format engineered for high-concurrency systems architects and principal backend leaders.",
     "isAtsOnly": true,
-    "chosenCount": 12900,
+    "chosenCount": 13100,
     "layoutStyle": "dark-sidebar",
-    "accentColor": "#1E3A8A",
-    "sampleName": "Harsh Vardhan",
+    "accentColor": "#0F766E",
+    "sampleName": "Ishaan Banerjee",
     "sampleRole": "Principal Systems Architect",
-    "sampleLocation": "Gurgaon, Haryana",
-    "sampleEmail": "harsh.vardhan@architect.io",
-    "samplePhone": "+91 98101 22446",
-    "sampleSummary": "Principal architect with 11 years designing fault-tolerant banking cores, event-driven backends, and low-latency microservices.",
+    "sampleLocation": "Kolkata, West Bengal",
+    "sampleEmail": "ishaan.banerjee@systems.co",
+    "samplePhone": "+91 98300 44556",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Systems architect with 11+ years designing ultra-low latency algorithmic trading engines, distributed storage systems, and consensus-driven ledger infrastructure.",
     "sampleExperience": [
       {
-        "role": "Principal Architect",
-        "company": "Paytm",
+        "role": "Principal Systems Architect",
+        "company": "Tower Research Capital",
         "duration": "2020 - Present",
         "bullets": [
-          "Led architecture of core wallet ledger service guaranteeing ACID transactions across 80M daily users.",
-          "Authored RFC guidelines for cross-service gRPC communication adopted by 300+ engineers."
+          "Architected C++ trading gateway processing sub-15 microsecond order execution on National Stock Exchange (NSE) co-location.",
+          "Designed zero-copy memory-mapped kernel network bypass driver reducing packet drop to 0.0001%."
         ]
       },
       {
         "role": "Staff Software Engineer",
-        "company": "Snapdeal",
-        "duration": "2016 - 2020",
+        "company": "Morgan Stanley",
+        "duration": "2015 - 2020",
         "bullets": [
-          "Redesigned catalog indexing architecture on Elasticsearch handling 40M product SKUs."
+          "Developed global real-time risk calculation grid servicing $40B daily fixed income and derivative portfolio valuations.",
+          "Migrated legacy mainframe batch settle pipelines to distributed Java/RocksDB micro-engines."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IIT Roorkee",
-        "degree": "B.Tech in Computer Science",
-        "year": "2015"
+        "institution": "Jadavpur University",
+        "degree": "B.E. in Computer Science & Engineering",
+        "year": "2009 - 2013",
+        "description": "First Class Honours · University Gold Medalist for Highest Academic Standing in Engineering"
       }
     ],
     "sampleSkills": [
-      "System Design",
-      "Distributed Ledgers",
-      "gRPC",
-      "Java / Spring",
-      "Kafka",
-      "Elasticsearch"
+      "C++20",
+      "Low-Latency Systems",
+      "Distributed Consensus",
+      "Linux Kernel Bypass",
+      "Java",
+      "RocksDB",
+      "Zero-Copy IPC",
+      "Network Protocols"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Sub-Microsecond Lockless Order Book Matching Engine",
+        "techStack": "C++, Solarflare OpenOnload, DPDK, Cache-Friendly Data Structures",
+        "description": "Engineered multi-threaded order matching engine achieving 2.1M orders/sec throughput at sub-800 nanosecond tick-to-trade."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "Distributed Replicated State Machine Ledger",
+        "techStack": "Raft Consensus, RocksDB, gRPC, Protobuf, Linux eBPF",
+        "description": "Built Byzantine-fault tolerant distributed transaction ledger maintaining consistent snapshots across 5 geographical zones."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)"
+      "Bengali (Native)",
+      "Hindi (Proficient)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/harshvardhan"
+        "url": "https://github.com/ishaanbanerjee"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/harshvardhan"
-      },
-      {
-        "label": "Portfolio",
-        "url": "harshvardhan.dev"
+        "url": "https://linkedin.com/in/ishaanbanerjee"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Amateur Radio (HAM), Classical Piano, Algorithmic Geometry, Mountaineering",
+    "sampleMetrics": [
+      "+65% Efficiency",
+      "25+ Patents/Projects"
+    ]
   },
   {
     "id": "gyrfalcon",
@@ -1236,89 +1382,96 @@ export const TEMPLATES = [
     "category": "Product",
     "tags": [
       "Product",
-      "Engineer"
+      "Senior"
     ],
-    "description": "Outcome-driven layout highlighting feature adoption metrics, user impact, and roadmap delivery.",
+    "description": "Balanced two-column architecture for technical product managers and platform leaders.",
     "isAtsOnly": true,
-    "chosenCount": 15200,
+    "chosenCount": 15900,
     "layoutStyle": "sidebar-right",
-    "accentColor": "#B45309",
-    "sampleMetrics": [
-      "3.2M MAUs",
-      "₹16Cr ARR"
-    ],
-    "sampleName": "Pooja Hegde",
+    "accentColor": "#FA0C40",
+    "sampleName": "Varun Krishnan",
     "sampleRole": "Lead Technical Product Manager",
     "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "pooja.hegde@techpm.in",
-    "samplePhone": "+91 97400 33221",
-    "sampleSummary": "Technical PM with 7 years bridging deep ML engineering with consumer product strategy at high-scale Indian consumer platforms.",
+    "sampleEmail": "varun.krishnan@apilead.in",
+    "samplePhone": "+91 98452 77889",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Technical Product Manager with 7+ years directing developer platforms, developer experience (DevEx), and open banking APIs adopted by 120k+ engineers across India and SEA.",
     "sampleExperience": [
       {
-        "role": "Lead PM · Discovery & Feed",
-        "company": "ShareChat",
+        "role": "Lead Product Manager - Developer Platform",
+        "company": "Setu (Pine Labs)",
         "duration": "2021 - Present",
         "bullets": [
-          "Launched short-video recommendation feed powered by deep retrieval models, growing daily active users by 32%.",
-          "Cut creator upload drop-off by 24% through client-side video transcoding compression."
+          "Spearheaded Account Aggregator (AA) and UPI 2.0 API suite onboarding 450+ fintech clients processing 35M monthly calls.",
+          "Reduced developer integration onboarding turnaround from 14 days to 45 minutes via interactive sandbox SDKs."
         ]
       },
       {
-        "role": "Product Manager",
-        "company": "Byju's",
+        "role": "Senior Product Manager",
+        "company": "Razorpay",
         "duration": "2018 - 2021",
         "bullets": [
-          "Delivered interactive gamified quiz engine engaging 1.8M students weekly."
+          "Owned core Payment Gateway Checkout API servicing ₹40,000Cr monthly Gross Transaction Volume.",
+          "Launched instant refund webhook orchestration lowering customer chargeback disputes by 32%."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IIIT Hyderabad",
-        "degree": "B.Tech + MS in Computer Science",
-        "year": "2018"
+        "institution": "IIM Bangalore",
+        "degree": "MBA in Product & Technology Management",
+        "year": "2016 - 2018",
+        "description": "Director's Merit List · Winner of National Product Case Challenge · Head of FinTech Society"
+      },
+      {
+        "institution": "NIT Trichy",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2012 - 2016",
+        "description": "CGPA: 8.9/10 · Best All-Round Outgoing Student"
       }
     ],
     "sampleSkills": [
-      "Technical Product",
-      "ML Discovery",
-      "User Funnels",
-      "Product Roadmapping",
-      "SQL",
-      "Jira"
+      "API Product Management",
+      "Developer Experience (DevEx)",
+      "Open Banking & UPI",
+      "Swagger / OpenAPI",
+      "Postman APIs",
+      "SQL & Metrics",
+      "Agile Roadmap",
+      "Go-To-Market"
     ],
     "sampleProjects": [
       {
-        "title": "AI-Powered User Engagement & Onboarding Engine",
-        "techStack": "Mixpanel, SQL, Jira, A/B Testing, Python",
-        "description": "Spearheaded zero-to-one launch of automated personalized onboarding, lifting D30 retention by 28%."
+        "title": "Self-Serve Developer Sandbox & Interactive API Docs",
+        "techStack": "OpenAPI Spec, Postman, Next.js, Webhooks, Stripe-like Docs",
+        "description": "Launched zero-friction API playground driving a 310% surge in organic developer signups within 6 months."
       },
       {
-        "title": "Global Marketplace Monetization Overhaul",
-        "techStack": "Stripe API, Tableau, Confluence, Scrum",
-        "description": "Restructured pricing tiers and introduced self-serve annual billing, driving ₹4.5Cr in net ARR expansion."
+        "title": "Automated Merchant KYC & Instant Settlement Engine",
+        "techStack": "DigiLocker API, OCR AI, Python, Microservices",
+        "description": "Engineered automated risk assessment workflow reducing merchant approval SLA from 48 hours to 90 seconds."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Tamil (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/poojahegde"
+        "url": "https://linkedin.com/in/varunkrishnan-pm"
       },
       {
-        "label": "Personal Site",
-        "url": "poojahegde.me"
-      },
-      {
-        "label": "Substack",
-        "url": "poojahegde.substack.com"
+        "label": "ProductHunt",
+        "url": "https://producthunt.com/@varunk"
       }
     ],
-    "sampleHobbies": "Tech Podcast Hosting, Angle Investing Mentorship, Long-distance Cycling, Book Club"
+    "sampleHobbies": "Formula 1 Analytics, Bouldering, Audiobooks, Mobile App Prototyping",
+    "sampleMetrics": [
+      "-28% Churn",
+      "+65% Feature Adoption"
+    ]
   },
   {
     "id": "peregrine",
@@ -1328,84 +1481,92 @@ export const TEMPLATES = [
       "Fresher",
       "Design"
     ],
-    "description": "Education and portfolio-first format designed for junior visual and UI/UX designers.",
+    "description": "Visual portfolio banner template tailored for Junior UI/UX Designers and Design Graduates.",
     "isAtsOnly": false,
-    "chosenCount": 9950,
+    "chosenCount": 13800,
     "layoutStyle": "photo-header",
     "accentColor": "#6D28D9",
-    "samplePortfolio": "behance.net/kabirdesign",
-    "sampleName": "Kabir Dasgupta",
+    "sampleName": "Tanya Chawla",
     "sampleRole": "Associate UI/UX Designer",
-    "sampleLocation": "Mumbai, Maharashtra",
-    "sampleEmail": "kabir.d@designgrad.in",
-    "samplePhone": "+91 98205 11223",
-    "sampleSummary": "Passionate interaction design graduate skilled in user research, wireframing, Figma design tokens, and web prototyping.",
+    "sampleLocation": "New Delhi, Delhi",
+    "sampleEmail": "tanya.chawla@designlab.in",
+    "samplePhone": "+91 98112 33445",
+    "samplePhoto": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Passionate Interaction and UI Designer with formal design school training in Figma prototyping, visual aesthetics, user research, and mobile design systems.",
     "sampleExperience": [
       {
         "role": "UI/UX Design Intern",
-        "company": "CleverTap",
-        "duration": "2023",
+        "company": "Zomato",
+        "duration": "Jan 2024 - Jun 2024",
         "bullets": [
-          "Redesigned analytics funnel builder UI, reducing configuration steps from 7 to 3 screens.",
-          "Conducted usability testing with 15 enterprise clients and translated insights into interactive prototypes."
+          "Redesigned dine-in table reservation checkout cards, boosting user reservation completion rate by 14%.",
+          "Built 80+ reusable Figma auto-layout design components aligned with atomic design principles."
         ]
       },
       {
-        "role": "Freelance Brand & Web Designer",
-        "company": "Self-Employed",
-        "duration": "2022 - 2023",
+        "role": "Visual Design Intern",
+        "company": "Lenskart",
+        "duration": "Jun 2023 - Dec 2023",
         "bullets": [
-          "Designed landing pages and brand identities for 6 early-stage SaaS and D2C startups."
+          "Created high-fidelity mobile banners and interactive 3D frame virtual try-on UI mockups.",
+          "Conducted usability testing sessions with 25 users to identify checkout drop-off pain points."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IDC School of Design, IIT Bombay",
-        "degree": "B.Des in Interaction Design",
-        "year": "2023"
+        "institution": "National Institute of Fashion Technology (NIFT Delhi)",
+        "degree": "B.Des in Communication Design",
+        "year": "2020 - 2024",
+        "description": "CGPA: 8.8/10 · Best Graduation Project Award in Mobile User Experience · President of Visual Arts Society"
       }
     ],
     "sampleSkills": [
       "Figma",
       "User Research",
       "Wireframing",
-      "Usability Testing",
+      "Interaction Prototyping",
       "Design Systems",
-      "Webflow"
+      "Adobe XD",
+      "Mobile UI Design",
+      "Usability Testing"
     ],
     "sampleProjects": [
       {
-        "title": "Enterprise Design System Modernization",
-        "techStack": "Figma, Storybook, React, Design Tokens",
-        "description": "Standardized 140+ accessible WCAG-compliant UI components adopted across web and mobile platforms."
+        "title": "MindfulMeals - Sustainable Food Waste Prevention App",
+        "techStack": "Figma, User Testing, Protopie, Adobe Illustrator",
+        "description": "Researched and prototyped zero-waste grocery tracking app winning 1st Prize at National Design Hackathon 2023."
       },
       {
-        "title": "Omnichannel Checkout Experience Redesign",
-        "techStack": "User Research, Wireframing, ProtoPie, Usability Testing",
-        "description": "Streamlined 5-step checkout flow into 2-step journey, increasing conversion rate by 24%."
+        "title": "FinLit - Gamified Financial Literacy for Indian Teenagers",
+        "techStack": "Figma Auto-Layout, Lottie Animations, Design Tokens",
+        "description": "Designed 40+ interactive educational game screens explaining SIP, compounding, and budgeting with high engagement scores."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
       "Hindi (Native)",
-      "Marathi (Fluent)"
+      "Punjabi (Conversational)"
     ],
     "sampleLinks": [
       {
-        "label": "GitHub",
-        "url": "github.com/kabirdasgupta"
+        "label": "Portfolio",
+        "url": "https://tanyachawla.design"
+      },
+      {
+        "label": "Behance",
+        "url": "https://behance.net/tanyachawla"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/kabirdasgupta"
-      },
-      {
-        "label": "Portfolio",
-        "url": "kabirdasgupta.dev"
+        "url": "https://linkedin.com/in/tanyachawla"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Digital Illustration, Ceramic Pottery, Coffee Tasting, Urban Sketching",
+    "sampleMetrics": [
+      "9.4/10 CGPA",
+      "Top 1% State Rank"
+    ]
   },
   {
     "id": "skylark",
@@ -1413,85 +1574,100 @@ export const TEMPLATES = [
     "category": "Marketing",
     "tags": [
       "Marketing",
-      "Fresher"
+      "Senior"
     ],
-    "description": "Chronological campaign layout built for content strategists, SEO specialists, and brand managers.",
+    "description": "Modern timeline template for growth marketers and content strategists highlighting viral campaigns.",
     "isAtsOnly": true,
-    "chosenCount": 11400,
+    "chosenCount": 11800,
     "layoutStyle": "timeline",
     "accentColor": "#BE123C",
-    "sampleName": "Rituja Mukherjee",
+    "sampleName": "Meera Sundaram",
     "sampleRole": "Content & Brand Marketing Lead",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "rituja.m@brandcraft.in",
-    "samplePhone": "+91 99160 44882",
-    "sampleSummary": "Content and brand strategist with 5+ years growing organic search traffic, managing executive thought leadership, and viral video campaigns.",
+    "sampleLocation": "Chennai, Tamil Nadu",
+    "sampleEmail": "meera.sundaram@brandstory.co",
+    "samplePhone": "+91 98402 11223",
+    "samplePhoto": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Content strategist and brand marketing leader with 6+ years orchestrating viral social campaigns, editorial newsletters with 180k+ subscribers, and brand repositioning across leading consumer brands.",
     "sampleExperience": [
       {
-        "role": "Senior Content Marketing Specialist",
-        "company": "Razorpay",
+        "role": "Lead Brand & Content Strategist",
+        "company": "CRED",
         "duration": "2021 - Present",
         "bullets": [
-          "Scaled fintech blog organic search traffic from 180k to 1.2M monthly readers through structured SEO content clusters.",
-          "Produced YouTube documentary series on Indian startup founders gaining 2.4M organic views."
+          "Spearheaded viral editorial and podcast series reaching 4.5M monthly organic impressions across YouTube and Spotify.",
+          "Authored weekly fintech cultural newsletter growing subscriber base from 20k to 190k with 44% open rates."
         ]
       },
       {
-        "role": "Content Strategist",
-        "company": "YourStory Media",
-        "duration": "2019 - 2021",
+        "role": "Senior Content Marketing Specialist",
+        "company": "Swiggy",
+        "duration": "2018 - 2021",
         "bullets": [
-          "Authored 300+ in-depth founder profiles and startup funding round reports."
+          "Created pop-culture Twitter and Instagram viral moments driving 80M+ organic impressions during Cricket World Cup.",
+          "Orchestrated cross-functional influencer campaigns with 400+ creators, lowering cost-per-reach by 35%."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "St. Xavier's College, Mumbai",
-        "degree": "B.A. in Mass Communication",
-        "year": "2019"
+        "institution": "Asian College of Journalism (ACJ Chennai)",
+        "degree": "Postgraduate Diploma in Journalism & New Media",
+        "year": "2017 - 2018",
+        "description": "First Rank with Distinction · Editor-in-Chief of College Digital Review · Gold Medal in Narrative Non-Fiction"
+      },
+      {
+        "institution": "Madras Christian College (MCC)",
+        "degree": "B.A. in English Literature",
+        "year": "2014 - 2017",
+        "description": "First Class Honours · President of Literary & Debating Society"
       }
     ],
     "sampleSkills": [
-      "SEO Strategy",
-      "Content Marketing",
+      "Content Strategy",
       "Brand Storytelling",
+      "Social Media Marketing",
       "Copywriting",
-      "Ahrefs",
-      "Google Analytics"
+      "Podcast Production",
+      "SEO & Editorial",
+      "Influencer Strategy",
+      "Community Building"
     ],
     "sampleProjects": [
       {
-        "title": "Multi-Channel Inbound Demand Generation Engine",
-        "techStack": "HubSpot, Google Ads, LinkedIn Campaign Manager, GA4",
-        "description": "Scaled monthly qualified leads by 240% while decreasing average customer acquisition cost (CAC) by 32%."
+        "title": "The FinTech Pulse - High-Growth B2B Industry Newsletter",
+        "techStack": "Substack, Ghost CMS, Canva, Google Analytics, Mailchimp",
+        "description": "Grew organic subscriber community to 75,000+ founders and PMs with zero paid acquisition spend."
       },
       {
-        "title": "High-Touch Enterprise Account Expansion Program",
-        "techStack": "Salesforce CRM, Gong, Apollo, Notion",
-        "description": "Executed targeted account-based marketing strategy generating ₹8.2Cr in closed-won enterprise pipeline."
+        "title": "National Consumer Mental Wellness Awareness Campaign",
+        "techStack": "Short-Form Video Production, YouTube Shorts, Scriptwriting",
+        "description": "Produced 12-part mini-doc series generating 6.8M views and winning 2 National Content Marketing Awards."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Tamil (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/ritujamukherjee"
-      },
-      {
-        "label": "Personal Site",
-        "url": "ritujamukherjee.me"
-      },
-      {
         "label": "Substack",
-        "url": "ritujamukherjee.substack.com"
+        "url": "https://meerasundaram.substack.com"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/meerasundaram"
+      },
+      {
+        "label": "Portfolio",
+        "url": "https://meerasundaram.com"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Creative Non-Fiction Writing, Podcast Hosting, Carnatic Violin, Film Analysis",
+    "sampleMetrics": [
+      "45M+ Views",
+      "3.4x ROAS"
+    ]
   },
   {
     "id": "avocet",
@@ -1499,83 +1675,90 @@ export const TEMPLATES = [
     "category": "Sales",
     "tags": [
       "Sales",
-      "Marketing"
+      "Senior"
     ],
-    "description": "Clean left-accent bar layout focusing on inside sales quotas, deal velocities, and CRM workflows.",
+    "description": "Clean color-band template tailored for high-performing mid-market and inbound SaaS sales leaders.",
     "isAtsOnly": true,
-    "chosenCount": 8800,
+    "chosenCount": 19400,
     "layoutStyle": "color-band",
-    "accentColor": "#B45309",
-    "sampleName": "Nihal Pillai",
+    "accentColor": "#1E3A8A",
+    "sampleName": "Nikhil Nambiar",
     "sampleRole": "Senior Inbound & Mid-Market Sales Executive",
     "sampleLocation": "Kochi, Kerala",
-    "sampleEmail": "nihal.pillai@salescloser.in",
-    "samplePhone": "+91 94471 22334",
-    "sampleSummary": "B2B SaaS closer with 5 years managing high-velocity inbound sales cycles, achieving 135%+ quota across Southeast Asia and India.",
+    "sampleEmail": "nikhil.nambiar@salespro.in",
+    "samplePhone": "+91 98470 55667",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Mid-market B2B software sales professional with 5+ years exceeding quota in cloud cybersecurity, SaaS subscriptions, and developer tools across APAC and North America.",
     "sampleExperience": [
       {
-        "role": "Senior Account Executive",
-        "company": "Chargebee",
+        "role": "Senior Account Executive - Mid Market",
+        "company": "Freshworks",
         "duration": "2021 - Present",
         "bullets": [
-          "Closed $1.4M ARR in recurring subscription billing contracts with 48-day average sales cycle.",
-          "Recognized as Top Closer in Q3 2023 with 162% quota attainment."
+          "Closed $1.85M in new ARR across 65 mid-market accounts, achieving 138% of assigned annual sales quota.",
+          "Shortened average deal sales cycle from 68 days to 39 days using structured multi-stakeholder demo playbooks."
         ]
       },
       {
-        "role": "Sales Development Specialist",
-        "company": "HubSpot Partner",
+        "role": "Inbound Sales Specialist",
+        "company": "Chargebee",
         "duration": "2019 - 2021",
         "bullets": [
-          "Generated 420+ qualified enterprise sales demos resulting in $850k in pipeline value."
+          "Converted high-intent marketing qualified leads (MQLs) into $920k annual contract value (ACV).",
+          "Trained 10 new sales development reps (SDRs) on objection handling and CRM pipeline management."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "Rajagiri School of Management",
-        "degree": "MBA in Marketing",
-        "year": "2019"
+        "institution": "Model Engineering College (Kochi)",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2015 - 2019",
+        "description": "First Class with Distinction (8.7/10 GPA) · Head of Entrepreneurship Cell · Winner of National B-Plan Competition"
       }
     ],
     "sampleSkills": [
       "B2B SaaS Sales",
+      "Mid-Market Deal Closing",
       "HubSpot CRM",
-      "Demo Mastery",
-      "Pipeline Management",
-      "Contract Closing"
+      "Salesforce",
+      "Outreach / Apollo",
+      "Contract Negotiation",
+      "Demo Excellence",
+      "Pipeline Forecasting"
     ],
     "sampleProjects": [
       {
-        "title": "Multi-Channel Inbound Demand Generation Engine",
-        "techStack": "HubSpot, Google Ads, LinkedIn Campaign Manager, GA4",
-        "description": "Scaled monthly qualified leads by 240% while decreasing average customer acquisition cost (CAC) by 32%."
+        "title": "Mid-Market Sales Qualification & Discovery Playbook",
+        "techStack": "Salesforce, Gong.io, Notion, Loom Demos",
+        "description": "Authored interactive discovery framework adopted by 25 reps, boosting demo-to-close ratio by 27%."
       },
       {
-        "title": "High-Touch Enterprise Account Expansion Program",
-        "techStack": "Salesforce CRM, Gong, Apollo, Notion",
-        "description": "Executed targeted account-based marketing strategy generating ₹8.2Cr in closed-won enterprise pipeline."
+        "title": "Automated Multi-Touch Inbound Cadence Workflow",
+        "techStack": "HubSpot Sequences, Apollo.io, LinkedIn Sales Navigator",
+        "description": "Configured personalized multi-channel outreach sequence yielding a 31% inbound meeting booking rate."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)"
+      "Malayalam (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
-        "label": "GitHub",
-        "url": "github.com/nihalpillai"
-      },
-      {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/nihalpillai"
+        "url": "https://linkedin.com/in/nikhilnambiar-sales"
       },
       {
-        "label": "Portfolio",
-        "url": "nihalpillai.dev"
+        "label": "Twitter",
+        "url": "https://twitter.com/nikhil_sales"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Competitive Football, Kayaking, Tech Angel Investing, Coffee Roasting",
+    "sampleMetrics": [
+      "+68% Win Rate",
+      "₹85L Avg Deal Size"
+    ]
   },
   {
     "id": "curlew",
@@ -1585,82 +1768,94 @@ export const TEMPLATES = [
       "Executive",
       "Senior"
     ],
-    "description": "Classic executive typography format structured for Vice Presidents, General Managers, and Managing Directors.",
+    "description": "Refined executive layout with elegant typography hierarchy for People Officers, HR Directors, and CHROs.",
     "isAtsOnly": true,
-    "chosenCount": 13700,
+    "chosenCount": 17300,
     "layoutStyle": "minimalist",
     "accentColor": "#1E293B",
-    "sampleName": "Rajeshwari Swaminathan",
+    "sampleName": "Tanmay Bhatnagar",
     "sampleRole": "Vice President of Human Resources",
-    "sampleLocation": "Chennai, Tamil Nadu",
-    "sampleEmail": "rajeshwari.s@chroboard.in",
-    "samplePhone": "+91 98401 55667",
-    "sampleSummary": "HR executive with 16+ years architecting talent acquisition, organizational culture, compensation benchmarking, and leadership succession.",
+    "sampleLocation": "Bengaluru, Karnataka",
+    "sampleEmail": "tanmay.bhatnagar@peopleleadership.org",
+    "samplePhone": "+91 98453 88990",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Strategic HR leader with 13+ years transforming organizational culture, scaling headcounts from 200 to 3,500+ employees, instituting transparent performance frameworks, and managing executive succession.",
     "sampleExperience": [
       {
-        "role": "VP of People & Culture",
-        "company": "Tata Consultancy Services (TCS)",
-        "duration": "2018 - Present",
+        "role": "VP of People Operations",
+        "company": "Razorpay",
+        "duration": "2020 - Present",
         "bullets": [
-          "Lead global talent strategy for 18,000+ digital transformation consultants across India, US, and UK.",
-          "Reduced annual engineering attrition by 5.4% through competency-based retention programs."
+          "Scaled organization from 800 to 3,200+ employees across India, USA, and SEA while maintaining 88% Glassdoor approval.",
+          "Instituted unified ESOP liquidity and bi-annual career leveling framework reducing top-performer attrition to 4.2%."
         ]
       },
       {
-        "role": "Head of Talent Acquisition",
-        "company": "Wipro",
-        "duration": "2012 - 2018",
+        "role": "Head of Talent Acquisition & HR",
+        "company": "InMobi Group",
+        "duration": "2014 - 2020",
         "bullets": [
-          "Scaled lateral technical hiring to 4,500+ professionals annually while cutting cost-per-hire by 19%."
+          "Led 35-member talent acquisition team hiring 600+ engineers and product leaders annually across global tech hubs.",
+          "Designed progressive diversity and inclusion (D&I) initiatives increasing women in leadership from 14% to 32%."
         ]
       }
     ],
     "sampleEducation": [
       {
         "institution": "XLRI Jamshedpur",
-        "degree": "PGDM in Human Resource Management",
-        "year": "2008"
+        "degree": "Postgraduate Diploma in Human Resource Management (PGDM-HRM)",
+        "year": "2009 - 2011",
+        "description": "Gold Medalist for Academic Excellence in Industrial Relations & Strategic Human Resource Planning"
+      },
+      {
+        "institution": "St. Stephen's College (Delhi University)",
+        "degree": "B.A. (Hons) in Economics",
+        "year": "2006 - 2009",
+        "description": "First Class Honours · President of Economics Society"
       }
     ],
     "sampleSkills": [
       "Strategic HR",
-      "Org Design",
+      "Org Design & Scaling",
+      "Executive Compensation & ESOP",
       "Talent Acquisition",
-      "Compensation & Benefits",
-      "Leadership Succession"
+      "Performance Management",
+      "Diversity & Inclusion",
+      "Culture Transformation",
+      "Labor Law Compliance"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Pan-Enterprise Hybrid Work & Productivity Framework",
+        "techStack": "Culture Amp, Workday, Slack Workflows, Notion",
+        "description": "Architected remote-first operating model enabling seamless async collaboration across 6 global delivery offices."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "Automated Performance Review & 360 Feedback Engine",
+        "techStack": "Lattice, Workday, Python Analytics, BI Dashboards",
+        "description": "Designed fair, metrics-driven evaluation system completing 3,000+ employee reviews with 99% on-time completion SLA."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Tamil (Native)",
-      "Hindi (Conversational)"
+      "Hindi (Native)",
+      "German (Conversational)"
     ],
     "sampleLinks": [
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/rajeshwariswaminathan"
-      },
-      {
-        "label": "Personal Site",
-        "url": "rajeshwariswaminathan.me"
+        "url": "https://linkedin.com/in/tanmaybhatnagar-hr"
       },
       {
         "label": "Substack",
-        "url": "rajeshwariswaminathan.substack.com"
+        "url": "https://peoplescale.substack.com"
       }
     ],
-    "sampleHobbies": "Tech Podcast Hosting, Angle Investing Mentorship, Long-distance Cycling, Book Club"
+    "sampleHobbies": "Squash, Jazz Music, Mentoring Young HR Professionals, Trekking",
+    "sampleMetrics": [
+      "Series-B Led",
+      "3 Global Delivery Hubs"
+    ]
   },
   {
     "id": "sandpiper",
@@ -1670,82 +1865,89 @@ export const TEMPLATES = [
       "Fresher",
       "Data"
     ],
-    "description": "Coursework and dataset project-focused layout designed for fresher data analysts and BI developers.",
+    "description": "Clean single-column template tailored for Junior Data Analysts and Business Intelligence Associates.",
     "isAtsOnly": true,
-    "chosenCount": 16900,
+    "chosenCount": 16100,
     "layoutStyle": "single-column",
     "accentColor": "#0F766E",
-    "sampleName": "Ishaan Joshi",
+    "sampleName": "Gautham Menon",
     "sampleRole": "Junior Data & BI Analyst",
-    "sampleLocation": "Ahmedabad, Gujarat",
-    "sampleEmail": "ishaan.joshi@dataanalyst.in",
-    "samplePhone": "+91 98250 88776",
-    "sampleSummary": "Analytical graduate proficient in SQL, Python, Tableau, and financial modeling with hands-on internship experience in e-commerce metrics.",
+    "sampleLocation": "Mangaluru, Karnataka",
+    "sampleEmail": "gautham.menon@analytica.in",
+    "samplePhone": "+91 98458 44332",
+    "samplePhoto": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Analytical Data Associate skilled in SQL query optimization, Python pandas, automated Tableau/Power BI executive dashboards, and statistical cohort modeling.",
     "sampleExperience": [
       {
-        "role": "Business Analytics Intern",
-        "company": "Nykaa",
-        "duration": "2023",
+        "role": "Data Analyst Intern",
+        "company": "KreditBee",
+        "duration": "Jan 2024 - Jun 2024",
         "bullets": [
-          "Built executive Tableau dashboards tracking daily GMV, return-to-origin (RTO) rates, and delivery SLAs across 500+ brands.",
-          "Wrote optimized SQL queries on BigQuery, reducing weekly automated reporting runtimes by 50%."
+          "Optimized SQL queries across 14M loan transactions, speeding up daily credit disbursement reporting by 55%.",
+          "Built automated Tableau loan risk monitor tracking default rates across 28 tier-2 Indian cities in real time."
         ]
       },
       {
-        "role": "Data Analyst Project Lead",
-        "company": "Academic Capstone",
-        "duration": "2022 - 2023",
+        "role": "Business Intelligence Intern",
+        "company": "Manipal Global",
+        "duration": "Jun 2023 - Dec 2023",
         "bullets": [
-          "Analyzed 2M Indian stock market transactions to evaluate algorithmic momentum trading strategies."
+          "Developed interactive student enrollment dashboard in Power BI used by 8 university faculty deans.",
+          "Automated weekly marketing attribution reports in Python saving 12 manual analyst hours per week."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "DA-IICT Gandhinagar",
-        "degree": "B.Tech in Information & Comm. Tech",
-        "year": "2023"
+        "institution": "Manipal Institute of Technology (MIT Manipal)",
+        "degree": "B.Tech in Data Science & Engineering",
+        "year": "2020 - 2024",
+        "description": "CGPA: 8.85/10 · Department Merit Certificate · Winner of Inter-College Datathon 2023"
       }
     ],
     "sampleSkills": [
       "SQL",
-      "Python",
+      "Python (Pandas/NumPy)",
       "Tableau",
       "Power BI",
-      "Excel / Financial Modeling",
-      "BigQuery"
+      "Excel / Google Sheets",
+      "Data Cleaning",
+      "Statistical Modeling",
+      "Git"
     ],
     "sampleProjects": [
       {
-        "title": "Real-Time Predictive Fraud Detection Pipeline",
-        "techStack": "Python, PyTorch, Apache Spark, Kafka, AWS",
-        "description": "Engineered streaming ML inference model achieving 99.4% accuracy with sub-15ms prediction latency."
+        "title": "E-Commerce Customer Churn & Cohort Retention Predictor",
+        "techStack": "Python, Scikit-Learn, Streamlit, PostgreSQL",
+        "description": "Built interactive predictive dashboard classifying churn probability for 120,000 consumer accounts with 87% recall."
       },
       {
-        "title": "Automated ETL Lakehouse Architecture",
-        "techStack": "Snowflake, dbt, Airflow, PostgreSQL",
-        "description": "Unified 14 disparate data sources into governed lakehouse, reducing query latency by 65%."
+        "title": "Automated Real-Time Crypto & Stock Market Sentiment Screener",
+        "techStack": "Python, Beautiful Soup, TextBlob, Power BI",
+        "description": "Developed automated web scraper and sentiment index tracking news headlines across 50 Indian stocks."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)"
+      "Malayalam (Native)",
+      "Hindi (Fluent)",
+      "Kannada (Conversational)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/ishaanjoshi"
+        "url": "https://github.com/gauthammenon-data"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/ishaanjoshi"
-      },
-      {
-        "label": "Portfolio",
-        "url": "ishaanjoshi.dev"
+        "url": "https://linkedin.com/in/gauthammenon"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Chess, Data Visualization Competitions, Surfing, Acoustic Guitar",
+    "sampleMetrics": [
+      "National Finalist",
+      "3 Hackathons Won"
+    ]
   },
   {
     "id": "lapwing",
@@ -1755,86 +1957,93 @@ export const TEMPLATES = [
       "Product",
       "Senior"
     ],
-    "description": "Two-column product roadmap layout with clear prioritization of user discovery and revenue metrics.",
+    "description": "Balanced two-column layout tailored for FinTech and credit underwriting Product Managers.",
     "isAtsOnly": true,
-    "chosenCount": 14600,
+    "chosenCount": 11500,
     "layoutStyle": "sidebar-right",
-    "accentColor": "#FA0C40",
-    "sampleMetrics": [
-      "14M Active Users",
-      "4.8★ App Store"
-    ],
-    "sampleName": "Abhinav Saxena",
-    "sampleRole": "Senior Product Manager · Fintech",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "abhinav.saxena@fintechpm.in",
-    "samplePhone": "+91 99880 11234",
-    "sampleSummary": "Fintech PM with 6 years building high-conversion checkout journeys, merchant payment gateways, and recurring auto-debit platforms.",
+    "accentColor": "#1F2937",
+    "sampleName": "Divya Agarwal",
+    "sampleRole": "Senior Product Manager - Fintech",
+    "sampleLocation": "Noida, Uttar Pradesh",
+    "sampleEmail": "divya.agarwal@finpm.co",
+    "samplePhone": "+91 98118 77665",
+    "samplePhoto": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "FinTech Product Manager with 6+ years building digital lending stacks, UPI recurring mandates, and credit bureau integrations disbursing ₹3,000Cr+ in retail loans.",
     "sampleExperience": [
       {
-        "role": "Lead PM · Payments",
-        "company": "Paytm",
+        "role": "Senior Product Manager - Digital Lending",
+        "company": "Money View",
         "duration": "2021 - Present",
         "bullets": [
-          "Owned Soundbox merchant audio verification device product lifecycle, scaling active deployed base to 4.5M devices.",
-          "Reduced payment checkout drop-off rate from 14.2% to 8.7% through smart bank UPI routing algorithms."
+          "Redesigned 3-step personal loan onboarding flow, lifting application completion rate by 22.4%.",
+          "Integrated NPCI e-NACH and UPI AutoPay recurring repayment mandates achieving 96.8% successful on-time debit rates."
         ]
       },
       {
-        "role": "Associate PM",
-        "company": "Mobikwik",
+        "role": "Product Manager",
+        "company": "PayU Payments",
         "duration": "2018 - 2021",
         "bullets": [
-          "Launched Pay Later credit checkout line onboarding 850k active borrowers in year one."
+          "Launched LazyPay Buy Now Pay Later (BNPL) checkout widget across 1,200+ top Indian merchant apps.",
+          "Spearheaded credit risk rule engine with CIBIL/Experian APIs reducing approval latency from 15 minutes to 8 seconds."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "BITS Pilani",
-        "degree": "B.E. in Electrical & Electronics",
-        "year": "2018"
+        "institution": "NMIMS School of Business Management (Mumbai)",
+        "degree": "MBA in Marketing & Technology Management",
+        "year": "2016 - 2018",
+        "description": "Dean's Merit List · Top 5% Rank · Winner of FinTech Product Challenge 2017"
+      },
+      {
+        "institution": "Amity University (Noida)",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2012 - 2016",
+        "description": "First Class Honours (8.9/10 CGPA) · President of ACM Student Chapter"
       }
     ],
     "sampleSkills": [
-      "Fintech Payments",
-      "UPI Architecture",
-      "Conversion Funnels",
-      "Product Discovery",
-      "Mixpanel"
+      "Fintech Products",
+      "Lending & Underwriting",
+      "UPI AutoPay / e-NACH",
+      "Figma Wireframes",
+      "Mixpanel / Amplitude",
+      "A/B Experimentation",
+      "SQL & Analytics",
+      "Risk Compliance"
     ],
     "sampleProjects": [
       {
-        "title": "AI-Powered User Engagement & Onboarding Engine",
-        "techStack": "Mixpanel, SQL, Jira, A/B Testing, Python",
-        "description": "Spearheaded zero-to-one launch of automated personalized onboarding, lifting D30 retention by 28%."
+        "title": "Instant MSME Working Capital Credit Line",
+        "techStack": "GSTN API, Bank Statement Parser, Python, Figma, Mixpanel",
+        "description": "Built 100% paperless business loan journey originating ₹450Cr in loans for 18,000 small merchants."
       },
       {
-        "title": "Global Marketplace Monetization Overhaul",
-        "techStack": "Stripe API, Tableau, Confluence, Scrum",
-        "description": "Restructured pricing tiers and introduced self-serve annual billing, driving ₹4.5Cr in net ARR expansion."
+        "title": "Smart Repayment Optimizer & Nudge Notification Engine",
+        "techStack": "WhatsApp Business API, MoEngage, SQL, Machine Learning",
+        "description": "Engineered automated borrower payment reminders reducing early delinquency rates by 18%."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Hindi (Native)"
     ],
     "sampleLinks": [
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/abhinavsaxena"
+        "url": "https://linkedin.com/in/divyaagarwal-pm"
       },
       {
-        "label": "Personal Site",
-        "url": "abhinavsaxena.me"
-      },
-      {
-        "label": "Substack",
-        "url": "abhinavsaxena.substack.com"
+        "label": "Medium",
+        "url": "https://medium.com/@divya_fintech"
       }
     ],
-    "sampleHobbies": "Tech Podcast Hosting, Angle Investing Mentorship, Long-distance Cycling, Book Club"
+    "sampleHobbies": "Fintech Blogging, Long-Distance Running, Watercolor Painting, Book Clubs",
+    "sampleMetrics": [
+      "+42% Retention",
+      "4.8★ App Rating"
+    ]
   },
   {
     "id": "starling",
@@ -1842,86 +2051,94 @@ export const TEMPLATES = [
     "category": "Design",
     "tags": [
       "Design",
-      "Fresher"
+      "Senior"
     ],
-    "description": "Minimal modern frame with wide margins and clear typography for UI/UX and product designers.",
+    "description": "Visual portfolio banner template tailored for Senior UI/UX Designers and Visual Directors.",
     "isAtsOnly": false,
-    "chosenCount": 8750,
+    "chosenCount": 18200,
     "layoutStyle": "photo-header",
     "accentColor": "#6D28D9",
-    "samplePortfolio": "lavanya.design",
-    "sampleName": "Lavanya Sridhar",
+    "sampleName": "Siddharth Kapoor",
     "sampleRole": "Senior Visual & UI Designer",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "lavanya.s@creativedesign.in",
-    "samplePhone": "+91 98455 66778",
-    "sampleSummary": "Visual designer with 5+ years crafting cohesive brand identities, multi-platform mobile apps, and micro-interactions for Indian startups.",
+    "sampleLocation": "Mumbai, Maharashtra",
+    "sampleEmail": "siddharth.kapoor@visualstudio.in",
+    "samplePhone": "+91 98204 55667",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Visual design craftsman with 7+ years shaping iconic digital brand identities, 3D interactive hero interfaces, and multi-platform design languages for consumer tech apps.",
     "sampleExperience": [
       {
-        "role": "Senior UI Designer",
-        "company": "Licious",
+        "role": "Senior Visual Designer",
+        "company": "Swiggy (Instamart)",
         "duration": "2021 - Present",
         "bullets": [
-          "Redesigned meat and seafood delivery mobile app, driving a 22% increase in average cart item additions.",
-          "Created custom 3D micro-illustrations and animated loading state tokens used across iOS and Android."
+          "Led visual refresh of Instamart quick-commerce storefront, boosting promotional click-through rates by 28%.",
+          "Crafted custom 3D iconography and micro-animations for 14 seasonal promotional campaigns."
         ]
       },
       {
-        "role": "Visual Designer",
-        "company": "Chumbak",
-        "duration": "2019 - 2021",
+        "role": "UI & Brand Designer",
+        "company": "Fractal Analytics",
+        "duration": "2018 - 2021",
         "bullets": [
-          "Designed multi-channel digital campaigns generating 45M impressions across social media."
+          "Designed brand identity and UI system for enterprise AI products, winning Good Design Award 2020.",
+          "Standardized visual asset libraries across 20+ global marketing and client delivery teams."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "Srishti Institute of Art, Design and Technology",
-        "degree": "B.Des in Visual Communication",
-        "year": "2019"
+        "institution": "Sir J.J. Institute of Applied Art (Mumbai)",
+        "degree": "B.F.A. in Applied Art & Visual Communication",
+        "year": "2014 - 2018",
+        "description": "First Class with Distinction · Best Campaign Portfolio Award · General Secretary of Student Body"
       }
     ],
     "sampleSkills": [
-      "UI Design",
+      "Visual UI Design",
       "Figma",
-      "Design Systems",
-      "Protopie",
-      "Adobe Illustrator",
-      "3D Blender"
+      "3D Blender",
+      "Cinema 4D",
+      "Brand Identity",
+      "Motion Design",
+      "Adobe Creative Cloud",
+      "Design Tokens"
     ],
     "sampleProjects": [
       {
-        "title": "Enterprise Design System Modernization",
-        "techStack": "Figma, Storybook, React, Design Tokens",
-        "description": "Standardized 140+ accessible WCAG-compliant UI components adopted across web and mobile platforms."
+        "title": "Interactive 3D Electric Vehicle Configurator UI",
+        "techStack": "Blender, Three.js, Figma, Webflow",
+        "description": "Designed realistic real-time 3D customization interface for EV manufacturer generating 340k test drive leads."
       },
       {
-        "title": "Omnichannel Checkout Experience Redesign",
-        "techStack": "User Research, Wireframing, ProtoPie, Usability Testing",
-        "description": "Streamlined 5-step checkout flow into 2-step journey, increasing conversion rate by 24%."
+        "title": "Universal Neo-Brutalist Design Language System",
+        "techStack": "Figma Tokens, Illustrator, After Effects",
+        "description": "Built high-energy visual design language adopted across web, mobile, and outdoor billboard campaigns."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Hindi (Fluent)",
+      "Marathi (Native)"
     ],
     "sampleLinks": [
       {
         "label": "Portfolio",
-        "url": "behance.net/lavanyasridhar"
-      },
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/lavanyasridhar"
+        "url": "https://siddharthkapoor.visual"
       },
       {
         "label": "Dribbble",
-        "url": "dribbble.com/lavanyasridhar"
+        "url": "https://dribbble.com/skapoor"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/siddharthkapoor-design"
       }
     ],
-    "sampleHobbies": "Typography Design, Street Photography, Architectural Modeling, Visual Arts"
+    "sampleHobbies": "3D Generative Art, Street Photography, Electronic Synth Music, Cycling",
+    "sampleMetrics": [
+      "340k Test Drives",
+      "94% System Usability"
+    ]
   },
   {
     "id": "oriole",
@@ -1929,84 +2146,96 @@ export const TEMPLATES = [
     "category": "Marketing",
     "tags": [
       "Marketing",
-      "Sales"
+      "Senior"
     ],
-    "description": "Timeline progression layout highlighting organic brand scaling and performance marketing ROI.",
+    "description": "Chronological timeline layout highlighting campaign milestones and digital growth scale.",
     "isAtsOnly": true,
-    "chosenCount": 11800,
+    "chosenCount": 12400,
     "layoutStyle": "timeline",
-    "accentColor": "#BE123C",
-    "sampleName": "Pranav Bhattacharya",
+    "accentColor": "#B45309",
+    "sampleName": "Sneha Kulkarni",
     "sampleRole": "Director of Brand & Digital Growth",
-    "sampleLocation": "Mumbai, Maharashtra",
-    "sampleEmail": "pranav.b@digitalgrowth.in",
-    "samplePhone": "+91 98201 99887",
-    "sampleSummary": "Marketing director with 10+ years driving omnichannel brand awareness, performance marketing, and celebrity influencer partnerships.",
+    "sampleLocation": "Pune, Maharashtra",
+    "sampleEmail": "sneha.kulkarni@growthnexus.co",
+    "samplePhone": "+91 98900 12344",
+    "samplePhoto": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Growth marketing leader with 9+ years scaling direct-to-consumer (D2C) brands from zero to ₹120Cr ARR through influencer marketing, viral branding, and conversion rate optimization.",
     "sampleExperience": [
       {
-        "role": "Head of Marketing",
-        "company": "boAt Lifestyle",
-        "duration": "2020 - Present",
+        "role": "Director of Growth Marketing",
+        "company": "Wakefit Innovations",
+        "duration": "2021 - Present",
         "bullets": [
-          "Spearheaded national IPL cricket sponsorship campaign driving 3.8x brand recall and ₹140Cr in monthly sales.",
-          "Scaled D2C website organic traffic to 6M monthly visitors while improving blended CAC by 31%."
+          "Managed ₹35Cr annual digital marketing budget, driving 140% YoY organic search and paid revenue growth.",
+          "Spearheaded viral sleep health video campaign generating 45M views and a 3.4x spike in direct brand searches."
         ]
       },
       {
-        "role": "Senior Brand Manager",
-        "company": "Unilever India",
-        "duration": "2014 - 2020",
+        "role": "Senior Brand Marketing Manager",
+        "company": "Sugar Cosmetics",
+        "duration": "2017 - 2021",
         "bullets": [
-          "Managed digital brand portfolio across South Asia with ₹45Cr annual marketing expenditure."
+          "Scaled brand presence across 8,000 retail counters and top e-commerce marketplaces with consistent omni-channel messaging.",
+          "Launched viral influencer affiliate network onboarding 1,500+ micro-creators with 5.1x blended ROAS."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "FMS Delhi",
-        "degree": "MBA in Marketing",
-        "year": "2014"
+        "institution": "Symbiosis Institute of Business Management (SIBM Pune)",
+        "degree": "MBA in Marketing Management",
+        "year": "2015 - 2017",
+        "description": "Top 5% Rank in Marketing · Winner of National Brand Challenge · Head of Marketing Conclave"
+      },
+      {
+        "institution": "Fergusson College (Pune)",
+        "degree": "B.Sc in Biotechnology",
+        "year": "2012 - 2015",
+        "description": "First Class with Distinction · President of College Debate Union"
       }
     ],
     "sampleSkills": [
-      "Brand Marketing",
-      "IPL Partnerships",
-      "Omnichannel Growth",
-      "Performance ROI",
-      "Team Leadership"
+      "Brand Strategy",
+      "D2C Growth Loops",
+      "Influencer Marketing",
+      "Performance Marketing",
+      "Omni-Channel Campaigns",
+      "Marketplace Ads",
+      "Conversion Optimization",
+      "Consumer Insights"
     ],
     "sampleProjects": [
       {
-        "title": "Multi-Channel Inbound Demand Generation Engine",
-        "techStack": "HubSpot, Google Ads, LinkedIn Campaign Manager, GA4",
-        "description": "Scaled monthly qualified leads by 240% while decreasing average customer acquisition cost (CAC) by 32%."
+        "title": "Pan-India Omni-Channel Festive Mega-Sale Campaign",
+        "techStack": "Meta Ads, Google Ads, Television TVCs, OTT Streaming, AppsFlyer",
+        "description": "Directed 360-degree festive campaign generating ₹48Cr in Gross Merchandise Value over a 14-day holiday window."
       },
       {
-        "title": "High-Touch Enterprise Account Expansion Program",
-        "techStack": "Salesforce CRM, Gong, Apollo, Notion",
-        "description": "Executed targeted account-based marketing strategy generating ₹8.2Cr in closed-won enterprise pipeline."
+        "title": "Automated Influencer Creator Portal & ROI Tracker",
+        "techStack": "Shopify API, Custom Tracking Links, Google BigQuery, Tableau",
+        "description": "Built automated creator attribution platform tracking payout commissions and real-time promo conversions."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)",
-      "Marathi (Fluent)"
+      "Marathi (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/pranavbhattacharya"
-      },
-      {
-        "label": "Personal Site",
-        "url": "pranavbhattacharya.me"
+        "url": "https://linkedin.com/in/snehakulkarni-growth"
       },
       {
         "label": "Substack",
-        "url": "pranavbhattacharya.substack.com"
+        "url": "https://d2cplaybook.substack.com"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Classical Bharatnatyam Dance, Marathon Running, Specialty Tea Brewing, Travel Vlogging",
+    "sampleMetrics": [
+      "1,500+ Affiliates",
+      "5.1x Blended ROAS"
+    ]
   },
   {
     "id": "tanager",
@@ -2016,82 +2245,95 @@ export const TEMPLATES = [
       "Sales",
       "Senior"
     ],
-    "description": "Structured split sidebar highlighting deal values, enterprise clients, and territory expansions.",
+    "description": "Executive two-column format with dedicated ARR achievements and quota attainment callouts.",
     "isAtsOnly": true,
-    "chosenCount": 10200,
+    "chosenCount": 11800,
     "layoutStyle": "sidebar-left",
-    "accentColor": "#1F2937",
-    "sampleName": "Divya Menon",
+    "accentColor": "#BE123C",
+    "sampleName": "Sandeep Rao",
     "sampleRole": "Regional Head of Sales (India & MEA)",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "divya.menon@enterprisegrowth.in",
-    "samplePhone": "+91 99002 33445",
-    "sampleSummary": "Sales leader with 11 years building high-performance sales divisions, landing multi-million dollar SaaS deals across India, Dubai, and Singapore.",
+    "sampleLocation": "Hyderabad, Telangana",
+    "sampleEmail": "sandeep.rao@enterprisepartner.in",
+    "samplePhone": "+91 98490 66778",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Strategic sales executive with 11+ years leading enterprise cloud software sales, expanding partner alliances in Dubai and Riyadh, and delivering $16M+ in annual recurring revenue.",
     "sampleExperience": [
       {
-        "role": "Regional Sales Director",
-        "company": "Freshworks",
-        "duration": "2020 - Present",
+        "role": "Regional Sales Director - MEA & India",
+        "company": "Darwinbox",
+        "duration": "2021 - Present",
         "bullets": [
-          "Grew India and Middle East enterprise customer base from 40 to 180 accounts, delivering $6.2M in annual recurring revenue.",
-          "Negotiated and closed multi-year customer experience contracts with top telecom operators in UAE."
+          "Grew Middle East enterprise HCM customer base from 12 to 85 corporate clients delivering $8.2M new ARR.",
+          "Negotiated multi-year government and telecom enterprise cloud transformation contracts."
         ]
       },
       {
-        "role": "Senior Enterprise Account Director",
+        "role": "Enterprise Account Director",
         "company": "Oracle India",
-        "duration": "2015 - 2020",
+        "duration": "2016 - 2021",
         "bullets": [
-          "Recognized in Global President's Club for 3 consecutive years with 140%+ quota achievement."
+          "Managed top 20 BFSI strategic accounts in South India, achieving 146% of annual cloud license quota.",
+          "Partnered with global system integrators (Wipro, Infosys, Cognizant) on co-selling complex ERP transformations."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "TAPMI Manipal",
-        "degree": "PGDM in Sales & Marketing",
-        "year": "2015"
+        "institution": "SIBM Pune",
+        "degree": "MBA in Sales & Marketing",
+        "year": "2014 - 2016",
+        "description": "Dean's Merit Award · First Rank in B2B Enterprise Negotiations"
+      },
+      {
+        "institution": "Osmania University",
+        "degree": "B.Tech in Electronics & Communication",
+        "year": "2010 - 2014",
+        "description": "First Class with Distinction · University Cricket Team Captain"
       }
     ],
     "sampleSkills": [
-      "B2B SaaS",
-      "MEA Expansion",
-      "Enterprise Negotiation",
-      "C-Level Relationships",
-      "Sales Leadership"
+      "Enterprise SaaS Sales",
+      "MEA Cross-Border Deals",
+      "C-Suite Negotiations",
+      "MEDDIC Framework",
+      "Partner Alliances",
+      "Salesforce",
+      "Executive Briefings",
+      "Territory Planning"
     ],
     "sampleProjects": [
       {
-        "title": "Multi-Channel Inbound Demand Generation Engine",
-        "techStack": "HubSpot, Google Ads, LinkedIn Campaign Manager, GA4",
-        "description": "Scaled monthly qualified leads by 240% while decreasing average customer acquisition cost (CAC) by 32%."
+        "title": "GCC Region Enterprise Cloud Transformation Blueprint",
+        "techStack": "MEDDIC, Salesforce, Executive Storytelling, Financial Modeling",
+        "description": "Structured winning proposal securing 4 sovereign wealth enterprise subsidiaries in UAE and Saudi Arabia."
       },
       {
-        "title": "High-Touch Enterprise Account Expansion Program",
-        "techStack": "Salesforce CRM, Gong, Apollo, Notion",
-        "description": "Executed targeted account-based marketing strategy generating ₹8.2Cr in closed-won enterprise pipeline."
+        "title": "System Integrator Strategic Co-Selling Framework",
+        "techStack": "Partner Relationship Management, Deal Registration Workflows",
+        "description": "Established strategic channel partnership generating $4.5M in qualified joint enterprise pipeline."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Telugu (Native)",
+      "Hindi (Fluent)",
+      "Arabic (Basic)"
     ],
     "sampleLinks": [
       {
-        "label": "GitHub",
-        "url": "github.com/divyamenon"
-      },
-      {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/divyamenon"
+        "url": "https://linkedin.com/in/sandeeprao-sales"
       },
       {
         "label": "Portfolio",
-        "url": "divyamenon.dev"
+        "url": "https://sandeeprao.sales"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Cricket, Golf, Angel Mentorship for B2B SaaS Startups, Historical Biographies",
+    "sampleMetrics": [
+      "+50% Pipeline Speed",
+      "Zero Customer Churn"
+    ]
   },
   {
     "id": "warbler",
@@ -2101,82 +2343,88 @@ export const TEMPLATES = [
       "Engineer",
       "Fresher"
     ],
-    "description": "Modern single-column clean format optimized for junior developers and software trainees.",
+    "description": "High-density single-column template tailored for backend developers and cloud services engineers.",
     "isAtsOnly": true,
-    "chosenCount": 19800,
+    "chosenCount": 14700,
     "layoutStyle": "single-column",
     "accentColor": "#FA0C40",
-    "sampleName": "Shruti Chawla",
-    "sampleRole": "Software Engineer · Cloud Backends",
-    "sampleLocation": "Delhi NCR",
-    "sampleEmail": "shruti.chawla@techdev.in",
-    "samplePhone": "+91 98118 77665",
-    "sampleSummary": "Software engineer with 3 years building reliable REST microservices in Golang and Python, with expertise in AWS DynamoDB and Docker.",
+    "sampleName": "Aniket Roy",
+    "sampleRole": "Software Engineer - Cloud Backends",
+    "sampleLocation": "Kolkata, West Bengal",
+    "sampleEmail": "aniket.roy@techcloud.io",
+    "samplePhone": "+91 98305 77889",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Backend engineer with 4+ years building distributed Java/Go microservices, RESTful APIs, and cloud-native serverless workflows on AWS and Docker.",
     "sampleExperience": [
       {
-        "role": "Software Engineer",
-        "company": "Hike Messenger",
-        "duration": "2021 - Present",
+        "role": "Backend Software Engineer",
+        "company": "PwC India Acceleration Center",
+        "duration": "2022 - Present",
         "bullets": [
-          "Engineered real-time sticker and avatar messaging service handling 50k concurrent WebSockets with sub-50ms latency.",
-          "Refactored user authentication endpoints to OAuth 2.0 with JWT tokens, reducing auth token validation overhead by 30%."
+          "Developed high-throughput transaction auditing microservice in Java Spring Boot processing 8M records daily.",
+          "Implemented asynchronous Kafka event processing reducing batch computation time by 60%."
         ]
       },
       {
-        "role": "Backend Engineering Trainee",
+        "role": "Associate Software Engineer",
         "company": "Cognizant",
-        "duration": "2020 - 2021",
+        "duration": "2020 - 2022",
         "bullets": [
-          "Developed automated unit testing suites in Go with 92% code coverage."
+          "Built secure OAuth2/JWT authentication gateway protecting 40+ healthcare APIs.",
+          "Optimized SQL database query indexes across MySQL database instances cutting p95 response time by 42%."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "NSUT Delhi",
-        "degree": "B.Tech in Computer Engineering",
-        "year": "2020"
+        "institution": "Heritage Institute of Technology (Kolkata)",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2016 - 2020",
+        "description": "First Class Honours (8.75/10 CGPA) · Technical Lead of Coding Club · Finalist at Smart India Hackathon"
       }
     ],
     "sampleSkills": [
-      "Golang",
-      "Python",
-      "AWS DynamoDB",
+      "Java",
+      "Spring Boot",
+      "Go",
+      "PostgreSQL",
+      "Apache Kafka",
       "Docker",
-      "REST APIs",
-      "Redis"
+      "AWS Lambda",
+      "RESTful APIs"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Automated Serverless Invoice Extraction & OCR Gateway",
+        "techStack": "Python, AWS Lambda, Tesseract OCR, S3, DynamoDB",
+        "description": "Built event-driven serverless pipeline extracting data from 50,000 PDF invoices monthly with 99.2% accuracy."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "Distributed Key-Value Store with Raft Consensus",
+        "techStack": "Go, Raft Protocol, gRPC, Protobuf",
+        "description": "Implemented fault-tolerant distributed memory database supporting leader election and log replication."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)"
+      "Bengali (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/shrutichawla"
+        "url": "https://github.com/aniketroy-dev"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/shrutichawla"
-      },
-      {
-        "label": "Portfolio",
-        "url": "shrutichawla.dev"
+        "url": "https://linkedin.com/in/aniketroy"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Open Source Contributions, Table Tennis, Science Fiction Novels, Rock Climbing",
+    "sampleMetrics": [
+      "99.99% SLA",
+      "140k req/sec"
+    ]
   },
   {
     "id": "vireo",
@@ -2186,83 +2434,95 @@ export const TEMPLATES = [
       "Data",
       "Senior"
     ],
-    "description": "Compact quantitative metrics format built for financial analysts and data risk officers.",
+    "description": "Two-column analytical grid with dedicated metric callouts for Quantitative Researchers and Risk Modelers.",
     "isAtsOnly": true,
-    "chosenCount": 11700,
+    "chosenCount": 15200,
     "layoutStyle": "compact-table",
     "accentColor": "#065F46",
-    "sampleName": "Gaurav Agarwal",
+    "sampleName": "Dr. Madhavan Pillai",
     "sampleRole": "Lead Quantitative Risk Analyst",
-    "sampleLocation": "Mumbai, Maharashtra",
-    "sampleEmail": "gaurav.a@quantcapital.in",
-    "samplePhone": "+91 98203 44551",
-    "sampleSummary": "Quantitative analyst with 8+ years developing mathematical pricing models, credit default algorithms, and risk analytics for Indian NBFCs.",
+    "sampleLocation": "Chennai, Tamil Nadu",
+    "sampleEmail": "madhavan.pillai@quantrisk.org",
+    "samplePhone": "+91 94441 33221",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Quantitative research mathematician with 8+ years developing algorithmic risk frameworks, Monte Carlo valuation engines, and derivative pricing models for leading investment banks.",
     "sampleExperience": [
       {
-        "role": "VP of Quantitative Risk",
-        "company": "Bajaj Finance",
-        "duration": "2020 - Present",
+        "role": "Lead Quantitative Risk Analyst",
+        "company": "Barclays Global Service Centre",
+        "duration": "2021 - Present",
         "bullets": [
-          "Developed automated credit scoring model disbursing ₹8,000Cr in retail personal loans with 98.4% repayment rate.",
-          "Engineered Monte Carlo simulation engine modeling portfolio stress tests across interest rate cycles."
+          "Engineered real-time Value at Risk (VaR) and Expected Shortfall calculation engine for $25B multi-asset derivatives portfolio.",
+          "Implemented GPU-accelerated Monte Carlo pricing simulations in C++ and CUDA, reducing simulation runtime from 4 hours to 12 minutes."
         ]
       },
       {
-        "role": "Quant Analyst",
-        "company": "Kotak Mahindra Bank",
-        "duration": "2016 - 2020",
+        "role": "Senior Quantitative Modeler",
+        "company": "Credit Suisse India",
+        "duration": "2017 - 2021",
         "bullets": [
-          "Built derivative valuation tools in Python and C++ used by the institutional trading desk."
+          "Developed credit default swap (CDS) hazard rate calibration models compliant with Basel III regulatory standards.",
+          "Authored statistical arbitrage backtesting framework evaluating high-frequency order book dynamics."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IIT Kanpur",
-        "degree": "B.Tech in Mathematics & Computing",
-        "year": "2016"
+        "institution": "Chennai Mathematical Institute (CMI)",
+        "degree": "Ph.D. in Stochastic Modeling & Financial Mathematics",
+        "year": "2013 - 2017",
+        "description": "NBHM Fellowship Recipient · Published 4 peer-reviewed research papers in Quantitative Finance journals"
+      },
+      {
+        "institution": "IIT Madras",
+        "degree": "M.Sc in Mathematics",
+        "year": "2011 - 2013",
+        "description": "Institute Gold Medal for First Rank in Department of Mathematics"
       }
     ],
     "sampleSkills": [
       "Quantitative Modeling",
-      "Python",
-      "C++",
-      "Monte Carlo",
-      "Risk Analytics",
-      "SQL"
+      "Python / C++",
+      "Monte Carlo Methods",
+      "Stochastic Calculus",
+      "Value at Risk (VaR)",
+      "Time Series (ARIMA/GARCH)",
+      "SQL",
+      "CUDA GPU Computing"
     ],
     "sampleProjects": [
       {
-        "title": "Real-Time Predictive Fraud Detection Pipeline",
-        "techStack": "Python, PyTorch, Apache Spark, Kafka, AWS",
-        "description": "Engineered streaming ML inference model achieving 99.4% accuracy with sub-15ms prediction latency."
+        "title": "GPU-Accelerated Multi-Asset Option Pricing Engine",
+        "techStack": "C++, CUDA, OpenMP, Black-Scholes & Heston Models",
+        "description": "Built parallelized option pricer computing 10M complex exotic derivative valuations in 4.2 seconds."
       },
       {
-        "title": "Automated ETL Lakehouse Architecture",
-        "techStack": "Snowflake, dbt, Airflow, PostgreSQL",
-        "description": "Unified 14 disparate data sources into governed lakehouse, reducing query latency by 65%."
+        "title": "Automated High-Frequency Order Flow Imbalance Classifier",
+        "techStack": "Python, XGBoost, Level-3 Market Data, Tick Analytics",
+        "description": "Developed statistical micro-structure signal predicting short-term price momentum with 64% win rate."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)",
-      "Marathi (Fluent)"
+      "Tamil (Native)",
+      "Hindi (Proficient)",
+      "French (Conversational)"
     ],
     "sampleLinks": [
       {
-        "label": "GitHub",
-        "url": "github.com/gauravagarwal"
+        "label": "ResearchGate",
+        "url": "https://researchgate.net/profile/Madhavan-Pillai"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/gauravagarwal"
-      },
-      {
-        "label": "Portfolio",
-        "url": "gauravagarwal.dev"
+        "url": "https://linkedin.com/in/madhavanpillai-quant"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Carnatic Vocalist, Chess Grandmaster Theory, Number Theory Puzzles, Stargazing",
+    "sampleMetrics": [
+      "+32% Conversion",
+      "2.4x Model Speed"
+    ]
   },
   {
     "id": "pipit",
@@ -2272,83 +2532,88 @@ export const TEMPLATES = [
       "Fresher",
       "Marketing"
     ],
-    "description": "Clean accent band structure highlighting social media campaigns, internships, and writing skills.",
+    "description": "Content & Social Media marketing layout highlighting audience growth and viral brand reach.",
     "isAtsOnly": true,
-    "chosenCount": 13200,
+    "chosenCount": 12200,
     "layoutStyle": "color-band",
     "accentColor": "#B45309",
-    "sampleName": "Ayesha Qureshi",
+    "sampleName": "Ananya Roy",
     "sampleRole": "Social Media & Community Associate",
-    "sampleLocation": "Hyderabad, Telangana",
-    "sampleEmail": "ayesha.q@socialgrowth.in",
-    "samplePhone": "+91 94402 77889",
-    "sampleSummary": "Creative social media marketer with proven experience growing Instagram & LinkedIn communities from 0 to 100k+ organic followers.",
+    "sampleLocation": "Mumbai, Maharashtra",
+    "sampleEmail": "ananya.roy@creatorpulse.in",
+    "samplePhone": "+91 98205 99001",
+    "samplePhoto": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Enthusiastic Social Media Strategist and Content Creator with expertise in short-form video algorithms (Instagram Reels, YouTube Shorts), community Discord moderation, and viral Gen-Z brand engagement.",
     "sampleExperience": [
       {
         "role": "Social Media Marketing Intern",
-        "company": "Lenskart",
-        "duration": "2023",
+        "company": "Nykaa Fashion",
+        "duration": "Jan 2024 - Jun 2024",
         "bullets": [
-          "Created short-form video reels generating 14M organic views and 85k new Instagram followers in 6 months.",
-          "Managed campus ambassador program across 40 Indian colleges, driving 4,200 app download referrals."
+          "Scripted and produced 45+ Instagram Reels generating 12M+ views and gaining 85k new followers in 5 months.",
+          "Managed creator collaborations with 60+ fashion influencers for seasonal spring collection launch."
         ]
       },
       {
-        "role": "Content Creator Lead",
-        "company": "College Media Cell",
-        "duration": "2022 - 2023",
+        "role": "Content & Community Intern",
+        "company": "Kuku FM",
+        "duration": "Jun 2023 - Dec 2023",
         "bullets": [
-          "Led team of 8 writers and photographers covering national cultural and technical festivals."
+          "Grew regional language audio book community Discord and Telegram channels to 35,000+ active members.",
+          "Created viral audio snippet clips boosting app install conversions by 18%."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "Osmania University",
-        "degree": "B.A. in English & Mass Comm.",
-        "year": "2023"
+        "institution": "St. Xavier's College (Mumbai) / XIC",
+        "degree": "B.A. in Mass Media & Advertising",
+        "year": "2020 - 2024",
+        "description": "First Class with Distinction (8.9/10 GPA) · Best Media Project Award · Head of College Media Fest Malhar"
       }
     ],
     "sampleSkills": [
-      "Social Media",
-      "Instagram Reels",
+      "Social Media Strategy",
+      "Instagram Reels & TikTok",
+      "Video Editing (Premiere/CapCut)",
       "Canva",
       "Copywriting",
-      "Community Building",
-      "Analytics"
+      "Community Management",
+      "Influencer Outreach",
+      "Analytics & Insights"
     ],
     "sampleProjects": [
       {
-        "title": "Full-Stack Collaborative Productivity Platform",
-        "techStack": "React, Node.js, Express, MongoDB, Tailwind CSS",
-        "description": "Built real-time kanban and task management platform supporting team collaboration and markdown notes."
+        "title": "Viral Regional Heritage Storytelling Video Series",
+        "techStack": "CapCut, Adobe Premiere Pro, Instagram Algorithm Optimization",
+        "description": "Produced 10-episode street culture documentary series accumulating 4.2M views and 280k likes."
       },
       {
-        "title": "Algorithmic Smart Route Optimizer",
-        "techStack": "Python, FastAPI, Leaflet.js, OpenStreetMap API",
-        "description": "Implemented Dijkstra and A* pathfinding heuristics to compute multi-stop delivery routes efficiently."
+        "title": "Interactive Student Career Community Discord Server",
+        "techStack": "Discord Bots, Community Moderation, Notion, Figma",
+        "description": "Built and moderated active peer-learning community connecting 15,000+ Indian university students."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Telugu (Native)",
-      "Hindi (Proficient)"
+      "Hindi (Fluent)",
+      "Bengali (Native)"
     ],
     "sampleLinks": [
       {
-        "label": "GitHub",
-        "url": "github.com/ayeshaqureshi"
+        "label": "Instagram",
+        "url": "https://instagram.com/ananya.creates"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/ayeshaqureshi"
-      },
-      {
-        "label": "Portfolio",
-        "url": "ayeshaqureshi.dev"
+        "url": "https://linkedin.com/in/ananyaroy-media"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Video Editing, Street Food Photography, Theater Acting, Travel Blogging",
+    "sampleMetrics": [
+      "Published Paper",
+      "Open Source Core"
+    ]
   },
   {
     "id": "sunbird",
@@ -2358,82 +2623,93 @@ export const TEMPLATES = [
       "Executive",
       "Senior"
     ],
-    "description": "Minimalist executive format highlighting board governance, strategic acquisitions, and corporate expansion.",
+    "description": "Chief Commercial Officer & Retail Growth executive layout with omni-channel GMV metrics.",
     "isAtsOnly": true,
-    "chosenCount": 12400,
+    "chosenCount": 20500,
     "layoutStyle": "minimalist",
     "accentColor": "#475569",
-    "sampleName": "Deepak Singhania",
+    "sampleName": "Alok Mittal",
     "sampleRole": "Chief Financial Officer",
-    "sampleLocation": "Mumbai, Maharashtra",
-    "sampleEmail": "deepak.singhania@cfogroup.in",
-    "samplePhone": "+91 98210 11998",
-    "sampleSummary": "Chief Financial Officer with 18+ years leading public IPO listings, debt syndications, cross-border M&A, and fiscal governance in India.",
+    "sampleLocation": "New Delhi, Delhi",
+    "sampleEmail": "alok.mittal@boardcfo.in",
+    "samplePhone": "+91 98101 44556",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Distinguished Chief Financial Officer with 16+ years driving capital allocation, raising $450M in equity and venture debt, managing IPO readiness, and establishing tight financial controls for tech unicorns.",
     "sampleExperience": [
       {
         "role": "Chief Financial Officer",
-        "company": "Zomato",
-        "duration": "2019 - Present",
+        "company": "Delhivery Logistics",
+        "duration": "2020 - Present",
         "bullets": [
-          "Led $1.3B landmark Initial Public Offering (IPO) on NSE & BSE with 38x institutional oversubscription.",
-          "Restructured corporate balance sheet, driving consolidated operations toward quarterly net profitability."
+          "Led finance organization through successful $670M Indian Mainboard IPO, managing investor relations and statutory audit.",
+          "Instituted automated treasury management system optimizing ₹1,800Cr working capital and reducing interest costs by 34%."
         ]
       },
       {
-        "role": "VP of Corporate Finance",
-        "company": "Godrej Consumer Products",
-        "duration": "2012 - 2019",
+        "role": "VP of Finance & Corporate Controller",
+        "company": "Flipkart Group",
+        "duration": "2014 - 2020",
         "bullets": [
-          "Negotiated $280M acquisition of personal care brand in Indonesia."
+          "Managed financial planning & analysis (FP&A) for ₹12,000Cr annual GMV retail marketplace business units.",
+          "Led team of 45 chartered accountants across tax compliance, GAAP reconciliation, and M&A due diligence."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "ICAI India",
-        "degree": "Chartered Accountant (Rank Holder)",
-        "year": "2006"
+        "institution": "Faculty of Management Studies (FMS Delhi)",
+        "degree": "MBA in Finance",
+        "year": "2006 - 2008",
+        "description": "Dean's Gold Medal for First Rank in Finance · President of Finance Society"
+      },
+      {
+        "institution": "Shri Ram College of Commerce (SRCC)",
+        "degree": "B.Com (Hons) in Accounting & Finance",
+        "year": "2003 - 2006",
+        "description": "First Class Honours · Rank 1 in University Financial Accounting"
       }
     ],
     "sampleSkills": [
-      "IPO Execution",
-      "M&A",
-      "Corporate Governance",
-      "Treasury & Capital Structure",
-      "Investor Relations"
+      "Corporate Finance",
+      "IPO Readiness",
+      "Venture Capital & Debt",
+      "FP&A Modeling",
+      "Treasury & Working Capital",
+      "Statutory Audit & Tax",
+      "Board Governance",
+      "M&A Due Diligence"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Multi-Entity Global Statutory ERP Implementation",
+        "techStack": "SAP S/4HANA, Hyperion Financial Management, Power BI",
+        "description": "Led migration of 22 operating legal entities to unified ERP system, reducing monthly book close from 18 days to 4 days."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "$150M Structured Venture Debt & Working Capital Consortium",
+        "techStack": "Debt Covenants, Financial Ratio Analysis, Credit Rating Advisory",
+        "description": "Negotiated consortium credit facilities with 5 top institutional banks lowering blended interest borrowing rate by 180 bps."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)",
-      "Marathi (Fluent)"
+      "Hindi (Native)"
     ],
     "sampleLinks": [
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/deepaksinghania"
+        "url": "https://linkedin.com/in/alokmittal-cfo"
       },
       {
-        "label": "Personal Site",
-        "url": "deepaksinghania.me"
-      },
-      {
-        "label": "Substack",
-        "url": "deepaksinghania.substack.com"
+        "label": "Crunchbase",
+        "url": "https://crunchbase.com/person/alok-mittal"
       }
     ],
-    "sampleHobbies": "Tech Podcast Hosting, Angle Investing Mentorship, Long-distance Cycling, Book Club"
+    "sampleHobbies": "Golf, Classical Hindustani Sangeet, Numismatics, Financial Mentorship",
+    "sampleMetrics": [
+      "+45% EBITDA",
+      "Top 10 Tech Leader"
+    ]
   },
   {
     "id": "waxwing",
@@ -2443,84 +2719,99 @@ export const TEMPLATES = [
       "Design",
       "Senior"
     ],
-    "description": "Two-column creative portfolio format emphasizing design leadership and consumer app craftsmanship.",
+    "description": "Staff Interaction Designer template with micro-interaction metrics and design system patents.",
     "isAtsOnly": false,
-    "chosenCount": 9100,
+    "chosenCount": 18900,
     "layoutStyle": "photo-header",
     "accentColor": "#6D28D9",
-    "samplePortfolio": "manish.uxdesign.in",
-    "sampleName": "Manish Kothari",
+    "sampleName": "Deepa Vishwanathan",
     "sampleRole": "Staff Interaction Designer",
     "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "manish.k@interactioncraft.in",
-    "samplePhone": "+91 99803 44556",
-    "sampleSummary": "Interaction designer with 8+ years crafting frictionless micro-interactions, mobile checkout funnels, and enterprise design libraries.",
+    "sampleEmail": "deepa.vishwanathan@designsys.org",
+    "samplePhone": "+91 98451 44556",
+    "samplePhoto": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Staff Interaction Designer with 9+ years architecting accessible component frameworks, gestural micro-interactions, and multi-modal voice interfaces for enterprise and mobile applications.",
     "sampleExperience": [
       {
-        "role": "Staff Product Designer",
-        "company": "CRED",
+        "role": "Staff Interaction Designer",
+        "company": "Intuit India",
         "duration": "2021 - Present",
         "bullets": [
-          "Designed signature gesture-driven payment swipe interactions experienced by 12M affluent Indian consumers.",
-          "Created design guidelines for CRED Garage auto-vehicle management product vertical."
+          "Architected QuickBooks mobile design system powering 250+ screens used by 4.5M small businesses worldwide.",
+          "Invented gesture-based receipt scanning interaction flow awarded US Design Patent in 2023."
         ]
       },
       {
-        "role": "Senior UI Designer",
-        "company": "Housing.com",
+        "role": "Lead UX Designer",
+        "company": "Ola Mobility",
         "duration": "2017 - 2021",
         "bullets": [
-          "Engineered interactive 3D floor plan explorer for real estate mobile discovery."
+          "Redesigned driver app ride-acceptance interface reducing accidental ride cancellations by 31%.",
+          "Designed voice-guided navigation prompts in 6 Indian languages for 1.2M commercial drivers."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IIT Guwahati",
-        "degree": "B.Des in Design",
-        "year": "2017"
+        "institution": "Srishti Institute of Art, Design and Technology (Bengaluru)",
+        "degree": "M.Des in Human Centered Design",
+        "year": "2015 - 2017",
+        "description": "Top Academic Honors · Research Paper on Accessibility in Emerging Tech Markets published at ACM CHI"
+      },
+      {
+        "institution": "BMS College of Engineering",
+        "degree": "B.E. in Information Science",
+        "year": "2011 - 2015",
+        "description": "First Class with Distinction · Head of Creative Arts Club"
       }
     ],
     "sampleSkills": [
       "Interaction Design",
+      "Design Systems",
       "Figma",
       "Micro-Interactions",
-      "User Psychology",
-      "Mobile UI",
-      "Prototyping"
+      "WCAG Accessibility",
+      "Prototyping (Framer/ProtoPie)",
+      "Usability Research",
+      "Mobile Gestures"
     ],
     "sampleProjects": [
       {
-        "title": "Enterprise Design System Modernization",
-        "techStack": "Figma, Storybook, React, Design Tokens",
-        "description": "Standardized 140+ accessible WCAG-compliant UI components adopted across web and mobile platforms."
+        "title": "Multi-Modal Voice & Haptic Navigation System for Visually Impaired",
+        "techStack": "Haptic Engines, ProtoPie, User Testing, Android Accessibility API",
+        "description": "Designed non-visual screen reader navigation system winning International Universal Design Award 2022."
       },
       {
-        "title": "Omnichannel Checkout Experience Redesign",
-        "techStack": "User Research, Wireframing, ProtoPie, Usability Testing",
-        "description": "Streamlined 5-step checkout flow into 2-step journey, increasing conversion rate by 24%."
+        "title": "Cross-Platform Accessible Design Tokens Ecosystem",
+        "techStack": "Figma Tokens, CSS Variables, iOS Swift Tokens, Android Jetpack Compose",
+        "description": "Engineered automated design token sync pipeline eliminating visual drift across iOS, Android, and Web applications."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Kannada (Native)",
+      "Hindi (Fluent)",
+      "Tamil (Conversational)"
     ],
     "sampleLinks": [
       {
         "label": "Portfolio",
-        "url": "behance.net/manishkothari"
+        "url": "https://deepav.design"
+      },
+      {
+        "label": "Medium",
+        "url": "https://medium.com/@deepav_design"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/manishkothari"
-      },
-      {
-        "label": "Dribbble",
-        "url": "dribbble.com/manishkothari"
+        "url": "https://linkedin.com/in/deepavishwanathan"
       }
     ],
-    "sampleHobbies": "Typography Design, Street Photography, Architectural Modeling, Visual Arts"
+    "sampleHobbies": "Calligraphy, Pottery Crafting, Sustainable Gardening, Bird Photography",
+    "sampleMetrics": [
+      "+28% CTR",
+      "Good Design 2020"
+    ]
   },
   {
     "id": "jacana",
@@ -2530,85 +2821,88 @@ export const TEMPLATES = [
       "Engineer",
       "Data"
     ],
-    "description": "Code and developer-centric technical layout with grouped programming proficiencies and backend project metrics.",
+    "description": "Senior MLOps & Platform Engineer template with continuous model serving and GPU cluster optimization.",
     "isAtsOnly": true,
-    "chosenCount": 16100,
+    "chosenCount": 16600,
     "layoutStyle": "creative-accent",
     "accentColor": "#2563EB",
-    "sampleName": "Anurag Kashyap",
+    "sampleName": "Pranav Kulkarni",
     "sampleRole": "Senior ML Infrastructure Engineer",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "anurag.k@mlinfrastructure.io",
-    "samplePhone": "+91 97410 88990",
-    "sampleGithub": "github.com/anurag-mlops",
-    "sampleSummary": "MLOps engineer with 6+ years deploying Triton inference servers, Ray clusters, and low-latency tensor processing on GPU nodes.",
+    "sampleLocation": "Pune, Maharashtra",
+    "sampleEmail": "pranav.kulkarni@mlops.io",
+    "samplePhone": "+91 97640 12389",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Machine Learning Systems Engineer with 6+ years building GPU inference clusters, Triton server deployments, and distributed training pipelines for LLMs and deep learning models at scale.",
     "sampleExperience": [
       {
-        "role": "Senior MLOps Engineer",
-        "company": "Krutrim AI",
+        "role": "Senior MLOps & Platform Engineer",
+        "company": "Sarvam AI",
         "duration": "2022 - Present",
         "bullets": [
-          "Constructed high-throughput inference cluster serving 7B-parameter Indic LLMs with sub-18ms token generation latency.",
-          "Reduced GPU idle memory waste by 55% using vLLM dynamic PagedAttention allocation."
+          "Architected distributed model serving infrastructure on Kubernetes and vLLM hosting Indic LLMs with sub-30ms time-to-first-token.",
+          "Optimized GPU memory utilization via TensorRT-LLM and FP8 quantization, cutting inference cloud costs by 52%."
         ]
       },
       {
-        "role": "Machine Learning Engineer",
-        "company": "Flipkart",
+        "role": "ML Infrastructure Engineer",
+        "company": "Reliance Jio AI Labs",
         "duration": "2019 - 2022",
         "bullets": [
-          "Built automated product image quality classification pipeline processing 8M seller images weekly."
+          "Built automated continuous model evaluation and retraining pipeline using Kubeflow and MLflow for speech-to-text models.",
+          "Maintained 64-node NVIDIA A100 GPU cluster with automated SLURM job scheduling and health monitoring."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IIT Kharagpur",
-        "degree": "B.Tech in Computer Science",
-        "year": "2019"
+        "institution": "MIT World Peace University (MIT-WPU Pune)",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2015 - 2019",
+        "description": "CGPA: 9.1/10 · Gold Medalist for Highest GPA in Computer Science · Head of Machine Learning Club"
       }
     ],
     "sampleSkills": [
-      "vLLM",
-      "Triton",
-      "PyTorch",
       "Kubernetes",
-      "Ray",
+      "vLLM / TensorRT-LLM",
+      "Triton Inference Server",
+      "PyTorch",
+      "MLflow",
       "Docker",
-      "Python"
+      "Python / C++",
+      "NVIDIA CUDA"
     ],
     "sampleProjects": [
       {
-        "title": "Real-Time Predictive Fraud Detection Pipeline",
-        "techStack": "Python, PyTorch, Apache Spark, Kafka, AWS",
-        "description": "Engineered streaming ML inference model achieving 99.4% accuracy with sub-15ms prediction latency."
+        "title": "High-Throughput Multi-GPU Indic LLM Inference Gateway",
+        "techStack": "vLLM, FastAPI, Redis Queue, Kubernetes, Prometheus, Grafana",
+        "description": "Engineered autoscaling LLM gateway processing 1,400 concurrent generation requests with 99.98% reliability."
       },
       {
-        "title": "Automated ETL Lakehouse Architecture",
-        "techStack": "Snowflake, dbt, Airflow, PostgreSQL",
-        "description": "Unified 14 disparate data sources into governed lakehouse, reducing query latency by 65%."
+        "title": "Automated Distributed Model Benchmarking & Regression Suite",
+        "techStack": "Python, PyTorch, Hugging Face, Weights & Biases",
+        "description": "Developed continuous benchmarking platform tracking perplexity and inference latency across 18 multilingual foundation models."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Marathi (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/anuragkashyap"
+        "url": "https://github.com/pranavkulkarni-ai"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/anuragkashyap"
-      },
-      {
-        "label": "Portfolio",
-        "url": "anuragkashyap.dev"
+        "url": "https://linkedin.com/in/pranavkulkarni-mlops"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Open Source AI, Competitive Coding, Astronomy, Road Trips",
+    "sampleMetrics": [
+      "+85% Test Coverage",
+      "5x Deployment Speed"
+    ]
   },
   {
     "id": "barbet",
@@ -2618,82 +2912,94 @@ export const TEMPLATES = [
       "Senior",
       "Executive"
     ],
-    "description": "Dark sidebar corporate format highlighting strategic leadership, board presentations, and team scaling.",
+    "description": "Senior Director of AI & Engineering template with patent portfolios and research lab governance.",
     "isAtsOnly": true,
-    "chosenCount": 13400,
+    "chosenCount": 19700,
     "layoutStyle": "dark-sidebar",
     "accentColor": "#1E3A8A",
-    "sampleName": "Sanjay Manjrekar",
+    "sampleName": "Dr. Arvind Swaminathan",
     "sampleRole": "Senior Vice President of Engineering",
-    "sampleLocation": "Mumbai, Maharashtra",
-    "sampleEmail": "sanjay.m@engineeringvp.in",
-    "samplePhone": "+91 98200 11447",
-    "sampleSummary": "Engineering executive with 15+ years leading 120+ software engineers across e-commerce, digital payments, and cloud infrastructure.",
+    "sampleLocation": "Bengaluru, Karnataka",
+    "sampleEmail": "arvind.swaminathan@airesearch.org",
+    "samplePhone": "+91 98450 99881",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "AI & Engineering Executive with 15+ years heading large-scale machine learning research labs, holding 9 granted US patents, and scaling 140+ engineer organizations building conversational and multimodal AI systems.",
     "sampleExperience": [
       {
-        "role": "SVP of Engineering",
-        "company": "JioCinema",
-        "duration": "2021 - Present",
+        "role": "SVP of AI & Core Engineering",
+        "company": "Yellow.ai",
+        "duration": "2020 - Present",
         "bullets": [
-          "Engineered concurrent live streaming infrastructure serving record 32M simultaneous viewers during IPL Finals with zero buffering.",
-          "Established automated QA chaos engineering practices across mobile, web, and Smart TV client platforms."
+          "Lead 120-member AI platform team powering enterprise conversational agents handling 2B interactions annually.",
+          "Architected proprietary LLM fine-tuning and safety alignment pipeline cutting external API licensing costs by $2.4M."
         ]
       },
       {
-        "role": "VP of Technology",
-        "company": "Hotstar",
-        "duration": "2016 - 2021",
+        "role": "Director of Applied AI",
+        "company": "Samsung R&D Institute India",
+        "duration": "2015 - 2020",
         "bullets": [
-          "Scaled video ingestion backend from 2M to 25M concurrent peak users."
+          "Led on-device neural processing engine development deployed across 80M Galaxy smartphones.",
+          "Filed 14 international patents in speech enhancement, low-power vision transformers, and edge inference."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IIT Bombay",
-        "degree": "B.Tech in Electrical Engineering",
-        "year": "2008"
+        "institution": "Carnegie Mellon University (CMU)",
+        "degree": "Ph.D. in Computer Science (Language Technologies)",
+        "year": "2010 - 2014",
+        "description": "IEEE Fellow Award · 12 Publications in ACL, EMNLP, and NeurIPS · Best Dissertation Award"
+      },
+      {
+        "institution": "IIT Kanpur",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2006 - 2010",
+        "description": "Director's Gold Medal for Best All-Round Academic & Research Performance"
       }
     ],
     "sampleSkills": [
-      "Live Video Streaming",
-      "Extreme Concurrency",
-      "Cloud Scale",
-      "Org Building",
-      "Technical Vision"
+      "AI Research Leadership",
+      "Multimodal LLMs",
+      "Patent Strategy",
+      "Org Scaling",
+      "Edge AI Inference",
+      "Budget Governance",
+      "R&D Lab Management",
+      "Executive Mentorship"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Enterprise GenAI Orchestration & Guardrails Platform",
+        "techStack": "PyTorch, LangChain, Triton Server, AWS SageMaker, Kubernetes",
+        "description": "Directed engineering of enterprise LLM firewall mitigating hallucination, data leakage, and prompt injections."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "On-Device Neural Machine Translation Engine",
+        "techStack": "C++, TVM, ONNX Runtime, ARM NEON, Android NDK",
+        "description": "Built sub-15MB zero-latency offline translation model supporting 14 Indian languages for budget smartphones."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)",
-      "Marathi (Fluent)"
+      "Tamil (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
-        "label": "GitHub",
-        "url": "github.com/sanjaymanjrekar"
+        "label": "Google Scholar",
+        "url": "https://scholar.google.com/citations?user=arvindswaminathan"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/sanjaymanjrekar"
-      },
-      {
-        "label": "Portfolio",
-        "url": "sanjaymanjrekar.dev"
+        "url": "https://linkedin.com/in/arvindswaminathan"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "AI Ethics Governance, Classical Carnatic Flute, Marathon Running, Astrophysics",
+    "sampleMetrics": [
+      "10+ Yrs Scale",
+      "₹50Cr+ Budget"
+    ]
   },
   {
     "id": "ibis",
@@ -2703,85 +3009,95 @@ export const TEMPLATES = [
       "Product",
       "Sales"
     ],
-    "description": "Outcome-driven split format with quantifiable ROI badges and business funnel diagnostics.",
+    "description": "Growth & Quick-Commerce PM template with 10-minute grocery delivery unit economics.",
     "isAtsOnly": true,
-    "chosenCount": 12100,
+    "chosenCount": 16400,
     "layoutStyle": "sidebar-right",
     "accentColor": "#FA0C40",
-    "sampleMetrics": [
-      "₹45Cr GMV",
-      "99.9% Delivery SLA"
-    ],
-    "sampleName": "Monika Sharma",
-    "sampleRole": "Group Product Manager · Supply Chain",
-    "sampleLocation": "Gurgaon, Haryana",
-    "sampleEmail": "monika.s@supplychainpm.in",
-    "samplePhone": "+91 98119 22334",
-    "sampleSummary": "Product leader with 8+ years digitizing warehouse automation, automated route optimization, and vendor procurement platforms.",
+    "sampleName": "Shreya Pillai",
+    "sampleRole": "Group Product Manager - Supply Chain",
+    "sampleLocation": "Bengaluru, Karnataka",
+    "sampleEmail": "shreya.pillai@growthpm.co",
+    "samplePhone": "+91 98452 33441",
+    "samplePhoto": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Product leader with 7+ years driving dark-store dispatch algorithms, warehouse picking automation, and order fulfillment funnels for leading quick-commerce unicorns.",
     "sampleExperience": [
       {
-        "role": "Group PM · Logistics",
-        "company": "Blinkit",
+        "role": "Group Product Manager - Fulfillment & Dispatch",
+        "company": "Blinkit (Zomato)",
         "duration": "2021 - Present",
         "bullets": [
-          "Architected 10-minute quick commerce dark store picking algorithm, cutting order dispatch time from 6 min to 105 seconds.",
-          "Reduced delivery partner idle wait times by 18% through dynamic geofence dispatch algorithms."
+          "Engineered dynamic dark-store dispatch algorithm reducing average order delivery time from 14.2 min to 9.6 min.",
+          "Led dark-store picking app revamp, lifting picker item batch-picking efficiency by 38% across 650 dark stores."
         ]
       },
       {
-        "role": "Senior PM",
-        "company": "Grofers",
+        "role": "Senior Product Manager",
+        "company": "Delhivery",
         "duration": "2018 - 2021",
         "bullets": [
-          "Built automated inventory replenishment system across 12 mother warehouses in North India."
+          "Automated middle-mile truck route optimization network, saving ₹22Cr in annual diesel and logistics costs.",
+          "Built real-time parcel sorting hub tracking system handling 1.8M daily shipments."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "SPJIMR Mumbai",
-        "degree": "PGDM in Supply Chain & Operations",
-        "year": "2018"
+        "institution": "IIM Kozhikode",
+        "degree": "MBA in Operations & Strategy",
+        "year": "2016 - 2018",
+        "description": "Top 5% Rank · Gold Medalist in Supply Chain Strategy · Head of Product Management Forum"
+      },
+      {
+        "institution": "PES University (Bengaluru)",
+        "degree": "B.Tech in Computer Science",
+        "year": "2012 - 2016",
+        "description": "First Class with Distinction (9.1/10 GPA) · President of Student Technical Association"
       }
     ],
     "sampleSkills": [
-      "Quick Commerce",
-      "Route Optimization",
-      "Supply Chain Product",
-      "Data Modeling",
-      "Agile Leadership"
+      "Quick Commerce Logistics",
+      "Fulfillment Optimization",
+      "Dark Store Automation",
+      "SQL & Metrics",
+      "Figma",
+      "A/B Testing",
+      "Mixpanel",
+      "Unit Economics"
     ],
     "sampleProjects": [
       {
-        "title": "AI-Powered User Engagement & Onboarding Engine",
-        "techStack": "Mixpanel, SQL, Jira, A/B Testing, Python",
-        "description": "Spearheaded zero-to-one launch of automated personalized onboarding, lifting D30 retention by 28%."
+        "title": "Automated Dark Store Inventory Slotting Algorithm",
+        "techStack": "Python, Operations Research, SQL, Postgres, Redshift",
+        "description": "Engineered predictive demand slotting placing high-velocity items near packing stations, cutting picking walking time by 44%."
       },
       {
-        "title": "Global Marketplace Monetization Overhaul",
-        "techStack": "Stripe API, Tableau, Confluence, Scrum",
-        "description": "Restructured pricing tiers and introduced self-serve annual billing, driving ₹4.5Cr in net ARR expansion."
+        "title": "Rider Fleet Dynamic Surge & Dispatch Allocation",
+        "techStack": "Geospatial Routing, Google Maps API, WebSockets, Go",
+        "description": "Built dynamic rider dispatch loop sustaining 99.4% SLA during monsoon and festive peak delivery spikes."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)"
+      "Malayalam (Native)",
+      "Hindi (Fluent)",
+      "Kannada (Conversational)"
     ],
     "sampleLinks": [
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/monikasharma"
+        "url": "https://linkedin.com/in/shreyapillai-pm"
       },
       {
-        "label": "Personal Site",
-        "url": "monikasharma.me"
-      },
-      {
-        "label": "Substack",
-        "url": "monikasharma.substack.com"
+        "label": "Medium",
+        "url": "https://medium.com/@shreya_qcomm"
       }
     ],
-    "sampleHobbies": "Tech Podcast Hosting, Angle Investing Mentorship, Long-distance Cycling, Book Club"
+    "sampleHobbies": "Bouldering, Scuba Diving, Urban Agriculture, Tech Podcasting",
+    "sampleMetrics": [
+      "14 Sprints On-Time",
+      "Zero Critical Bugs"
+    ]
   },
   {
     "id": "stork",
@@ -2791,81 +3107,94 @@ export const TEMPLATES = [
       "Sales",
       "Senior"
     ],
-    "description": "Quota achievement and enterprise deal-focused layout with clear ARR growth highlights.",
+    "description": "Regional Sales Director template with hybrid cloud hardware and multi-year enterprise contracts.",
     "isAtsOnly": true,
-    "chosenCount": 9500,
+    "chosenCount": 14900,
     "layoutStyle": "sidebar-left",
     "accentColor": "#1F2937",
-    "sampleName": "Varun Chopra",
+    "sampleName": "Bhupender Singh",
     "sampleRole": "Enterprise Sales Director (Fintech)",
-    "sampleLocation": "Delhi NCR",
-    "sampleEmail": "varun.chopra@enterprisesales.in",
-    "samplePhone": "+91 98104 55667",
-    "sampleSummary": "Senior sales executive with 10+ years selling core banking, fraud prevention, and identity verification API suites to Tier 1 financial institutions.",
+    "sampleLocation": "Chandigarh, Punjab",
+    "sampleEmail": "bhupender.singh@salesexec.in",
+    "samplePhone": "+91 98150 11223",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "High-impact enterprise sales director with 12+ years closing multi-million dollar core banking, payment gateway, and fraud surveillance contracts across PSU and private banks in India.",
     "sampleExperience": [
       {
-        "role": "Director of Enterprise Sales",
-        "company": "HyperVerge",
+        "role": "Enterprise Sales Director - BFSI",
+        "company": "FSS Technologies",
         "duration": "2020 - Present",
         "bullets": [
-          "Secured multi-year AI KYC verification contracts with 12 major Indian banks, generating $3.9M in new ARR.",
-          "Maintained 138% annual quota attainment for 3 consecutive years."
+          "Delivered ₹85Cr in net-new annual contract value across 8 major public sector and private Indian banks.",
+          "Won landmark ₹34Cr multi-year payment switch modernization mandate with a top 3 private bank."
         ]
       },
       {
-        "role": "Regional Sales Manager",
-        "company": "Perfios",
+        "role": "Senior Sales Manager - North India",
+        "company": "Fiserv India",
         "duration": "2015 - 2020",
         "bullets": [
-          "Expanded credit statement analysis SaaS into 40+ leading NBFCs and lending startups."
+          "Overachieved assigned sales revenue targets for 5 consecutive fiscal years (average 132% quota attainment).",
+          "Established strategic partnerships with regional rural banks and state cooperative bank federations."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "NMIMS Mumbai",
-        "degree": "MBA in Marketing",
-        "year": "2015"
+        "institution": "University Business School (Panjab University Chandigarh)",
+        "degree": "MBA in Marketing & Finance",
+        "year": "2010 - 2012",
+        "description": "First Class with Distinction · President of Management Development Club"
+      },
+      {
+        "institution": "Panjab University",
+        "degree": "B.Com (Hons)",
+        "year": "2007 - 2010",
+        "description": "First Class Honours · University Hockey Team Vice-Captain"
       }
     ],
     "sampleSkills": [
-      "Fintech APIs",
-      "Enterprise B2B",
-      "Contract Negotiation",
-      "C-Suite Pitching",
-      "Sales Strategy"
+      "BFSI Enterprise Sales",
+      "Core Banking Negotiations",
+      "Tender & RFP Governance",
+      "PSU Banking Alliances",
+      "Salesforce CRM",
+      "Executive Presentations",
+      "Revenue Forecasting",
+      "Channel Partners"
     ],
     "sampleProjects": [
       {
-        "title": "Multi-Channel Inbound Demand Generation Engine",
-        "techStack": "HubSpot, Google Ads, LinkedIn Campaign Manager, GA4",
-        "description": "Scaled monthly qualified leads by 240% while decreasing average customer acquisition cost (CAC) by 32%."
+        "title": "Pan-India PSU Bank Switch Infrastructure Transformation",
+        "techStack": "RFP Management, Financial Structuring, Executive Presentations",
+        "description": "Architected competitive commercial proposal capturing 5-year nationwide ATM and switch processing mandate."
       },
       {
-        "title": "High-Touch Enterprise Account Expansion Program",
-        "techStack": "Salesforce CRM, Gong, Apollo, Notion",
-        "description": "Executed targeted account-based marketing strategy generating ₹8.2Cr in closed-won enterprise pipeline."
+        "title": "AI-Powered Real-Time Anti-Fraud Engine Rollout",
+        "techStack": "Fintech Security, API Architecture, Client Onboarding",
+        "description": "Successfully pitched and onboarded 12 regional cooperative banks to cloud-based AML surveillance platform."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)"
+      "Punjabi (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
-        "label": "GitHub",
-        "url": "github.com/varunchopra"
-      },
-      {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/varunchopra"
+        "url": "https://linkedin.com/in/bhupendersingh-sales"
       },
       {
         "label": "Portfolio",
-        "url": "varunchopra.dev"
+        "url": "https://bhupendersingh.in"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Cricket, Agricultural Farming, Philanthropy for Rural Athletes, Travel",
+    "sampleMetrics": [
+      "₹18Cr Revenue",
+      "142% Quota Attained"
+    ]
   },
   {
     "id": "heron",
@@ -2875,83 +3204,94 @@ export const TEMPLATES = [
       "Marketing",
       "Senior"
     ],
-    "description": "Timeline campaign structure showcasing influencer activations, performance channels, and D2C scaling.",
+    "description": "D2C Brand Marketing & E-Commerce growth template highlighting influencer marketing and CAC reduction.",
     "isAtsOnly": true,
-    "chosenCount": 10900,
+    "chosenCount": 15800,
     "layoutStyle": "timeline",
     "accentColor": "#BE123C",
-    "sampleName": "Shreya Ghoshal",
+    "sampleName": "Nandini Bose",
     "sampleRole": "Head of D2C Growth & Retention",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "shreya.g@d2cgrowth.in",
-    "samplePhone": "+91 99011 88776",
-    "sampleSummary": "D2C growth marketer with 7+ years scaling e-commerce brands from ₹10Cr to ₹150Cr+ ARR through WhatsApp commerce, loyalty, and paid media.",
+    "sampleLocation": "Kolkata, West Bengal",
+    "sampleEmail": "nandini.bose@brandscale.in",
+    "samplePhone": "+91 98301 66554",
+    "samplePhoto": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "E-Commerce growth strategist with 8+ years scaling consumer lifestyle brands, optimizing Klaviyo/CleverTap lifecycle retention funnels, and lifting 90-day customer lifetime value (LTV) by 65%.",
     "sampleExperience": [
       {
-        "role": "Head of Growth",
-        "company": "The Whole Truth Foods",
+        "role": "Head of Growth & Retention",
+        "company": "Snitch Apparel",
         "duration": "2021 - Present",
         "bullets": [
-          "Scaled monthly direct website orders by 4.2x while maintaining profitable blended customer acquisition costs.",
-          "Launched WhatsApp conversational reordering flow generating 18% of all repeat brand revenue."
+          "Scaled D2C website revenue from ₹18Cr to ₹110Cr ARR while reducing blended customer acquisition cost (CAC) by 32%.",
+          "Built automated WhatsApp and email retention sequences generating 31% of total monthly recurring store sales."
         ]
       },
       {
-        "role": "Growth Manager",
-        "company": "Mamaearth",
+        "role": "Retention & Lifecycle Marketing Lead",
+        "company": "The Souled Store",
         "duration": "2018 - 2021",
         "bullets": [
-          "Managed performance ad spend across Meta and Google delivering ₹40Cr in annual net revenues."
+          "Launched VIP Membership loyalty tier converting 280,000 paid subscribers with 74% annual renewal rate.",
+          "Spearheaded personalized product recommendation engine driving 19.5% average order value (AOV) expansion."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "MICA Ahmedabad",
-        "degree": "PGDM in Communications",
-        "year": "2018"
+        "institution": "IIM Calcutta",
+        "degree": "PGDM in Marketing & Strategy",
+        "year": "2016 - 2018",
+        "description": "Director's Merit List · Winner of Loreal Brandstorm India Finals · Head of Marketing Conclave"
+      },
+      {
+        "institution": "St. Xavier's College (Kolkata)",
+        "degree": "B.Com (Hons)",
+        "year": "2013 - 2016",
+        "description": "First Class Honours · General Secretary of Commerce Society"
       }
     ],
     "sampleSkills": [
-      "D2C E-Commerce",
-      "WhatsApp Commerce",
       "Retention Marketing",
-      "Meta Ads",
+      "Klaviyo & CleverTap",
+      "WhatsApp Commerce",
       "Shopify Plus",
-      "Klaviyo"
+      "LTV/CAC Optimization",
+      "A/B Testing",
+      "Customer Segmentation",
+      "Performance Marketing"
     ],
     "sampleProjects": [
       {
-        "title": "Multi-Channel Inbound Demand Generation Engine",
-        "techStack": "HubSpot, Google Ads, LinkedIn Campaign Manager, GA4",
-        "description": "Scaled monthly qualified leads by 240% while decreasing average customer acquisition cost (CAC) by 32%."
+        "title": "Predictive Churn & High-LTV VIP Re-Engagement System",
+        "techStack": "CleverTap, Segment, Snowflake, Looker, WhatsApp API",
+        "description": "Engineered automated behavioral trigger campaigns generating ₹14Cr in reactive repurchase revenue."
       },
       {
-        "title": "High-Touch Enterprise Account Expansion Program",
-        "techStack": "Salesforce CRM, Gong, Apollo, Notion",
-        "description": "Executed targeted account-based marketing strategy generating ₹8.2Cr in closed-won enterprise pipeline."
+        "title": "Omni-Channel Customer Loyalty & Referral Engine",
+        "techStack": "Yotpo, Shopify Plus, Custom React Frontend",
+        "description": "Built gamified referral program driving 42,000 monthly organic friend invitations with zero cash burn."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Bengali (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/shreyaghoshal"
-      },
-      {
-        "label": "Personal Site",
-        "url": "shreyaghoshal.me"
+        "url": "https://linkedin.com/in/nandinibose-growth"
       },
       {
         "label": "Substack",
-        "url": "shreyaghoshal.substack.com"
+        "url": "https://retentiongrowth.substack.com"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Culinary Baking, Classical Indian Literature, Travel Photography, Yoga",
+    "sampleMetrics": [
+      "₹48Cr GMV",
+      "+140% YoY Growth"
+    ]
   },
   {
     "id": "egret",
@@ -2961,83 +3301,89 @@ export const TEMPLATES = [
       "Engineer",
       "Senior"
     ],
-    "description": "Classic clean single-column hierarchy for mobile iOS and Android engineers.",
+    "description": "Mobile & iOS platform architecture template with app store metrics and framework callouts.",
     "isAtsOnly": true,
-    "chosenCount": 15800,
+    "chosenCount": 17200,
     "layoutStyle": "single-column",
     "accentColor": "#FA0C40",
-    "sampleName": "Kunal Deshpande",
+    "sampleName": "Farhan Qureshi",
     "sampleRole": "Staff Mobile Engineer (iOS & React Native)",
-    "sampleLocation": "Pune, Maharashtra",
-    "sampleEmail": "kunal.d@mobiledev.in",
-    "samplePhone": "+91 98225 66778",
-    "sampleSummary": "Mobile engineer with 8+ years creating butter-smooth 60fps consumer apps in Swift, Kotlin, and React Native for 20M+ Indian smartphone users.",
+    "sampleLocation": "Hyderabad, Telangana",
+    "sampleEmail": "farhan.qureshi@mobilecraft.io",
+    "samplePhone": "+91 98492 88776",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Staff Mobile Engineer with 8+ years architecting high-performance iOS and React Native applications, reducing app launch times by 50%, and maintaining 99.9% crash-free sessions for 30M+ users.",
     "sampleExperience": [
       {
-        "role": "Staff iOS Engineer",
-        "company": "CRED",
+        "role": "Staff Mobile Engineer",
+        "company": "Cult.fit (Curefit)",
         "duration": "2021 - Present",
         "bullets": [
-          "Engineered custom Swift animation engine rendering 120Hz micro-interactions with zero frame drops on iOS devices.",
-          "Reduced mobile app cold launch time from 2.4s to 850ms through modular dynamic framework preloading."
+          "Architected modular Swift/SwiftUI and React Native architecture powering live workout streaming with sub-second buffer.",
+          "Optimized iOS cold startup time from 2.8s to 780ms, boosting App Store rating from 4.2 to 4.8 stars."
         ]
       },
       {
-        "role": "Senior Android Developer",
-        "company": "BookMyShow",
-        "duration": "2017 - 2021",
+        "role": "Senior iOS Developer",
+        "company": "Urban Company",
+        "duration": "2018 - 2021",
         "bullets": [
-          "Maintained 99.85% crash-free session rate across 800+ distinct Android smartphone OEM models."
+          "Built offline-first service tracking engine using CoreData and background sync for 40,000+ field technicians.",
+          "Implemented biometric authentication and Apple Pay / UPI deep-links processing ₹250Cr monthly transactions."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "VJTI Mumbai",
-        "degree": "B.Tech in Computer Engineering",
-        "year": "2017"
+        "institution": "BITS Pilani (Hyderabad Campus)",
+        "degree": "B.E. in Computer Science & Engineering",
+        "year": "2014 - 2018",
+        "description": "CGPA: 9.0/10 · Dean's List · President of Mobile App Development Club · 1st Prize at Apple Swift Student Challenge"
       }
     ],
     "sampleSkills": [
-      "Swift",
-      "Kotlin",
+      "iOS / Swift",
+      "SwiftUI",
       "React Native",
-      "iOS SDK",
-      "App Performance",
-      "CI/CD Fastlane"
+      "Objective-C",
+      "CoreAnimation",
+      "CI/CD (Fastlane)",
+      "Performance Profiling",
+      "App Store Optimization"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Real-Time Interactive Workout Telemetry Engine",
+        "techStack": "Swift, WebSockets, AVFoundation, Metal Shaders, CoreBluetooth",
+        "description": "Built low-power Bluetooth heart-rate and motion sensor sync framework rendering live leaderboard at 60 FPS."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "Automated Cross-Platform Mobile CI/CD & Test Farm",
+        "techStack": "Fastlane, GitHub Actions, App Center, Maestro UI Testing",
+        "description": "Engineered automated build and release pipeline cutting weekly App Store submission turnaround from 8 hours to 20 minutes."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
       "Hindi (Native)",
-      "Marathi (Fluent)"
+      "Urdu (Fluent)",
+      "Telugu (Conversational)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/kunaldeshpande"
+        "url": "https://github.com/farhanqureshi-ios"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/kunaldeshpande"
-      },
-      {
-        "label": "Portfolio",
-        "url": "kunaldeshpande.dev"
+        "url": "https://linkedin.com/in/farhanqureshi-mobile"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Audio Engineering, High-End Audio Systems, Cycling, Science Fiction",
+    "sampleMetrics": [
+      "Zero Data Loss",
+      "12M Transactions"
+    ]
   },
   {
     "id": "flamingo",
@@ -3047,83 +3393,88 @@ export const TEMPLATES = [
       "Fresher",
       "Engineer"
     ],
-    "description": "Clean accent band with clear distinction for college hackathons, open source, and campus leadership.",
+    "description": "Junior Full-Stack Developer layout with hackathon wins and responsive web prototypes.",
     "isAtsOnly": true,
-    "chosenCount": 17400,
+    "chosenCount": 13500,
     "layoutStyle": "color-band",
     "accentColor": "#065F46",
-    "sampleName": "Tanya Sen",
+    "sampleName": "Rahul Bhatt",
     "sampleRole": "Junior Backend Developer",
-    "sampleLocation": "Kolkata, West Bengal",
-    "sampleEmail": "tanya.sen@alumni.ac.in",
-    "samplePhone": "+91 98305 44332",
-    "sampleSummary": "Driven computer science graduate with solid foundations in Node.js, Python, PostgreSQL, and building serverless cloud functions.",
+    "sampleLocation": "Ahmedabad, Gujarat",
+    "sampleEmail": "rahul.bhatt@techstarter.in",
+    "samplePhone": "+91 98250 44332",
+    "samplePhoto": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Enthusiastic Junior Full-Stack Developer proficient in Python FastAPI, React, Node.js, and PostgreSQL, with multiple hackathon wins and production SaaS prototype experience.",
     "sampleExperience": [
       {
-        "role": "Backend Developer Intern",
-        "company": "Hasura",
-        "duration": "2023",
+        "role": "Backend Engineering Intern",
+        "company": "Infibeam Avenues",
+        "duration": "Jan 2024 - Jun 2024",
         "bullets": [
-          "Developed automated GraphQL schema generation tests and wrote technical documentation for developer tutorials.",
-          "Created open-source boilerplate starter template with 450+ GitHub stars."
+          "Developed merchant onboarding REST APIs in Python FastAPI processing 25,000 monthly digital payment KYC checks.",
+          "Implemented Redis caching layer reducing recurring database query latency by 48%."
         ]
       },
       {
-        "role": "Open Source Contributor",
-        "company": "GirlScript Summer of Code",
-        "duration": "2022",
+        "role": "Web Development Intern",
+        "company": "TatvaSoft",
+        "duration": "Jun 2023 - Dec 2023",
         "bullets": [
-          "Merged 14 pull requests improving TypeScript types and test coverage in open-source developer tooling."
+          "Built responsive internal CRM portal using React, Tailwind CSS, and Node.js for 120 client support reps.",
+          "Wrote comprehensive unit and integration tests achieving 92% code coverage with Jest and Supertest."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "Heritage Institute of Technology",
-        "degree": "B.Tech in Computer Science · 9.1 CGPA",
-        "year": "2023"
+        "institution": "DA-IICT (Gandhinagar)",
+        "degree": "B.Tech in Information & Communication Technology",
+        "year": "2020 - 2024",
+        "description": "CGPA: 8.9/10 · Winner of Smart Gujarat Hackathon 2023 · Lead Coordinator of Open Source Club"
       }
     ],
     "sampleSkills": [
+      "Python",
+      "FastAPI",
+      "React",
       "Node.js",
-      "Express",
       "PostgreSQL",
-      "GraphQL",
-      "TypeScript",
-      "Docker",
-      "Git"
+      "Tailwind CSS",
+      "Git / GitHub",
+      "Docker"
     ],
     "sampleProjects": [
       {
-        "title": "Full-Stack Collaborative Productivity Platform",
-        "techStack": "React, Node.js, Express, MongoDB, Tailwind CSS",
-        "description": "Built real-time kanban and task management platform supporting team collaboration and markdown notes."
+        "title": "OpenDev - Collaborative Developer Tool Hub",
+        "techStack": "React, FastAPI, PostgreSQL, Docker, GitHub Actions",
+        "description": "Built developer tool registry with 15,000+ monthly visits supporting regex testers, JSON diffing, and mock servers."
       },
       {
-        "title": "Algorithmic Smart Route Optimizer",
-        "techStack": "Python, FastAPI, Leaflet.js, OpenStreetMap API",
-        "description": "Implemented Dijkstra and A* pathfinding heuristics to compute multi-stop delivery routes efficiently."
+        "title": "Automated WhatsApp Invoice & Receipt Reminder Bot",
+        "techStack": "Node.js, WhatsApp Cloud API, SQLite, Express",
+        "description": "Created micro-SaaS sending automated payment links to 450 local retail shops with 98% delivery rate."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)"
+      "Gujarati (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/tanyasen"
+        "url": "https://github.com/rahulbhatt-dev"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/tanyasen"
-      },
-      {
-        "label": "Portfolio",
-        "url": "tanyasen.dev"
+        "url": "https://linkedin.com/in/rahulbhatt-tech"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Open Source Tinkering, Competitive Gaming, Cricket, Tech Podcasting",
+    "sampleMetrics": [
+      "Published Paper",
+      "Open Source Core"
+    ]
   },
   {
     "id": "spoonbill",
@@ -3133,83 +3484,92 @@ export const TEMPLATES = [
       "Data",
       "Fresher"
     ],
-    "description": "Structured tabular layout highlighting SQL queries, Python data wrangling, and statistical projects.",
+    "description": "Junior NLP & AI Researcher template with HuggingFace models and multilingual benchmarks.",
     "isAtsOnly": true,
-    "chosenCount": 13600,
+    "chosenCount": 12800,
     "layoutStyle": "compact-table",
     "accentColor": "#0F766E",
-    "sampleName": "Chirag Singhal",
+    "sampleName": "Aayush Mishra",
     "sampleRole": "Data Science Associate",
-    "sampleLocation": "Delhi NCR",
-    "sampleEmail": "chirag.s@datascience.in",
-    "samplePhone": "+91 98108 33221",
-    "sampleSummary": "Data scientist with expertise in supervised machine learning, NLP transformers, exploratory data analysis, and predictive modeling.",
+    "sampleLocation": "Noida, Uttar Pradesh",
+    "sampleEmail": "aayush.mishra@datascience.in",
+    "samplePhone": "+91 98114 55667",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Applied AI and Data Science graduate with strong mathematical foundations in PyTorch, NLP transformer architectures, and RAG retrieval pipelines for multilingual Indian languages.",
     "sampleExperience": [
       {
         "role": "Data Science Intern",
-        "company": "PolicyBazaar",
-        "duration": "2023",
+        "company": "Hike Messenger (Rush Gaming)",
+        "duration": "Jan 2024 - Jun 2024",
         "bullets": [
-          "Trained XGBoost model predicting term insurance policy renewals with 89.6% accuracy.",
-          "Cleaned and engineered features from 4M customer transaction records using Pandas and Scikit-Learn."
+          "Fine-tuned BERT-based toxicity filter in PyTorch flagging abusive chat content across 1.2M daily multiplayer game sessions.",
+          "Engineered vector retrieval pipeline in FAISS speeding up semantic FAQ response matching by 3.5x."
         ]
       },
       {
-        "role": "Kaggle Competitions Lead",
-        "company": "University AI Chapter",
-        "duration": "2022 - 2023",
+        "role": "NLP Research Intern",
+        "company": "AI4Bharat (IIT Madras)",
+        "duration": "Jun 2023 - Dec 2023",
         "bullets": [
-          "Ranked in top 4% in Kaggle Indian House Price Prediction competition."
+          "Evaluated IndicBERT model benchmarks across 12 Indian regional languages on Hindi/Bengali question-answering tasks.",
+          "Curated and cleaned 450,000 sentence pairs for low-resource translation datasets."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "Indraprastha University (IPU)",
-        "degree": "B.Tech in Artificial Intelligence",
-        "year": "2023"
+        "institution": "Delhi Technological University (DTU / DCE)",
+        "degree": "B.Tech in Mathematics & Computing",
+        "year": "2020 - 2024",
+        "description": "CGPA: 9.15/10 · Department Silver Medal · Research Paper on Multilingual Sentiment published in IEEE Conference"
       }
     ],
     "sampleSkills": [
       "Python",
-      "Pandas",
-      "Scikit-Learn",
-      "XGBoost",
+      "PyTorch",
+      "Hugging Face",
+      "Transformers",
       "SQL",
-      "Tableau",
-      "Git"
+      "LangChain",
+      "Vector DBs (FAISS/Pinecone)",
+      "Pandas & NumPy"
     ],
     "sampleProjects": [
       {
-        "title": "Real-Time Predictive Fraud Detection Pipeline",
-        "techStack": "Python, PyTorch, Apache Spark, Kafka, AWS",
-        "description": "Engineered streaming ML inference model achieving 99.4% accuracy with sub-15ms prediction latency."
+        "title": "Multilingual Legal Document Summary RAG",
+        "techStack": "LangChain, Llama-3, ChromaDB, FastAPI, Streamlit",
+        "description": "Built domain-adapted question-answering system summarizing Indian Supreme Court judgments in seconds."
       },
       {
-        "title": "Automated ETL Lakehouse Architecture",
-        "techStack": "Snowflake, dbt, Airflow, PostgreSQL",
-        "description": "Unified 14 disparate data sources into governed lakehouse, reducing query latency by 65%."
+        "title": "Indic Sentiment & Tone Classifier",
+        "techStack": "PyTorch, IndicBERT, Flask, Docker, Hugging Face Hub",
+        "description": "Trained transformer model classifying customer sentiment across 8 Indian languages with 91.4% accuracy."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)"
+      "Hindi (Native)",
+      "Bhojpuri (Native)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/chiragsinghal"
+        "url": "https://github.com/aayushmishra-ai"
+      },
+      {
+        "label": "HuggingFace",
+        "url": "https://huggingface.co/aayushmishra"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/chiragsinghal"
-      },
-      {
-        "label": "Portfolio",
-        "url": "chiragsinghal.dev"
+        "url": "https://linkedin.com/in/aayushmishra"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Kaggle Competitions, Table Tennis, Reading History, Speedcubing",
+    "sampleMetrics": [
+      "99.4% Accuracy",
+      "10TB+ Daily Ingest"
+    ]
   },
   {
     "id": "cormorant",
@@ -3219,82 +3579,94 @@ export const TEMPLATES = [
       "Executive",
       "Senior"
     ],
-    "description": "Editorial minimalist layout for Chief Technology Officers and Chief Information Officers.",
+    "description": "Chief Strategy Officer & Corporate M&A executive template with fundraising and restructuring highlights.",
     "isAtsOnly": true,
-    "chosenCount": 14900,
+    "chosenCount": 21100,
     "layoutStyle": "minimalist",
     "accentColor": "#1E293B",
-    "sampleName": "Naveen Jindal",
+    "sampleName": "Sunil Varghese",
     "sampleRole": "Chief Technology Officer",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "naveen.jindal@ctoboard.in",
-    "samplePhone": "+91 98451 99887",
-    "sampleSummary": "CTO with 20+ years steering engineering transformation, AI roadmaps, patent filings, and digital scale for India's largest consumer internet platforms.",
+    "sampleLocation": "Mumbai, Maharashtra",
+    "sampleEmail": "sunil.varghese@boardroom.in",
+    "samplePhone": "+91 98203 11990",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Visionary Chief Technology Officer with 17+ years leading enterprise engineering transformations, managing 350+ multi-national engineers, and architecting resilient banking and cloud platforms.",
     "sampleExperience": [
       {
         "role": "Chief Technology Officer",
-        "company": "Ola Electric",
+        "company": "BillDesk",
         "duration": "2019 - Present",
         "bullets": [
-          "Built in-house MoveOS connected vehicle software platform deployed on 400,000+ electric scooters across India.",
-          "Filed 8 domestic patents for proprietary battery management telemetry algorithms."
+          "Direct 280-person engineering org processing ₹60,000Cr monthly payment volume with 99.999% platform availability.",
+          "Executed comprehensive cloud modernization migrating legacy on-prem datacenter infrastructure to hybrid AWS/Azure."
         ]
       },
       {
-        "role": "VP of Engineering",
-        "company": "InMobi",
-        "duration": "2011 - 2019",
+        "role": "VP of Technology",
+        "company": "Kotak Mahindra Bank",
+        "duration": "2013 - 2019",
         "bullets": [
-          "Led 150-person engineering group delivering global mobile ad-tech platform processing 250B daily requests."
+          "Spearheaded launch of Kotak 811 digital banking platform onboarding 15M customers in 24 months.",
+          "Instituted enterprise security and ISO 27001 regulatory compliance across digital banking microservices."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IIT Madras",
-        "degree": "B.Tech + M.Tech in Computer Science",
-        "year": "2004"
+        "institution": "IIM Ahmedabad",
+        "degree": "Post Graduate Programme in Management (Executive MBA)",
+        "year": "2011 - 2012",
+        "description": "Dean's Honor Roll · Specialization in Technology Strategy & Corporate Governance"
+      },
+      {
+        "institution": "IIT Bombay",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2002 - 2006",
+        "description": "First Class Honours · General Secretary of Technical Affairs"
       }
     ],
     "sampleSkills": [
-      "Connected Vehicle OS",
-      "Patents & IP",
-      "Global Engineering",
-      "AI Strategy",
-      "Executive Leadership"
+      "Technology Strategy",
+      "Enterprise Architecture",
+      "Fintech Scale",
+      "Cloud Modernization",
+      "Cybersecurity & Governance",
+      "Board Presentations",
+      "Org Transformation",
+      "Vendor Management"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Enterprise Hybrid Cloud Payments Core",
+        "techStack": "Kubernetes, AWS DirectConnect, PostgreSQL, Kafka, HSM Security",
+        "description": "Architected resilient multi-datacenter active-active payment processing core clearing 45M daily transactions."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "Zero-Trust Enterprise Identity & Micro-Segmentation",
+        "techStack": "Okta, HashiCorp Vault, Palo Alto Networks, Istio",
+        "description": "Implemented org-wide zero-trust network access securing 1,200 microservices against lateral breaches."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Malayalam (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/naveenjindal"
+        "url": "https://linkedin.com/in/sunilvarghese-cto"
       },
       {
-        "label": "Personal Site",
-        "url": "naveenjindal.me"
-      },
-      {
-        "label": "Substack",
-        "url": "naveenjindal.substack.com"
+        "label": "Crunchbase",
+        "url": "https://crunchbase.com/person/sunil-varghese"
       }
     ],
-    "sampleHobbies": "Tech Podcast Hosting, Angle Investing Mentorship, Long-distance Cycling, Book Club"
+    "sampleHobbies": "Sailing, Marathon Running, Strategic Advisory for Startups, Classical Literature",
+    "sampleMetrics": [
+      "₹120Cr P&L",
+      "4.9★ Glassdoor"
+    ]
   },
   {
     "id": "pelican",
@@ -3304,83 +3676,95 @@ export const TEMPLATES = [
       "Design",
       "Product"
     ],
-    "description": "Creative visual header layout with emphasis on UX research, design systems, and cross-functional leadership.",
+    "description": "Principal UX Researcher template with qualitative user insights and usability telemetry metrics.",
     "isAtsOnly": false,
-    "chosenCount": 8600,
+    "chosenCount": 17600,
     "layoutStyle": "photo-header",
     "accentColor": "#6D28D9",
-    "samplePortfolio": "anand.designportfolio.in",
-    "sampleName": "Anand Verma",
+    "sampleName": "Radhika Somani",
     "sampleRole": "Principal UX Researcher & Strategist",
-    "sampleLocation": "Gurgaon, Haryana",
-    "sampleEmail": "anand.verma@uxstrategy.in",
-    "samplePhone": "+91 98112 44556",
-    "sampleSummary": "UX researcher with 9+ years conducting ethnographic studies, usability labs, and behavioral heuristics across Bharat Tier 2-4 consumer apps.",
+    "sampleLocation": "Bengaluru, Karnataka",
+    "sampleEmail": "radhika.somani@uxresearch.co",
+    "samplePhone": "+91 98453 11882",
+    "samplePhoto": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Principal UX Researcher with 8+ years leading foundational generative research, field ethnography across Tier-2/3 Indian cities, and usability telemetry translating into multi-million dollar product revamps.",
     "sampleExperience": [
       {
         "role": "Principal UX Researcher",
-        "company": "Google India",
-        "duration": "2020 - Present",
+        "company": "PhonePe",
+        "duration": "2021 - Present",
         "bullets": [
-          "Led field research studies across 14 Indian states informing localized voice search and Google Pay onboarding journeys.",
-          "Synthesized behavioral mental models that increased digital payment adoption among first-time smartphone users by 27%."
+          "Conducted nationwide ethnographic studies with 400+ rural small business owners across 6 states shaping vernacular merchant app.",
+          "Built automated in-app usability telemetry framework uncovering critical checkout drop-off triggers."
         ]
       },
       {
-        "role": "Lead User Researcher",
+        "role": "Senior UX Researcher",
         "company": "Flipkart",
-        "duration": "2016 - 2020",
+        "duration": "2017 - 2021",
         "bullets": [
-          "Established first remote video usability testing lab supporting 20+ product pods."
+          "Led foundational research for Flipkart Grocery launching simplified vernacular voice search and localized iconography.",
+          "Instituted cross-company UX benchmarking system evaluating product usability against top global e-commerce apps."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IIT Kanpur",
-        "degree": "Master of Design (M.Des)",
-        "year": "2016"
+        "institution": "IDC School of Design (IIT Bombay)",
+        "degree": "M.Des in Interaction Design & Human Factors",
+        "year": "2015 - 2017",
+        "description": "Institute Gold Medal for Outstanding Research Thesis · Published paper on Vernacular UI Affordances"
+      },
+      {
+        "institution": "St. Xavier's College (Mumbai)",
+        "degree": "B.A. in Psychology & Sociology",
+        "year": "2012 - 2015",
+        "description": "First Class with Distinction · President of Psychology Association"
       }
     ],
     "sampleSkills": [
-      "Ethnographic Research",
-      "Usability Labs",
-      "Behavioral Heuristics",
-      "Survey Design",
-      "Figma",
-      "User Journey Mapping"
+      "Qualitative Research",
+      "Ethnographic Fieldwork",
+      "Usability Testing",
+      "Quantitative Surveys",
+      "Telemetry & Analytics",
+      "Persona Modeling",
+      "Journey Mapping",
+      "Executive Strategy"
     ],
     "sampleProjects": [
       {
-        "title": "Enterprise Design System Modernization",
-        "techStack": "Figma, Storybook, React, Design Tokens",
-        "description": "Standardized 140+ accessible WCAG-compliant UI components adopted across web and mobile platforms."
+        "title": "Bharat Next 500M - Digital Financial Inclusion Field Study",
+        "techStack": "Field Ethnography, Video Analysis, Dedoose, Looker",
+        "description": "Authored foundational report on semi-literate user mental models adopted org-wide to drive vernacular feature roadmaps."
       },
       {
-        "title": "Omnichannel Checkout Experience Redesign",
-        "techStack": "User Research, Wireframing, ProtoPie, Usability Testing",
-        "description": "Streamlined 5-step checkout flow into 2-step journey, increasing conversion rate by 24%."
+        "title": "Automated Usability Benchmarking Framework",
+        "techStack": "UserZoom, Hotjar, SQL, Figma, Python Analytics",
+        "description": "Designed continuous user ease-of-use scoring tracking System Usability Scale (SUS) across 18 core mobile user flows."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)"
+      "Hindi (Native)",
+      "Gujarati (Fluent)",
+      "Marathi (Conversational)"
     ],
     "sampleLinks": [
       {
-        "label": "Portfolio",
-        "url": "behance.net/anandverma"
+        "label": "Medium",
+        "url": "https://medium.com/@radhikasomani_ux"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/anandverma"
-      },
-      {
-        "label": "Dribbble",
-        "url": "dribbble.com/anandverma"
+        "url": "https://linkedin.com/in/radhikasomani"
       }
     ],
-    "sampleHobbies": "Typography Design, Street Photography, Architectural Modeling, Visual Arts"
+    "sampleHobbies": "Documentary Filmmaking, Cultural Anthropology, Pottery, Classical Kathak",
+    "sampleMetrics": [
+      "+55% NPS Score",
+      "3.8x Engagement"
+    ]
   },
   {
     "id": "gannet",
@@ -3390,83 +3774,88 @@ export const TEMPLATES = [
       "Engineer",
       "Senior"
     ],
-    "description": "Clean single-column structure designed for cloud security engineers and ethical hackers.",
+    "description": "Cybersecurity & DevSecOps engineer template with vulnerability reduction and compliance certifications.",
     "isAtsOnly": true,
-    "chosenCount": 16800,
+    "chosenCount": 16900,
     "layoutStyle": "single-column",
     "accentColor": "#FA0C40",
-    "sampleName": "Deepak Seshadri",
+    "sampleName": "Venkatesh Raghavan",
     "sampleRole": "Lead Information Security & DevSecOps Engineer",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "deepak.s@infosec.in",
-    "samplePhone": "+91 99008 11223",
-    "sampleSummary": "Cybersecurity engineer with 7+ years securing cloud perimeters, leading red-team penetration tests, and automating DevSecOps pipelines.",
+    "sampleLocation": "Chennai, Tamil Nadu",
+    "sampleEmail": "venkatesh.r@secguard.io",
+    "samplePhone": "+91 94440 22331",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "DevSecOps and Cloud Security Architect with 7+ years implementing automated vulnerability remediation in CI/CD, ISO 27001 / SOC-2 Type II audits, and container security for enterprise fintechs.",
     "sampleExperience": [
       {
-        "role": "Lead Cloud Security Engineer",
-        "company": "Razorpay",
+        "role": "Lead DevSecOps Engineer",
+        "company": "Juspay Technologies",
         "duration": "2021 - Present",
         "bullets": [
-          "Implemented automated SAST/DAST vulnerability scanning in CI/CD, catching 95% of security defects prior to production.",
-          "Secured multi-cloud banking microservices against DDoS attacks during peak payment volume spikes."
+          "Integrated automated SAST/DAST security scanning into GitLab CI/CD, reducing critical production vulnerabilities by 86%.",
+          "Led successful PCI-DSS Level 1 and SOC-2 Type II audit compliance across 300+ microservices."
         ]
       },
       {
-        "role": "Security Consultant",
-        "company": "PwC India",
-        "duration": "2017 - 2021",
+        "role": "Senior Security Engineer",
+        "company": "Zoho Corporation",
+        "duration": "2018 - 2021",
         "bullets": [
-          "Conducted penetration testing for 30+ leading private Indian banking web and mobile applications."
+          "Conducted regular penetration testing and red-teaming across web and mobile platforms mitigating 120+ zero-day CVEs.",
+          "Implemented automated AWS GuardDuty and Falco runtime container anomaly alerting."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "Amrita Vishwa Vidyapeetham",
-        "degree": "B.Tech in Cybersecurity",
-        "year": "2017"
+        "institution": "IIT Madras",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2014 - 2018",
+        "description": "CGPA: 8.95/10 · Head of Cybersecurity & Capture-The-Flag (CTF) Club · Finalist at Global Cyberlympics"
       }
     ],
     "sampleSkills": [
-      "Cloud Security",
       "DevSecOps",
+      "Cloud Security (AWS/Azure)",
+      "Kubernetes Security",
+      "SAST / DAST (Snyk/SonarQube)",
+      "PCI-DSS & SOC-2",
+      "Terraform",
       "Penetration Testing",
-      "AWS Security",
-      "Kubernetes Hardening",
-      "ISO 27001"
+      "Python / Go"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Automated CI/CD Vulnerability Gate & Policy Engine",
+        "techStack": "OPA (Open Policy Agent), Snyk, Trivy, GitLab CI, Python",
+        "description": "Engineered automated pipeline gate blocking vulnerable container images with zero developer friction."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "Runtime Container Threat Detection & Defense Mesh",
+        "techStack": "Falco, eBPF, Kubernetes, AWS Security Hub, Slack Webhooks",
+        "description": "Built sub-second kernel-level security anomaly detection alerting on unauthorized process execution."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Tamil (Native)",
+      "Hindi (Proficient)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/deepakseshadri"
+        "url": "https://github.com/venkateshr-sec"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/deepakseshadri"
-      },
-      {
-        "label": "Portfolio",
-        "url": "deepakseshadri.dev"
+        "url": "https://linkedin.com/in/venkateshraghavan-security"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "CTF Competitions, Reverse Engineering, Cycling, Carnatic Mandolin",
+    "sampleMetrics": [
+      "450+ Microservices",
+      "<50ms p99"
+    ]
   },
   {
     "id": "booby",
@@ -3476,81 +3865,94 @@ export const TEMPLATES = [
       "Sales",
       "Fresher"
     ],
-    "description": "Direct action-oriented format highlighting SDR outbound calling volumes, lead qualification, and CRM tracking.",
+    "description": "Channel Sales & Partner Alliances layout highlighting reseller network onboarding and channel revenue.",
     "isAtsOnly": true,
-    "chosenCount": 9200,
+    "chosenCount": 11900,
     "layoutStyle": "color-band",
     "accentColor": "#B45309",
-    "sampleName": "Kunal Wadhwa",
+    "sampleName": "Tarun Chawla",
     "sampleRole": "Business Development Representative",
-    "sampleLocation": "Gurgaon, Haryana",
-    "sampleEmail": "kunal.w@b2bsales.in",
-    "samplePhone": "+91 98110 55443",
-    "sampleSummary": "Enthusiastic sales representative with 2 years generating enterprise software pipeline through strategic cold outreach and discovery calls.",
+    "sampleLocation": "New Delhi, Delhi",
+    "sampleEmail": "tarun.chawla@b2bsales.in",
+    "samplePhone": "+91 98115 66778",
+    "samplePhoto": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Driven Business Development Representative with proven record generating $1.2M in qualified B2B SaaS pipeline, executing cold outreach cadences, and booking 25+ executive demos monthly.",
     "sampleExperience": [
       {
-        "role": "Senior BDR",
-        "company": "Whatfix",
-        "duration": "2022 - Present",
+        "role": "Business Development Representative",
+        "company": "LeadSquared",
+        "duration": "2023 - Present",
         "bullets": [
-          "Generated $1.1M in qualified enterprise pipeline across US and European SaaS accounts.",
-          "Maintained 125% quarterly quota achievement with 80+ weekly outbound touches."
+          "Generated $1.4M in outbound sales pipeline across North America and APAC healthcare accounts, achieving 135% quota.",
+          "Conducted personalized cold calling and multi-touch email sequences achieving 24% demo booking rate."
         ]
       },
       {
         "role": "Inside Sales Trainee",
-        "company": "LeadSquared",
-        "duration": "2021 - 2022",
+        "company": "IndiaMART InterMESH",
+        "duration": "2022 - 2023",
         "bullets": [
-          "Conducted discovery calls with 350+ mid-market education and healthcare leaders."
+          "Onboarded 140+ MSME suppliers onto paid premium subscription tiers generating ₹32L in new revenue.",
+          "Maintained accurate CRM data hygiene across 4,000+ business leads in Salesforce."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "Delhi University",
-        "degree": "Bachelor of Commerce (Honours)",
-        "year": "2021"
+        "institution": "Indian Institute of Foreign Trade (IIFT Delhi)",
+        "degree": "MBA in International Business",
+        "year": "2020 - 2022",
+        "description": "Top 10% Rank · Winner of National B2B Sales Simulation Competition · Head of Corporate Relations"
+      },
+      {
+        "institution": "Hansraj College (Delhi University)",
+        "degree": "B.Com (Hons)",
+        "year": "2017 - 2020",
+        "description": "First Class Honours · Captain of College Debating Society"
       }
     ],
     "sampleSkills": [
-      "Outbound Prospecting",
+      "Outbound Sales",
       "Salesforce",
+      "Apollo.io",
       "LinkedIn Sales Navigator",
-      "Cold Emailing",
-      "Lead Qualification"
+      "Cold Calling & Emailing",
+      "Pipeline Qualification",
+      "MEDDICC Basics",
+      "Objection Handling"
     ],
     "sampleProjects": [
       {
-        "title": "Multi-Channel Inbound Demand Generation Engine",
-        "techStack": "HubSpot, Google Ads, LinkedIn Campaign Manager, GA4",
-        "description": "Scaled monthly qualified leads by 240% while decreasing average customer acquisition cost (CAC) by 32%."
+        "title": "Automated Multi-Channel Cold Email & Phone Cadence",
+        "techStack": "Apollo.io, Outreach, Loom, Salesforce CRM",
+        "description": "Designed 12-touch personalized outreach sequence resulting in 32 booked executive demos in 60 days."
       },
       {
-        "title": "High-Touch Enterprise Account Expansion Program",
-        "techStack": "Salesforce CRM, Gong, Apollo, Notion",
-        "description": "Executed targeted account-based marketing strategy generating ₹8.2Cr in closed-won enterprise pipeline."
+        "title": "Healthcare SaaS Competitor Analysis & Battlecards",
+        "techStack": "Notion, Klue, Sales Pitch Decks",
+        "description": "Created comprehensive objection-handling battlecards used by 18 BDRs to overcome competitor feature gaps."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)"
+      "Hindi (Native)",
+      "Punjabi (Conversational)"
     ],
     "sampleLinks": [
       {
-        "label": "GitHub",
-        "url": "github.com/kunalwadhwa"
-      },
-      {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/kunalwadhwa"
+        "url": "https://linkedin.com/in/tarunchawla-sales"
       },
       {
-        "label": "Portfolio",
-        "url": "kunalwadhwa.dev"
+        "label": "Salesforce Trailblazer",
+        "url": "https://trailblazer.me/id/tchawla"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Debating, Squash, Podcasts on Tech Sales, Long-Distance Driving",
+    "sampleMetrics": [
+      "₹18Cr Revenue",
+      "142% Quota Attained"
+    ]
   },
   {
     "id": "petrel",
@@ -3560,87 +3962,94 @@ export const TEMPLATES = [
       "Marketing",
       "Product"
     ],
-    "description": "Clean right-sidebar format emphasizing organic search rankings, conversion rate lifts, and CAC reduction.",
+    "description": "Product Marketing Manager (PMM) template with go-to-market playbooks and competitive battlecards.",
     "isAtsOnly": true,
-    "chosenCount": 10600,
+    "chosenCount": 15300,
     "layoutStyle": "sidebar-right",
     "accentColor": "#BE123C",
-    "sampleMetrics": [
-      "+180% SEO Traffic",
-      "3.8x ROAS"
-    ],
-    "sampleName": "Nandini Ranganathan",
+    "sampleName": "Malini Swaminathan",
     "sampleRole": "Head of Growth & SEO",
-    "sampleLocation": "Chennai, Tamil Nadu",
-    "sampleEmail": "nandini.r@seocraft.in",
-    "samplePhone": "+91 97900 88991",
-    "sampleSummary": "SEO and organic growth leader with 7+ years scaling search traffic for high-authority Indian tech and e-commerce platforms.",
+    "sampleLocation": "Bengaluru, Karnataka",
+    "sampleEmail": "malini.s@growthpmm.co",
+    "samplePhone": "+91 98454 22110",
+    "samplePhoto": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Product Marketing and Organic Growth Leader with 7+ years driving B2B SaaS GTM launches, SEO program scaling from 50k to 2.8M organic monthly visits, and customer win-loss research.",
     "sampleExperience": [
       {
-        "role": "Director of Organic Growth",
-        "company": "Cleartrip",
+        "role": "Head of Product Marketing & SEO",
+        "company": "VWO (Wingify)",
         "duration": "2021 - Present",
         "bullets": [
-          "Scaled programmatic travel flight landing pages from 500k to 4.5M monthly organic visits.",
-          "Boosted organic ticket bookings by 42% through structured schema markup and page speed optimization."
+          "Led Go-To-Market launches for 4 major enterprise analytics products driving $4.2M in new product pipeline.",
+          "Scaled programmatic SEO content architecture generating 2.5M monthly organic visits and 14k trial signups."
         ]
       },
       {
-        "role": "Senior SEO Manager",
-        "company": "Zivame",
+        "role": "Senior Product Marketing Manager",
+        "company": "Zoho Corporation",
         "duration": "2018 - 2021",
         "bullets": [
-          "Ranked 85% of core commercial keywords on page 1 of Google India search results."
+          "Positioned and launched Zoho Workplace suite across North America, acquiring 45,000 paid customer organizations.",
+          "Authored 25+ comprehensive sales battlecards and product whitepapers winning 78% of head-to-head enterprise deals."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "Madras Christian College",
-        "degree": "B.Sc in Statistics",
-        "year": "2018"
+        "institution": "MICA Ahmedabad",
+        "degree": "PGDM in Communications & Brand Strategy",
+        "year": "2016 - 2018",
+        "description": "Dean's Merit Award · First Rank in B2B Product Strategy & Positioning"
+      },
+      {
+        "institution": "SSN College of Engineering (Chennai)",
+        "degree": "B.Tech in Information Technology",
+        "year": "2012 - 2016",
+        "description": "First Class with Distinction (8.8/10 CGPA) · Editor of College Technical Magazine"
       }
     ],
     "sampleSkills": [
-      "Technical SEO",
+      "Product Marketing (PMM)",
+      "Go-To-Market Strategy",
       "Programmatic SEO",
-      "Google Search Console",
-      "Ahrefs",
-      "Content Strategy",
-      "Conversion Optimization"
+      "Sales Enablement",
+      "Win/Loss Analysis",
+      "Positioning & Messaging",
+      "Ahrefs / SEMrush",
+      "Content Strategy"
     ],
     "sampleProjects": [
       {
-        "title": "Multi-Channel Inbound Demand Generation Engine",
-        "techStack": "HubSpot, Google Ads, LinkedIn Campaign Manager, GA4",
-        "description": "Scaled monthly qualified leads by 240% while decreasing average customer acquisition cost (CAC) by 32%."
+        "title": "Programmatic SEO & Free Tool Generator Engine",
+        "techStack": "Next.js, Ahrefs, Webflow, Python Content Generation",
+        "description": "Built 450+ programmatic landing pages ranking in top 3 Google positions for high-intent conversion queries."
       },
       {
-        "title": "High-Touch Enterprise Account Expansion Program",
-        "techStack": "Salesforce CRM, Gong, Apollo, Notion",
-        "description": "Executed targeted account-based marketing strategy generating ₹8.2Cr in closed-won enterprise pipeline."
+        "title": "Global Enterprise Product Launch Campaign",
+        "techStack": "ProductHunt, TechCrunch PR, Customer Case Studies, Hubspot",
+        "description": "Orchestrated GTM campaign reaching #1 Product of the Day on ProductHunt with 4,200 upvotes."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
       "Tamil (Native)",
-      "Hindi (Conversational)"
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/nandiniranganathan"
-      },
-      {
-        "label": "Personal Site",
-        "url": "nandiniranganathan.me"
+        "url": "https://linkedin.com/in/maliniswaminathan-pmm"
       },
       {
         "label": "Substack",
-        "url": "nandiniranganathan.substack.com"
+        "url": "https://saaslaunchpad.substack.com"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Podcasting, Classical Carnatic Veena, Organic Farming, Hiking",
+    "sampleMetrics": [
+      "₹48Cr GMV",
+      "+140% YoY Growth"
+    ]
   },
   {
     "id": "shearwater",
@@ -3650,83 +4059,88 @@ export const TEMPLATES = [
       "Engineer",
       "Senior"
     ],
-    "description": "Dark sidebar technical architecture layout highlighting infrastructure cost savings and distributed scalability.",
+    "description": "Staff QA & Test Automation Architect template with cross-browser test farms and zero-regression CI/CD.",
     "isAtsOnly": true,
-    "chosenCount": 14500,
+    "chosenCount": 18200,
     "layoutStyle": "dark-sidebar",
     "accentColor": "#1E3A8A",
-    "sampleName": "Prateek Goswami",
+    "sampleName": "Sandeep Kothari",
     "sampleRole": "Staff Database & Reliability Engineer",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "prateek.g@dbscale.in",
-    "samplePhone": "+91 98452 77665",
-    "sampleSummary": "SRE and database engineer with 8+ years scaling multi-terabyte PostgreSQL and Cassandra clusters with 99.999% availability SLAs.",
+    "sampleLocation": "Pune, Maharashtra",
+    "sampleEmail": "sandeep.kothari@dbeng.io",
+    "samplePhone": "+91 98902 44331",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Database and Reliability Architect with 9+ years optimizing distributed PostgreSQL/Cassandra clusters, automating zero-loss cross-region replication, and tuning high-throughput query planners.",
     "sampleExperience": [
       {
-        "role": "Staff SRE · Database Infrastructure",
-        "company": "Flipkart",
+        "role": "Staff Database Reliability Engineer",
+        "company": "Groww",
         "duration": "2021 - Present",
         "bullets": [
-          "Managed automated sharding and failover for 180TB PostgreSQL database cluster supporting 65,000 queries per second.",
-          "Implemented zero-data-loss cross-region replication architecture between Mumbai and Hyderabad data centers."
+          "Architected distributed PostgreSQL and Citus database cluster serving 12M active stock trading users with sub-5ms query response.",
+          "Automated automated database backup, point-in-time recovery (PITR), and disaster recovery validation with zero data loss."
         ]
       },
       {
-        "role": "Senior Database Administrator",
-        "company": "InMobi",
+        "role": "Senior Database Engineer",
+        "company": "Paytm Payments Bank",
         "duration": "2017 - 2021",
         "bullets": [
-          "Tuned high-throughput Aerospike and Redis clusters handling real-time ad bidding logs."
+          "Managed 80TB multi-master Cassandra cluster handling 20,000 writes/sec during peak festive flash sales.",
+          "Eliminated database connection pool bottlenecks using PgBouncer and customized kernel TCP settings."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "BITS Pilani",
-        "degree": "M.Sc in Information Systems",
-        "year": "2017"
+        "institution": "COEP Technological University (Pune)",
+        "degree": "B.Tech in Computer Engineering",
+        "year": "2013 - 2017",
+        "description": "First Class with Distinction (8.9/10 GPA) · Secretary of Linux Users Group · Published paper on Distributed Indexing"
       }
     ],
     "sampleSkills": [
-      "PostgreSQL",
+      "PostgreSQL / Citus",
       "Cassandra",
-      "Redis",
+      "Redis Clustering",
+      "PgBouncer",
       "Database Sharding",
-      "High Availability",
-      "Linux Kernel Tuning"
+      "Linux Kernel Tuning",
+      "Python / Go",
+      "Docker & Kubernetes"
     ],
     "sampleProjects": [
       {
-        "title": "Real-Time Predictive Fraud Detection Pipeline",
-        "techStack": "Python, PyTorch, Apache Spark, Kafka, AWS",
-        "description": "Engineered streaming ML inference model achieving 99.4% accuracy with sub-15ms prediction latency."
+        "title": "Zero-Downtime Automated PostgreSQL Major Version Migration",
+        "techStack": "PostgreSQL Logical Replication, Python, Ansible, Terraform",
+        "description": "Migrated 40TB production financial database with under 3 seconds total switchover downtime."
       },
       {
-        "title": "Automated ETL Lakehouse Architecture",
-        "techStack": "Snowflake, dbt, Airflow, PostgreSQL",
-        "description": "Unified 14 disparate data sources into governed lakehouse, reducing query latency by 65%."
+        "title": "Automated Slow Query Telemetry & Index Recommendation Engine",
+        "techStack": "pg_stat_statements, Python, Grafana, Slack Webhooks",
+        "description": "Built automated query performance profiler identifying slow queries and recommending optimal composite indexes."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Marathi (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/prateekgoswami"
+        "url": "https://github.com/sandeepkothari-db"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/prateekgoswami"
-      },
-      {
-        "label": "Portfolio",
-        "url": "prateekgoswami.dev"
+        "url": "https://linkedin.com/in/sandeepkothari-dbe"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Database Internals Research, Classical Flute, Table Tennis, Cycling",
+    "sampleMetrics": [
+      "99.99% SLA",
+      "140k req/sec"
+    ]
   },
   {
     "id": "fulmar",
@@ -3736,84 +4150,92 @@ export const TEMPLATES = [
       "Fresher",
       "Design"
     ],
-    "description": "Clean visual portfolio banner layout designed for fresh design school graduates.",
+    "description": "Junior Visual & Interaction Designer layout with Figma design tokens and mobile design prototypes.",
     "isAtsOnly": false,
-    "chosenCount": 8400,
+    "chosenCount": 13200,
     "layoutStyle": "photo-header",
     "accentColor": "#6D28D9",
-    "samplePortfolio": "anushka.designportfolio.in",
-    "sampleName": "Anushka Sengupta",
+    "sampleName": "Rhea Mukherjee",
     "sampleRole": "Junior UX & Interaction Designer",
-    "sampleLocation": "Pune, Maharashtra",
-    "sampleEmail": "anushka.s@designstudio.in",
-    "samplePhone": "+91 98221 44332",
-    "sampleSummary": "Design graduate skilled in design research, Figma component libraries, responsive web design, and interactive mobile prototypes.",
+    "sampleLocation": "Mumbai, Maharashtra",
+    "sampleEmail": "rhea.mukherjee@designdrop.in",
+    "samplePhone": "+91 98204 88776",
+    "samplePhoto": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Junior UX and Visual Designer passionate about accessible typography, dynamic micro-interactions, responsive web design systems, and mobile app usability testing.",
     "sampleExperience": [
       {
-        "role": "UI/UX Design Intern",
-        "company": "Nykaa",
-        "duration": "2023",
+        "role": "Interaction Design Intern",
+        "company": "BookMyShow",
+        "duration": "Jan 2024 - Jun 2024",
         "bullets": [
-          "Designed personalized beauty recommendation quiz mobile interface for 300k monthly active users.",
-          "Contributed 25+ accessible UI components to the internal cross-platform design library."
+          "Prototyped interactive 3D cinema seat selection flow in Figma, improving seat booking speed by 18%.",
+          "Designed accessible dark mode theme compliant with WCAG 2.1 AA across mobile web portals."
         ]
       },
       {
-        "role": "Design Lead",
-        "company": "College Annual Magazine",
-        "duration": "2022 - 2023",
+        "role": "Graphic & UI Design Intern",
+        "company": "Schbang Digital",
+        "duration": "Jun 2023 - Dec 2023",
         "bullets": [
-          "Conceptualized and published 120-page university publication with custom typography and layouts."
+          "Created responsive UI landing pages and social visual assets for 8 national consumer brands.",
+          "Developed component design library with auto-layout variants speeding up sprint delivery by 35%."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "Symbiosis Institute of Design",
-        "degree": "B.Des in User Experience Design",
-        "year": "2023"
+        "institution": "National Institute of Design (NID Ahmedabad)",
+        "degree": "B.Des in Visual Communication",
+        "year": "2020 - 2024",
+        "description": "Dean's Merit List · Best Typography & Layout Award 2023 · Head of Student Design Exhibition"
       }
     ],
     "sampleSkills": [
       "Figma",
-      "Interaction Design",
-      "Wireframing",
-      "User Research",
-      "Adobe XD",
-      "Typography"
+      "Interaction Prototyping",
+      "Typography",
+      "Visual UI",
+      "User Testing",
+      "Adobe Illustrator",
+      "Protopie",
+      "Design Systems"
     ],
     "sampleProjects": [
       {
-        "title": "Enterprise Design System Modernization",
-        "techStack": "Figma, Storybook, React, Design Tokens",
-        "description": "Standardized 140+ accessible WCAG-compliant UI components adopted across web and mobile platforms."
+        "title": "KalaKriti - Indian Artisanal Crafts Direct Marketplace App",
+        "techStack": "Figma, User Research, Protopie, Adobe Photoshop",
+        "description": "Designed accessible visual commerce experience for rural craftspersons winning National Design Talent Award 2023."
       },
       {
-        "title": "Omnichannel Checkout Experience Redesign",
-        "techStack": "User Research, Wireframing, ProtoPie, Usability Testing",
-        "description": "Streamlined 5-step checkout flow into 2-step journey, increasing conversion rate by 24%."
+        "title": "Pulse - Interactive Habit & Mental Health Tracker UI",
+        "techStack": "Figma Tokens, Micro-Animations, Usability Testing",
+        "description": "Crafted joyful daily streak habit tracker with fluid micro-interactions and personalized color themes."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)",
-      "Marathi (Fluent)"
+      "Bengali (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
-        "label": "GitHub",
-        "url": "github.com/anushkasengupta"
+        "label": "Portfolio",
+        "url": "https://rheamukherjee.design"
+      },
+      {
+        "label": "Behance",
+        "url": "https://behance.net/rheamukherjee"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/anushkasengupta"
-      },
-      {
-        "label": "Portfolio",
-        "url": "anushkasengupta.dev"
+        "url": "https://linkedin.com/in/rheamukherjee"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Calligraphy, Clay Modeling, Indie Cinema, Street Photography",
+    "sampleMetrics": [
+      "National Finalist",
+      "3 Hackathons Won"
+    ]
   },
   {
     "id": "prion",
@@ -3823,83 +4245,95 @@ export const TEMPLATES = [
       "Data",
       "Senior"
     ],
-    "description": "Compact quantitative table format structured for Senior NLP Engineers and AI researchers.",
+    "description": "Senior Business Intelligence & Analytics Lead template with automated Tableau/PowerBI executive dashboards.",
     "isAtsOnly": true,
-    "chosenCount": 15700,
+    "chosenCount": 14800,
     "layoutStyle": "compact-table",
     "accentColor": "#065F46",
-    "sampleName": "Dr. Vikram Kulkarni",
+    "sampleName": "Dr. Rajiv Subramanian",
     "sampleRole": "Principal AI & NLP Research Scientist",
     "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "dr.vikram@airesearch.in",
-    "samplePhone": "+91 98453 11223",
-    "sampleSummary": "AI researcher with PhD and 9+ years experience building Indic multilingual LLMs, speech-to-text models, and semantic retrieval systems.",
+    "sampleEmail": "rajiv.subramanian@nlpcore.org",
+    "samplePhone": "+91 98450 66779",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Principal AI Research Scientist with 10+ years specializing in Indic multilingual foundation models, parameter-efficient fine-tuning (PEFT), and semantic search algorithms.",
     "sampleExperience": [
       {
-        "role": "Principal AI Scientist",
-        "company": "AI4Bharat",
-        "duration": "2021 - Present",
+        "role": "Principal AI Research Scientist",
+        "company": "Microsoft Research India",
+        "duration": "2020 - Present",
         "bullets": [
-          "Co-developed state-of-the-art multilingual translation models supporting 22 official Indian languages with 94.8 BLEU accuracy.",
-          "Published 6 peer-reviewed papers at NeurIPS, ACL, and EMNLP in multilingual natural language processing."
+          "Led research team developing multilingual translation transformer models across 22 scheduled Indian languages.",
+          "Published 8 research papers in ACL, EMNLP, and NeurIPS; granted 5 international patents in speech synthesis."
         ]
       },
       {
-        "role": "Senior Research Scientist",
-        "company": "Microsoft Research India",
-        "duration": "2017 - 2021",
+        "role": "Senior Applied Scientist",
+        "company": "Amazon AI",
+        "duration": "2016 - 2020",
         "bullets": [
-          "Trained low-resource Indian voice recognition models deployed across rural agricultural advisory hotlines."
+          "Architected semantic product search embedding model improving catalogue query retrieval precision by 18.5%.",
+          "Built automated intent classifier handling 120M monthly customer service interactions."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IISc Bengaluru",
-        "degree": "Ph.D. in Artificial Intelligence",
-        "year": "2017"
+        "institution": "Indian Institute of Science (IISc Bengaluru)",
+        "degree": "Ph.D. in Computer Science & Machine Learning",
+        "year": "2012 - 2016",
+        "description": "Gold Medal for Outstanding Doctoral Dissertation · Microsoft Research India PhD Fellow"
+      },
+      {
+        "institution": "IIT Madras",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2008 - 2012",
+        "description": "First Class Honours · All India Rank Top 0.1% in JEE"
       }
     ],
     "sampleSkills": [
+      "Multilingual NLP",
       "PyTorch",
-      "Hugging Face Transformers",
-      "Indic NLP",
-      "Speech Recognition",
-      "CUDA",
+      "Transformers",
+      "LLM Fine-Tuning (LoRA/QLoRA)",
+      "Vector Search",
+      "Information Retrieval",
+      "Python / C++",
       "Research Publications"
     ],
     "sampleProjects": [
       {
-        "title": "Real-Time Predictive Fraud Detection Pipeline",
-        "techStack": "Python, PyTorch, Apache Spark, Kafka, AWS",
-        "description": "Engineered streaming ML inference model achieving 99.4% accuracy with sub-15ms prediction latency."
+        "title": "Open Indic Multilingual Language Model (IndicLLM)",
+        "techStack": "PyTorch, DeepSpeed, Megatron-LM, Hugging Face, Multi-GPU Cluster",
+        "description": "Pretrained 7B parameter multilingual model achieving state-of-the-art benchmark scores across Indian benchmarks."
       },
       {
-        "title": "Automated ETL Lakehouse Architecture",
-        "techStack": "Snowflake, dbt, Airflow, PostgreSQL",
-        "description": "Unified 14 disparate data sources into governed lakehouse, reducing query latency by 65%."
+        "title": "Real-Time Speech-to-Speech Translation Pipeline",
+        "techStack": "FastAPI, Whisper, IndicTrans2, ONNX, WebSockets",
+        "description": "Deployed sub-250ms streaming voice translation system servicing regional telemedicine consultations."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
+      "Tamil (Native)",
       "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Kannada (Conversational)"
     ],
     "sampleLinks": [
       {
-        "label": "GitHub",
-        "url": "github.com/dr.vikramkulkarni"
+        "label": "Google Scholar",
+        "url": "https://scholar.google.com/citations?user=rajivsubramanian"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/dr.vikramkulkarni"
-      },
-      {
-        "label": "Portfolio",
-        "url": "dr.vikramkulkarni.dev"
+        "url": "https://linkedin.com/in/rajivsubramanian-ai"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Classical Carnatic Vocal Music, Sanskrit Literature, Chess, Astronomy",
+    "sampleMetrics": [
+      "99.4% Accuracy",
+      "10TB+ Daily Ingest"
+    ]
   },
   {
     "id": "tropicbird",
@@ -3910,82 +4344,94 @@ export const TEMPLATES = [
       "Senior",
       "Sales"
     ],
-    "description": "Refined minimal corporate format tailored for Chief Revenue Officers and Commercial Directors.",
+    "description": "VP of Global Strategy & Business Development template with international cross-border expansion records.",
     "isAtsOnly": true,
-    "chosenCount": 11100,
+    "chosenCount": 22400,
     "layoutStyle": "minimalist",
     "accentColor": "#1E293B",
-    "sampleName": "Saurabh Mukherjee",
+    "sampleName": "Amitava Ganguly",
     "sampleRole": "Chief Revenue Officer",
     "sampleLocation": "Mumbai, Maharashtra",
-    "sampleEmail": "saurabh.m@croexecutive.in",
-    "samplePhone": "+91 98204 77889",
-    "sampleSummary": "Chief Revenue Officer with 17+ years scaling enterprise SaaS ARR from $5M to $80M+ across North America, EMEA, and India.",
+    "sampleEmail": "amitava.ganguly@executivecorp.in",
+    "samplePhone": "+91 98200 77665",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Global Revenue Leader with 16+ years scaling B2B SaaS ARR from $10M to $120M+, expanding sales infrastructure across North America, Europe, and APAC, and closing nine-figure multi-year enterprise contracts.",
     "sampleExperience": [
       {
         "role": "Chief Revenue Officer",
-        "company": "Icertis",
+        "company": "CleverTap",
         "duration": "2020 - Present",
         "bullets": [
-          "Scaled global enterprise contract intelligence revenues to $120M ARR with 118% net revenue retention (NRR).",
-          "Managed 85-person global commercial organization spanning enterprise sales, customer success, and partner channels."
+          "Scaled global ARR from $35M to $110M across 100+ countries, maintaining 122% net revenue retention (NRR).",
+          "Built and led 180-person global go-to-market organization spanning Sales, Customer Success, and Solutions Architecture."
         ]
       },
       {
-        "role": "VP of Global Sales",
-        "company": "Wipro Digital",
+        "role": "VP of Global Enterprise Sales",
+        "company": "Icertis",
         "duration": "2014 - 2020",
         "bullets": [
-          "Delivered $240M in multi-year digital transformation consulting deals with Fortune 100 enterprise clients."
+          "Grew EMEA and APAC enterprise contract management software revenues from $8M to $48M ARR.",
+          "Structured global multi-year enterprise agreements with Microsoft, Daimler, and Sanofi."
         ]
       }
     ],
     "sampleEducation": [
       {
         "institution": "IIM Calcutta",
-        "degree": "PGDM in Business Administration",
-        "year": "2007"
+        "degree": "PGDM in Marketing & Finance",
+        "year": "2005 - 2007",
+        "description": "Top 5% Rank · Director's Merit List · President of International Business Forum"
+      },
+      {
+        "institution": "Presidency College (Kolkata)",
+        "degree": "B.Sc (Hons) in Economics & Mathematics",
+        "year": "2002 - 2005",
+        "description": "First Class Honours · Gold Medalist in Econometrics"
       }
     ],
     "sampleSkills": [
-      "CRO Leadership",
-      "Global Enterprise Sales",
-      "Net Revenue Retention",
-      "GTM Strategy",
-      "Channel Partnerships"
+      "CRO Governance",
+      "Global GTM Scaling",
+      "Enterprise SaaS Sales",
+      "Cross-Border Expansion",
+      "P&L Management",
+      "Board Relations",
+      "M&A Integration",
+      "Executive Hiring"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Global Enterprise Sales Expansion Framework (US & EMEA)",
+        "techStack": "Salesforce, Gainsight, Gong.io, Financial Modeling",
+        "description": "Established local direct sales offices in San Francisco, London, and Singapore contributing 64% of total ARR."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "Strategic Cloud Marketplace Co-Sell Alliance",
+        "techStack": "AWS Marketplace, Microsoft Azure Co-Sell, Salesforce Ecosystem",
+        "description": "Architected cloud co-selling partnership generating $28M in annual joint customer contract volume."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Native)",
-      "Marathi (Fluent)"
+      "Bengali (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/saurabhmukherjee"
+        "url": "https://linkedin.com/in/amitavaganguly-cro"
       },
       {
-        "label": "Personal Site",
-        "url": "saurabhmukherjee.me"
-      },
-      {
-        "label": "Substack",
-        "url": "saurabhmukherjee.substack.com"
+        "label": "Crunchbase",
+        "url": "https://crunchbase.com/person/amitava-ganguly"
       }
     ],
-    "sampleHobbies": "Tech Podcast Hosting, Angle Investing Mentorship, Long-distance Cycling, Book Club"
+    "sampleHobbies": "Sailing, Golf, Classical Literature, Angel Investment Mentorship",
+    "sampleMetrics": [
+      "₹120Cr P&L",
+      "4.9★ Glassdoor"
+    ]
   },
   {
     "id": "frigatebird",
@@ -3995,1018 +4441,66 @@ export const TEMPLATES = [
       "Product",
       "Fresher"
     ],
-    "description": "Single-column product format emphasizing user problem statements, agile epics, and product telemetry.",
+    "description": "Associate Product Manager (APM) template with feature wireframing and user interview synthesis.",
     "isAtsOnly": true,
-    "chosenCount": 13800,
+    "chosenCount": 13900,
     "layoutStyle": "single-column",
     "accentColor": "#FA0C40",
-    "sampleName": "Akash Singhal",
+    "sampleName": "Neha Saxena",
     "sampleRole": "Associate Product Manager",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "akash.singhal@apmcraft.in",
-    "samplePhone": "+91 98459 33221",
-    "sampleSummary": "APM with 2 years shipping high-impact consumer mobile features, writing clear PRDs, and running user telemetry analytics.",
+    "sampleLocation": "Gurugram, Haryana",
+    "sampleEmail": "neha.saxena@productmind.in",
+    "samplePhone": "+91 99104 33221",
+    "samplePhoto": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Customer-centric Associate Product Manager with strong product discovery skills, SQL data analysis proficiency, Figma wireframing capabilities, and experience optimizing user conversion funnels.",
     "sampleExperience": [
       {
-        "role": "Associate Product Manager",
-        "company": "Swiggy",
-        "duration": "2022 - Present",
+        "role": "Associate Product Manager Intern",
+        "company": "Cars24",
+        "duration": "Jan 2024 - Jun 2024",
         "bullets": [
-          "Launched 'Group Ordering' feature used by 1.2M diners, increasing average order value (AOV) by 38%.",
-          "Conducted 40+ user interviews to identify payment friction points, leading to a 6% boost in checkout completions."
+          "Redesigned used-car inspection booking funnel, lifting appointment scheduling completion rate by 17.5%.",
+          "Conducted 35 in-depth buyer user interviews synthesizing friction points into high-impact feature PRDs."
         ]
       },
       {
-        "role": "Product Management Intern",
-        "company": "Cult.fit",
-        "duration": "2021 - 2022",
+        "role": "Product Analyst Intern",
+        "company": "PolicyBazaar",
+        "duration": "Jun 2023 - Dec 2023",
         "bullets": [
-          "Redesigned workout booking cancellation flow to retain 15% of at-risk subscription memberships."
+          "Analyzed health insurance checkout funnel telemetry in Mixpanel, identifying drop-off bottlenecks.",
+          "Collaborated with engineering to launch 1-click KYC document auto-fill reducing drop-offs by 21%."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IIT Kharagpur",
-        "degree": "B.Tech in Industrial Engineering",
-        "year": "2022"
+        "institution": "Ashoka University / Plaksha University",
+        "degree": "B.Sc in Computer Science & Entrepreneurship",
+        "year": "2020 - 2024",
+        "description": "CGPA: 9.1/10 · Dean's List for Academic Distinction · Founder of Campus Product Club · Winner of Inter-College Hackathon"
       }
     ],
     "sampleSkills": [
+      "Product Discovery",
       "PRD Writing",
-      "User Telemetry",
+      "Figma Wireframing",
+      "SQL & Analytics",
+      "Mixpanel / Amplitude",
       "A/B Testing",
-      "Mixpanel",
-      "SQL",
-      "Agile Sprints"
+      "Agile / Scrum",
+      "User Interviewing"
     ],
     "sampleProjects": [
       {
-        "title": "AI-Powered User Engagement & Onboarding Engine",
-        "techStack": "Mixpanel, SQL, Jira, A/B Testing, Python",
-        "description": "Spearheaded zero-to-one launch of automated personalized onboarding, lifting D30 retention by 28%."
+        "title": "PeerToPeer Campus Skill Exchange Marketplace",
+        "techStack": "Figma, Notion PRD, React, Supabase, Stripe",
+        "description": "Built campus skill-barter web application onboarding 1,800 active university students in 3 months."
       },
       {
-        "title": "Global Marketplace Monetization Overhaul",
-        "techStack": "Stripe API, Tableau, Confluence, Scrum",
-        "description": "Restructured pricing tiers and introduced self-serve annual billing, driving ₹4.5Cr in net ARR expansion."
-      }
-    ],
-    "sampleLanguages": [
-      "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
-    ],
-    "sampleLinks": [
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/akashsinghal"
-      },
-      {
-        "label": "Personal Site",
-        "url": "akashsinghal.me"
-      },
-      {
-        "label": "Substack",
-        "url": "akashsinghal.substack.com"
-      }
-    ],
-    "sampleHobbies": "Tech Podcast Hosting, Angle Investing Mentorship, Long-distance Cycling, Book Club"
-  },
-  {
-    "id": "jaeger",
-    "name": "Jaeger",
-    "category": "Sales",
-    "tags": [
-      "Sales",
-      "Product"
-    ],
-    "description": "Side-by-side metrics layout highlighting customer success, client retention rates, and account expansions.",
-    "isAtsOnly": true,
-    "chosenCount": 10400,
-    "layoutStyle": "sidebar-right",
-    "accentColor": "#B45309",
-    "sampleMetrics": [
-      "118% Net Retention",
-      "96% CSAT Score"
-    ],
-    "sampleName": "Riddhi Bhatt",
-    "sampleRole": "Director of Customer Success & Renewals",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "riddhi.b@customersuccess.in",
-    "samplePhone": "+91 99009 55667",
-    "sampleSummary": "Customer success leader with 8+ years reducing SaaS churn, expanding account lifetime value (LTV), and managing enterprise renewals.",
-    "sampleExperience": [
-      {
-        "role": "Director of Customer Success",
-        "company": "Postman",
-        "duration": "2021 - Present",
-        "bullets": [
-          "Oversee $18M enterprise ARR renewal book across APAC, achieving 118% net revenue retention.",
-          "Built automated customer health scoring dashboard in Gainsight, reducing gross customer churn by 4.2%."
-        ]
-      },
-      {
-        "role": "Senior CSM",
-        "company": "Freshworks",
-        "duration": "2018 - 2021",
-        "bullets": [
-          "Managed portfolio of 65 high-value enterprise accounts with 98% annual contract renewal rate."
-        ]
-      }
-    ],
-    "sampleEducation": [
-      {
-        "institution": "Symbiosis Centre for Management",
-        "degree": "MBA in Operations & Systems",
-        "year": "2018"
-      }
-    ],
-    "sampleSkills": [
-      "Customer Success",
-      "Enterprise Renewals",
-      "Gainsight",
-      "Churn Reduction",
-      "Executive QBRs",
-      "Upselling"
-    ],
-    "sampleProjects": [
-      {
-        "title": "Multi-Channel Inbound Demand Generation Engine",
-        "techStack": "HubSpot, Google Ads, LinkedIn Campaign Manager, GA4",
-        "description": "Scaled monthly qualified leads by 240% while decreasing average customer acquisition cost (CAC) by 32%."
-      },
-      {
-        "title": "High-Touch Enterprise Account Expansion Program",
-        "techStack": "Salesforce CRM, Gong, Apollo, Notion",
-        "description": "Executed targeted account-based marketing strategy generating ₹8.2Cr in closed-won enterprise pipeline."
-      }
-    ],
-    "sampleLanguages": [
-      "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
-    ],
-    "sampleLinks": [
-      {
-        "label": "GitHub",
-        "url": "github.com/riddhibhatt"
-      },
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/riddhibhatt"
-      },
-      {
-        "label": "Portfolio",
-        "url": "riddhibhatt.dev"
-      }
-    ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
-  },
-  {
-    "id": "skua",
-    "name": "Skua",
-    "category": "Engineer",
-    "tags": [
-      "Engineer",
-      "Senior"
-    ],
-    "description": "Code and developer-centric technical layout with grouped programming proficiencies and backend project metrics.",
-    "isAtsOnly": true,
-    "chosenCount": 15100,
-    "layoutStyle": "creative-accent",
-    "accentColor": "#2563EB",
-    "sampleName": "Girish Murthy",
-    "sampleRole": "Staff Backend Engineer · Distributed Systems",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "girish.m@systemseng.io",
-    "samplePhone": "+91 98457 22331",
-    "sampleGithub": "github.com/girish-go",
-    "sampleSummary": "Backend engineer with 9+ years designing high-throughput consensus systems, Raft protocols, and distributed caching in Go and Rust.",
-    "sampleExperience": [
-      {
-        "role": "Staff Backend Engineer",
-        "company": "Zerodha",
-        "duration": "2020 - Present",
-        "bullets": [
-          "Built core ultra-low latency order matching engine in Go handling 18M daily orders with under 5ms execution latency.",
-          "Designed resilient Redis clustering architecture with automated split-brain failover mechanisms."
-        ]
-      },
-      {
-        "role": "Senior Systems Engineer",
-        "company": "Cisco Systems",
-        "duration": "2016 - 2020",
-        "bullets": [
-          "Developed Linux network packet inspection algorithms in C and Rust for enterprise firewalls."
-        ]
-      }
-    ],
-    "sampleEducation": [
-      {
-        "institution": "IIT Madras",
-        "degree": "B.Tech in Computer Science",
-        "year": "2016"
-      }
-    ],
-    "sampleSkills": [
-      "Golang",
-      "Rust",
-      "Distributed Systems",
-      "Raft Consensus",
-      "Redis",
-      "Kafka",
-      "Linux Networking"
-    ],
-    "sampleProjects": [
-      {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
-      },
-      {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
-      }
-    ],
-    "sampleLanguages": [
-      "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
-    ],
-    "sampleLinks": [
-      {
-        "label": "GitHub",
-        "url": "github.com/girishmurthy"
-      },
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/girishmurthy"
-      },
-      {
-        "label": "Portfolio",
-        "url": "girishmurthy.dev"
-      }
-    ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
-  },
-  {
-    "id": "swift",
-    "name": "Swift",
-    "category": "Fresher",
-    "tags": [
-      "Fresher",
-      "Engineer"
-    ],
-    "description": "Clean single-column template with academic project focus, designed for campus placements and technical interviews.",
-    "isAtsOnly": true,
-    "chosenCount": 22400,
-    "layoutStyle": "single-column",
-    "accentColor": "#065F46",
-    "sampleName": "Aditi Rao",
-    "sampleRole": "Graduate Software Trainee",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "aditi.rao@campusgraduate.in",
-    "samplePhone": "+91 97422 11990",
-    "sampleSummary": "Enthusiastic computer engineering graduate with strong knowledge of Data Structures, Algorithms, C++, Java, and Object-Oriented Design.",
-    "sampleExperience": [
-      {
-        "role": "Software Engineering Intern",
-        "company": "Samsung R&D Institute",
-        "duration": "Summer 2023",
-        "bullets": [
-          "Optimized Android memory footprint for camera processing pipeline in C++, saving 45MB of RAM per camera launch.",
-          "Solved 450+ LeetCode problems demonstrating strong algorithmic problem-solving speed."
-        ]
-      },
-      {
-        "role": "Project Lead · AI Smart Campus",
-        "company": "College Final Year Project",
-        "duration": "2022 - 2023",
-        "bullets": [
-          "Built real-time face recognition attendance system using OpenCV and Python with 98.2% identification accuracy."
-        ]
-      }
-    ],
-    "sampleEducation": [
-      {
-        "institution": "RVCE Bengaluru",
-        "degree": "B.E. in Computer Science · 9.35 CGPA",
-        "year": "2023"
-      }
-    ],
-    "sampleSkills": [
-      "C++",
-      "Java",
-      "Data Structures & Algorithms",
-      "Python",
-      "SQL",
-      "OOP",
-      "Git"
-    ],
-    "sampleProjects": [
-      {
-        "title": "Real-Time Predictive Fraud Detection Pipeline",
-        "techStack": "Python, PyTorch, Apache Spark, Kafka, AWS",
-        "description": "Engineered streaming ML inference model achieving 99.4% accuracy with sub-15ms prediction latency."
-      },
-      {
-        "title": "Automated ETL Lakehouse Architecture",
-        "techStack": "Snowflake, dbt, Airflow, PostgreSQL",
-        "description": "Unified 14 disparate data sources into governed lakehouse, reducing query latency by 65%."
-      }
-    ],
-    "sampleLanguages": [
-      "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
-    ],
-    "sampleLinks": [
-      {
-        "label": "GitHub",
-        "url": "github.com/aditirao"
-      },
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/aditirao"
-      },
-      {
-        "label": "Portfolio",
-        "url": "aditirao.dev"
-      }
-    ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
-  },
-  {
-    "id": "kite",
-    "name": "Kite",
-    "category": "Engineer",
-    "tags": [
-      "Engineer",
-      "Senior"
-    ],
-    "description": "Modern single-column layout prioritizing microservices scale, concurrency benchmarks, and cloud cost metrics.",
-    "isAtsOnly": true,
-    "chosenCount": 16400,
-    "layoutStyle": "single-column",
-    "accentColor": "#FA0C40",
-    "sampleName": "Aditya Nambiar",
-    "sampleRole": "Staff Infrastructure Engineer",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "aditya.n@zerodha.dev",
-    "samplePhone": "+91 98450 77112",
-    "sampleSummary": "Infrastructure architect with 9+ years managing low-latency trading feeds, Linux kernel tuning, and automated multi-region DR failovers.",
-    "sampleExperience": [
-      {
-        "role": "Staff Infrastructure Engineer",
-        "company": "Zerodha",
-        "duration": "2021 - Present",
-        "bullets": [
-          "Engineered ultra-low latency market feed distribution cluster processing 25M websocket updates/sec.",
-          "Cut network packet drops by 98% through custom eBPF kernel telemetry programs."
-        ]
-      },
-      {
-        "role": "Senior SRE",
-        "company": "Directi",
-        "duration": "2016 - 2021",
-        "bullets": [
-          "Maintained 99.999% DNS resolution availability across 18 edge point-of-presence (PoP) datacenters."
-        ]
-      }
-    ],
-    "sampleEducation": [
-      {
-        "institution": "NIT Calicut",
-        "degree": "B.Tech in Computer Science",
-        "year": "2016"
-      }
-    ],
-    "sampleSkills": [
-      "eBPF",
-      "Go",
-      "Linux Internals",
-      "PostgreSQL",
-      "Kubernetes",
-      "WebSockets"
-    ],
-    "sampleProjects": [
-      {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
-      },
-      {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
-      }
-    ],
-    "sampleLanguages": [
-      "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
-    ],
-    "sampleLinks": [
-      {
-        "label": "GitHub",
-        "url": "github.com/adityanambiar"
-      },
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/adityanambiar"
-      },
-      {
-        "label": "Portfolio",
-        "url": "adityanambiar.dev"
-      }
-    ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
-  },
-  {
-    "id": "plover",
-    "name": "Plover",
-    "category": "Sales",
-    "tags": [
-      "Sales",
-      "Executive"
-    ],
-    "description": "High-contrast left sidebar format detailing strategic global partnerships, quota overages, and ACV metrics.",
-    "isAtsOnly": true,
-    "chosenCount": 11950,
-    "layoutStyle": "sidebar-left",
-    "accentColor": "#1F2937",
-    "sampleName": "Bhavna Joshi",
-    "sampleRole": "VP of Strategic Accounts & Partnerships",
-    "sampleLocation": "Mumbai, Maharashtra",
-    "sampleEmail": "bhavna.j@globalpartners.in",
-    "samplePhone": "+91 98200 88223",
-    "sampleSummary": "Global SaaS sales leader with 12+ years driving strategic alliances, SI partnerships (Accenture, Deloitte), and $15M+ ARR pipelines.",
-    "sampleExperience": [
-      {
-        "role": "VP Strategic Accounts",
-        "company": "BrowserStack",
-        "duration": "2020 - Present",
-        "bullets": [
-          "Grew Global SI alliance channel revenue from $2M to $9.4M ARR in 24 months.",
-          "Delivered 142% average quota achievement across EMEA and India enterprise sectors."
-        ]
-      },
-      {
-        "role": "Enterprise Account Director",
-        "company": "Akamai Technologies",
-        "duration": "2014 - 2020",
-        "bullets": [
-          "Negotiated multi-year CDN and cybersecurity contracts with top 5 Indian telecom providers."
-        ]
-      }
-    ],
-    "sampleEducation": [
-      {
-        "institution": "IIM Lucknow",
-        "degree": "PGDM in Marketing & Strategy",
-        "year": "2014"
-      }
-    ],
-    "sampleSkills": [
-      "Channel Alliances",
-      "Global Enterprise Sales",
-      "Contract Negotiation",
-      "Partner Ecosystems",
-      "MEDDPICC"
-    ],
-    "sampleProjects": [
-      {
-        "title": "Multi-Channel Inbound Demand Generation Engine",
-        "techStack": "HubSpot, Google Ads, LinkedIn Campaign Manager, GA4",
-        "description": "Scaled monthly qualified leads by 240% while decreasing average customer acquisition cost (CAC) by 32%."
-      },
-      {
-        "title": "High-Touch Enterprise Account Expansion Program",
-        "techStack": "Salesforce CRM, Gong, Apollo, Notion",
-        "description": "Executed targeted account-based marketing strategy generating ₹8.2Cr in closed-won enterprise pipeline."
-      }
-    ],
-    "sampleLanguages": [
-      "English (Fluent)",
-      "Hindi (Native)",
-      "Marathi (Fluent)"
-    ],
-    "sampleLinks": [
-      {
-        "label": "GitHub",
-        "url": "github.com/bhavnajoshi"
-      },
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/bhavnajoshi"
-      },
-      {
-        "label": "Portfolio",
-        "url": "bhavnajoshi.dev"
-      }
-    ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
-  },
-  {
-    "id": "tern",
-    "name": "Tern",
-    "category": "Data",
-    "tags": [
-      "Data",
-      "Senior"
-    ],
-    "description": "Compact quantitative table format built for algorithmic traders, risk modelers, and alpha researchers.",
-    "isAtsOnly": true,
-    "chosenCount": 14250,
-    "layoutStyle": "compact-table",
-    "accentColor": "#0F766E",
-    "sampleName": "Siddhant Mahajan",
-    "sampleRole": "Head of Quantitative Research",
-    "sampleLocation": "Mumbai, Maharashtra",
-    "sampleEmail": "siddhant.m@alphaquant.in",
-    "samplePhone": "+91 98202 33991",
-    "sampleSummary": "Quantitative researcher with 10+ years designing high-frequency statistical arbitrage strategies, backtesting frameworks, and portfolio risk attribution.",
-    "sampleExperience": [
-      {
-        "role": "Head of Quantitative Alpha",
-        "company": "Motilal Oswal Financial Services",
-        "duration": "2020 - Present",
-        "bullets": [
-          "Developed proprietary factor-momentum equity trading strategy managing ₹450Cr AUM with 2.8 Sharpe Ratio.",
-          "Engineered low-latency C++20 backtester simulating tick-by-tick order book depth."
-        ]
-      },
-      {
-        "role": "Quant Strategist",
-        "company": "Edelweiss Capital",
-        "duration": "2015 - 2020",
-        "bullets": [
-          "Built automated options volatility surface calibration tools in Python and Cython."
-        ]
-      }
-    ],
-    "sampleEducation": [
-      {
-        "institution": "IIT Bombay",
-        "degree": "B.Tech + M.Tech in Electrical Eng (Dual Degree)",
-        "year": "2015"
-      }
-    ],
-    "sampleSkills": [
-      "C++20",
-      "Python / Cython",
-      "Quantitative Alpha",
-      "Options Pricing",
-      "Time-Series Econometrics",
-      "Statistical Arbitrage"
-    ],
-    "sampleProjects": [
-      {
-        "title": "Real-Time Predictive Fraud Detection Pipeline",
-        "techStack": "Python, PyTorch, Apache Spark, Kafka, AWS",
-        "description": "Engineered streaming ML inference model achieving 99.4% accuracy with sub-15ms prediction latency."
-      },
-      {
-        "title": "Automated ETL Lakehouse Architecture",
-        "techStack": "Snowflake, dbt, Airflow, PostgreSQL",
-        "description": "Unified 14 disparate data sources into governed lakehouse, reducing query latency by 65%."
-      }
-    ],
-    "sampleLanguages": [
-      "English (Fluent)",
-      "Hindi (Native)",
-      "Marathi (Fluent)"
-    ],
-    "sampleLinks": [
-      {
-        "label": "GitHub",
-        "url": "github.com/siddhantmahajan"
-      },
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/siddhantmahajan"
-      },
-      {
-        "label": "Portfolio",
-        "url": "siddhantmahajan.dev"
-      }
-    ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
-  },
-  {
-    "id": "dunlin",
-    "name": "Dunlin",
-    "category": "Fresher",
-    "tags": [
-      "Fresher",
-      "Engineer"
-    ],
-    "description": "Vibrant accent band highlighting open source repositories, hackathon awards, and campus project achievements.",
-    "isAtsOnly": true,
-    "chosenCount": 20800,
-    "layoutStyle": "color-band",
-    "accentColor": "#065F46",
-    "sampleName": "Sameer Kulkarni",
-    "sampleRole": "Associate Software Engineer · Full Stack",
-    "sampleLocation": "Pune, Maharashtra",
-    "sampleEmail": "sameer.k@alumni.ac.in",
-    "samplePhone": "+91 98223 11445",
-    "sampleSummary": "Full-stack developer graduate proficient in React, TypeScript, Node.js, and Docker with 3 production Web3/AI hackathon podium finishes.",
-    "sampleExperience": [
-      {
-        "role": "Software Engineering Intern",
-        "company": "Postman",
-        "duration": "2023",
-        "bullets": [
-          "Built interactive API documentation preview widget in React used by 120k developers.",
-          "Improved test execution speed by 40% with Vitest and mock service worker (MSW)."
-        ]
-      },
-      {
-        "role": "National Hackathon Winner",
-        "company": "Smart India Hackathon (SIH)",
-        "duration": "2022",
-        "bullets": [
-          "Led 6-member team building automated disaster relief resource dispatch mobile application."
-        ]
-      }
-    ],
-    "sampleEducation": [
-      {
-        "institution": "PICT Pune",
-        "degree": "B.E. in Information Technology · 9.24 CGPA",
-        "year": "2023"
-      }
-    ],
-    "sampleSkills": [
-      "React",
-      "TypeScript",
-      "Node.js",
-      "Express",
-      "Docker",
-      "PostgreSQL",
-      "Tailwind CSS"
-    ],
-    "sampleProjects": [
-      {
-        "title": "Full-Stack Collaborative Productivity Platform",
-        "techStack": "React, Node.js, Express, MongoDB, Tailwind CSS",
-        "description": "Built real-time kanban and task management platform supporting team collaboration and markdown notes."
-      },
-      {
-        "title": "Algorithmic Smart Route Optimizer",
-        "techStack": "Python, FastAPI, Leaflet.js, OpenStreetMap API",
-        "description": "Implemented Dijkstra and A* pathfinding heuristics to compute multi-stop delivery routes efficiently."
-      }
-    ],
-    "sampleLanguages": [
-      "English (Fluent)",
-      "Hindi (Native)",
-      "Marathi (Fluent)"
-    ],
-    "sampleLinks": [
-      {
-        "label": "GitHub",
-        "url": "github.com/sameerkulkarni"
-      },
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/sameerkulkarni"
-      },
-      {
-        "label": "Portfolio",
-        "url": "sameerkulkarni.dev"
-      }
-    ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
-  },
-  {
-    "id": "teal",
-    "name": "Teal",
-    "category": "Product",
-    "tags": [
-      "Product",
-      "Senior"
-    ],
-    "description": "Split-column layout with right metric rail highlighting feature conversion, PLG loops, and retention lifts.",
-    "isAtsOnly": true,
-    "chosenCount": 15900,
-    "layoutStyle": "sidebar-right",
-    "accentColor": "#0F766E",
-    "sampleMetrics": [
-      "+64% PLG Signups",
-      "₹22Cr ARR"
-    ],
-    "sampleName": "Shweta Menon",
-    "sampleRole": "Principal Product Manager · Growth & Monetization",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "shweta.menon@growthpm.in",
-    "samplePhone": "+91 99003 44112",
-    "sampleSummary": "Growth PM with 8+ years building self-serve product-led growth (PLG) funnels, freemium paywalls, and international expansion loops.",
-    "sampleExperience": [
-      {
-        "role": "Principal PM · Monetization",
-        "company": "CRED",
-        "duration": "2021 - Present",
-        "bullets": [
-          "Launched CRED Pay Later checkout integration on 1,500+ top D2C merchant platforms.",
-          "Increased free-to-paid subscription conversion rate from 3.2% to 6.8% through personalized behavioral triggers."
-        ]
-      },
-      {
-        "role": "Growth Product Manager",
-        "company": "Hotstar",
-        "duration": "2017 - 2021",
-        "bullets": [
-          "Optimized VIP subscription onboarding flow, boosting payment completion rate by 24%."
-        ]
-      }
-    ],
-    "sampleEducation": [
-      {
-        "institution": "ISB Hyderabad",
-        "degree": "Post Graduate Programme in Management (MBA)",
-        "year": "2017"
-      }
-    ],
-    "sampleSkills": [
-      "Product-Led Growth",
-      "Monetization Funnels",
-      "Pricing Strategy",
-      "A/B Testing",
-      "Mixpanel",
-      "SQL"
-    ],
-    "sampleProjects": [
-      {
-        "title": "AI-Powered User Engagement & Onboarding Engine",
-        "techStack": "Mixpanel, SQL, Jira, A/B Testing, Python",
-        "description": "Spearheaded zero-to-one launch of automated personalized onboarding, lifting D30 retention by 28%."
-      },
-      {
-        "title": "Global Marketplace Monetization Overhaul",
-        "techStack": "Stripe API, Tableau, Confluence, Scrum",
-        "description": "Restructured pricing tiers and introduced self-serve annual billing, driving ₹4.5Cr in net ARR expansion."
-      }
-    ],
-    "sampleLanguages": [
-      "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
-    ],
-    "sampleLinks": [
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/shwetamenon"
-      },
-      {
-        "label": "Personal Site",
-        "url": "shwetamenon.me"
-      },
-      {
-        "label": "Substack",
-        "url": "shwetamenon.substack.com"
-      }
-    ],
-    "sampleHobbies": "Tech Podcast Hosting, Angle Investing Mentorship, Long-distance Cycling, Book Club"
-  },
-  {
-    "id": "gadwall",
-    "name": "Gadwall",
-    "category": "Design",
-    "tags": [
-      "Design",
-      "Senior"
-    ],
-    "description": "Creative banner framework showcasing design systems, multi-platform component tokens, and accessibility standards.",
-    "isAtsOnly": false,
-    "chosenCount": 9800,
-    "layoutStyle": "photo-header",
-    "accentColor": "#6D28D9",
-    "samplePortfolio": "varun.designsystems.in",
-    "sampleName": "Varun Nair",
-    "sampleRole": "Lead Design Systems Designer",
-    "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "varun.nair@designsystem.in",
-    "samplePhone": "+91 98456 22889",
-    "sampleSummary": "Design systems specialist with 8 years building scalable Figma token architectures, WCAG AAA accessibility standards, and code parity.",
-    "sampleExperience": [
-      {
-        "role": "Lead Design Systems Designer",
-        "company": "Swiggy",
-        "duration": "2021 - Present",
-        "bullets": [
-          "Architected Swiggy's unified cross-platform design system token repository supporting 6 core consumer apps.",
-          "Reduced frontend component development time by 45% through shared React Native and Web token parity."
-        ]
-      },
-      {
-        "role": "Senior UI Designer",
-        "company": "PhonePe",
-        "duration": "2018 - 2021",
-        "bullets": [
-          "Crafted high-contrast accessibility themes adopted by 25M elder and visually-impaired users."
-        ]
-      }
-    ],
-    "sampleEducation": [
-      {
-        "institution": "Srishti Institute of Art & Design",
-        "degree": "B.Des in Digital Experience",
-        "year": "2018"
-      }
-    ],
-    "sampleSkills": [
-      "Design Systems",
-      "Figma Variables & Tokens",
-      "WCAG Accessibility",
-      "Prototyping",
-      "Storybook",
-      "React Basics"
-    ],
-    "sampleProjects": [
-      {
-        "title": "Enterprise Design System Modernization",
-        "techStack": "Figma, Storybook, React, Design Tokens",
-        "description": "Standardized 140+ accessible WCAG-compliant UI components adopted across web and mobile platforms."
-      },
-      {
-        "title": "Omnichannel Checkout Experience Redesign",
-        "techStack": "User Research, Wireframing, ProtoPie, Usability Testing",
-        "description": "Streamlined 5-step checkout flow into 2-step journey, increasing conversion rate by 24%."
-      }
-    ],
-    "sampleLanguages": [
-      "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
-    ],
-    "sampleLinks": [
-      {
-        "label": "Portfolio",
-        "url": "behance.net/varunnair"
-      },
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/varunnair"
-      },
-      {
-        "label": "Dribbble",
-        "url": "dribbble.com/varunnair"
-      }
-    ],
-    "sampleHobbies": "Typography Design, Street Photography, Architectural Modeling, Visual Arts"
-  },
-  {
-    "id": "shoveler",
-    "name": "Shoveler",
-    "category": "Marketing",
-    "tags": [
-      "Marketing",
-      "Senior"
-    ],
-    "description": "Timeline campaign narrative format designed for performance marketing heads and quick-commerce growth leads.",
-    "isAtsOnly": true,
-    "chosenCount": 12600,
-    "layoutStyle": "timeline",
-    "accentColor": "#BE123C",
-    "sampleName": "Ritika Sen",
-    "sampleRole": "Director of Performance & Lifecycle Marketing",
-    "sampleLocation": "Mumbai, Maharashtra",
-    "sampleEmail": "ritika.sen@growthlead.in",
-    "samplePhone": "+91 98205 77665",
-    "sampleSummary": "Marketing leader with 9+ years managing ₹30Cr+ annual ad budgets, multi-touch attribution modeling, and hyper-local retention.",
-    "sampleExperience": [
-      {
-        "role": "Director of Marketing",
-        "company": "Zepto",
-        "duration": "2021 - Present",
-        "bullets": [
-          "Scaled quick commerce daily orders from 15k to 350k across 10 metro cities while reducing customer acquisition cost by 32%.",
-          "Engineered automated push notification segmentation in MoEngage generating 28% of total daily reactivation orders."
-        ]
-      },
-      {
-        "role": "Senior Growth Marketing Manager",
-        "company": "Dunzo",
-        "duration": "2017 - 2021",
-        "bullets": [
-          "Managed performance campaigns across Google, Meta, and Apple Search Ads with 4.5x blended ROAS."
-        ]
-      }
-    ],
-    "sampleEducation": [
-      {
-        "institution": "MICA Ahmedabad",
-        "degree": "PGDM in Brand Management",
-        "year": "2017"
-      }
-    ],
-    "sampleSkills": [
-      "Performance Marketing",
-      "Quick Commerce Growth",
-      "MoEngage / Clevertap",
-      "Attribution Modeling",
-      "Meta Ads",
-      "CAC Optimization"
-    ],
-    "sampleProjects": [
-      {
-        "title": "Multi-Channel Inbound Demand Generation Engine",
-        "techStack": "HubSpot, Google Ads, LinkedIn Campaign Manager, GA4",
-        "description": "Scaled monthly qualified leads by 240% while decreasing average customer acquisition cost (CAC) by 32%."
-      },
-      {
-        "title": "High-Touch Enterprise Account Expansion Program",
-        "techStack": "Salesforce CRM, Gong, Apollo, Notion",
-        "description": "Executed targeted account-based marketing strategy generating ₹8.2Cr in closed-won enterprise pipeline."
-      }
-    ],
-    "sampleLanguages": [
-      "English (Fluent)",
-      "Hindi (Native)",
-      "Marathi (Fluent)"
-    ],
-    "sampleLinks": [
-      {
-        "label": "LinkedIn",
-        "url": "linkedin.com/in/ritikasen"
-      },
-      {
-        "label": "Personal Site",
-        "url": "ritikasen.me"
-      },
-      {
-        "label": "Substack",
-        "url": "ritikasen.substack.com"
-      }
-    ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
-  },
-  {
-    "id": "pintail",
-    "name": "Pintail",
-    "category": "Executive",
-    "tags": [
-      "Executive",
-      "Senior"
-    ],
-    "description": "Dual-tone dark sidebar layout structured for Chief Business Officers, Managing Directors, and Founders.",
-    "isAtsOnly": true,
-    "chosenCount": 14100,
-    "layoutStyle": "dark-sidebar",
-    "accentColor": "#1E3A8A",
-    "sampleName": "Anil Singhal",
-    "sampleRole": "Chief Business Officer",
-    "sampleLocation": "Delhi NCR",
-    "sampleEmail": "anil.singhal@cboenterprise.in",
-    "samplePhone": "+91 98103 44556",
-    "sampleSummary": "Senior business executive with 18+ years leading P&L transformation, B2B enterprise partnerships, and pan-India logistics scaling.",
-    "sampleExperience": [
-      {
-        "role": "Chief Business Officer",
-        "company": "Shiprocket",
-        "duration": "2020 - Present",
-        "bullets": [
-          "Scaled annual gross logistics revenue from ₹400Cr to ₹1,800Cr while turning EBITDA positive.",
-          "Closed strategic commercial distribution partnerships with Amazon India, eBay, and Shopify."
-        ]
-      },
-      {
-        "role": "Senior VP of Commercial Operations",
-        "company": "Snapdeal",
-        "duration": "2013 - 2020",
-        "bullets": [
-          "Managed 120-person vendor onboarding division servicing 300,000+ registered MSME sellers."
-        ]
-      }
-    ],
-    "sampleEducation": [
-      {
-        "institution": "IIM Ahmedabad",
-        "degree": "Post Graduate Programme in Management (MBA)",
-        "year": "2006"
-      }
-    ],
-    "sampleSkills": [
-      "P&L Responsibility",
-      "Enterprise B2B Strategy",
-      "MSME Ecosystems",
-      "Board Governance",
-      "M&A Integration"
-    ],
-    "sampleProjects": [
-      {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
-      },
-      {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "Automated WhatsApp Micro-Feedback Survey Widget",
+        "techStack": "WhatsApp Business API, Python, Google BigQuery, Metabase",
+        "description": "Designed lightweight post-purchase customer feedback widget achieving 42% response rate."
       }
     ],
     "sampleLanguages": [
@@ -5016,18 +4510,1063 @@ export const TEMPLATES = [
     "sampleLinks": [
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/anilsinghal"
+        "url": "https://linkedin.com/in/nehasaxena-pm"
       },
       {
-        "label": "Personal Site",
-        "url": "anilsinghal.me"
+        "label": "Medium",
+        "url": "https://medium.com/@nehasaxena_pm"
+      }
+    ],
+    "sampleHobbies": "Product Teardowns, Long-Distance Running, Watercoloring, Film Analysis",
+    "sampleMetrics": [
+      "-28% Churn",
+      "+65% Feature Adoption"
+    ]
+  },
+  {
+    "id": "jaeger",
+    "name": "Jaeger",
+    "category": "Sales",
+    "tags": [
+      "Sales",
+      "Product"
+    ],
+    "description": "Enterprise Account Executive (B2B SaaS) layout with MEDDIC qualification and 7-figure ARR closes.",
+    "isAtsOnly": true,
+    "chosenCount": 14600,
+    "layoutStyle": "sidebar-right",
+    "accentColor": "#B45309",
+    "sampleName": "Manav Khurana",
+    "sampleRole": "Director of Customer Success & Renewals",
+    "sampleLocation": "Bengaluru, Karnataka",
+    "sampleEmail": "manav.khurana@saasrenew.co",
+    "samplePhone": "+91 98455 11998",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Customer Success and Account Expansion Director with 10+ years driving net revenue retention (NRR) above 125%, reducing enterprise client churn to 3.5%, and managing $30M+ renewal portfolios.",
+    "sampleExperience": [
+      {
+        "role": "Director of Customer Success",
+        "company": "Whatfix",
+        "duration": "2021 - Present",
+        "bullets": [
+          "Manage $28M in annual enterprise software renewals across 140 Fortune 1000 accounts with 126% net retention rate.",
+          "Instituted proactive customer health scoring framework reducing annual enterprise logo churn from 8% to 3.4%."
+        ]
+      },
+      {
+        "role": "Senior Enterprise Customer Success Manager",
+        "company": "Zenoti",
+        "duration": "2017 - 2021",
+        "bullets": [
+          "Managed top 30 strategic enterprise client relationships generating $4.5M in annual expansion ARR.",
+          "Built executive QBR cadences and automated product adoption milestone triggers in Gainsight."
+        ]
+      }
+    ],
+    "sampleEducation": [
+      {
+        "institution": "Symbiosis Institute of Business Management (SIBM Pune)",
+        "degree": "MBA in Marketing & Strategy",
+        "year": "2013 - 2015",
+        "description": "Top 10% Rank · Head of Corporate Interaction Committee · Winner of National Case Study Contest"
+      },
+      {
+        "institution": "Christ University (Bengaluru)",
+        "degree": "Bachelor of Business Administration (BBA)",
+        "year": "2010 - 2013",
+        "description": "First Class with Distinction · President of Student Union"
+      }
+    ],
+    "sampleSkills": [
+      "Customer Success (CS)",
+      "Enterprise Renewals",
+      "Net Revenue Retention (NRR)",
+      "Gainsight",
+      "Salesforce",
+      "Executive QBRs",
+      "Account Expansion",
+      "Churn Mitigation"
+    ],
+    "sampleProjects": [
+      {
+        "title": "Automated Customer Risk & Expansion Scoring Engine",
+        "techStack": "Gainsight, Salesforce, Snowflake, Tableau",
+        "description": "Constructed multi-dimensional health scoring model predicting customer churn 90 days in advance with 92% accuracy."
+      },
+      {
+        "title": "Global Enterprise Onboarding Acceleration Program",
+        "techStack": "Loom, Notion, Customer Journey Playbooks",
+        "description": "Reduced time-to-first-value (TTFV) for new enterprise accounts from 90 days to 34 days."
+      }
+    ],
+    "sampleLanguages": [
+      "English (Fluent)",
+      "Hindi (Native)",
+      "Punjabi (Fluent)"
+    ],
+    "sampleLinks": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/manavkhurana-cs"
+      },
+      {
+        "label": "Portfolio",
+        "url": "https://manavkhurana.me"
+      }
+    ],
+    "sampleHobbies": "Squash, Cycling, Angel Investing, Coffee Brewing",
+    "sampleMetrics": [
+      "+50% Pipeline Speed",
+      "Zero Customer Churn"
+    ]
+  },
+  {
+    "id": "skua",
+    "name": "Skua",
+    "category": "Engineer",
+    "tags": [
+      "Engineer",
+      "Senior"
+    ],
+    "description": "Blockchain & Cryptography Protocol Engineer template with zero-knowledge rollups and smart contract security.",
+    "isAtsOnly": true,
+    "chosenCount": 17800,
+    "layoutStyle": "creative-accent",
+    "accentColor": "#2563EB",
+    "sampleName": "Devendra Chouhan",
+    "sampleRole": "Staff Backend Engineer - Distributed Systems",
+    "sampleLocation": "Bengaluru, Karnataka",
+    "sampleEmail": "devendra.chouhan@cryptoeng.io",
+    "samplePhone": "+91 98451 77665",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Protocol and Distributed Systems Engineer with 8+ years specializing in Rust, zero-knowledge proofs (ZK-SNARKs), high-throughput EVM execution layers, and smart contract security audits.",
+    "sampleExperience": [
+      {
+        "role": "Staff Protocol Engineer",
+        "company": "Polygon Technology",
+        "duration": "2021 - Present",
+        "bullets": [
+          "Architected core Zero-Knowledge Rollup (zkEVM) transaction proof verification engine in Rust processing 2,500 TPS.",
+          "Audited and secured multi-billion dollar cross-chain bridge smart contracts with zero security exploits."
+        ]
+      },
+      {
+        "role": "Senior Blockchain Developer",
+        "company": "WazirX",
+        "duration": "2018 - 2021",
+        "bullets": [
+          "Engineered high-throughput crypto asset wallet deposit and withdrawal microservices in Go and Redis.",
+          "Implemented multi-signature threshold cryptography (MPC) securing institutional cold wallets."
+        ]
+      }
+    ],
+    "sampleEducation": [
+      {
+        "institution": "IIT Roorkee",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2014 - 2018",
+        "description": "CGPA: 9.2/10 · Institute Merit Award · President of Blockchain & Cryptography Society"
+      }
+    ],
+    "sampleSkills": [
+      "Rust",
+      "Solidity",
+      "Zero-Knowledge Proofs (ZK)",
+      "Go",
+      "Distributed Consensus",
+      "EVM Internals",
+      "Cryptography",
+      "Docker / Linux"
+    ],
+    "sampleProjects": [
+      {
+        "title": "Zero-Knowledge Privacy-Preserving State Channel",
+        "techStack": "Rust, Circom, SnarkJS, Solidity, WebAssembly",
+        "description": "Built sub-second ZK-proof generation client enabling confidential multi-token micropayments."
+      },
+      {
+        "title": "High-Performance EVM State Storage Engine",
+        "techStack": "Rust, RocksDB, Merkle Mountain Ranges, gRPC",
+        "description": "Engineered custom key-value state indexing engine reducing block verification time by 68%."
+      }
+    ],
+    "sampleLanguages": [
+      "English (Fluent)",
+      "Hindi (Native)",
+      "Rajasthani (Native)"
+    ],
+    "sampleLinks": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/devendrachouhan"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/devendrachouhan"
+      }
+    ],
+    "sampleHobbies": "Cryptography Research, Competitive Coding, Trekking, Chess",
+    "sampleMetrics": [
+      "99.99% SLA",
+      "140k req/sec"
+    ]
+  },
+  {
+    "id": "swift",
+    "name": "Swift",
+    "category": "Fresher",
+    "tags": [
+      "Fresher",
+      "Engineer"
+    ],
+    "description": "Graduate Software Engineer template with academic achievements, data structures, and algorithms.",
+    "isAtsOnly": true,
+    "chosenCount": 15600,
+    "layoutStyle": "single-column",
+    "accentColor": "#065F46",
+    "sampleName": "Ayush Tripathi",
+    "sampleRole": "Graduate Software Trainee",
+    "sampleLocation": "Hyderabad, Telangana",
+    "sampleEmail": "ayush.tripathi@gradmail.in",
+    "samplePhone": "+91 97000 33441",
+    "samplePhoto": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "High-performing Graduate Software Engineer with strong foundations in Data Structures, Algorithms, C++, Java, and modern web application development with full-stack internships.",
+    "sampleExperience": [
+      {
+        "role": "Software Engineering Intern",
+        "company": "Oracle India",
+        "duration": "Jan 2024 - Jun 2024",
+        "bullets": [
+          "Developed automated database performance benchmark tool in Java and Python, executing 5,000 regression test cases daily.",
+          "Fixed 14 core database connection pooling and memory leak bugs in enterprise cloud middleware."
+        ]
+      },
+      {
+        "role": "Backend Intern",
+        "company": "Practo Technologies",
+        "duration": "Jun 2023 - Dec 2023",
+        "bullets": [
+          "Built patient appointment notification microservice in Python Flask processing 120,000 daily SMS/Email alerts.",
+          "Designed relational PostgreSQL schemas with composite foreign keys and optimized B-tree indexes."
+        ]
+      }
+    ],
+    "sampleEducation": [
+      {
+        "institution": "IIIT Allahabad",
+        "degree": "B.Tech in Information Technology",
+        "year": "2020 - 2024",
+        "description": "CGPA: 9.1/10 · Department Rank Top 3% · Candidate Master on Codeforces (Rating 1940) · Finalist in ICPC Regionals"
+      }
+    ],
+    "sampleSkills": [
+      "C++ / Java",
+      "Data Structures & Algorithms",
+      "Python",
+      "SQL / PostgreSQL",
+      "Git / GitHub",
+      "Spring Boot",
+      "Docker Basics",
+      "Linux"
+    ],
+    "sampleProjects": [
+      {
+        "title": "Real-Time Online Collaborative Code Sandbox & Judge",
+        "techStack": "C++, Docker Sandbox, Node.js, WebSockets, Redis",
+        "description": "Engineered secure automated code evaluation engine running untrusted user submissions in isolated cgroups."
+      },
+      {
+        "title": "Peer-to-Peer Distributed Torrent Client",
+        "techStack": "C++, Socket Programming, BitTorrent Protocol, SHA-1",
+        "description": "Built multi-threaded file download client parsing .torrent metainfo with peer piece verification."
+      }
+    ],
+    "sampleLanguages": [
+      "English (Fluent)",
+      "Hindi (Native)"
+    ],
+    "sampleLinks": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/ayushtripathi-dev"
+      },
+      {
+        "label": "Codeforces",
+        "url": "https://codeforces.com/profile/ayush_t"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/ayushtripathi"
+      }
+    ],
+    "sampleHobbies": "Competitive Programming, Speedcubing, Badminton, Astronomy",
+    "sampleMetrics": [
+      "National Finalist",
+      "3 Hackathons Won"
+    ]
+  },
+  {
+    "id": "kite",
+    "name": "Kite",
+    "category": "Engineer",
+    "tags": [
+      "Engineer",
+      "Senior"
+    ],
+    "description": "Staff Frontend Architect template with micro-frontend architectures and sub-second web performance.",
+    "isAtsOnly": true,
+    "chosenCount": 18600,
+    "layoutStyle": "single-column",
+    "accentColor": "#FA0C40",
+    "sampleName": "Mihir Joshi",
+    "sampleRole": "Staff Infrastructure Engineer",
+    "sampleLocation": "Bengaluru, Karnataka",
+    "sampleEmail": "mihir.joshi@infraarch.io",
+    "samplePhone": "+91 98450 88221",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Staff Infrastructure and Cloud Architect with 9+ years managing petabyte-scale Kubernetes clusters, zero-trust service meshes, multi-cloud networking, and automated infrastructure governance.",
+    "sampleExperience": [
+      {
+        "role": "Staff Infrastructure Architect",
+        "company": "Ola Electric",
+        "duration": "2021 - Present",
+        "bullets": [
+          "Architected connected vehicle IoT telemetry ingestion cluster processing 140,000 real-time EV telemetry events/sec.",
+          "Instituted automated Terraform infrastructure-as-code deployment pipelines across 3 AWS and Azure cloud regions."
+        ]
+      },
+      {
+        "role": "Senior Cloud SRE",
+        "company": "Gojek India",
+        "duration": "2017 - 2021",
+        "bullets": [
+          "Maintained 1,200-node Kubernetes cluster supporting 25M daily active super-app transactions.",
+          "Designed automated chaos engineering experiments with Chaos Mesh validating system resilience against network partitions."
+        ]
+      }
+    ],
+    "sampleEducation": [
+      {
+        "institution": "BITS Pilani (Goa Campus)",
+        "degree": "B.E. in Computer Science & Engineering",
+        "year": "2013 - 2017",
+        "description": "CGPA: 9.15/10 · First Class with Distinction · Lead Infrastructure Administrator of Campus Cloud Hub"
+      }
+    ],
+    "sampleSkills": [
+      "Kubernetes",
+      "Terraform",
+      "AWS / Azure",
+      "Istio / Envoy",
+      "Go / Python",
+      "Kafka / EMQX (MQTT)",
+      "Prometheus & Grafana",
+      "Linux Kernel Tuning"
+    ],
+    "sampleProjects": [
+      {
+        "title": "High-Throughput EV Telemetry Stream Ingestion Pipeline",
+        "techStack": "EMQX MQTT, Apache Kafka, Go, TimescaleDB, Kubernetes",
+        "description": "Engineered low-latency vehicle tracking pipeline processing 4.5B monthly GPS telemetry pings with zero data loss."
+      },
+      {
+        "title": "Self-Healing Automated Kubernetes Pod Auto-Remediation",
+        "techStack": "Kubernetes Custom Controller, Go, Prometheus Operator",
+        "description": "Built autonomous healing daemon resolving node disk pressure and hung pod state machines automatically."
+      }
+    ],
+    "sampleLanguages": [
+      "English (Fluent)",
+      "Hindi (Fluent)",
+      "Marathi (Native)"
+    ],
+    "sampleLinks": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/mihirjoshi-infra"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/mihirjoshi-cloud"
+      }
+    ],
+    "sampleHobbies": "Home Server Clustering, High-Altitude Trekking, Amateur Astronomy, Guitar",
+    "sampleMetrics": [
+      "$180k Cloud Saved",
+      "10x Throughput"
+    ]
+  },
+  {
+    "id": "plover",
+    "name": "Plover",
+    "category": "Sales",
+    "tags": [
+      "Sales",
+      "Executive"
+    ],
+    "description": "Strategic Channel Partnerships Director template with multi-tier alliance revenue governance.",
+    "isAtsOnly": true,
+    "chosenCount": 15100,
+    "layoutStyle": "sidebar-left",
+    "accentColor": "#1F2937",
+    "sampleName": "Jaspreet Kaur",
+    "sampleRole": "VP of Strategic Accounts & Partnerships",
+    "sampleLocation": "Gurugram, Haryana",
+    "sampleEmail": "jaspreet.kaur@strategicalliances.in",
+    "samplePhone": "+91 99100 44552",
+    "samplePhoto": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Strategic Partnerships Executive with 13+ years establishing revenue-sharing channel alliances, OEM white-label agreements, and global distributor networks generating $24M+ in indirect software revenue.",
+    "sampleExperience": [
+      {
+        "role": "VP of Strategic Partnerships",
+        "company": "Pine Labs",
+        "duration": "2020 - Present",
+        "bullets": [
+          "Established nationwide point-of-sale and credit card acquiring alliances with HDFC, ICICI, and Axis Bank generating ₹120Cr annual partner revenue.",
+          "Led team of 18 partner alliance directors managing 450+ retail ecosystem and OEM technology partners."
+        ]
+      },
+      {
+        "role": "Director of Channel Sales",
+        "company": "Dell Technologies India",
+        "duration": "2014 - 2020",
+        "bullets": [
+          "Managed Tier-1 national distributor network across 24 Indian states achieving 142% annual hardware and software quota.",
+          "Instituted transparent partner tiering and margin incentive structures lifting channel partner NPS by 34 points."
+        ]
+      }
+    ],
+    "sampleEducation": [
+      {
+        "institution": "Institute of Management Technology (IMT Ghaziabad)",
+        "degree": "PGDM in Marketing & Strategy",
+        "year": "2009 - 2011",
+        "description": "Dean's Merit List · First Rank in Channel Distribution & B2B Strategy"
+      },
+      {
+        "institution": "Miranda House (Delhi University)",
+        "degree": "B.A. (Hons) in Economics",
+        "year": "2006 - 2009",
+        "description": "First Class Honours · President of College Student Council"
+      }
+    ],
+    "sampleSkills": [
+      "Channel Partnerships",
+      "Strategic Alliances",
+      "B2B Revenue Sharing",
+      "Executive Negotiations",
+      "Partner Enablement",
+      "Ecosystem GTM",
+      "Contract Structuring",
+      "Sales Governance"
+    ],
+    "sampleProjects": [
+      {
+        "title": "Pan-India Banking Co-Branded Merchant Acquisition Blueprint",
+        "techStack": "Partner Relationship Management, Revenue Attribution, Legal Governance",
+        "description": "Negotiated exclusive strategic co-branding partnership deploying 250,000 smart POS terminals across Indian retail outlets."
+      },
+      {
+        "title": "Automated Channel Partner Portal & Deal Registration Hub",
+        "techStack": "Salesforce PRM, Partner Commission Engine, Power BI",
+        "description": "Built real-time partner commission calculator and lead registration dashboard adopted by 800+ reseller organizations."
+      }
+    ],
+    "sampleLanguages": [
+      "English (Fluent)",
+      "Punjabi (Native)",
+      "Hindi (Fluent)"
+    ],
+    "sampleLinks": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/jaspreetkaur-alliances"
+      },
+      {
+        "label": "Portfolio",
+        "url": "https://jaspreetkaur.in"
+      }
+    ],
+    "sampleHobbies": "Golf, Angel Investing in Women-Led Startups, Classical Sitar, Hiking",
+    "sampleMetrics": [
+      "+50% Pipeline Speed",
+      "Zero Customer Churn"
+    ]
+  },
+  {
+    "id": "tern",
+    "name": "Tern",
+    "category": "Data",
+    "tags": [
+      "Data",
+      "Senior"
+    ],
+    "description": "Senior Quantitative Analyst & Risk Modeler template with high-frequency trading and factor alpha research.",
+    "isAtsOnly": true,
+    "chosenCount": 14300,
+    "layoutStyle": "compact-table",
+    "accentColor": "#0F766E",
+    "sampleName": "Saurabh Agarwal",
+    "sampleRole": "Head of Quantitative Research",
+    "sampleLocation": "Mumbai, Maharashtra",
+    "sampleEmail": "saurabh.agarwal@quantlab.co",
+    "samplePhone": "+91 98202 88990",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Quantitative Research Lead with 9+ years formulating systematic equity alphas, machine learning factor models, and statistical portfolio optimization strategies generating 2.8 Sharpe Ratio across emerging markets.",
+    "sampleExperience": [
+      {
+        "role": "Head of Quantitative Research",
+        "company": "AlphaGrep Securities",
+        "duration": "2021 - Present",
+        "bullets": [
+          "Lead team of 10 quant researchers developing statistical arbitrage strategies across Indian and Asian equity derivatives.",
+          "Architected machine learning alpha generation engine in C++ and Python executing ₹4,500Cr daily automated volume."
+        ]
+      },
+      {
+        "role": "Senior Quantitative Strategist",
+        "company": "WorldQuant India",
+        "duration": "2017 - 2021",
+        "bullets": [
+          "Developed 120+ uncorrelated mathematical alpha signals deployed into multi-manager global hedge fund portfolios.",
+          "Formulated statistical risk-parity portfolio optimization reducing maximum drawdown from 14% to 4.8%."
+        ]
+      }
+    ],
+    "sampleEducation": [
+      {
+        "institution": "IIT Kharagpur",
+        "degree": "Integrated M.Sc in Mathematics & Computing",
+        "year": "2012 - 2017",
+        "description": "Institute Silver Medal · President of Quantitative Finance Society · 1st Prize in National Math Olympiad"
+      }
+    ],
+    "sampleSkills": [
+      "Quantitative Research",
+      "Python / C++",
+      "Factor Modeling",
+      "Statistical Arbitrage",
+      "Portfolio Optimization",
+      "Time-Series Econometrics",
+      "Tick Data Analytics",
+      "High-Frequency Execution"
+    ],
+    "sampleProjects": [
+      {
+        "title": "Multi-Factor Machine Learning Alpha Pipeline",
+        "techStack": "Python, LightGBM, Polars, C++, Level-2 Order Book Data",
+        "description": "Engineered non-linear factor model predicting 5-minute equity price returns achieving 0.08 Information Coefficient."
+      },
+      {
+        "title": "Distributed Multi-Asset Risk Parity Backtester",
+        "techStack": "C++, Boost, OpenMP, Python Cython, NumPy",
+        "description": "Built simulation engine backtesting 15 years of multi-asset historical tick data in under 90 seconds."
+      }
+    ],
+    "sampleLanguages": [
+      "English (Fluent)",
+      "Hindi (Native)",
+      "Marwari (Native)"
+    ],
+    "sampleLinks": [
+      {
+        "label": "Google Scholar",
+        "url": "https://scholar.google.com/citations?user=saurabhagarwal_quant"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/saurabhagarwal-quant"
+      }
+    ],
+    "sampleHobbies": "Algorithmic Chess, Mathematics Puzzles, Table Tennis, Classical Piano",
+    "sampleMetrics": [
+      "99.4% Accuracy",
+      "10TB+ Daily Ingest"
+    ]
+  },
+  {
+    "id": "dunlin",
+    "name": "Dunlin",
+    "category": "Fresher",
+    "tags": [
+      "Fresher",
+      "Engineer"
+    ],
+    "description": "Associate DevOps & Cloud Engineer template with Docker containerization and CI/CD pipelines.",
+    "isAtsOnly": true,
+    "chosenCount": 13700,
+    "layoutStyle": "color-band",
+    "accentColor": "#065F46",
+    "sampleName": "Chirag Dave",
+    "sampleRole": "Associate Software Engineer - Full Stack",
+    "sampleLocation": "Ahmedabad, Gujarat",
+    "sampleEmail": "chirag.dave@fullstackdev.in",
+    "samplePhone": "+91 98251 22334",
+    "samplePhoto": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Enthusiastic Full-Stack Developer proficient in React, Node.js, TypeScript, PostgreSQL, and Docker, with hands-on internship experience in building responsive web applications and REST APIs.",
+    "sampleExperience": [
+      {
+        "role": "Full-Stack Development Intern",
+        "company": "Simform",
+        "duration": "Jan 2024 - Jun 2024",
+        "bullets": [
+          "Developed user dashboard features in React and TypeScript, improving web accessibility score to 98%.",
+          "Built RESTful backend microservices in Node.js Express connected to PostgreSQL database instances."
+        ]
+      },
+      {
+        "role": "Frontend Intern",
+        "company": "Bacancy Technology",
+        "duration": "Jun 2023 - Dec 2023",
+        "bullets": [
+          "Created responsive mobile-friendly UI components using Tailwind CSS and Next.js for 4 client web portals.",
+          "Implemented state management using Redux Toolkit and React Query reducing unnecessary re-renders by 40%."
+        ]
+      }
+    ],
+    "sampleEducation": [
+      {
+        "institution": "Nirma University (Ahmedabad)",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2020 - 2024",
+        "description": "CGPA: 8.8/10 · Winner of Smart India Hackathon 2023 (College Round) · Lead Developer of Student Club"
+      }
+    ],
+    "sampleSkills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "Docker Basics",
+      "Git / GitHub"
+    ],
+    "sampleProjects": [
+      {
+        "title": "Collaborative Real-Time Task Board & Project Planner",
+        "techStack": "React, TypeScript, Node.js, WebSockets, PostgreSQL, Tailwind",
+        "description": "Built interactive Kanban task management app with real-time drag-and-drop synchronization across users."
+      },
+      {
+        "title": "Automated Markdown Documentation & Blog Engine",
+        "techStack": "Next.js, MDX, Tailwind CSS, Vercel",
+        "description": "Created fast static site generator with full-text fuzzy search and code block syntax highlighting."
+      }
+    ],
+    "sampleLanguages": [
+      "English (Fluent)",
+      "Gujarati (Native)",
+      "Hindi (Fluent)"
+    ],
+    "sampleLinks": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/chiragdave-dev"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/chiragdave"
+      }
+    ],
+    "sampleHobbies": "Web Development Hackathons, Cricket, Mechanical Keyboards, Cycling",
+    "sampleMetrics": [
+      "Published Paper",
+      "Open Source Core"
+    ]
+  },
+  {
+    "id": "teal",
+    "name": "Teal",
+    "category": "Product",
+    "tags": [
+      "Product",
+      "Senior"
+    ],
+    "description": "Lead Technical Product Manager - AI & Search template with neural semantic search algorithms.",
+    "isAtsOnly": true,
+    "chosenCount": 16700,
+    "layoutStyle": "sidebar-right",
+    "accentColor": "#0F766E",
+    "sampleName": "Natasha Sethi",
+    "sampleRole": "Principal Product Manager - Growth & Monetization",
+    "sampleLocation": "Bengaluru, Karnataka",
+    "sampleEmail": "natasha.sethi@productcraft.in",
+    "samplePhone": "+91 98453 66778",
+    "samplePhoto": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Principal Growth Product Manager with 8+ years optimizing consumer subscription revenue funnels, pricing tiers, and gamified checkout loops generating $35M+ in annualized recurring revenue.",
+    "sampleExperience": [
+      {
+        "role": "Principal Product Manager - Growth",
+        "company": "Kuku FM",
+        "duration": "2021 - Present",
+        "bullets": [
+          "Spearheaded annual subscription paywall optimization, lifting free-to-paid conversion rate by 28.5%.",
+          "Designed vernacular localized payment flows and 1-click UPI AutoPay recurring subscription billing."
+        ]
+      },
+      {
+        "role": "Senior Growth Product Manager",
+        "company": "Gaana (Times Internet)",
+        "duration": "2018 - 2021",
+        "bullets": [
+          "Launched Gaana Plus student and family discount plans onboarding 1.4M paid audio streaming subscribers.",
+          "Ran 120+ multi-variate A/B experimentation loops on pricing elasticity and onboarding micro-copy."
+        ]
+      }
+    ],
+    "sampleEducation": [
+      {
+        "institution": "Indian School of Business (ISB Hyderabad)",
+        "degree": "Post Graduate Programme in Management (MBA)",
+        "year": "2016 - 2017",
+        "description": "Dean's List · Top 5% Rank · Winner of National Product Growth Challenge"
+      },
+      {
+        "institution": "Thapar Institute of Engineering & Technology",
+        "degree": "B.E. in Computer Engineering",
+        "year": "2011 - 2015",
+        "description": "First Class with Distinction · President of Computer Engineering Society"
+      }
+    ],
+    "sampleSkills": [
+      "Growth Loops",
+      "Subscription Monetization",
+      "A/B Experimentation",
+      "Pricing Elasticity",
+      "Amplitude / Mixpanel",
+      "SQL & Analytics",
+      "Figma",
+      "User Psychology"
+    ],
+    "sampleProjects": [
+      {
+        "title": "Vernacular Dynamic Paywall & Smart Pricing Tier Engine",
+        "techStack": "Amplitude, Optimizely, SQL, Figma, Python Analytics",
+        "description": "Constructed machine-learning driven dynamic paywall tailoring discounts based on user engagement frequency."
+      },
+      {
+        "title": "Gamified Milestone Unlocks & Referral Growth Loop",
+        "techStack": "Mixpanel, User Research, Agile Product Management",
+        "description": "Engineered social milestone badges and friend unlocking mechanisms yielding a 38% organic viral coefficient."
+      }
+    ],
+    "sampleLanguages": [
+      "English (Fluent)",
+      "Hindi (Native)",
+      "Punjabi (Fluent)"
+    ],
+    "sampleLinks": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/natashasethi-pm"
       },
       {
         "label": "Substack",
-        "url": "anilsinghal.substack.com"
+        "url": "https://growthmindset.substack.com"
       }
     ],
-    "sampleHobbies": "Tech Podcast Hosting, Angle Investing Mentorship, Long-distance Cycling, Book Club"
+    "sampleHobbies": "Podcasting on Consumer Tech, Marathon Running, Specialty Coffee, Urban Gardening",
+    "sampleMetrics": [
+      "-28% Churn",
+      "+65% Feature Adoption"
+    ]
+  },
+  {
+    "id": "gadwall",
+    "name": "Gadwall",
+    "category": "Design",
+    "tags": [
+      "Design",
+      "Senior"
+    ],
+    "description": "Design Systems Architect & UI Lead template with accessible multi-platform component ecosystems.",
+    "isAtsOnly": false,
+    "chosenCount": 18100,
+    "layoutStyle": "photo-header",
+    "accentColor": "#6D28D9",
+    "sampleName": "Akash Ganguly",
+    "sampleRole": "Lead Design Systems Designer",
+    "sampleLocation": "Bengaluru, Karnataka",
+    "sampleEmail": "akash.ganguly@designtokens.io",
+    "samplePhone": "+91 98450 33221",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Design Systems Architect with 8+ years building enterprise-grade multi-brand component libraries, automated design token pipelines, and WCAG 2.1 AAA accessible UI ecosystems for Fortune 500 tech companies.",
+    "sampleExperience": [
+      {
+        "role": "Lead Design Systems Architect",
+        "company": "Razorpay",
+        "duration": "2021 - Present",
+        "bullets": [
+          "Architected Blade Design System token pipeline adopted by 120+ designers and engineers across 24 product squads.",
+          "Achieved 100% WCAG 2.1 AA accessibility compliance across all web and mobile payment checkout components."
+        ]
+      },
+      {
+        "role": "Senior UI & Component Designer",
+        "company": "Flipkart",
+        "duration": "2017 - 2021",
+        "bullets": [
+          "Designed core design system components used across Flipkart Mobile and Desktop web apps.",
+          "Built interactive Storybook component visual documentation with automated regression visual diff testing."
+        ]
+      }
+    ],
+    "sampleEducation": [
+      {
+        "institution": "National Institute of Design (NID Bangalore)",
+        "degree": "M.Des in Information & Interface Design",
+        "year": "2015 - 2017",
+        "description": "Institute Gold Medal for Outstanding Master's Project · Specialization in Multi-Platform Token Architectures"
+      },
+      {
+        "institution": "RV College of Engineering (Bengaluru)",
+        "degree": "B.E. in Information Science",
+        "year": "2011 - 2015",
+        "description": "First Class with Distinction · Head of University Design Club"
+      }
+    ],
+    "sampleSkills": [
+      "Design Systems",
+      "Figma Tokens",
+      "Design Token Automation",
+      "Storybook",
+      "WCAG 2.1 AAA",
+      "React Components",
+      "Visual UI Architecture",
+      "Interaction Specs"
+    ],
+    "sampleProjects": [
+      {
+        "title": "Automated Multi-Theme Design Token Synchronizer",
+        "techStack": "Style Dictionary, GitHub Actions, Figma REST API, NPM Package",
+        "description": "Engineered automated design token compiler transforming Figma styles into iOS Swift, Android XML, and CSS variables."
+      },
+      {
+        "title": "Accessible Visual Component Documentation Portal",
+        "techStack": "Storybook, React, Next.js, MDX, Tailwind CSS",
+        "description": "Built public design system documentation site with interactive live code playgrounds and accessibility audits."
+      }
+    ],
+    "sampleLanguages": [
+      "English (Fluent)",
+      "Bengali (Native)",
+      "Hindi (Fluent)",
+      "Kannada (Conversational)"
+    ],
+    "sampleLinks": [
+      {
+        "label": "Portfolio",
+        "url": "https://akashganguly.design"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/akashganguly-ds"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/akashganguly"
+      }
+    ],
+    "sampleHobbies": "Typography Design, Electronic Music Production, Generative Art, Cycling",
+    "sampleMetrics": [
+      "14 Campaigns",
+      "Top 1% Dribbble"
+    ]
+  },
+  {
+    "id": "shoveler",
+    "name": "Shoveler",
+    "category": "Marketing",
+    "tags": [
+      "Marketing",
+      "Senior"
+    ],
+    "description": "Lifecycle & Retention Marketing Director template with cohort LTV maximization and automated email flows.",
+    "isAtsOnly": true,
+    "chosenCount": 16200,
+    "layoutStyle": "timeline",
+    "accentColor": "#BE123C",
+    "sampleName": "Kritika Sen",
+    "sampleRole": "Director of Performance & Lifecycle Marketing",
+    "sampleLocation": "Mumbai, Maharashtra",
+    "sampleEmail": "kritika.sen@lifecyclehub.in",
+    "samplePhone": "+91 98201 99008",
+    "samplePhoto": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Lifecycle and Performance Marketing Director with 9+ years optimizing user onboarding, retention CRM funnels, and programmatic paid acquisition generating ₹80Cr+ in attributed customer lifetime value.",
+    "sampleExperience": [
+      {
+        "role": "Director of Lifecycle Marketing",
+        "company": "CleverTap",
+        "duration": "2021 - Present",
+        "bullets": [
+          "Architected automated omni-channel customer journeys across push notifications, email, and in-app messages for 18M active users.",
+          "Lifting 60-day user retention rates by 34% across core banking and consumer enterprise accounts."
+        ]
+      },
+      {
+        "role": "Senior Growth & CRM Manager",
+        "company": "Disney+ Hotstar India",
+        "duration": "2017 - 2021",
+        "bullets": [
+          "Managed IPL cricket tournament subscription retention campaigns retaining 4.5M annual paid subscribers.",
+          "Built automated win-back messaging sequences generating 22% re-subscription conversion on churned cohorts."
+        ]
+      }
+    ],
+    "sampleEducation": [
+      {
+        "institution": "SPJIMR Mumbai",
+        "degree": "PGDM in Marketing & Digital Strategy",
+        "year": "2015 - 2017",
+        "description": "Dean's Honor Roll · Winner of Global Marketing Strategy Challenge · Head of Media Committee"
+      },
+      {
+        "institution": "St. Xavier's College (Mumbai)",
+        "degree": "B.A. in Economics & Statistics",
+        "year": "2012 - 2015",
+        "description": "First Class with Distinction · President of Statistics Society"
+      }
+    ],
+    "sampleSkills": [
+      "Lifecycle Marketing",
+      "CRM & Retention (MoEngage/CleverTap)",
+      "Customer Segmentation",
+      "Cohort LTV Analysis",
+      "Omni-Channel Messaging",
+      "A/B Testing",
+      "SQL & BigQuery",
+      "Performance Ads"
+    ],
+    "sampleProjects": [
+      {
+        "title": "Automated Churn Early-Warning & Dynamic Incentive Engine",
+        "techStack": "CleverTap, Braze, SQL, Segment, Looker",
+        "description": "Constructed automated churn mitigation workflow delivering personalized subscription discounts to at-risk users."
+      },
+      {
+        "title": "Omni-Channel Onboarding Journey & Milestone Push Architecture",
+        "techStack": "MoEngage, WhatsApp Business API, Python Analytics",
+        "description": "Designed 7-day onboarding sequence increasing Day-7 product feature activation rate from 24% to 48%."
+      }
+    ],
+    "sampleLanguages": [
+      "English (Fluent)",
+      "Hindi (Fluent)",
+      "Bengali (Native)"
+    ],
+    "sampleLinks": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/kritikasen-growth"
+      },
+      {
+        "label": "Substack",
+        "url": "https://lifecycleinsights.substack.com"
+      }
+    ],
+    "sampleHobbies": "Classical Odissi Dance, Specialty Coffee Brewing, Travel Journalism, Yoga",
+    "sampleMetrics": [
+      "45M+ Views",
+      "3.4x ROAS"
+    ]
+  },
+  {
+    "id": "pintail",
+    "name": "Pintail",
+    "category": "Executive",
+    "tags": [
+      "Executive",
+      "Senior"
+    ],
+    "description": "Chief Information Security Officer (CISO) template with SOC-2, ISO 27001, and banking security compliance.",
+    "isAtsOnly": true,
+    "chosenCount": 23100,
+    "layoutStyle": "dark-sidebar",
+    "accentColor": "#1E3A8A",
+    "sampleName": "Brijesh Pandey",
+    "sampleRole": "Chief Business Officer",
+    "sampleLocation": "New Delhi, Delhi",
+    "sampleEmail": "brijesh.pandey@corporateboard.in",
+    "samplePhone": "+91 98100 88221",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Transformational Chief Business Officer with 17+ years driving corporate strategy, expanding enterprise business lines from ₹50Cr to ₹850Cr ARR, executing strategic acquisitions, and building pan-India distribution channels.",
+    "sampleExperience": [
+      {
+        "role": "Chief Business Officer",
+        "company": "Lenskart",
+        "duration": "2020 - Present",
+        "bullets": [
+          "Scaled omni-channel retail and digital revenue across 1,500+ physical stores in India, Southeast Asia, and Middle East.",
+          "Led strategic cross-border brand acquisition of Owndays (Japan), expanding international corporate footprint."
+        ]
+      },
+      {
+        "role": "VP of Business Development & Strategy",
+        "company": "Paytm",
+        "duration": "2014 - 2020",
+        "bullets": [
+          "Spearheaded merchant acquiring expansion onboarding 6M offline retail merchants onto Paytm QR code network.",
+          "Negotiated strategic co-branded credit card partnership with SBI Card originating 1.2M active cards."
+        ]
+      }
+    ],
+    "sampleEducation": [
+      {
+        "institution": "IIM Lucknow",
+        "degree": "PGDM in Business Strategy & Marketing",
+        "year": "2005 - 2007",
+        "description": "Director's Merit List · Tata Fellowship Recipient · President of Student Council"
+      },
+      {
+        "institution": "IIT Delhi",
+        "degree": "B.Tech in Mechanical Engineering",
+        "year": "2001 - 2005",
+        "description": "First Class Honours · General Secretary of Cultural Affairs"
+      }
+    ],
+    "sampleSkills": [
+      "Corporate Strategy",
+      "Omni-Channel Retail Scaling",
+      "M&A Integration",
+      "P&L Management",
+      "Strategic Joint Ventures",
+      "Board Governance",
+      "Executive Leadership",
+      "Market Expansion"
+    ],
+    "sampleProjects": [
+      {
+        "title": "Pan-Asian Omni-Channel Retail Expansion Playbook",
+        "techStack": "Supply Chain ERP, Retail Telemetry, Financial Modeling, Governance",
+        "description": "Directed expansion into Japan, Singapore, and UAE creating ₹320Cr in profitable international revenue."
+      },
+      {
+        "title": "Nationwide MSME Merchant Digital Payments Alliance",
+        "techStack": "Merchant Acquiring, QR Network, Banking Settlement Infrastructure",
+        "description": "Engineered low-cost soundbox and QR hardware distribution reaching 5,000 Indian towns within 18 months."
+      }
+    ],
+    "sampleLanguages": [
+      "English (Fluent)",
+      "Hindi (Native)",
+      "Bhojpuri (Native)"
+    ],
+    "sampleLinks": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/brijeshpandey-cbo"
+      },
+      {
+        "label": "Crunchbase",
+        "url": "https://crunchbase.com/person/brijesh-pandey"
+      }
+    ],
+    "sampleHobbies": "Marathon Running, Golf, Philanthropy in Rural Technology Education, Classical Indian History",
+    "sampleMetrics": [
+      "₹120Cr P&L",
+      "4.9★ Glassdoor"
+    ]
   },
   {
     "id": "wigeon",
@@ -5037,82 +5576,94 @@ export const TEMPLATES = [
       "Senior",
       "Engineer"
     ],
-    "description": "Editorial minimalist layout with wide margins and clean lines, perfect for Principal Cloud Architects and Fellows.",
+    "description": "Principal Systems & Edge Network Reliability Engineer template with global CDN routing benchmarks.",
     "isAtsOnly": true,
-    "chosenCount": 13300,
+    "chosenCount": 19200,
     "layoutStyle": "minimalist",
     "accentColor": "#475569",
-    "sampleName": "Kavita Rao",
+    "sampleName": "Sameer Dandekar",
     "sampleRole": "Vice President of Cloud Architecture",
-    "sampleLocation": "Hyderabad, Telangana",
-    "sampleEmail": "kavita.rao@cloudfellow.in",
-    "samplePhone": "+91 94405 11990",
-    "sampleSummary": "Cloud architect and enterprise fellow with 16+ years designing multi-region hybrid clouds, sovereign data compliance, and mainframe modernization.",
+    "sampleLocation": "Pune, Maharashtra",
+    "sampleEmail": "sameer.dandekar@cloudfoundry.org",
+    "samplePhone": "+91 98901 33445",
+    "samplePhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Cloud Architecture Executive and Principal Systems Fellow with 15+ years architecting global edge networks, sub-millisecond CDN routing algorithms, and multi-cloud resilience frameworks for Fortune 100 enterprises.",
     "sampleExperience": [
       {
-        "role": "VP of Cloud Architecture",
-        "company": "Infosys Cobalt",
-        "duration": "2019 - Present",
+        "role": "VP of Cloud Architecture & Infrastructure",
+        "company": "Cloudflare India",
+        "duration": "2020 - Present",
         "bullets": [
-          "Led $180M multi-cloud migration initiative for top European insurance conglomerate across AWS and Azure.",
-          "Chaired corporate Architecture Review Board evaluating 200+ enterprise systems annually."
+          "Direct architecture of 14 edge data centers across South Asia routing 40B daily secure internet requests.",
+          "Engineered eBPF-based DDoS mitigation pipeline mitigating 2.4 Tbps volumetric attacks in under 3 seconds."
         ]
       },
       {
-        "role": "Principal Enterprise Architect",
-        "company": "Cognizant",
-        "duration": "2012 - 2019",
+        "role": "Principal Cloud Architect",
+        "company": "Akamai Technologies",
+        "duration": "2013 - 2020",
         "bullets": [
-          "Architected core banking microservices modernization for US financial services clients."
+          "Architected global video streaming edge caching network for IPL streaming reaching 28M concurrent viewers.",
+          "Authored 6 international patents in dynamic DNS anycast routing and edge HTTP/3 protocol optimizations."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IIT Madras",
-        "degree": "B.Tech in Computer Science & Engineering",
-        "year": "2007"
+        "institution": "VJTI Mumbai",
+        "degree": "M.Tech in Computer Engineering",
+        "year": "2007 - 2009",
+        "description": "Gold Medalist · Published 3 research papers on Anycast Routing and Distributed Caching in IEEE"
+      },
+      {
+        "institution": "COEP Technological University (Pune)",
+        "degree": "B.E. in Computer Engineering",
+        "year": "2003 - 2007",
+        "description": "First Class with Distinction · President of Computer Engineering Society"
       }
     ],
     "sampleSkills": [
-      "Multi-Cloud Architecture",
-      "AWS & Azure Certified Fellow",
-      "Enterprise Governance",
-      "Legacy Modernization",
-      "Financial Cloud Compliance"
+      "Cloud Architecture",
+      "Edge Computing & CDN",
+      "eBPF Linux Networking",
+      "Anycast Routing (BGP)",
+      "Kubernetes",
+      "Rust / C++",
+      "Cybersecurity (DDoS)",
+      "Global Infrastructure"
     ],
     "sampleProjects": [
       {
-        "title": "High-Throughput Distributed Microservices Architecture",
-        "techStack": "Go, Kubernetes, Apache Kafka, PostgreSQL, Redis",
-        "description": "Architected fault-tolerant ingestion pipeline processing 100k+ events/sec with sub-50ms p99 latency."
+        "title": "Global Anycast Edge DDoS Mitigation Mesh",
+        "techStack": "eBPF, XDP, Rust, Linux Kernel, BGP Anycast Routing",
+        "description": "Engineered kernel-level packet inspection firewall dropping malicious SYN floods at line-rate 100Gbps."
       },
       {
-        "title": "Cloud Infrastructure Cost & Observability Optimization",
-        "techStack": "Terraform, Docker, Prometheus, Grafana, AWS",
-        "description": "Automated spot-instance scheduling and auto-scaling clusters, cutting cloud expenditure by 36%."
+        "title": "Ultra-Low Latency HTTP/3 QUIC Edge Proxy",
+        "techStack": "Rust, Tokio, QUIC, OpenSSL, Docker",
+        "description": "Developed edge proxy caching engine reducing mobile time-to-first-byte (TTFB) by 45% across tier-3 cellular networks."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Telugu (Native)",
-      "Hindi (Proficient)"
+      "Marathi (Native)",
+      "Hindi (Fluent)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/kavitarao"
+        "url": "https://github.com/sameerdandekar"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/kavitarao"
-      },
-      {
-        "label": "Portfolio",
-        "url": "kavitarao.dev"
+        "url": "https://linkedin.com/in/sameerdandekar-cloud"
       }
     ],
-    "sampleHobbies": "Technical Writing, Badminton, Landscape Photography, Community Organizing"
+    "sampleHobbies": "Linux Kernel Hacking, Amateur Radio (HAM VU2), Himalayan Trekking, Classical Sitar",
+    "sampleMetrics": [
+      "+65% Efficiency",
+      "25+ Patents/Projects"
+    ]
   },
   {
     "id": "garganey",
@@ -5122,84 +5673,94 @@ export const TEMPLATES = [
       "Engineer",
       "Data"
     ],
-    "description": "Developer-centric code layout with terminal accents, Indic LLM inference metrics, and GitHub repository links.",
+    "description": "Senior MLOps & High-Performance Computing Engineer template with continuous model serving and GPU cluster optimization.",
     "isAtsOnly": true,
-    "chosenCount": 17100,
+    "chosenCount": 17400,
     "layoutStyle": "creative-accent",
     "accentColor": "#2563EB",
-    "sampleName": "Rahul Bhattacharya",
+    "sampleName": "Abhinav Trivedi",
     "sampleRole": "Lead Generative AI & Indic LLM Engineer",
     "sampleLocation": "Bengaluru, Karnataka",
-    "sampleEmail": "rahul.b@indicai.io",
-    "samplePhone": "+91 98458 99001",
-    "sampleGithub": "github.com/rahul-indic-llm",
-    "sampleSummary": "GenAI engineer with 7+ years developing quantized Indic LLMs, parameter-efficient LoRA adapters, and real-time voice translation pipelines.",
+    "sampleEmail": "abhinav.trivedi@indicai.io",
+    "samplePhone": "+91 98455 77112",
+    "samplePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    "sampleSummary": "Generative AI and Large Language Model Engineer with 7+ years pre-training foundation models, optimizing distributed GPU clusters on Ray/DeepSpeed, and serving low-latency Indic language AI models.",
     "sampleExperience": [
       {
-        "role": "Lead Generative AI Engineer",
-        "company": "Sarvam AI",
+        "role": "Lead GenAI & LLM Systems Engineer",
+        "company": "Krutrim AI",
         "duration": "2022 - Present",
         "bullets": [
-          "Trained 10 Indic language foundation models with sub-25ms response latency on edge GPU servers.",
-          "Authored open-source IndicTokenizer used by 8,000+ AI researchers across India."
+          "Led distributed pretraining of 22-language Indic LLM across 256 NVIDIA H100 GPUs using Megatron-DeepSpeed.",
+          "Optimized model inference latency from 120ms to 24ms per token via TensorRT-LLM and FlashAttention-2."
         ]
       },
       {
-        "role": "NLP Research Engineer",
-        "company": "Wadhwani AI",
-        "duration": "2019 - 2022",
+        "role": "Senior Applied AI Engineer",
+        "company": "Wipro AI Labs",
+        "duration": "2018 - 2022",
         "bullets": [
-          "Built multilingual acoustic pest prediction models for rural Indian farmers with 94.6% accuracy."
+          "Built domain-specific conversational AI agents for healthcare and insurance enterprise clients.",
+          "Designed automated RAG document retrieval pipelines across 10M+ medical records with semantic vector indexes."
         ]
       }
     ],
     "sampleEducation": [
       {
-        "institution": "IIT Delhi",
-        "degree": "B.Tech in Computer Science",
-        "year": "2019"
+        "institution": "IIT Guwahati",
+        "degree": "B.Tech in Computer Science & Engineering",
+        "year": "2014 - 2018",
+        "description": "CGPA: 9.25/10 · Institute Merit Scholarship · Head of Artificial Intelligence & Robotics Society"
       }
     ],
     "sampleSkills": [
-      "Indic LLMs",
+      "Generative AI",
       "PyTorch",
+      "Megatron-LM & DeepSpeed",
+      "TensorRT-LLM",
+      "FlashAttention",
+      "Ray Cluster",
       "vLLM",
-      "LoRA / QLoRA",
-      "Hugging Face",
-      "CUDA C++",
-      "Whisper ASR"
+      "Python / C++ CUDA"
     ],
     "sampleProjects": [
       {
-        "title": "Real-Time Predictive Fraud Detection Pipeline",
-        "techStack": "Python, PyTorch, Apache Spark, Kafka, AWS",
-        "description": "Engineered streaming ML inference model achieving 99.4% accuracy with sub-15ms prediction latency."
+        "title": "Distributed Multi-Node LLM Training Framework",
+        "techStack": "PyTorch, Megatron-DeepSpeed, Ray, Slurm, NVIDIA H100",
+        "description": "Architected 3D-parallel (Tensor, Pipeline, Data) distributed training pipeline training 14B parameter multilingual models."
       },
       {
-        "title": "Automated ETL Lakehouse Architecture",
-        "techStack": "Snowflake, dbt, Airflow, PostgreSQL",
-        "description": "Unified 14 disparate data sources into governed lakehouse, reducing query latency by 65%."
+        "title": "Real-Time Quantized On-Device Indic Voice Assistant",
+        "techStack": "GGML / LLaMA.cpp, Whisper, WebAssembly, Android NDK",
+        "description": "Built sub-150MB 4-bit quantized conversational assistant running locally on mobile devices with zero internet connectivity."
       }
     ],
     "sampleLanguages": [
       "English (Fluent)",
-      "Hindi (Proficient)",
-      "Kannada (Native)"
+      "Hindi (Native)",
+      "Sanskrit (Proficient)"
     ],
     "sampleLinks": [
       {
         "label": "GitHub",
-        "url": "github.com/rahulbhattacharya"
+        "url": "https://github.com/abhinavtrivedi-ai"
+      },
+      {
+        "label": "HuggingFace",
+        "url": "https://huggingface.co/abhinavtrivedi"
       },
       {
         "label": "LinkedIn",
-        "url": "linkedin.com/in/rahulbhattacharya"
-      },
-      {
-        "label": "Portfolio",
-        "url": "rahulbhattacharya.dev"
+        "url": "https://linkedin.com/in/abhinavtrivedi"
       }
     ],
-    "sampleHobbies": "Open Source Software, Chess Strategy, Marathon Running, IoT Hardware Tinkering"
+    "sampleHobbies": "Open Source Foundation Models, Competitive Chess, Astrophysics, Sanskrit Linguistics",
+    "sampleMetrics": [
+      "+85% Test Coverage",
+      "5x Deployment Speed"
+    ]
   }
 ];
+
+export const templates = TEMPLATES;
+export default TEMPLATES;

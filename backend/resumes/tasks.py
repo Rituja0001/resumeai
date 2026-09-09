@@ -120,19 +120,19 @@ def _write_resume_sections(resume: Resume, data: dict):
     resume.raw_ai_extraction = merged_data
     resume.save()
 
-    if "experiences" in data:
+    experiences_list = data.get("experiences") if "experiences" in data else (data.get("workExperience") if "workExperience" in data else data.get("work_experience"))
+    if experiences_list is not None:
         resume.experiences.all().delete()
-        experiences = data.get("experiences", [])
-        for i, exp in enumerate(experiences):
-            role = exp.get("role") or exp.get("title") or "Professional"
+        for i, exp in enumerate(experiences_list):
+            role = exp.get("role") or exp.get("jobTitle") or exp.get("title") or "Professional"
             company = exp.get("company") or "Company"
             location = exp.get("city") or exp.get("location") or ""
-            is_curr = exp.get("isCurrent") if "isCurrent" in exp else exp.get("is_current", False)
+            is_curr = exp.get("isCurrent") if "isCurrent" in exp else (exp.get("current") if "current" in exp else exp.get("is_current", False))
 
-            start_date = _parse_date_safe(exp.get("start_date") or exp.get("startYear")) or "2020-01-01"
-            end_date = None if is_curr else _parse_date_safe(exp.get("end_date") or exp.get("endYear"))
+            start_date = _parse_date_safe(exp.get("start_date") or exp.get("startDate") or exp.get("startYear")) or "2020-01-01"
+            end_date = None if is_curr else _parse_date_safe(exp.get("end_date") or exp.get("endDate") or exp.get("endYear"))
 
-            bullet_points = exp.get("bullet_points")
+            bullet_points = exp.get("bullet_points") or exp.get("bullets")
             if not bullet_points and exp.get("description"):
                 bullet_points = [l.lstrip("•-* ").strip() for l in str(exp["description"]).split("\n") if l.strip()]
 
@@ -147,16 +147,16 @@ def _write_resume_sections(resume: Resume, data: dict):
                 bullet_points=bullet_points or [],
             )
 
-    if "education" in data:
+    education_list = data.get("education") if "education" in data else data.get("educations")
+    if education_list is not None:
         resume.education.all().delete()
-        education = data.get("education", [])
-        for i, edu in enumerate(education):
-            inst = edu.get("institution") or "University"
+        for i, edu in enumerate(education_list):
+            inst = edu.get("institution") or edu.get("school") or "University"
             deg = edu.get("degree") or "Degree"
-            field = edu.get("description") or edu.get("field_of_study") or ""
-            start_date = _parse_date_safe(edu.get("start_date") or edu.get("startYear"))
-            end_date = _parse_date_safe(edu.get("end_date") or edu.get("endYear") or edu.get("year"))
-            grade = edu.get("marks") or edu.get("grade") or ""
+            field = edu.get("description") or edu.get("field_of_study") or edu.get("field") or ""
+            start_date = _parse_date_safe(edu.get("start_date") or edu.get("startDate") or edu.get("startYear"))
+            end_date = _parse_date_safe(edu.get("end_date") or edu.get("endDate") or edu.get("endYear") or edu.get("year"))
+            grade = edu.get("marks") or edu.get("grade") or edu.get("gpa") or ""
 
             Education.objects.create(
                 resume=resume, order=i,

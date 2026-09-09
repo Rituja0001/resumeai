@@ -286,6 +286,8 @@ def _extract_resume_context(resume_data):
     summary = (
         resume_data.get("professional_summary")
         or resume_data.get("summary")
+        or personal.get("summary")
+        or personal.get("professional_summary")
         or resume_data.get("sampleSummary")
         or ""
     )
@@ -324,12 +326,28 @@ def _extract_resume_context(resume_data):
                     label = "Portfolio"
             social_links.append({"label": label, "url": clean_url})
 
+    existing_urls = {l["url"].lower() for l in social_links}
+    for field_name, label in [("website", "Portfolio"), ("linkedin", "LinkedIn"), ("github", "GitHub")]:
+        val = str(personal.get(field_name) or "").strip()
+        if val:
+            clean_val = val.replace("https://", "").replace("http://", "").strip()
+            if clean_val.lower() not in existing_urls:
+                social_links.append({"label": label, "url": clean_val})
+                existing_urls.add(clean_val.lower())
+
     # Experiences
-    raw_exp = resume_data.get("experiences") or resume_data.get("sampleExperience") or []
+    raw_exp = (
+        resume_data.get("experiences")
+        or resume_data.get("workExperience")
+        or resume_data.get("work_experience")
+        or resume_data.get("sampleExperience")
+        or resume_data.get("experience")
+        or []
+    )
     experiences = []
     for exp in raw_exp:
-        role = _clean_text(exp.get("role") or exp.get("title") or "")
-        company = _clean_text(exp.get("company") or "")
+        role = _clean_text(exp.get("role") or exp.get("title") or exp.get("jobTitle") or exp.get("job_title") or exp.get("position") or "")
+        company = _clean_text(exp.get("company") or exp.get("organization") or exp.get("employer") or "")
         city_exp = _clean_text(exp.get("city") or exp.get("location") or "")
         desc = exp.get("description") or ""
         bullets = exp.get("bullet_points") or exp.get("bullets") or []
@@ -338,10 +356,10 @@ def _extract_resume_context(resume_data):
             continue
 
         start_m = exp.get("startMonth") or exp.get("start_month") or ""
-        start_y = exp.get("startYear") or exp.get("start_year") or exp.get("duration") or ""
+        start_y = exp.get("startYear") or exp.get("start_year") or exp.get("startDate") or exp.get("start_date") or exp.get("duration") or ""
         end_m = exp.get("endMonth") or exp.get("end_month") or ""
-        end_y = exp.get("endYear") or exp.get("end_year") or ""
-        is_curr = bool(exp.get("isCurrent") if "isCurrent" in exp else exp.get("is_current", False))
+        end_y = exp.get("endYear") or exp.get("end_year") or exp.get("endDate") or exp.get("end_date") or ""
+        is_curr = bool(exp.get("isCurrent") if "isCurrent" in exp else (exp.get("current") if "current" in exp else exp.get("is_current", False)))
 
         date_str = _format_date_range(start_m, start_y, end_m, end_y, is_curr)
 
@@ -367,31 +385,35 @@ def _extract_resume_context(resume_data):
         })
 
     # Education
-    raw_edu = resume_data.get("education") or resume_data.get("sampleEducation") or []
+    raw_edu = (
+        resume_data.get("education")
+        or resume_data.get("sampleEducation")
+        or []
+    )
     education = []
     for edu in raw_edu:
-        deg = _clean_text(edu.get("degree") or "")
-        inst = _clean_text(edu.get("institution") or "")
+        deg = _clean_text(edu.get("degree") or edu.get("qualification") or "")
+        inst = _clean_text(edu.get("institution") or edu.get("school") or edu.get("university") or edu.get("college") or "")
         desc = _clean_text(edu.get("description") or edu.get("field_of_study") or "")
         if not deg and not inst and not desc:
             continue
 
         start_m = edu.get("startMonth") or edu.get("start_month") or ""
-        start_y = edu.get("startYear") or edu.get("start_year") or ""
+        start_y = edu.get("startYear") or edu.get("start_year") or edu.get("startDate") or edu.get("start_date") or ""
         end_m = edu.get("endMonth") or edu.get("end_month") or ""
-        end_y = edu.get("endYear") or edu.get("end_year") or edu.get("year") or ""
-        is_curr = bool(edu.get("isCurrent") if "isCurrent" in edu else edu.get("is_current", False))
+        end_y = edu.get("endYear") or edu.get("end_year") or edu.get("endDate") or edu.get("end_date") or edu.get("year") or ""
+        is_curr = bool(edu.get("isCurrent") if "isCurrent" in edu else (edu.get("current") if "current" in edu else edu.get("is_current", False)))
 
         date_str = _format_date_range(start_m, start_y, end_m, end_y, is_curr)
 
-        marks_type = _clean_text(edu.get("marksType") or "CGPA")
-        marks = _clean_text(edu.get("marks") or edu.get("grade") or "")
+        marks_type = _clean_text(edu.get("marksType") or edu.get("marks_type") or "CGPA")
+        marks = _clean_text(edu.get("marks") or edu.get("grade") or edu.get("gpa") or "")
         marks_str = f"{marks_type}: {marks}" if marks else ""
 
         education.append({
             "degree": deg or "Degree",
             "institution": inst,
-            "inst_loc": " · ".join(filter(None, [inst, _clean_text(edu.get("city") or "")])),
+            "inst_loc": " · ".join(filter(None, [inst, _clean_text(edu.get("city") or edu.get("location") or "")])),
             "date_range": date_str,
             "marks_str": marks_str,
             "description": desc,
@@ -416,16 +438,22 @@ def _extract_resume_context(resume_data):
     projects = []
     for p in raw_proj:
         title = _clean_text(p.get("title") or p.get("name") or "")
-        tech = _clean_text(p.get("techStack") or p.get("tech_stack") or "")
-        link = p.get("link") or ""
+        tech = _clean_text(p.get("techStack") or p.get("tech_stack") or p.get("technologies") or "")
+        link = p.get("link") or p.get("url") or p.get("github") or ""
         pdesc = p.get("description") or ""
-        if not title and not tech and not pdesc:
+        bullets = p.get("bullet_points") or p.get("bullets") or []
+        if not title and not tech and not pdesc and not bullets:
             continue
         clean_link = _clean_text(link.replace("https://", "").replace("http://", "")) if link else ""
 
         pbullets = []
-        if pdesc:
-            for l in pdesc.split("\n"):
+        if bullets and isinstance(bullets, list):
+            for b in bullets:
+                cl = _clean_text(str(b).lstrip("•-* \t").strip())
+                if cl:
+                    pbullets.append(cl)
+        elif pdesc:
+            for l in str(pdesc).split("\n"):
                 cl = _clean_text(l.lstrip("•-* \t").strip())
                 if cl:
                     pbullets.append(cl)
@@ -464,6 +492,27 @@ def _extract_resume_context(resume_data):
                 unique_h.append(h)
         hobbies = ", ".join(unique_h) if unique_h else hobbies
 
+    raw_custom = (
+        resume_data.get("customSections")
+        or resume_data.get("custom_sections")
+        or additional.get("customSections")
+        or additional.get("custom_sections")
+        or []
+    )
+    custom_sections = []
+    for cs in raw_custom:
+        ctitle = _clean_text(cs.get("title") or "")
+        csub = _clean_text(cs.get("subtitle") or "")
+        cdate = _clean_text(cs.get("date") or "")
+        cdesc = _clean_text(cs.get("description") or "")
+        if ctitle or csub or cdesc:
+            custom_sections.append({
+                "title": ctitle or "Additional Section",
+                "subtitle": csub,
+                "date": cdate,
+                "description": cdesc,
+            })
+
     return {
         "template_key": template_key,
         "layout_style": layout_style,
@@ -485,6 +534,7 @@ def _extract_resume_context(resume_data):
         "languages": languages,
         "hobbies": hobbies,
         "social_links": social_links,
+        "custom_sections": custom_sections,
     }
 
 
@@ -682,6 +732,29 @@ def _build_single_column_story(ctx):
         for item in add_items:
             story.append(Paragraph(item, body_style))
             story.append(Spacer(1, 3))
+
+    # Custom Sections (Certifications, Awards, etc.)
+    if ctx.get("custom_sections"):
+        for cs in ctx["custom_sections"]:
+            sec_title = f"// {cs['title'].upper()}" if is_code else cs["title"]
+            story.append(Paragraph(sec_title, section_hdr))
+            story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#CBD5E1"), spaceBefore=1, spaceAfter=5))
+            if cs["subtitle"] or cs["date"]:
+                sub_row = Table(
+                    [[Paragraph(f"<b>{cs['subtitle']}</b>" if cs["subtitle"] else "", item_title), Paragraph(cs["date"], item_date)]],
+                    colWidths=[A4[0] - 72 - 140, 140],
+                )
+                sub_row.setStyle(TableStyle([
+                    ("VALIGN", (0, 0), (-1, -1), "BOTTOM"),
+                    ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                    ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                    ("TOPPADDING", (0, 0), (-1, -1), 0),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 1),
+                ]))
+                story.append(sub_row)
+            if cs["description"]:
+                story.append(Paragraph(cs["description"], body_style))
+            story.append(Spacer(1, 4))
 
     return story
 
@@ -913,6 +986,28 @@ def _build_sidebar_story(ctx, is_left=True, is_dark=True):
             block.append(Spacer(1, 4))
             main_flowables.append(KeepTogether(block))
 
+    # Custom Sections (Certifications, Awards, etc.)
+    if ctx.get("custom_sections"):
+        for cs in ctx["custom_sections"]:
+            main_flowables.append(Paragraph(cs["title"].upper(), main_sec_hdr))
+            main_flowables.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#CBD5E1"), spaceBefore=1, spaceAfter=4))
+            if cs["subtitle"] or cs["date"]:
+                sub_row = Table(
+                    [[Paragraph(f"<b>{cs['subtitle']}</b>" if cs["subtitle"] else "", item_title), Paragraph(cs["date"], item_date)]],
+                    colWidths=[350 - 110, 110],
+                )
+                sub_row.setStyle(TableStyle([
+                    ("VALIGN", (0, 0), (-1, -1), "BOTTOM"),
+                    ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                    ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                    ("TOPPADDING", (0, 0), (-1, -1), 0),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 1),
+                ]))
+                main_flowables.append(sub_row)
+            if cs["description"]:
+                main_flowables.append(Paragraph(cs["description"], body_style))
+            main_flowables.append(Spacer(1, 4))
+
     return {
         "sidebar_flowables": sidebar_flowables,
         "main_flowables": main_flowables,
@@ -1097,6 +1192,28 @@ def _build_minimalist_serif_story(ctx):
         for item in add_items:
             story.append(Paragraph(item, body_style))
             story.append(Spacer(1, 2))
+
+    # Custom Sections (Certifications, Awards, etc.)
+    if ctx.get("custom_sections"):
+        for cs in ctx["custom_sections"]:
+            story.append(Paragraph(cs["title"], section_hdr))
+            story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#CBD5E1"), spaceBefore=1, spaceAfter=5))
+            if cs["subtitle"] or cs["date"]:
+                sub_row = Table(
+                    [[Paragraph(f"<b>{cs['subtitle']}</b>" if cs["subtitle"] else "", item_title), Paragraph(cs["date"], item_date)]],
+                    colWidths=[A4[0] - 72 - 120, 120],
+                )
+                sub_row.setStyle(TableStyle([
+                    ("VALIGN", (0, 0), (-1, -1), "BOTTOM"),
+                    ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                    ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                    ("TOPPADDING", (0, 0), (-1, -1), 0),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 1),
+                ]))
+                story.append(sub_row)
+            if cs["description"]:
+                story.append(Paragraph(cs["description"], item_sub))
+            story.append(Spacer(1, 4))
 
     return story
 
