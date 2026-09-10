@@ -36,6 +36,8 @@ class ResumeSerializer(serializers.ModelSerializer):
     education = EducationSerializer(many=True, read_only=True)
     skills = SkillEntrySerializer(many=True, read_only=True)
     projects = ProjectSerializer(many=True, read_only=True)
+    job_preference = serializers.SerializerMethodField()
+    jobPreference = serializers.SerializerMethodField()
 
     class Meta:
         model = Resume
@@ -43,9 +45,18 @@ class ResumeSerializer(serializers.ModelSerializer):
             "id", "title", "source", "status", "professional_summary",
             "template_key", "current_step", "base_resume", "created_at", "updated_at",
             "experiences", "education", "skills", "projects",
+            "job_preference", "jobPreference",
             "raw_ai_extraction",
         ]
         read_only_fields = ["status", "created_at", "updated_at"]
+
+    def get_job_preference(self, obj):
+        raw = obj.raw_ai_extraction if isinstance(obj.raw_ai_extraction, dict) else {}
+        return raw.get("jobPreference") or raw.get("job_preference") or {}
+
+    def get_jobPreference(self, obj):
+        return self.get_job_preference(obj)
+
 
 
 class ResumeUploadSerializer(serializers.Serializer):

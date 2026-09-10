@@ -3,6 +3,7 @@ API views. Heavy AI work (parsing, tailoring, voice structuring) is executed
 synchronously within the request/response cycle, returning a `status: ready`
 resume directly without requiring Celery or Redis background workers.
 """
+import logging
 from rest_framework import viewsets, status, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -15,6 +16,8 @@ from .serializers import (
     VoiceSessionSerializer, LinkedInImportSerializer, FeedbackSerializer,
 )
 from . import tasks
+
+logger = logging.getLogger("resumes.views")
 
 
 class PDFExportAnonThrottle(AnonRateThrottle):
@@ -47,56 +50,74 @@ class ResumeViewSet(viewsets.ModelViewSet):
         return Resume.objects.filter(user=self.request.user)
 
     def create(self, request, *args, **kwargs):
-        data = request.data
-        title = data.get("title") or "Untitled Resume"
-        template_key = data.get("templateId") or data.get("template_key") or "puffin"
-        summary = data.get("professional_summary") or data.get("summary") or ""
-        current_step = 1
         try:
-            current_step = max(1, min(9, int(data.get("current_step") or data.get("activeStep") or 1)))
-        except (ValueError, TypeError):
-            pass
-
-        resume = Resume.objects.create(
-            user=request.user,
-            title=title,
-            source=data.get("source", "scratch"),
-            status=data.get("status", "draft"),
-            template_key=template_key,
-            current_step=current_step,
-            professional_summary=summary,
-            raw_ai_extraction=data,
-        )
-
-        tasks._write_resume_sections(resume, data)
-        return Response(ResumeSerializer(resume).data, status=status.HTTP_201_CREATED)
-
-    def update(self, request, *args, **kwargs):
-        resume = self.get_object()
-        data = request.data
-
-        if "title" in data:
-            resume.title = data.get("title") or resume.title
-        if "templateId" in data or "template_key" in data:
-            resume.template_key = data.get("templateId") or data.get("template_key") or resume.template_key
-        if "professional_summary" in data or "summary" in data:
-            resume.professional_summary = data.get("professional_summary") or data.get("summary") or ""
-        if "current_step" in data or "activeStep" in data:
+            data = request.data
+            title = str(data.get("title") or "Untitled Resume")[:150]
+            template_key = str(data.get("templateId") or data.get("template_key") or "puffin")[:50]
+            summary = str(data.get("professional_summary") or data.get("summary") or "")
+            current_step = 1
             try:
-                resume.current_step = max(1, min(9, int(data.get("current_step") or data.get("activeStep") or resume.current_step)))
+                current_step = max(1, min(9, int(data.get("current_step") or data.get("activeStep") or 1)))
             except (ValueError, TypeError):
                 pass
-        if "status" in data:
-            resume.status = data.get("status") or resume.status
 
-        resume.raw_ai_extraction = data
-        resume.save()
+            resume = Resume.objects.create(
+                user=request.user,
+                title=title,
+                source=str(data.get("source", "scratch"))[:20],
+                status=str(data.get("status", "draft"))[:20],
+                template_key=template_key,
+                current_step=current_step,
+                professional_summary=summary,
+                raw_ai_extraction=data if isinstance(data, dict) else {},
+            )
 
-        tasks._write_resume_sections(resume, data)
-        return Response(ResumeSerializer(resume).data)
+            tasks._write_resume_sections(resume, data)
+            resume.refresh_from_db()
+            return Response(ResumeSerializer(resume).data, status=status.HTTP_201_CREATED)
+        except Exception as exc:
+            logger.exception("Error creating resume: %s", exc)
+            return Response(
+                {"detail": f"Resume creation failed: {str(exc)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    def update(self, request, *args, **kwargs):
+        try:
+            resume = self.get_object()
+            data = request.data
+            if not isinstance(data, dict):
+                data = {}
+
+            if "title" in data:
+                resume.title = str(data.get("title") or resume.title or "Untitled Resume")[:150]
+            if "templateId" in data or "template_key" in data:
+                template_val = data.get("templateId") or data.get("template_key")
+                if template_val:
+                    resume.template_key = str(template_val)[:50]
+            if "professional_summary" in data or "summary" in data:
+                resume.professional_summary = str(data.get("professional_summary") or data.get("summary") or "")
+            if "current_step" in data or "activeStep" in data:
+                try:
+                    resume.current_step = max(1, min(9, int(data.get("current_step") or data.get("activeStep") or resume.current_step)))
+                except (ValueError, TypeError):
+                    pass
+            if "status" in data and data.get("status"):
+                resume.status = str(data.get("status"))[:20]
+
+            tasks._write_resume_sections(resume, data)
+            resume.refresh_from_db()
+            return Response(ResumeSerializer(resume).data)
+        except Exception as exc:
+            logger.exception("Error updating resume %s: %s", kwargs.get("pk"), exc)
+            return Response(
+                {"detail": f"Resume update failed: {str(exc)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
     def partial_update(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
+
 
     # ---- Build Path 1: Upload Resume ----
     @action(detail=False, methods=["post"], url_path="upload")
@@ -193,12 +214,15 @@ class ResumeViewSet(viewsets.ModelViewSet):
             data = request.data
         else:
             data = ResumeSerializer(resume).data
+            if isinstance(resume.raw_ai_extraction, dict):
+                data = {**resume.raw_ai_extraction, **data}
 
         pdf_bytes = generate_resume_pdf(data)
         safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', data.get('title') or 'Resume').strip('_') or 'Resume'
         response = HttpResponse(pdf_bytes, content_type="application/pdf")
         response["Content-Disposition"] = f'attachment; filename="{safe_title}.pdf"'
         return response
+
 
     @action(detail=False, methods=["post"], url_path="export-pdf")
     def export_pdf_direct(self, request):

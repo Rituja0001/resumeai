@@ -3,6 +3,7 @@ Synchronous processing tasks: file parsing, AI calls, and resume structuring
 run directly within the request/response cycle without requiring Celery/Redis.
 """
 import logging
+from django.db import transaction
 
 from .models import Resume, WorkExperience, Education, SkillEntry, Project, VoiceSession, LinkedInImport
 from . import ai_services
@@ -87,22 +88,28 @@ def _parse_date_safe(val):
         return None
 
 
+@transaction.atomic
 def _write_resume_sections(resume: Resume, data: dict):
     """Shared helper: takes resume JSON (from 9-step editor or AI extraction)
     and synchronizes it into the normalized child tables safely."""
+    if not isinstance(data, dict):
+        return
+
     if "professional_summary" in data or "summary" in data:
-        resume.professional_summary = data.get("professional_summary") or data.get("summary", "")
+        resume.professional_summary = str(data.get("professional_summary") or data.get("summary") or "")
     if "current_step" in data or "activeStep" in data:
         try:
             resume.current_step = max(1, min(9, int(data.get("current_step") or data.get("activeStep") or resume.current_step)))
         except (ValueError, TypeError):
             pass
-    if "status" in data:
-        resume.status = data.get("status") or resume.status
+    if "status" in data and data.get("status"):
+        resume.status = str(data.get("status"))[:20]
     if "template_key" in data or "templateId" in data:
-        resume.template_key = data.get("template_key") or data.get("templateId") or resume.template_key
+        template_val = data.get("template_key") or data.get("templateId")
+        if template_val:
+            resume.template_key = str(template_val)[:50]
     if "title" in data and data.get("title"):
-        resume.title = data.get("title")
+        resume.title = str(data.get("title"))[:150]
 
     # Clean and unnest raw_ai_extraction so all sections are available directly
     existing_raw = resume.raw_ai_extraction if isinstance(resume.raw_ai_extraction, dict) else {}
@@ -111,7 +118,8 @@ def _write_resume_sections(resume: Resume, data: dict):
 
     raw_input = data.get("raw_ai_extraction") if isinstance(data.get("raw_ai_extraction"), dict) else data
     merged_data = dict(existing_raw)
-    merged_data.update(data)
+    if isinstance(data, dict):
+        merged_data.update(data)
     if isinstance(raw_input, dict):
         merged_data.update(raw_input)
     if "raw_ai_extraction" in merged_data:
@@ -121,81 +129,115 @@ def _write_resume_sections(resume: Resume, data: dict):
     resume.save()
 
     experiences_list = data.get("experiences") if "experiences" in data else (data.get("workExperience") if "workExperience" in data else data.get("work_experience"))
-    if experiences_list is not None:
+    if experiences_list is not None and isinstance(experiences_list, list):
         resume.experiences.all().delete()
         for i, exp in enumerate(experiences_list):
-            role = exp.get("role") or exp.get("jobTitle") or exp.get("title") or "Professional"
-            company = exp.get("company") or "Company"
-            location = exp.get("city") or exp.get("location") or ""
-            is_curr = exp.get("isCurrent") if "isCurrent" in exp else (exp.get("current") if "current" in exp else exp.get("is_current", False))
+            if not isinstance(exp, dict):
+                continue
+            role = str(exp.get("role") or exp.get("jobTitle") or exp.get("title") or "Professional").strip()[:150]
+            company = str(exp.get("company") or "Company").strip()[:150]
+            location = str(exp.get("city") or exp.get("location") or "").strip()[:120]
+            is_curr = bool(exp.get("isCurrent") if "isCurrent" in exp else (exp.get("current") if "current" in exp else exp.get("is_current", False)))
 
             start_date = _parse_date_safe(exp.get("start_date") or exp.get("startDate") or exp.get("startYear")) or "2020-01-01"
             end_date = None if is_curr else _parse_date_safe(exp.get("end_date") or exp.get("endDate") or exp.get("endYear"))
 
             bullet_points = exp.get("bullet_points") or exp.get("bullets")
             if not bullet_points and exp.get("description"):
-                bullet_points = [l.lstrip("•-* ").strip() for l in str(exp["description"]).split("\n") if l.strip()]
+                bullet_points = [l.lstrip("•-* \t").strip() for l in str(exp["description"]).split("\n") if l.strip()]
+            if not isinstance(bullet_points, list):
+                bullet_points = [str(bullet_points)] if bullet_points else []
+            bullet_points = [str(b).strip() for b in bullet_points if str(b).strip()]
 
             WorkExperience.objects.create(
-                resume=resume, order=i,
-                company=company,
-                role=role,
-                location=location,
+                resume=resume,
+                order=i,
+                company=company or "Company",
+                role=role or "Professional",
+                location=location or "",
                 start_date=start_date,
                 end_date=end_date,
-                is_current=bool(is_curr),
-                bullet_points=bullet_points or [],
+                is_current=is_curr,
+                bullet_points=bullet_points,
             )
 
     education_list = data.get("education") if "education" in data else data.get("educations")
-    if education_list is not None:
+    if education_list is not None and isinstance(education_list, list):
         resume.education.all().delete()
         for i, edu in enumerate(education_list):
-            inst = edu.get("institution") or edu.get("school") or "University"
-            deg = edu.get("degree") or "Degree"
-            field = edu.get("description") or edu.get("field_of_study") or edu.get("field") or ""
+            if not isinstance(edu, dict):
+                continue
+            inst = str(edu.get("institution") or edu.get("school") or "University").strip()[:150]
+            deg = str(edu.get("degree") or "Degree").strip()[:150]
+            field = str(edu.get("description") or edu.get("field_of_study") or edu.get("field") or "").strip()[:150]
             start_date = _parse_date_safe(edu.get("start_date") or edu.get("startDate") or edu.get("startYear"))
             end_date = _parse_date_safe(edu.get("end_date") or edu.get("endDate") or edu.get("endYear") or edu.get("year"))
-            grade = edu.get("marks") or edu.get("grade") or edu.get("gpa") or ""
+            grade = str(edu.get("marks") or edu.get("grade") or edu.get("gpa") or "").strip()[:50]
 
             Education.objects.create(
-                resume=resume, order=i,
-                institution=inst,
-                degree=deg,
-                field_of_study=field,
+                resume=resume,
+                order=i,
+                institution=inst or "University",
+                degree=deg or "Degree",
+                field_of_study=field or "",
                 start_date=start_date,
                 end_date=end_date,
-                grade=grade,
+                grade=grade or "",
             )
 
     if "skills" in data:
         resume.skills.all().delete()
         skills = data.get("skills", [])
-        for s in skills:
-            name = s.get("name") if isinstance(s, dict) else str(s)
-            category = s.get("category", "technical") if isinstance(s, dict) else "technical"
-            if name and name.strip():
-                SkillEntry.objects.create(resume=resume, name=name.strip(), category=category)
+        if isinstance(skills, list):
+            for s in skills:
+                if isinstance(s, dict):
+                    name = str(s.get("name") or "").strip()[:100]
+                    category = str(s.get("category") or "technical").strip()[:20]
+                    prof = s.get("level") or s.get("proficiency")
+                    try:
+                        prof = int(prof) if prof is not None else None
+                        if prof is not None:
+                            prof = max(1, min(5, prof))
+                    except (ValueError, TypeError):
+                        prof = None
+                else:
+                    name = str(s).strip()[:100]
+                    category = "technical"
+                    prof = None
+                if name:
+                    SkillEntry.objects.create(
+                        resume=resume,
+                        name=name,
+                        category=category or "technical",
+                        proficiency=prof,
+                    )
 
     if "projects" in data or "additionalSections" in data or "additional_sections" in data:
         resume.projects.all().delete()
         additional = data.get("additionalSections") or data.get("additional_sections") or {}
         projects = additional.get("projects") or data.get("projects", [])
-        for i, proj in enumerate(projects):
-            p_name = proj.get("title") or proj.get("name") or f"Project {i+1}"
-            desc = proj.get("description", "")
-            tech = proj.get("techStack") or proj.get("tech_stack", [])
-            if isinstance(tech, str):
-                tech = [t.strip() for t in tech.split(",") if t.strip()]
-            link = proj.get("link", "")
+        if isinstance(projects, list):
+            for i, proj in enumerate(projects):
+                if not isinstance(proj, dict):
+                    continue
+                p_name = str(proj.get("title") or proj.get("name") or f"Project {i+1}").strip()[:150]
+                desc = str(proj.get("description") or "")
+                tech = proj.get("techStack") or proj.get("tech_stack", [])
+                if isinstance(tech, str):
+                    tech = [t.strip() for t in tech.split(",") if t.strip()]
+                elif not isinstance(tech, list):
+                    tech = []
+                link = str(proj.get("link") or "").strip()[:200]
 
-            Project.objects.create(
-                resume=resume, order=i,
-                name=p_name,
-                description=desc,
-                tech_stack=tech,
-                link=link,
-            )
+                Project.objects.create(
+                    resume=resume,
+                    order=i,
+                    name=p_name or f"Project {i+1}",
+                    description=desc or "",
+                    tech_stack=tech,
+                    link=link or "",
+                )
+
 
 
 # ---------------------------------------------------------------------------

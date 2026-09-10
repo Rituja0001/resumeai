@@ -175,8 +175,8 @@ class NumberedCanvas(canvas.Canvas):
         # Footer text
         footer_text = f"Page {self._pageNumber} of {page_count}"
         self.drawRightString(A4[0] - 32, 10, footer_text)
-        self.drawString(32, 10, "ResumeCraft Professional Document")
         self.restoreState()
+
 
 
 def _clean_text(val):
@@ -513,6 +513,52 @@ def _extract_resume_context(resume_data):
                 "description": cdesc,
             })
 
+    # Job Search & Work Preferences
+    raw_pref = (
+        resume_data.get("jobPreference")
+        or resume_data.get("job_preference")
+        or resume_data.get("jobPreferences")
+        or resume_data.get("workPreferences")
+        or resume_data.get("work_preferences")
+        or {}
+    )
+    if not isinstance(raw_pref, dict):
+        raw_pref = {}
+
+    pref_role = _clean_text(raw_pref.get("preferredRole") or raw_pref.get("preferred_role") or raw_pref.get("targetRole") or raw_pref.get("target_role") or "")
+    pref_location = _clean_text(raw_pref.get("preferredLocation") or raw_pref.get("preferred_location") or "")
+    work_mode = _clean_text(raw_pref.get("workMode") or raw_pref.get("work_mode") or "")
+    search_status = _clean_text(raw_pref.get("searchStatus") or raw_pref.get("search_status") or "")
+    notice_period = _clean_text(raw_pref.get("noticePeriod") or raw_pref.get("notice_period") or "")
+    notice_negotiable = raw_pref.get("noticeNegotiable") if "noticeNegotiable" in raw_pref else raw_pref.get("notice_negotiable")
+    willing_to_relocate = raw_pref.get("willingToRelocate") if "willingToRelocate" in raw_pref else raw_pref.get("willing_to_relocate")
+    desired_salary = _clean_text(raw_pref.get("desiredSalary") or raw_pref.get("desired_salary") or raw_pref.get("expectedSalary") or raw_pref.get("expected_salary") or "")
+    current_salary = _clean_text(raw_pref.get("currentSalary") or raw_pref.get("current_salary") or "")
+    salary_currency = _clean_text(raw_pref.get("salaryCurrency") or raw_pref.get("salary_currency") or "")
+
+    job_preferences = []
+    if pref_role:
+        job_preferences.append(("Preferred Role", pref_role))
+    if work_mode:
+        job_preferences.append(("Work Mode", work_mode))
+    if notice_period:
+        notice_display = f"{notice_period} (Negotiable)" if notice_negotiable else notice_period
+        job_preferences.append(("Notice Period", notice_display))
+    if desired_salary:
+        curr_str = f" {salary_currency}" if salary_currency else ""
+        job_preferences.append(("Expected CTC", f"{desired_salary}{curr_str}"))
+    if current_salary:
+        curr_str = f" {salary_currency}" if salary_currency else ""
+        job_preferences.append(("Current CTC", f"{current_salary}{curr_str}"))
+    if pref_location:
+        job_preferences.append(("Preferred Location", pref_location))
+    if willing_to_relocate is True or (isinstance(willing_to_relocate, str) and willing_to_relocate.lower() in ("true", "yes")):
+        job_preferences.append(("Willing to Relocate", "Yes"))
+    elif willing_to_relocate is False or (isinstance(willing_to_relocate, str) and willing_to_relocate.lower() in ("false", "no")):
+        job_preferences.append(("Willing to Relocate", "No"))
+    if search_status:
+        job_preferences.append(("Search Status", search_status))
+
     return {
         "template_key": template_key,
         "layout_style": layout_style,
@@ -535,7 +581,10 @@ def _extract_resume_context(resume_data):
         "hobbies": hobbies,
         "social_links": social_links,
         "custom_sections": custom_sections,
+        "job_preferences": job_preferences,
+        "raw_job_preferences": raw_pref,
     }
+
 
 
 # =============================================================================
@@ -754,9 +803,37 @@ def _build_single_column_story(ctx):
                 story.append(sub_row)
             if cs["description"]:
                 story.append(Paragraph(cs["description"], body_style))
-            story.append(Spacer(1, 4))
+    # Work Preferences (Omitted if empty)
+    if ctx.get("job_preferences"):
+        sec_title = "// WORK PREFERENCES & AVAILABILITY" if is_code else "Work Preferences & Availability"
+        story.append(Paragraph(sec_title, section_hdr))
+        story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#CBD5E1"), spaceBefore=1, spaceAfter=5))
+
+        pref_cells = []
+        for label, val in ctx["job_preferences"]:
+            pref_cells.append(Paragraph(f"<b>{label}:</b> {val}", body_style))
+
+        rows = []
+        for i in range(0, len(pref_cells), 2):
+            row = pref_cells[i:i+2]
+            if len(row) == 1:
+                row.append(Paragraph("", body_style))
+            rows.append(row)
+
+        col_w = (A4[0] - 72) / 2
+        t = Table(rows, colWidths=[col_w, col_w])
+        t.setStyle(TableStyle([
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 0),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+            ("TOPPADDING", (0, 0), (-1, -1), 1),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+        ]))
+        story.append(t)
+        story.append(Spacer(1, 4))
 
     return story
+
 
 
 # =============================================================================
@@ -890,7 +967,16 @@ def _build_sidebar_story(ctx, is_left=True, is_dark=True):
         sidebar_flowables.append(HRFlowable(width="100%", thickness=0.5, color=side_line_color, spaceBefore=1, spaceAfter=4))
         sidebar_flowables.append(Paragraph(ctx["hobbies"], side_item_text))
 
+    # Work Preferences (Omitted if empty)
+    if ctx.get("job_preferences"):
+        sidebar_flowables.append(Paragraph("WORK PREFERENCES", side_sec_hdr))
+        sidebar_flowables.append(HRFlowable(width="100%", thickness=0.5, color=side_line_color, spaceBefore=1, spaceAfter=4))
+        for label, val in ctx["job_preferences"]:
+            sidebar_flowables.append(Paragraph(f"<b>{label}</b>", side_item_bold))
+            sidebar_flowables.append(Paragraph(val, side_item_text))
+
     # 2. MAIN COLUMN FLOWABLES
+
     main_flowables = []
 
     # Name & Tagline
@@ -1215,7 +1301,36 @@ def _build_minimalist_serif_story(ctx):
                 story.append(Paragraph(cs["description"], item_sub))
             story.append(Spacer(1, 4))
 
+    # Work Preferences (Omitted if empty)
+    if ctx.get("job_preferences"):
+        story.append(Paragraph("Work Preferences & Availability", section_hdr))
+        story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#CBD5E1"), spaceBefore=1, spaceAfter=5))
+
+        pref_cells = []
+        for label, val in ctx["job_preferences"]:
+            pref_cells.append(Paragraph(f"<b>{label}:</b> {val}", body_style))
+
+        rows = []
+        for i in range(0, len(pref_cells), 2):
+            row = pref_cells[i:i+2]
+            if len(row) == 1:
+                row.append(Paragraph("", body_style))
+            rows.append(row)
+
+        col_w = (A4[0] - 72) / 2
+        t = Table(rows, colWidths=[col_w, col_w])
+        t.setStyle(TableStyle([
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 0),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+            ("TOPPADDING", (0, 0), (-1, -1), 1),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+        ]))
+        story.append(t)
+        story.append(Spacer(1, 4))
+
     return story
+
 
 
 # =============================================================================
@@ -1278,7 +1393,16 @@ def generate_resume_pdf(resume_data):
                 canv.rect(side_x - (gutter / 2), 0, A4[0] - side_x + (gutter / 2), A4[1], fill=1, stroke=0)
             canv.restoreState()
 
-        doc = BaseDocTemplate(buffer, pagesize=A4, leftMargin=0, rightMargin=0, topMargin=0, bottomMargin=0)
+        doc = BaseDocTemplate(
+            buffer,
+            pagesize=A4,
+            leftMargin=0,
+            rightMargin=0,
+            topMargin=0,
+            bottomMargin=0,
+            title=f"{ctx['full_name']} - Resume",
+            author=ctx["full_name"],
+        )
         
         if is_left:
             pt_p1 = PageTemplate(id="Page1_TwoCol", frames=[frame_side, frame_main], onPage=on_page_sidebar)
@@ -1311,7 +1435,10 @@ def generate_resume_pdf(resume_data):
             rightMargin=36,
             topMargin=36,
             bottomMargin=36,
+            title=f"{ctx['full_name']} - Resume",
+            author=ctx["full_name"],
         )
+
 
         if layout in ["minimalist", "classic-serif", "oxford"]:
             story = _build_minimalist_serif_story(ctx)
