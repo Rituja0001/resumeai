@@ -1333,6 +1333,55 @@ def _build_minimalist_serif_story(ctx):
 
 
 
+def _measure_flowable_height(flowable, avail_width):
+    """
+    Measures the rendered height in points for a flowable or compound flowable.
+    """
+    sb = getattr(flowable, "getSpaceBefore", lambda: getattr(flowable, "spaceBefore", 0))()
+    sa = getattr(flowable, "getSpaceAfter", lambda: getattr(flowable, "spaceAfter", 0))()
+    extra_space = (sb or 0) + (sa or 0)
+
+    if isinstance(flowable, KeepTogether):
+        return sum(_measure_flowable_height(f, avail_width) for f in flowable._content) + extra_space
+    elif isinstance(flowable, Spacer):
+        return flowable.height + extra_space
+    elif isinstance(flowable, Table):
+        try:
+            _, h = flowable.wrap(avail_width, 100000)
+            return h + extra_space
+        except Exception:
+            return 30 + extra_space
+    else:
+        try:
+            _, h = flowable.wrap(avail_width, 100000)
+            return h + extra_space
+        except Exception:
+            return 20 + extra_space
+
+
+def _split_flowables_into_pages(flowables, avail_width, max_height):
+    """
+    Splits a sequential stream of flowables into page chunks fitting max_height.
+    """
+    pages = []
+    current_page = []
+    current_h = 0
+
+    for f in flowables:
+        h = _measure_flowable_height(f, avail_width)
+        if current_h + h > (max_height - 15) and current_page:
+            pages.append(current_page)
+            current_page = [f]
+            current_h = h
+        else:
+            current_page.append(f)
+            current_h += h
+
+    if current_page:
+        pages.append(current_page)
+    return pages or [[]]
+
+
 # =============================================================================
 # 5. MASTER DISPATCHER: generate_resume_pdf
 # =============================================================================
@@ -1345,7 +1394,7 @@ def generate_resume_pdf(resume_data):
     layout = ctx["layout_style"]
     buffer = io.BytesIO()
 
-    # Handle Sidebar Layouts via BaseDocTemplate with FrameBreak
+    # Handle Sidebar Layouts via BaseDocTemplate with side-by-side PageTemplate
     if layout in ["sidebar-left", "dark-sidebar", "sidebar-right"]:
         is_dark = layout == "dark-sidebar"
         is_left = layout in ["sidebar-left", "dark-sidebar"]
@@ -1354,6 +1403,14 @@ def generate_resume_pdf(resume_data):
         sidebar_width = 160
         margin = 32
         gutter = 16
+
+        top_pad = 6
+        bottom_pad = 6
+        left_pad = 4
+        right_pad = 4
+
+        frame_h = A4[1] - (margin * 2) - 10
+        usable_frame_h = frame_h - top_pad - bottom_pad
 
         if is_left:
             side_x = margin
@@ -1366,26 +1423,28 @@ def generate_resume_pdf(resume_data):
             side_x = margin + main_w + gutter
             side_w = sidebar_width
 
-        frame_h = A4[1] - (margin * 2) - 10
+        usable_side_w = side_w - left_pad - right_pad
+        usable_main_w = main_w - left_pad - right_pad
+
+        # Split side and main flowables based on exact frame dimensions
+        side_pages = _split_flowables_into_pages(cfg["sidebar_flowables"], usable_side_w, usable_frame_h)
+        main_pages = _split_flowables_into_pages(cfg["main_flowables"], usable_main_w, usable_frame_h)
+
+        total_pages = max(len(side_pages), len(main_pages))
 
         frame_side = Frame(
             side_x, margin + 10, side_w, frame_h,
-            id="F_Side", topPadding=6, bottomPadding=6, leftPadding=4, rightPadding=4
+            id="F_Side", topPadding=top_pad, bottomPadding=bottom_pad, leftPadding=left_pad, rightPadding=right_pad
         )
         frame_main = Frame(
             main_x, margin + 10, main_w, frame_h,
-            id="F_Main", topPadding=6, bottomPadding=6, leftPadding=4, rightPadding=4
-        )
-        frame_full = Frame(
-            margin, margin + 10, A4[0] - (margin * 2), frame_h,
-            id="F_Full", topPadding=6, bottomPadding=6, leftPadding=4, rightPadding=4
+            id="F_Main", topPadding=top_pad, bottomPadding=bottom_pad, leftPadding=left_pad, rightPadding=right_pad
         )
 
         sidebar_bg = cfg["sidebar_bg"]
 
         def on_page_sidebar(canv, doc):
             canv.saveState()
-            # Draw colored sidebar background
             canv.setFillColor(sidebar_bg)
             if is_left:
                 canv.rect(0, 0, margin + sidebar_width + (gutter / 2), A4[1], fill=1, stroke=0)
@@ -1403,26 +1462,31 @@ def generate_resume_pdf(resume_data):
             title=f"{ctx['full_name']} - Resume",
             author=ctx["full_name"],
         )
-        
-        if is_left:
-            pt_p1 = PageTemplate(id="Page1_TwoCol", frames=[frame_side, frame_main], onPage=on_page_sidebar)
-        else:
-            pt_p1 = PageTemplate(id="Page1_TwoCol", frames=[frame_main, frame_side], onPage=on_page_sidebar)
 
-        pt_p2 = PageTemplate(id="Page2_Full", frames=[frame_full])
-        doc.addPageTemplates([pt_p1, pt_p2])
+        if is_left:
+            pt_twocol = PageTemplate(id="TwoCol_L", frames=[frame_side, frame_main], onPage=on_page_sidebar)
+        else:
+            pt_twocol = PageTemplate(id="TwoCol_R", frames=[frame_main, frame_side], onPage=on_page_sidebar)
+
+        doc.addPageTemplates([pt_twocol])
 
         story = []
-        if is_left:
-            story.extend(cfg["sidebar_flowables"])
-            story.append(NextPageTemplate("Page2_Full"))
-            story.append(FrameBreak())
-            story.extend(cfg["main_flowables"])
-        else:
-            story.extend(cfg["main_flowables"])
-            story.append(NextPageTemplate("Page2_Full"))
-            story.append(FrameBreak())
-            story.extend(cfg["sidebar_flowables"])
+        for i in range(total_pages):
+            cur_side = side_pages[i] if i < len(side_pages) else [Spacer(1, 1)]
+            cur_main = main_pages[i] if i < len(main_pages) else [Spacer(1, 1)]
+
+            if is_left:
+                story.extend(cur_side)
+                story.append(FrameBreak())
+                story.extend(cur_main)
+                if i < total_pages - 1:
+                    story.append(FrameBreak())
+            else:
+                story.extend(cur_main)
+                story.append(FrameBreak())
+                story.extend(cur_side)
+                if i < total_pages - 1:
+                    story.append(FrameBreak())
 
         doc.build(story, canvasmaker=NumberedCanvas)
 
