@@ -190,9 +190,10 @@ function estimateEduHeight(edu) {
 }
 
 function estimateProjHeight(proj) {
-  const base = 26;
-  const descHeight = estimateTextHeight(proj.description, 85, 16);
-  return Math.max(34, base + descHeight);
+  const base = 28;
+  const text = proj.description || (Array.isArray(proj.bullets) ? proj.bullets.join("\n") : "");
+  const descHeight = estimateTextHeight(text, 85, 16);
+  return Math.max(38, base + descHeight);
 }
 
 /**
@@ -257,8 +258,14 @@ function paginateResumeData(data, layoutStyle) {
 
     for (const exp of data.experiences) {
       const expH = estimateExpHeight(exp);
-      if (currentUsed + expH > currentCapacity && currentPage.experiences.length > 0) {
+      const hasContent =
+        currentPage.experiences.length > 0 ||
+        Boolean(currentPage.summary) ||
+        currentUsed > sectionHeaderH + 40;
+
+      if (currentUsed + expH > currentCapacity && hasContent) {
         pushAndStartNewPage();
+        currentUsed += sectionHeaderH;
       }
       currentPage.experiences.push(exp);
       currentUsed += expH + 8;
@@ -272,8 +279,15 @@ function paginateResumeData(data, layoutStyle) {
 
     for (const edu of data.education) {
       const eduH = estimateEduHeight(edu);
-      if (currentUsed + eduH > currentCapacity && (currentPage.education.length > 0 || currentPage.experiences.length > 0)) {
+      const hasContent =
+        currentPage.education.length > 0 ||
+        currentPage.experiences.length > 0 ||
+        Boolean(currentPage.summary) ||
+        currentUsed > eduSectionHeaderH + 40;
+
+      if (currentUsed + eduH > currentCapacity && hasContent) {
         pushAndStartNewPage();
+        currentUsed += eduSectionHeaderH;
       }
       currentPage.education.push(edu);
       currentUsed += eduH + 8;
@@ -283,7 +297,13 @@ function paginateResumeData(data, layoutStyle) {
   // 4. Skills (for main column layouts)
   if (!isSidebarLayout && data.skills && data.skills.length > 0) {
     const skillsH = 26 + Math.ceil(data.skills.length / 5) * 22;
-    if (currentUsed + skillsH > currentCapacity && currentUsed > 400) {
+    const hasContent =
+      currentPage.education.length > 0 ||
+      currentPage.experiences.length > 0 ||
+      Boolean(currentPage.summary) ||
+      currentUsed > 50;
+
+    if (currentUsed + skillsH > currentCapacity && hasContent) {
       pushAndStartNewPage();
     }
     currentPage.skills = data.skills;
@@ -297,13 +317,23 @@ function paginateResumeData(data, layoutStyle) {
 
     for (const proj of data.projects) {
       const projH = estimateProjHeight(proj);
-      if (currentUsed + projH > currentCapacity && (currentPage.projects.length > 0 || currentPage.education.length > 0)) {
+      const hasContent =
+        currentPage.projects.length > 0 ||
+        currentPage.education.length > 0 ||
+        currentPage.experiences.length > 0 ||
+        currentPage.skills.length > 0 ||
+        Boolean(currentPage.summary) ||
+        currentUsed > projHeaderH + 40;
+
+      if (currentUsed + projH > currentCapacity && hasContent) {
         pushAndStartNewPage();
+        currentUsed += projHeaderH;
       }
       currentPage.projects.push(proj);
       currentUsed += projH + 8;
     }
   }
+
 
   // 6. Additional (Languages, Hobbies, Links)
   if (!isSidebarLayout) {
@@ -441,7 +471,7 @@ function SingleColumnPage({ pageData, fullData, pageIndex, totalPages }) {
           <h4 className="font-extrabold text-xs uppercase tracking-wider mb-2 pb-0.5 border-b border-slate-100" style={{ color: accent }}>Key Projects</h4>
           <div className="space-y-2">
             {pageData.projects.map((p, idx) => (
-              <div key={idx} className="text-xs">
+              <div key={idx} className="text-xs break-inside-avoid print:break-inside-avoid project-card-entry" style={{ breakInside: "avoid", pageBreakInside: "avoid" }}>
                 <div className="flex justify-between font-bold text-[#252525]">
                   <span>{p.title} <span className="font-normal text-[#888] text-[10px]">({p.techStack})</span></span>
                   {p.link && <span className="text-[10px]" style={{ color: accent }}>{p.link.replace(/^https?:\/\//, "")}</span>}
@@ -628,7 +658,7 @@ function SidebarLeftPage({ pageData, fullData, pageIndex, totalPages }) {
             <h4 className="font-extrabold text-xs uppercase tracking-wider mb-2 pb-0.5 border-b" style={{ borderColor: `${accent}30`, color: accent }}>Projects</h4>
             <div className="space-y-2">
               {pageData.projects.map((p, idx) => (
-                <div key={idx} className="text-xs">
+                <div key={idx} className="text-xs break-inside-avoid print:break-inside-avoid project-card-entry" style={{ breakInside: "avoid", pageBreakInside: "avoid" }}>
                   <span className="font-bold text-[#252525]">{p.title}</span> <span className="text-[10px] text-[#888]">({p.techStack})</span>
                   {p.description && <p className="text-[11px] text-[#555] mt-0.5">{p.description}</p>}
                 </div>
@@ -695,7 +725,7 @@ function SidebarRightPage({ pageData, fullData, pageIndex, totalPages }) {
             <h4 className="font-extrabold text-xs uppercase tracking-wider mb-2 pb-0.5 border-b border-slate-100" style={{ color: accent }}>Key Projects</h4>
             <div className="space-y-2">
               {pageData.projects.map((p, idx) => (
-                <div key={idx} className="text-xs">
+                <div key={idx} className="text-xs break-inside-avoid print:break-inside-avoid project-card-entry" style={{ breakInside: "avoid", pageBreakInside: "avoid" }}>
                   <span className="font-bold text-[#252525]">{p.title}</span> <span className="text-[10px] text-[#888]">({p.techStack})</span>
                   {p.description && <p className="text-[11px] text-[#555] mt-0.5">{p.description}</p>}
                 </div>
@@ -846,7 +876,7 @@ function PhotoHeaderPage({ pageData, fullData, pageIndex, totalPages }) {
               <h4 className="font-extrabold text-xs uppercase tracking-wider mb-2 pb-0.5 border-b" style={{ borderColor: `${accent}30`, color: accent }}>Projects</h4>
               <div className="space-y-2">
                 {pageData.projects.map((p, idx) => (
-                  <div key={idx} className="text-xs">
+                  <div key={idx} className="text-xs break-inside-avoid print:break-inside-avoid project-card-entry" style={{ breakInside: "avoid", pageBreakInside: "avoid" }}>
                     <span className="font-bold text-[#252525]">{p.title}</span> <span className="text-[10px] text-[#888]">({p.techStack})</span>
                     {p.description && <p className="text-[11px] text-[#555] mt-0.5">{p.description}</p>}
                   </div>
@@ -1012,7 +1042,7 @@ function TimelinePage({ pageData, fullData, pageIndex, totalPages }) {
           <h4 className="font-extrabold text-xs uppercase tracking-wider mb-2" style={{ color: accent }}>Projects</h4>
           <div className="space-y-2">
             {pageData.projects.map((p, idx) => (
-              <div key={idx} className="text-xs">
+              <div key={idx} className="text-xs break-inside-avoid print:break-inside-avoid project-card-entry" style={{ breakInside: "avoid", pageBreakInside: "avoid" }}>
                 <span className="font-bold">{p.title}</span> <span className="text-[#888] text-[10px]">({p.techStack})</span>
                 {p.description && <p className="text-[11px] text-[#555] mt-0.5">{p.description}</p>}
               </div>
@@ -1109,7 +1139,7 @@ function MinimalistPage({ pageData, fullData, pageIndex, totalPages }) {
           <h4 className="font-sans font-bold text-[11px] uppercase tracking-widest text-[#252525] border-b pb-0.5">Projects</h4>
           <div className="space-y-1.5 font-sans text-xs">
             {pageData.projects.map((p, idx) => (
-              <div key={idx}>
+              <div key={idx} className="break-inside-avoid print:break-inside-avoid project-card-entry" style={{ breakInside: "avoid", pageBreakInside: "avoid" }}>
                 <span className="font-bold">{p.title}</span> <span className="text-[10px] text-[#888]">({p.techStack})</span>
                 {p.description && <p className="text-[11px] font-serif text-[#555]">{p.description}</p>}
               </div>
@@ -1220,7 +1250,7 @@ function ColorBandPage({ pageData, fullData, pageIndex, totalPages }) {
             <h4 className="font-extrabold text-xs uppercase tracking-wider mb-2" style={{ color: accent }}>Projects</h4>
             <div className="space-y-2">
               {pageData.projects.map((p, idx) => (
-                <div key={idx} className="text-xs">
+                <div key={idx} className="text-xs break-inside-avoid print:break-inside-avoid project-card-entry" style={{ breakInside: "avoid", pageBreakInside: "avoid" }}>
                   <span className="font-bold">{p.title}</span> <span className="text-[10px] text-[#888]">({p.techStack})</span>
                   {p.description && <p className="text-[11px] text-[#555] mt-0.5">{p.description}</p>}
                 </div>
@@ -1327,7 +1357,7 @@ function CompactTablePage({ pageData, fullData, pageIndex, totalPages }) {
           <h4 className="font-extrabold text-xs uppercase tracking-wider mb-1.5" style={{ color: accent }}>Key Projects</h4>
           <div className="space-y-1.5">
             {pageData.projects.map((p, idx) => (
-              <div key={idx} className="text-xs">
+              <div key={idx} className="text-xs break-inside-avoid print:break-inside-avoid project-card-entry" style={{ breakInside: "avoid", pageBreakInside: "avoid" }}>
                 <span className="font-bold">{p.title}</span> <span className="text-[10px] text-[#888]">({p.techStack})</span>
                 {p.description && <p className="text-[11px] text-[#555]">{p.description}</p>}
               </div>
@@ -1435,7 +1465,7 @@ function CreativeAccentPage({ pageData, fullData, pageIndex, totalPages }) {
           <h4 className="font-mono text-xs font-bold uppercase tracking-wider" style={{ color: accent }}>// KEY PROJECTS</h4>
           <div className="space-y-2">
             {pageData.projects.map((p, idx) => (
-              <div key={idx} className="p-2.5 bg-white border border-slate-200 rounded-lg text-xs">
+              <div key={idx} className="p-2.5 bg-white border border-slate-200 rounded-lg text-xs break-inside-avoid print:break-inside-avoid project-card-entry" style={{ breakInside: "avoid", pageBreakInside: "avoid" }}>
                 <div className="flex justify-between font-bold">
                   <span>{p.title}</span>
                   {p.link && <span className="text-[10px] text-[#FA0C40] font-mono">{p.link.replace(/^https?:\/\//, "")}</span>}
@@ -1591,7 +1621,7 @@ function DarkSidebarPage({ pageData, fullData, pageIndex, totalPages }) {
             <h4 className="font-extrabold text-xs uppercase tracking-wider mb-2 pb-0.5 border-b" style={{ borderColor: `${accent}30`, color: accent }}>Key Projects</h4>
             <div className="space-y-2">
               {pageData.projects.map((p, idx) => (
-                <div key={idx} className="text-xs">
+                <div key={idx} className="text-xs break-inside-avoid print:break-inside-avoid project-card-entry" style={{ breakInside: "avoid", pageBreakInside: "avoid" }}>
                   <span className="font-bold text-[#252525]">{p.title}</span> <span className="text-[10px] text-[#888]">({p.techStack})</span>
                   {p.description && <p className="text-[11px] text-[#555] mt-0.5">{p.description}</p>}
                 </div>

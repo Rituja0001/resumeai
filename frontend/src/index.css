@@ -72,4 +72,28 @@ body {
   scrollbar-width: none;
 }
 
+/* =============================================================================
+   PRINT & PDF PAGE BREAK RULES
+   ============================================================================= */
+.break-inside-avoid,
+.project-card-entry,
+.experience-card-entry,
+.education-card-entry {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+  -webkit-column-break-inside: avoid !important;
+}
+
+@media print {
+  .break-inside-avoid,
+  .project-card-entry,
+  .experience-card-entry,
+  .education-card-entry {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+  }
+}
+
+
 
