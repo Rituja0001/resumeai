@@ -9,6 +9,10 @@ import os
 import re
 import html
 import json
+import base64
+import urllib.request
+import logging
+from PIL import Image as PILImage, ImageDraw, ImageOps
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.platypus import (
@@ -24,6 +28,7 @@ from reportlab.platypus import (
     TableStyle,
     HRFlowable,
     KeepTogether,
+    Image as RLImage,
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.pdfgen import canvas
@@ -223,6 +228,104 @@ def _parse_accent_color(hex_str, default="#FA0C40"):
         return colors.HexColor(default)
 
 
+def _process_profile_photo(photo_data, size_pt=54, border_color_hex="#FA0C40"):
+    """
+    Decodes base64 data URI, raw base64, URL, or local file path into an anti-aliased
+    circular/rounded profile photo Image flowable for ReportLab.
+    """
+    if not photo_data or not isinstance(photo_data, str):
+        return None
+    try:
+        raw_bytes = None
+        photo_str = photo_data.strip()
+        if not photo_str:
+            return None
+
+        if photo_str.startswith("data:image"):
+            # Base64 data URI: data:image/png;base64,...
+            parts = photo_str.split(";base64,", 1)
+            if len(parts) == 2:
+                raw_bytes = base64.b64decode(parts[1])
+            else:
+                raw_bytes = base64.b64decode(photo_str.split(",", 1)[1])
+        elif photo_str.startswith(("http://", "https://")):
+            # Remote URL (e.g. sample photo or cloud-hosted avatar)
+            req = urllib.request.Request(photo_str, headers={"User-Agent": "TatkalKaam-PDF-Renderer/1.0"})
+            with urllib.request.urlopen(req, timeout=3.5) as response:
+                raw_bytes = response.read()
+        elif os.path.exists(photo_str):
+            # Local file system path
+            with open(photo_str, "rb") as f:
+                raw_bytes = f.read()
+        else:
+            # Attempt direct base64 decode
+            try:
+                raw_bytes = base64.b64decode(photo_str)
+            except Exception:
+                raw_bytes = None
+
+        if not raw_bytes:
+            return None
+
+        img = PILImage.open(io.BytesIO(raw_bytes))
+        img = ImageOps.exif_transpose(img)
+        img = img.convert("RGBA")
+
+        # Square center crop
+        w, h = img.size
+        min_dim = min(w, h)
+        left = (w - min_dim) // 2
+        top = (h - min_dim) // 2
+        img = img.crop((left, top, left + min_dim, top + min_dim))
+
+        # Render at 3x resolution (216 DPI) for crisp vector PDF output
+        pixel_size = max(64, int(size_pt * 3))
+        img = img.resize((pixel_size, pixel_size), PILImage.Resampling.LANCZOS)
+
+        # Anti-aliased circular alpha mask
+        mask_scale = 2
+        mask_size = pixel_size * mask_scale
+        mask = PILImage.new("L", (mask_size, mask_size), 0)
+        draw = ImageDraw.Draw(mask)
+        draw.ellipse((0, 0, mask_size, mask_size), fill=255)
+        mask = mask.resize((pixel_size, pixel_size), PILImage.Resampling.LANCZOS)
+
+        circular_img = PILImage.new("RGBA", (pixel_size, pixel_size), (0, 0, 0, 0))
+        circular_img.paste(img, (0, 0), mask=mask)
+
+        # Anti-aliased circular border
+        if border_color_hex and isinstance(border_color_hex, str):
+            try:
+                hex_clean = border_color_hex.lstrip("#")
+                if len(hex_clean) == 6:
+                    r = int(hex_clean[0:2], 16)
+                    g = int(hex_clean[2:4], 16)
+                    b = int(hex_clean[4:6], 16)
+                    border_width_px = max(2, int(1.5 * 3))
+                    border_draw = ImageDraw.Draw(circular_img)
+                    border_draw.ellipse(
+                        (
+                            border_width_px // 2,
+                            border_width_px // 2,
+                            pixel_size - border_width_px // 2 - 1,
+                            pixel_size - border_width_px // 2 - 1,
+                        ),
+                        outline=(r, g, b, 255),
+                        width=border_width_px,
+                    )
+            except Exception:
+                pass
+
+        out_io = io.BytesIO()
+        circular_img.save(out_io, format="PNG")
+        out_io.seek(0)
+
+        return RLImage(out_io, width=size_pt, height=size_pt)
+    except Exception as e:
+        logging.getLogger(__name__).warning("Could not process resume profile photo: %s", e)
+        return None
+
+
 def _extract_resume_context(resume_data):
     """
     Normalizes resume data dictionary into a consistent structure for layout builders.
@@ -282,6 +385,16 @@ def _extract_resume_context(resume_data):
     city = personal.get("city") or personal.get("location") or resume_data.get("city") or resume_data.get("sampleLocation") or ""
     country = personal.get("country") or resume_data.get("country") or "India"
     location = ", ".join(filter(None, [city, country])) if city != country else city
+
+    photo_raw = (
+        personal.get("photo")
+        or personal.get("photo_url")
+        or personal.get("profile_photo")
+        or resume_data.get("photo")
+        or resume_data.get("profile_photo")
+        or resume_data.get("samplePhoto")
+        or ""
+    )
 
     summary = (
         resume_data.get("professional_summary")
@@ -571,6 +684,7 @@ def _extract_resume_context(resume_data):
         "location": location,
         "email": email,
         "phone": phone,
+        "photo_raw": photo_raw,
         "initials": initials,
         "summary": clean_summary,
         "experiences": experiences,
@@ -648,19 +762,46 @@ def _build_single_column_story(ctx):
     story = []
 
     # Top Header
-    story.append(Paragraph(ctx["full_name"], name_style))
-    story.append(Paragraph(f"// {ctx['job_title']}" if is_code else ctx["job_title"], title_style))
-    story.append(Spacer(1, 4))
+    photo_flowable = _process_profile_photo(ctx.get("photo_raw"), size_pt=54, border_color_hex=ctx.get("accent_hex"))
 
-    # Contact line
     contact_parts = []
     if ctx["location"]: contact_parts.append(ctx["location"])
     if ctx["email"]: contact_parts.append(ctx["email"])
     if ctx["phone"]: contact_parts.append(ctx["phone"])
     for l in ctx["social_links"]:
         contact_parts.append(f"{l['label']}: {l['url']}")
-    if contact_parts:
-        story.append(Paragraph(" &nbsp;•&nbsp; ".join(contact_parts), contact_style))
+
+    if photo_flowable:
+        hdr_text_flowables = [
+            Paragraph(ctx["full_name"], name_style),
+            Paragraph(f"// {ctx['job_title']}" if is_code else ctx["job_title"], title_style),
+        ]
+        if contact_parts:
+            hdr_text_flowables.append(Spacer(1, 3))
+            hdr_text_flowables.append(Paragraph(" &nbsp;•&nbsp; ".join(contact_parts), contact_style))
+
+        usable_w = A4[0] - 72
+        photo_box_w = 64
+        text_box_w = usable_w - photo_box_w
+        hdr_table = Table(
+            [[hdr_text_flowables, photo_flowable]],
+            colWidths=[text_box_w, photo_box_w],
+        )
+        hdr_table.setStyle(TableStyle([
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("ALIGN", (1, 0), (1, 0), "RIGHT"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 0),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+            ("TOPPADDING", (0, 0), (-1, -1), 0),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+        ]))
+        story.append(hdr_table)
+    else:
+        story.append(Paragraph(ctx["full_name"], name_style))
+        story.append(Paragraph(f"// {ctx['job_title']}" if is_code else ctx["job_title"], title_style))
+        story.append(Spacer(1, 4))
+        if contact_parts:
+            story.append(Paragraph(" &nbsp;•&nbsp; ".join(contact_parts), contact_style))
 
     story.append(HRFlowable(width="100%", thickness=1.5, color=accent, spaceBefore=6, spaceAfter=8))
 
@@ -910,22 +1051,39 @@ def _build_sidebar_story(ctx, is_left=True, is_dark=True):
     # 1. SIDEBAR FLOWABLES
     sidebar_flowables = []
 
-    # Initials Avatar Badge
-    avatar_table = Table(
-        [[Paragraph(f"<font size=16 color='white'><b>{ctx['initials']}</b></font>", ParagraphStyle("Av", alignment=1))]],
-        colWidths=[46],
-        rowHeights=[46],
+    photo_flowable = _process_profile_photo(
+        ctx.get("photo_raw"),
+        size_pt=52,
+        border_color_hex="#FFFFFF" if is_dark else ctx.get("accent_hex")
     )
-    avatar_table.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, -1), accent),
-        ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
-        ("TOPPADDING", (0, 0), (-1, -1), 0),
-        ("LEFTPADDING", (0, 0), (-1, -1), 0),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
-    ]))
-    sidebar_flowables.append(avatar_table)
+    if photo_flowable:
+        photo_table = Table([[photo_flowable]], colWidths=[152])
+        photo_table.setStyle(TableStyle([
+            ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 0),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+            ("TOPPADDING", (0, 0), (-1, -1), 0),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+        ]))
+        sidebar_flowables.append(photo_table)
+    else:
+        # Initials Avatar Badge
+        avatar_table = Table(
+            [[Paragraph(f"<font size=16 color='white'><b>{ctx['initials']}</b></font>", ParagraphStyle("Av", alignment=1))]],
+            colWidths=[46],
+            rowHeights=[46],
+        )
+        avatar_table.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, -1), accent),
+            ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+            ("TOPPADDING", (0, 0), (-1, -1), 0),
+            ("LEFTPADDING", (0, 0), (-1, -1), 0),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+        ]))
+        sidebar_flowables.append(avatar_table)
     sidebar_flowables.append(Spacer(1, 10))
 
     # Contact Section
@@ -1157,6 +1315,20 @@ def _build_minimalist_serif_story(ctx):
     story = []
 
     # Centered Header
+    photo_flowable = _process_profile_photo(ctx.get("photo_raw"), size_pt=50, border_color_hex=ctx.get("accent_hex"))
+    if photo_flowable:
+        photo_tbl = Table([[photo_flowable]], colWidths=[A4[0] - 72])
+        photo_tbl.setStyle(TableStyle([
+            ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 0),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+            ("TOPPADDING", (0, 0), (-1, -1), 0),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+        ]))
+        story.append(photo_tbl)
+        story.append(Spacer(1, 4))
+
     story.append(Paragraph(ctx["full_name"], name_style))
     story.append(Spacer(1, 3))
     story.append(Paragraph(ctx["job_title"], title_style))
