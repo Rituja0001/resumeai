@@ -1,4 +1,10 @@
-const API_BASE = "http://127.0.0.1:8000/api/admin";
+const RAW_API_BASE =
+  import.meta.env.VITE_API_BASE ||
+  (import.meta.env.PROD
+    ? "https://resumeai-backend-kzcn.onrender.com/api"
+    : "http://127.0.0.1:8000/api");
+const CLEAN_BASE = RAW_API_BASE.endsWith("/") ? RAW_API_BASE.slice(0, -1) : RAW_API_BASE;
+const API_BASE = CLEAN_BASE.endsWith("/admin") ? CLEAN_BASE : `${CLEAN_BASE}/admin`;
 
 export const getAdminToken = () => localStorage.getItem("tatkal_admin_token");
 export const getAdminUser = () => {

@@ -167,15 +167,27 @@ LINKEDIN_REDIRECT_URI = os.environ.get("LINKEDIN_REDIRECT_URI", "")
 # ---------------------------------------------------------------------------
 cors_env = os.environ.get(
     "CORS_ALLOWED_ORIGINS",
-    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,https://resumeai-frontend.onrender.com,https://resumeai-backend-kzcn.onrender.com",
+    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,https://resumeai-frontend.onrender.com,https://resumeai-backend-kzcn.onrender.com,https://resumeai-eta-roan.vercel.app",
 )
-CORS_ALLOWED_ORIGINS = [origin.strip() for origin in cors_env.split(",") if origin.strip()]
+CORS_ALLOWED_ORIGINS = list(set([origin.strip() for origin in cors_env.split(",") if origin.strip()] + [
+    "https://resumeai-eta-roan.vercel.app",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]))
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https:\/\/.*\.vercel\.app$",
+]
 
 csrf_env = os.environ.get(
     "CSRF_TRUSTED_ORIGINS",
-    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,https://*.onrender.com,https://resumeai-backend-kzcn.onrender.com",
+    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,https://*.onrender.com,https://resumeai-backend-kzcn.onrender.com,https://*.vercel.app,https://resumeai-eta-roan.vercel.app",
 )
-CSRF_TRUSTED_ORIGINS = [o.strip() for o in csrf_env.split(",") if o.strip()]
+CSRF_TRUSTED_ORIGINS = list(set([o.strip() for o in csrf_env.split(",") if o.strip()] + [
+    "https://*.vercel.app",
+    "https://resumeai-eta-roan.vercel.app",
+    "https://*.onrender.com",
+]))
 
 # ---------------------------------------------------------------------------
 # Logging Configuration (Directs exception tracebacks to stdout/stderr on Render)

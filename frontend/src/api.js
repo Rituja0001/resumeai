@@ -1,4 +1,8 @@
-const RAW_API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8000/api";
+const RAW_API_BASE =
+  import.meta.env.VITE_API_BASE ||
+  (import.meta.env.PROD
+    ? "https://resumeai-backend-kzcn.onrender.com/api"
+    : "http://127.0.0.1:8000/api");
 const API_BASE = RAW_API_BASE.endsWith("/") ? RAW_API_BASE.slice(0, -1) : RAW_API_BASE;
 
 let isRefreshing = false;
