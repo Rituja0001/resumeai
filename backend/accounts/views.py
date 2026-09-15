@@ -123,6 +123,7 @@ class GoogleAuthView(APIView):
                 username=username,
                 first_name=id_info.get("given_name", ""),
                 last_name=id_info.get("family_name", ""),
+                signup_source="google",
             )
             user.set_unusable_password()
             user.save()

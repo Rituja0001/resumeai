@@ -84,7 +84,7 @@ export default function CompletionModal({
           <div className="space-y-1.5 text-xs text-[#252525] font-medium">
             <div className="flex items-center gap-2">
               <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>resumecraft.ai/u/your-name — permanent link</span>
+              <span>tatkalkaam.ai/u/your-name — permanent link</span>
             </div>
             <div className="flex items-center gap-2">
               <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />

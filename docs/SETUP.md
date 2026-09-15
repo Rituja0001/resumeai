@@ -1,4 +1,4 @@
-# Setup guide — ResumeCraft ko apne machine par chalana
+# Setup guide — TatkalKaam ko apne machine par chalana
 
 Yeh guide manage.py, migrations, aur poora local dev environment step-by-step
 set up karti hai. Har step ke baad expected output bhi diya hai.

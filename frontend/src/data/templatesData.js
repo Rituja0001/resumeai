@@ -1,5 +1,5 @@
 /**
- * ResumeCraft Template Gallery Dataset
+ * TatkalKaam Template Gallery Dataset
  * 60 high-fidelity, ATS-optimized resume templates with rich Indian career context.
  */
 

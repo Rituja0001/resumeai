@@ -305,7 +305,7 @@ export default function FaqPage() {
               Can't find what you're looking for? Reach out directly to our engineering and career advisory team.
             </p>
             <a
-              href="mailto:support@resumecraft.ai"
+              href="mailto:support@tatkalkaam.ai"
               className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#FA0C40] hover:bg-[#D40936] text-white text-xs font-extrabold shadow-sm transition-all cursor-pointer"
             >
               <Mail className="w-4 h-4" />

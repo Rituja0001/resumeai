@@ -64,7 +64,7 @@ export default function TailoringSection({ openBuilder }) {
 
           {/* 3. Supporting Paragraph */}
           <p className="font-['Plus_Jakarta_Sans'] text-[#6B6B6B] text-sm sm:text-base leading-relaxed mb-8 font-normal">
-            Generic resumes get filtered out by recruiters' AI. GoResume parses the target job description in seconds, extracts essential keywords, re-ranks your work history, and rewrites bullet points to match the exact requirements of the hiring manager.
+            Generic resumes get filtered out by recruiters' AI. TatkalKaam parses the target job description in seconds, extracts essential keywords, re-ranks your work history, and rewrites bullet points to match the exact requirements of the hiring manager.
           </p>
 
           {/* 4. 2x2 Feature Grid */}

@@ -19,17 +19,17 @@ export default function Footer({ openBuilder, onLogoClick }) {
           {logoLoaded ? (
             <img
               src="/images/logo-taktal.png"
-              alt="ResumeCraft"
+              alt="TatkalKaam"
               onError={() => setLogoLoaded(false)}
               className="h-8 sm:h-9 w-auto object-contain select-none max-w-[170px]"
             />
           ) : (
             <div className="flex items-center gap-2">
               <span className="w-6 h-6 rounded-lg bg-gradient-to-tr from-[#FA0C40] to-[#D40936] text-white flex items-center justify-center text-xs font-extrabold shadow-sm">
-                R
+                T
               </span>
               <span className="font-extrabold text-base tracking-tight text-[#252525] group-hover:text-[#FA0C40] transition-colors">
-                ResumeCraft
+                TatkalKaam
               </span>
             </div>
           )}
@@ -37,7 +37,7 @@ export default function Footer({ openBuilder, onLogoClick }) {
 
         {/* Center: Muted One-line Copyright */}
         <p className="text-xs text-[#6B6B6B] font-normal leading-relaxed">
-          © 2026 ResumeCraft — Next-Gen AI Resume & ATS Engine. All rights reserved.
+          © 2026 TatkalKaam — Next-Gen AI Resume & ATS Engine. All rights reserved.
         </p>
 
         {/* Right: Inline Navigation Links */}

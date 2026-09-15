@@ -98,7 +98,7 @@ export default function Header({ openBuilder, onLogoClick }) {
             {logoLoaded ? (
               <img
                 src="/images/logo-taktal.png"
-                alt="ResumeCraft Logo"
+                alt="TatkalKaam Logo"
                 onError={() => setLogoLoaded(false)}
                 className={`transition-all duration-300 ease-out object-contain select-none max-w-[190px] ${
                   scrolled ? "h-8 sm:h-9 w-auto" : "h-10 sm:h-11 w-auto"
@@ -107,10 +107,10 @@ export default function Header({ openBuilder, onLogoClick }) {
             ) : (
               <div className="flex items-center gap-2">
                 <span className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#FA0C40] to-[#D40936] text-white flex items-center justify-center text-base font-extrabold shadow-sm">
-                  R
+                  T
                 </span>
                 <span className="font-['Plus_Jakarta_Sans'] font-extrabold text-2xl tracking-tight text-[#252525] transition-colors group-hover:text-[#FA0C40]">
-                  ResumeCraft
+                  TatkalKaam
                 </span>
               </div>
             )}

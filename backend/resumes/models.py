@@ -192,3 +192,22 @@ class Feedback(TimeStampedModel):
 
     def __str__(self):
         return f"Feedback from {self.user.email} ({self.rating}★)"
+
+
+class ResumeDownload(TimeStampedModel):
+    """
+    Logs resume downloads / exports.
+    """
+    resume = models.ForeignKey(Resume, on_delete=models.SET_NULL, null=True, blank=True, related_name="downloads")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="resume_downloads")
+    format = models.CharField(max_length=10, default="pdf")
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Resume Download"
+        verbose_name_plural = "Resume Downloads"
+
+    def __str__(self):
+        user_str = self.user.email if self.user else "Anonymous"
+        return f"Download of {self.resume.title} by {user_str} ({self.format}) at {self.created_at}"
+

@@ -1,4 +1,4 @@
-# ResumeCraft — AI resume builder (GoResume-style clone)
+# TatkalKaam — AI resume builder
 
 Full-stack scaffold: React frontend + Django REST backend + PostgreSQL,
 implementing the same core product as goresume.io — 4 resume-build paths

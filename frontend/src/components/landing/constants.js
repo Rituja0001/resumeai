@@ -69,7 +69,7 @@ export const BUILD_PATHS = [
 export const FAQS = [
   {
     category: "builder",
-    q: "Is ResumeCraft free to use?",
+    q: "Is TatkalKaam free to use?",
     a: "Yes — building, editing, and checking your resume ATS score is 100% free. Premium exports and unlimited job tailoring are available on advanced plans.",
     popular: true,
   },
@@ -100,7 +100,7 @@ export const FAQS = [
   {
     category: "builder",
     q: "What file formats can I upload for AI parsing?",
-    a: "ResumeCraft accepts standard PDF, DOCX, PNG, and JPG files up to 10MB. Our Claude AI engine extracts positions, skills, and dates automatically.",
+    a: "TatkalKaam accepts standard PDF, DOCX, PNG, and JPG files up to 10MB. Our Claude AI engine extracts positions, skills, and dates automatically.",
     popular: false,
   },
   {

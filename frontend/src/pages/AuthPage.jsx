@@ -205,17 +205,17 @@ export default function AuthPage({ initialMode = "login" }) {
             {logoLoaded ? (
               <img
                 src="/images/logo-taktal.png"
-                alt="ResumeCraft"
+                alt="TatkalKaam"
                 onError={() => setLogoLoaded(false)}
                 className="h-10 sm:h-11 w-auto object-contain select-none max-w-[200px]"
               />
             ) : (
               <div className="flex items-center gap-2">
                 <span className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#FA0C40] to-[#D40936] text-white flex items-center justify-center text-sm font-extrabold shadow-sm">
-                  R
+                  T
                 </span>
                 <span className="font-extrabold text-2xl tracking-tight text-[#252525] group-hover:text-[#FA0C40] transition-colors">
-                  ResumeCraft
+                  TatkalKaam
                 </span>
               </div>
             )}
@@ -475,7 +475,7 @@ export default function AuthPage({ initialMode = "login" }) {
               </>
             ) : (
               <>
-                <span>{mode === "login" ? "Sign In to ResumeCraft" : "Create My Free Account"}</span>
+                <span>{mode === "login" ? "Sign In to TatkalKaam" : "Create My Free Account"}</span>
                 <ArrowRight className="w-4 h-4" />
               </>
             )}

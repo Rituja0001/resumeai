@@ -10,7 +10,14 @@ from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 from django.shortcuts import get_object_or_404
 
-from .models import Resume, JobTailoringRequest, VoiceSession, LinkedInImport, Feedback
+from .models import (
+    Resume,
+    JobTailoringRequest,
+    VoiceSession,
+    LinkedInImport,
+    Feedback,
+    ResumeDownload,
+)
 from .serializers import (
     ResumeSerializer, ResumeUploadSerializer, JobTailoringRequestSerializer,
     VoiceSessionSerializer, LinkedInImportSerializer, FeedbackSerializer,
@@ -218,6 +225,15 @@ class ResumeViewSet(viewsets.ModelViewSet):
                 data = {**resume.raw_ai_extraction, **data}
 
         pdf_bytes = generate_resume_pdf(data)
+        try:
+            ResumeDownload.objects.create(
+                resume=resume,
+                user=request.user if request.user.is_authenticated else None,
+                format="pdf",
+            )
+        except Exception as e:
+            logger.warning("Could not log ResumeDownload: %s", e)
+
         safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', data.get('title') or 'Resume').strip('_') or 'Resume'
         response = HttpResponse(pdf_bytes, content_type="application/pdf")
         response["Content-Disposition"] = f'attachment; filename="{safe_title}.pdf"'
@@ -295,6 +311,29 @@ class ResumeViewSet(viewsets.ModelViewSet):
                 {"error": f"PDF rendering error: {str(e)}"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
+
+        # Log download event in database
+        try:
+            resume_obj = None
+            resume_id = data.get("id") or data.get("resume_id") or request.query_params.get("resume_id") or request.query_params.get("id")
+            if resume_id:
+                try:
+                    resume_obj = Resume.objects.filter(id=resume_id).first()
+                except Exception:
+                    resume_obj = None
+
+            if not resume_obj and request.user.is_authenticated:
+                resume_obj = Resume.objects.filter(user=request.user).order_by("-updated_at").first()
+
+            user_obj = request.user if request.user.is_authenticated else (resume_obj.user if resume_obj else None)
+
+            ResumeDownload.objects.create(
+                resume=resume_obj,
+                user=user_obj,
+                format="pdf",
+            )
+        except Exception as e:
+            logger.warning("Could not log ResumeDownload in export_pdf_direct: %s", e)
 
         safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', data.get('title') or 'Resume').strip('_') or 'Resume'
         response = HttpResponse(pdf_bytes, content_type="application/pdf")

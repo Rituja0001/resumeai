@@ -286,12 +286,18 @@ export async function downloadResumePdf(resumeData, resumeId = null) {
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 
+  const resolvedId = resumeId || resumeData?.id || resumeData?.resume_id;
   const endpoint = `${API_BASE}/resumes/export-pdf/`;
+
+  const payload = {
+    ...(resumeData || {}),
+    ...(resolvedId ? { id: resolvedId, resume_id: resolvedId } : {}),
+  };
 
   const res = await fetch(endpoint, {
     method: "POST",
     headers,
-    body: JSON.stringify(resumeData || {}),
+    body: JSON.stringify(payload),
   });
 
   if (!res.ok) {

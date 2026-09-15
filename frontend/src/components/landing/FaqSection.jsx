@@ -29,7 +29,7 @@ export default function FaqSection({ openBuilder }) {
 
           {/* Subtitle */}
           <p className="font-['Plus_Jakarta_Sans'] text-sm sm:text-base text-[#6B6B6B] leading-relaxed mb-6 font-normal">
-            Everything you need to know about GoResume's AI ATS engine, data security, formatting compatibility, and free plan.
+            Everything you need to know about TatkalKaam's AI ATS engine, data security, formatting compatibility, and free plan.
           </p>
 
           {/* Support / Quick Start Card */}

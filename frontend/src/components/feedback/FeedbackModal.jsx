@@ -136,7 +136,7 @@ export default function FeedbackModal({ isOpen, onClose }) {
                 </h3>
               </div>
               <p className="text-xs text-[#6B6B6B]">
-                Encountered a bug or have an idea to make ResumeCraft better? We'd love to hear from you.
+                Encountered a bug or have an idea to make TatkalKaam better? We'd love to hear from you.
               </p>
             </div>
 

@@ -1,0 +1,9 @@
+# Robots.txt for TatkalKaam
+User-agent: *
+Disallow: /admin/
+Disallow: /admin/*
+Disallow: /api/admin/
+Disallow: /api/admin/*
+
+Sitemap: https://tatkalkaam.ai/sitemap.xml
+
